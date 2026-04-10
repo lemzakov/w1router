@@ -2397,7 +2397,7 @@ def completion(  # type: ignore # noqa: PLR0915
 
         elif custom_llm_provider == "yandexgpt":
             # YandexGPT - Yandex Cloud Foundation Models
-            from .llms.yandex.chat.transformation import YandexError
+            from .llms.yandex.chat.transformation import YandexError as _YandexError
 
             api_key = (
                 api_key
@@ -2432,7 +2432,7 @@ def completion(  # type: ignore # noqa: PLR0915
                         model=model, provider=LlmProviders.YANDEXGPT
                     ),
                 )
-            except YandexError as e:
+            except _YandexError as e:
                 raise e
             except Exception as e:
                 ## LOGGING - log the original exception returned
@@ -2446,6 +2446,8 @@ def completion(  # type: ignore # noqa: PLR0915
 
         elif custom_llm_provider == "mts_ai":
             # MTS AI - MTS telecom's OpenAI-compatible LLM
+            from .llms.mts_ai.chat.transformation import MTS_AI_BASE_URL as _MTS_AI_BASE_URL
+
             api_key = (
                 api_key
                 or litellm.api_key
@@ -2456,7 +2458,7 @@ def completion(  # type: ignore # noqa: PLR0915
             api_base = (
                 api_base
                 or get_secret("MTS_AI_API_BASE")
-                or "https://llm.mts.ai/api/v1"
+                or _MTS_AI_BASE_URL
             )
 
             headers = headers or litellm.headers or {}

@@ -26,6 +26,10 @@ else:
 # Yandex Foundation Models API endpoint
 YANDEX_BASE_URL = "https://llm.api.cloud.yandex.net/foundationModels/v1"
 
+# IAM tokens are typically JWT-format and much longer than API keys
+_YANDEX_IAM_TOKEN_MIN_LENGTH = 100
+_YANDEX_ALTERNATIVE_STATUS_FINAL = "ALTERNATIVE_STATUS_FINAL"
+
 
 class YandexError(BaseLLMException):
     """Yandex Foundation Models API error."""
@@ -151,8 +155,8 @@ class YandexConfig(BaseConfig):
                 message="Yandex API key not found. Set YANDEX_API_KEY or YANDEX_IAM_TOKEN.",
             )
 
-        # Determine auth header type
-        if api_key.startswith("t1.") or len(api_key) > 100:
+        # Determine auth header type: IAM tokens start with "t1." or are long JWTs
+        if api_key.startswith("t1.") or len(api_key) > _YANDEX_IAM_TOKEN_MIN_LENGTH:
             # Looks like IAM token
             auth_header = f"Bearer {api_key}"
         else:
@@ -206,6 +210,7 @@ class YandexConfig(BaseConfig):
         if "temperature" in optional_params:
             completion_options["temperature"] = optional_params["temperature"]
         if "maxTokens" in optional_params:
+            # Yandex API requires maxTokens as a string per their API specification
             completion_options["maxTokens"] = str(optional_params["maxTokens"])
         if "stream" in optional_params:
             completion_options["stream"] = optional_params["stream"]
@@ -263,7 +268,7 @@ class YandexConfig(BaseConfig):
 
         finish_reason = (
             choice.get("status", "stop")
-            .replace("ALTERNATIVE_STATUS_FINAL", "stop")
+            .replace(_YANDEX_ALTERNATIVE_STATUS_FINAL, "stop")
             .lower()
         )
 

@@ -1836,7 +1836,7 @@ if TYPE_CHECKING:
     from .llms.gigachat.embedding.transformation import (
         GigaChatEmbeddingConfig as GigaChatEmbeddingConfig,
     )
-    from .llms.yandex.chat.transformation import YandexConfig as YandexConfig
+    from .llms.yandex.chat.transformation import YandexConfig as YandexConfig, YandexError as YandexError
     from .llms.mts_ai.chat.transformation import MtsAiConfig as MtsAiConfig, MtsAiError as MtsAiError
     from .llms.nebius.chat.transformation import NebiusConfig as NebiusConfig
     from .llms.wandb.chat.transformation import WandbConfig as WandbConfig
