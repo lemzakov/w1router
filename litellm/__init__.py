@@ -224,6 +224,8 @@ api_key: Optional[str] = None
 openai_key: Optional[str] = None
 groq_key: Optional[str] = None
 gigachat_key: Optional[str] = None
+yandexgpt_key: Optional[str] = None
+mts_ai_key: Optional[str] = None
 databricks_key: Optional[str] = None
 openai_like_key: Optional[str] = None
 azure_key: Optional[str] = None
@@ -598,6 +600,8 @@ chatgpt_models: Set = set()
 minimax_models: Set = set()
 aws_polly_models: Set = set()
 gigachat_models: Set = set()
+yandexgpt_models: Set = set()
+mts_ai_models: Set = set()
 llamagate_models: Set = set()
 bedrock_mantle_models: Set = set()
 
@@ -862,6 +866,10 @@ def add_known_models(model_cost_map: Optional[Dict] = None):
             aws_polly_models.add(key)
         elif value.get("litellm_provider") == "gigachat":
             gigachat_models.add(key)
+        elif value.get("litellm_provider") == "yandexgpt":
+            yandexgpt_models.add(key)
+        elif value.get("litellm_provider") == "mts_ai":
+            mts_ai_models.add(key)
         elif value.get("litellm_provider") == "llamagate":
             llamagate_models.add(key)
         elif value.get("litellm_provider") == "bedrock_mantle":
@@ -1078,6 +1086,8 @@ models_by_provider: dict = {
     "minimax": minimax_models,
     "aws_polly": aws_polly_models,
     "gigachat": gigachat_models,
+    "yandexgpt": yandexgpt_models,
+    "mts_ai": mts_ai_models,
     "llamagate": llamagate_models,
     "bedrock_mantle": bedrock_mantle_models,
 }
@@ -1826,6 +1836,8 @@ if TYPE_CHECKING:
     from .llms.gigachat.embedding.transformation import (
         GigaChatEmbeddingConfig as GigaChatEmbeddingConfig,
     )
+    from .llms.yandex.chat.transformation import YandexConfig as YandexConfig
+    from .llms.mts_ai.chat.transformation import MtsAiConfig as MtsAiConfig, MtsAiError as MtsAiError
     from .llms.nebius.chat.transformation import NebiusConfig as NebiusConfig
     from .llms.wandb.chat.transformation import WandbConfig as WandbConfig
     from .llms.dashscope.chat.transformation import (

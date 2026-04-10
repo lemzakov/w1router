@@ -171,12 +171,12 @@ function LoginPageContent() {
             </div>
 
             <Alert
-              message="Admin UI Disabled"
+              message="Административный интерфейс отключён"
               description={
                 <>
                   <Paragraph className="text-sm">
-                    The Admin UI has been disabled by the administrator. To re-enable it, please update the following
-                    environment variable:
+                    Административный интерфейс был отключён администратором. Для повторного включения обновите следующую
+                    переменную окружения:
                   </Paragraph>
                   <Paragraph className="text-sm">
                     <code className="bg-gray-100 px-1 py-0.5 rounded text-xs">DISABLE_ADMIN_UI=False</code>
@@ -197,27 +197,27 @@ function LoginPageContent() {
       <Card className="w-full max-w-lg shadow-md">
         <Space direction="vertical" size="middle" className="w-full">
           <div className="text-center">
-            <Title level={2}>🚅 LiteLLM</Title>
+            <Title level={2}>🚅 W1 Router</Title>
           </div>
 
           <div className="text-center">
-            <Title level={3}>Login</Title>
-            <Text type="secondary">Access your LiteLLM Admin UI.</Text>
+            <Title level={3}>Вход</Title>
+            <Text type="secondary">Доступ к административному интерфейсу W1 Router.</Text>
           </div>
 
           <Alert
-            message="Default Credentials"
+            message="Учётные данные по умолчанию"
             description={
               <>
                 <Paragraph className="text-sm">
-                  By default, Username is <code className="bg-gray-100 px-1 py-0.5 rounded text-xs">admin</code> and
-                  Password is your set LiteLLM Proxy
+                  По умолчанию имя пользователя — <code className="bg-gray-100 px-1 py-0.5 rounded text-xs">admin</code>, а
+                  пароль — ваш LiteLLM Proxy
                   <code className="bg-gray-100 px-1 py-0.5 rounded text-xs">MASTER_KEY</code>.
                 </Paragraph>
                 <Paragraph className="text-sm">
-                  Need to set UI credentials or SSO?{" "}
+                  Нужно настроить учётные данные или SSO?{" "}
                   <a href="https://docs.litellm.ai/docs/proxy/ui" target="_blank" rel="noopener noreferrer">
-                    Check the documentation
+                    Смотрите документацию
                   </a>
                   .
                 </Paragraph>
@@ -236,7 +236,7 @@ function LoginPageContent() {
                 <Select
                   value={selectedWorkerId || undefined}
                   onChange={(value) => setSelectedWorkerId(value)}
-                  placeholder="Choose a worker to connect to"
+                  placeholder="Выберите воркер для подключения"
                   size="large"
                   suffixIcon={<CloudServerOutlined />}
                   options={workers.map((w) => ({
@@ -248,12 +248,12 @@ function LoginPageContent() {
             )}
 
             <Form.Item
-              label="Username"
+              label="Имя пользователя"
               name="username"
-              rules={[{ required: true, message: "Please enter your username" }]}
+              rules={[{ required: true, message: "Введите имя пользователя" }]}
             >
               <Input
-                placeholder="Enter your username"
+                placeholder="Введите имя пользователя"
                 autoComplete="username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
@@ -264,12 +264,12 @@ function LoginPageContent() {
             </Form.Item>
 
             <Form.Item
-              label="Password"
+              label="Пароль"
               name="password"
-              rules={[{ required: true, message: "Please enter your password" }]}
+              rules={[{ required: true, message: "Введите пароль" }]}
             >
               <Input.Password
-                placeholder="Enter your password"
+                placeholder="Введите пароль"
                 autoComplete="current-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -287,17 +287,17 @@ function LoginPageContent() {
                 block
                 size="large"
               >
-                {isLoginLoading ? "Logging in..." : "Login"}
+                {isLoginLoading ? "Выполняется вход..." : "Войти"}
               </Button>
             </Form.Item>
             <Form.Item>
               {!uiConfig?.sso_configured ? (
                 <Popover
-                  content="Please configure SSO to log in with SSO."
+                  content="Пожалуйста, настройте SSO для входа через SSO."
                   trigger="hover"
                 >
                   <Button disabled block size="large">
-                    Login with SSO
+                    Войти через SSO
                   </Button>
                 </Popover>
               ) : (
@@ -319,7 +319,7 @@ function LoginPageContent() {
                   block
                   size="large"
                 >
-                  Login with SSO
+                  Войти через SSO
                 </Button>
               )}
             </Form.Item>
@@ -330,7 +330,7 @@ function LoginPageContent() {
             type="info"
             showIcon
             closable
-            message={<Text>Single Sign-On (SSO) is enabled. LiteLLM no longer automatically redirects to the SSO login flow upon loading this page. To re-enable auto-redirect-to-SSO, set <Text code>AUTO_REDIRECT_UI_LOGIN_TO_SSO=true</Text> in your environment configuration.</Text>}
+            message={<Text>Включён единый вход (SSO). W1 Router больше не перенаправляет автоматически на страницу входа SSO. Для повторного включения авто-перенаправления установите <Text code>AUTO_REDIRECT_UI_LOGIN_TO_SSO=true</Text> в конфигурации среды.</Text>}
           />
         )}
       </Card>

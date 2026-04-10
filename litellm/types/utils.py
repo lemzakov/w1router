@@ -3211,6 +3211,8 @@ class LlmProviders(str, Enum):
     GROQ = "groq"
     A2A = "a2a"
     GIGACHAT = "gigachat"
+    YANDEXGPT = "yandexgpt"
+    MTS_AI = "mts_ai"
     NVIDIA_NIM = "nvidia_nim"
     CEREBRAS = "cerebras"
     AI21_CHAT = "ai21_chat"

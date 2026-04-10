@@ -16716,6 +16716,66 @@
         "supports_response_schema": true,
         "supports_vision": true
     },
+    "yandexgpt/yandexgpt-lite": {
+        "max_tokens": 8192,
+        "max_input_tokens": 8192,
+        "max_output_tokens": 8192,
+        "input_cost_per_token": 0.000000200,
+        "output_cost_per_token": 0.000000200,
+        "litellm_provider": "yandexgpt",
+        "mode": "chat",
+        "supports_function_calling": false,
+        "supports_vision": false,
+        "supports_streaming": true
+    },
+    "yandexgpt/yandexgpt": {
+        "max_tokens": 8192,
+        "max_input_tokens": 8192,
+        "max_output_tokens": 8192,
+        "input_cost_per_token": 0.000001200,
+        "output_cost_per_token": 0.000001200,
+        "litellm_provider": "yandexgpt",
+        "mode": "chat",
+        "supports_function_calling": false,
+        "supports_vision": false,
+        "supports_streaming": true
+    },
+    "yandexgpt/yandexgpt-32k": {
+        "max_tokens": 32768,
+        "max_input_tokens": 32768,
+        "max_output_tokens": 32768,
+        "input_cost_per_token": 0.000001200,
+        "output_cost_per_token": 0.000001200,
+        "litellm_provider": "yandexgpt",
+        "mode": "chat",
+        "supports_function_calling": false,
+        "supports_vision": false,
+        "supports_streaming": true
+    },
+    "mts_ai/KODA": {
+        "max_tokens": 16384,
+        "max_input_tokens": 16384,
+        "max_output_tokens": 16384,
+        "input_cost_per_token": 0.000002000,
+        "output_cost_per_token": 0.000002000,
+        "litellm_provider": "mts_ai",
+        "mode": "chat",
+        "supports_function_calling": true,
+        "supports_vision": false,
+        "supports_streaming": true
+    },
+    "mts_ai/KODA-3": {
+        "max_tokens": 32768,
+        "max_input_tokens": 32768,
+        "max_output_tokens": 32768,
+        "input_cost_per_token": 0.000003000,
+        "output_cost_per_token": 0.000003000,
+        "litellm_provider": "mts_ai",
+        "mode": "chat",
+        "supports_function_calling": true,
+        "supports_vision": false,
+        "supports_streaming": true
+    },
     "gigachat/GigaChat-2-Lite": {
         "input_cost_per_token": 0.0,
         "litellm_provider": "gigachat",
