@@ -50,8 +50,8 @@ const Navbar: React.FC<NavbarProps> = ({
   const version = healthData?.litellm_version;
   const disableBouncingIcon = useDisableBouncingIcon();
 
-  // Simple logo URL: use custom logo if available, otherwise default
-  const imageUrl = logoUrl || `${baseUrl}/get_image`;
+  // Use custom logo if configured via UI theme settings, otherwise use W1 Router logo
+  const imageUrl = logoUrl || "/w1-logo.svg";
 
   useEffect(() => {
     const initializeProxySettings = async () => {
@@ -107,7 +107,7 @@ const Navbar: React.FC<NavbarProps> = ({
                   <div className="h-10 max-w-48 flex items-center justify-center overflow-hidden">
                     <img
                       src={imageUrl}
-                      alt="LiteLLM Brand"
+                      alt="W1 Router"
                       className="max-w-full max-h-full w-auto h-auto object-contain"
                     />
                   </div>
@@ -119,7 +119,7 @@ const Navbar: React.FC<NavbarProps> = ({
                     <span
                       className="absolute -top-1 -left-2 text-lg animate-bounce"
                       style={{ animationDuration: "2s" }}
-                      title="Thanks for using LiteLLM!"
+                      title="Спасибо за использование W1 Router!"
                     >
                       🌑
                     </span>
@@ -154,7 +154,7 @@ const Navbar: React.FC<NavbarProps> = ({
               />
             )}
             <Button type="text" href="https://docs.litellm.ai/docs/" target="_blank" rel="noopener noreferrer">
-              Docs
+              Документация
             </Button>
             <BlogDropdown />
 

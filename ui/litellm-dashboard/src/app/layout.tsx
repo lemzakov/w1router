@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Roboto } from "next/font/google";
 import "./globals.css";
 
 import AntdGlobalProvider from "@/contexts/AntdGlobalProvider";
 import ReactQueryProvider from "@/contexts/ReactQueryProvider";
 
-const inter = Inter({ subsets: ["latin"] });
+const roboto = Roboto({ subsets: ["latin", "cyrillic"], weight: ["400", "500", "700"] });
 
 export const metadata: Metadata = {
-  title: "LiteLLM Dashboard",
-  description: "LiteLLM Proxy Admin UI",
+  title: "W1 Router Dashboard",
+  description: "W1 Router — LLM Gateway",
   icons: { icon: "./favicon.ico" },
 };
 
@@ -19,8 +19,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang="ru">
+      <body className={roboto.className}>
         <ReactQueryProvider>
           <AntdGlobalProvider>{children}</AntdGlobalProvider>
         </ReactQueryProvider>

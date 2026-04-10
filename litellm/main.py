@@ -2395,6 +2395,107 @@ def completion(  # type: ignore # noqa: PLR0915
                 )
                 raise e
 
+        elif custom_llm_provider == "yandexgpt":
+            # YandexGPT - Yandex Cloud Foundation Models
+            from .llms.yandex.chat.transformation import YandexError as _YandexError
+
+            api_key = (
+                api_key
+                or litellm.api_key
+                or litellm.yandexgpt_key
+                or get_secret("YANDEX_API_KEY")
+                or get_secret("YANDEX_IAM_TOKEN")
+            )
+
+            headers = headers or litellm.headers or {}
+
+            ## COMPLETION CALL
+            try:
+                response = base_llm_http_handler.completion(
+                    model=model,
+                    messages=messages,
+                    headers=headers,
+                    model_response=model_response,
+                    api_key=api_key,
+                    api_base=api_base,
+                    acompletion=acompletion,
+                    logging_obj=logging,
+                    optional_params=optional_params,
+                    litellm_params=litellm_params,
+                    shared_session=shared_session,
+                    timeout=timeout,
+                    client=client,
+                    custom_llm_provider="yandexgpt",
+                    encoding=_get_encoding(),
+                    stream=stream,
+                    provider_config=ProviderConfigManager.get_provider_chat_config(
+                        model=model, provider=LlmProviders.YANDEXGPT
+                    ),
+                )
+            except _YandexError as e:
+                raise e
+            except Exception as e:
+                ## LOGGING - log the original exception returned
+                logging.post_call(
+                    input=messages,
+                    api_key=api_key,
+                    original_response=str(e),
+                    additional_args={"headers": headers},
+                )
+                raise e
+
+        elif custom_llm_provider == "mts_ai":
+            # MTS AI - MTS telecom's OpenAI-compatible LLM
+            from .llms.mts_ai.chat.transformation import MTS_AI_BASE_URL as _MTS_AI_BASE_URL
+
+            api_key = (
+                api_key
+                or litellm.api_key
+                or litellm.mts_ai_key
+                or get_secret("MTS_AI_API_KEY")
+            )
+
+            api_base = (
+                api_base
+                or get_secret("MTS_AI_API_BASE")
+                or _MTS_AI_BASE_URL
+            )
+
+            headers = headers or litellm.headers or {}
+
+            ## COMPLETION CALL
+            try:
+                response = base_llm_http_handler.completion(
+                    model=model,
+                    messages=messages,
+                    headers=headers,
+                    model_response=model_response,
+                    api_key=api_key,
+                    api_base=api_base,
+                    acompletion=acompletion,
+                    logging_obj=logging,
+                    optional_params=optional_params,
+                    litellm_params=litellm_params,
+                    shared_session=shared_session,
+                    timeout=timeout,
+                    client=client,
+                    custom_llm_provider="mts_ai",
+                    encoding=_get_encoding(),
+                    stream=stream,
+                    provider_config=ProviderConfigManager.get_provider_chat_config(
+                        model=model, provider=LlmProviders.MTS_AI
+                    ),
+                )
+            except Exception as e:
+                ## LOGGING - log the original exception returned
+                logging.post_call(
+                    input=messages,
+                    api_key=api_key,
+                    original_response=str(e),
+                    additional_args={"headers": headers},
+                )
+                raise e
+
         elif custom_llm_provider == "sap":
             headers = headers or litellm.headers
             ## LOAD CONFIG - if set

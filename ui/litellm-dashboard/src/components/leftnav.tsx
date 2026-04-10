@@ -97,45 +97,45 @@ interface MenuGroup {
 // Menu groups organized by category - defined outside component for export
 const menuGroups: MenuGroup[] = [
   {
-    groupLabel: "AI GATEWAY",
+    groupLabel: "AI ШЛЮЗ",
     items: [
       {
         key: "api-keys",
         page: "api-keys",
-        label: "Virtual Keys",
+        label: "Виртуальные ключи",
         icon: <KeyOutlined />,
       },
       {
         key: "llm-playground",
         page: "llm-playground",
-        label: "Playground",
+        label: "Песочница",
         icon: <PlayCircleOutlined />,
         roles: rolesWithWriteAccess,
       },
       {
         key: "models",
         page: "models",
-        label: "Models + Endpoints",
+        label: "Модели + Эндпоинты",
         icon: <BlockOutlined />,
         roles: rolesWithWriteAccess,
       },
       {
         key: "agents",
         page: "agents",
-        label: "Agents",
+        label: "Агенты",
         icon: <RobotOutlined />,
         roles: rolesWithWriteAccess,
       },
       {
         key: "mcp-servers",
         page: "mcp-servers",
-        label: "MCP Servers",
+        label: "MCP Серверы",
         icon: <ToolOutlined />,
       },
       {
         key: "guardrails",
         page: "guardrails",
-        label: "Guardrails",
+        label: "Ограничители",
         icon: <SafetyOutlined />,
       },
       {
@@ -143,7 +143,7 @@ const menuGroups: MenuGroup[] = [
         page: "policies",
         label: (
           <span className="flex items-center gap-4">
-            Policies
+            Политики
           </span>
         ),
         icon: <AuditOutlined />,
@@ -152,25 +152,25 @@ const menuGroups: MenuGroup[] = [
       {
         key: "tools",
         page: "tools",
-        label: "Tools",
+        label: "Инструменты",
         icon: <ToolOutlined />,
         children: [
           {
             key: "search-tools",
             page: "search-tools",
-            label: "Search Tools",
+            label: "Поисковые инструменты",
             icon: <SearchOutlined />,
           },
           {
             key: "vector-stores",
             page: "vector-stores",
-            label: "Vector Stores",
+            label: "Векторные хранилища",
             icon: <DatabaseOutlined />,
           },
           {
             key: "tool-policies",
             page: "tool-policies",
-            label: "Tool Policies",
+            label: "Политики инструментов",
             icon: <SafetyOutlined />,
           },
         ],
@@ -178,37 +178,37 @@ const menuGroups: MenuGroup[] = [
     ],
   },
   {
-    groupLabel: "OBSERVABILITY",
+    groupLabel: "НАБЛЮДАЕМОСТЬ",
     items: [
       {
         key: "new_usage",
         page: "new_usage",
         icon: <BarChartOutlined />,
         roles: [...all_admin_roles, ...internalUserRoles],
-        label: "Usage",
+        label: "Использование",
       },
       {
         key: "logs",
         page: "logs",
-        label: "Logs",
+        label: "Журналы",
         icon: <LineChartOutlined />,
       },
       {
         key: "guardrails-monitor",
         page: "guardrails-monitor",
-        label: "Guardrails Monitor",
+        label: "Мониторинг ограничителей",
         icon: <SafetyOutlined />,
         roles: [...all_admin_roles, ...internalUserRoles],
       },
     ],
   },
   {
-    groupLabel: "ACCESS CONTROL",
+    groupLabel: "УПРАВЛЕНИЕ ДОСТУПОМ",
     items: [
       {
         key: "teams",
         page: "teams",
-        label: "Teams",
+        label: "Команды",
         icon: <TeamOutlined />,
       },
       {
@@ -225,100 +225,100 @@ const menuGroups: MenuGroup[] = [
       {
         key: "users",
         page: "users",
-        label: "Internal Users",
+        label: "Внутренние пользователи",
         icon: <UserOutlined />,
         roles: all_admin_roles,
       },
       {
         key: "organizations",
         page: "organizations",
-        label: "Organizations",
+        label: "Организации",
         icon: <BankOutlined />,
         roles: all_admin_roles,
       },
       {
         key: "access-groups",
         page: "access-groups",
-        label: "Access Groups",
+        label: "Группы доступа",
         icon: <BlockOutlined />,
         roles: all_admin_roles,
       },
       {
         key: "budgets",
         page: "budgets",
-        label: "Budgets",
+        label: "Бюджеты",
         icon: <CreditCardOutlined />,
         roles: all_admin_roles,
       },
     ],
   },
   {
-    groupLabel: "DEVELOPER TOOLS",
+    groupLabel: "ИНСТРУМЕНТЫ РАЗРАБОТЧИКА",
     items: [
       {
         key: "api-reference",
         page: "api-reference",
-        label: "API Reference",
+        label: "Справочник API",
         icon: <ApiOutlined />,
       },
       {
         key: "model-hub-table",
         page: "model-hub-table",
-        label: "AI Hub",
+        label: "AI Хаб",
         icon: <AppstoreOutlined />,
       },
       {
         key: "learning-resources",
         page: "learning-resources",
-        label: "Learning Resources",
+        label: "Обучающие материалы",
         icon: <BookOutlined />,
         external_url: "https://models.litellm.ai/cookbook",
       },
       {
         key: "experimental",
         page: "experimental",
-        label: "Experimental",
+        label: "Экспериментальные",
         icon: <ExperimentOutlined />,
         children: [
           {
             key: "caching",
             page: "caching",
-            label: "Caching",
+            label: "Кэширование",
             icon: <DatabaseOutlined />,
             roles: all_admin_roles,
           },
           {
             key: "prompts",
             page: "prompts",
-            label: "Prompts",
+            label: "Промпты",
             icon: <FileTextOutlined />,
             roles: all_admin_roles,
           },
           {
             key: "transform-request",
             page: "transform-request",
-            label: "API Playground",
+            label: "API Песочница",
             icon: <ApiOutlined />,
             roles: [...all_admin_roles, ...internalUserRoles],
           },
           {
             key: "tag-management",
             page: "tag-management",
-            label: "Tag Management",
+            label: "Управление тегами",
             icon: <TagsOutlined />,
             roles: all_admin_roles,
           },
           {
             key: "claude-code-plugins",
             page: "claude-code-plugins",
-            label: "Claude Code Plugins",
+            label: "Claude Code Плагины",
             icon: <ToolOutlined />,
             roles: all_admin_roles,
           },
           {
             key: "4",
             page: "usage",
-            label: "Old Usage",
+            label: "Статистика (старая)",
             icon: <BarChartOutlined />,
           }
         ],
@@ -326,7 +326,7 @@ const menuGroups: MenuGroup[] = [
     ],
   },
   {
-    groupLabel: "SETTINGS",
+    groupLabel: "НАСТРОЙКИ",
     roles: all_admin_roles,
     items: [
       {
@@ -334,7 +334,7 @@ const menuGroups: MenuGroup[] = [
         page: "settings",
         label: (
           <span className="flex items-center gap-2">
-            Settings <NewBadge />
+            Настройки <NewBadge />
           </span>
         ),
         icon: <SettingOutlined />,
@@ -343,14 +343,14 @@ const menuGroups: MenuGroup[] = [
           {
             key: "router-settings",
             page: "router-settings",
-            label: "Router Settings",
+            label: "Настройки роутера",
             icon: <SettingOutlined />,
             roles: all_admin_roles,
           },
           {
             key: "logging-and-alerts",
             page: "logging-and-alerts",
-            label: "Logging & Alerts",
+            label: "Логирование и уведомления",
             icon: <SettingOutlined />,
             roles: all_admin_roles,
           },
@@ -368,14 +368,14 @@ const menuGroups: MenuGroup[] = [
           {
             key: "cost-tracking",
             page: "cost-tracking",
-            label: "Cost Tracking",
+            label: "Отслеживание затрат",
             icon: <BarChartOutlined />,
             roles: all_admin_roles,
           },
           {
             key: "ui-theme",
             page: "ui-theme",
-            label: "UI Theme",
+            label: "Тема интерфейса",
             icon: <BgColorsOutlined />,
             roles: all_admin_roles,
           },
