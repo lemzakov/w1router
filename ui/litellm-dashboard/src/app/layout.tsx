@@ -9,7 +9,7 @@ const roboto = Roboto({ subsets: ["latin", "cyrillic"], weight: ["400", "500", "
 
 export const metadata: Metadata = {
   title: "W1 Router Dashboard",
-  description: "W1 Router — Единый шлюз для LLM",
+  description: "W1 Router — LLM Gateway",
   icons: { icon: "./favicon.ico" },
 };
 

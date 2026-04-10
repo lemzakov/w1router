@@ -50,7 +50,7 @@ const Navbar: React.FC<NavbarProps> = ({
   const version = healthData?.litellm_version;
   const disableBouncingIcon = useDisableBouncingIcon();
 
-  // Simple logo URL: use custom logo if available, otherwise default
+  // Use custom logo if configured via UI theme settings, otherwise use W1 Router logo
   const imageUrl = logoUrl || "/w1-logo.svg";
 
   useEffect(() => {

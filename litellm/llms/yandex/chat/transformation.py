@@ -155,9 +155,16 @@ class YandexConfig(BaseConfig):
                 message="Yandex API key not found. Set YANDEX_API_KEY or YANDEX_IAM_TOKEN.",
             )
 
-        # Determine auth header type: IAM tokens start with "t1." or are long JWTs
-        if api_key.startswith("t1.") or len(api_key) > _YANDEX_IAM_TOKEN_MIN_LENGTH:
-            # Looks like IAM token
+        # Determine auth header type.
+        # Users can explicitly set YANDEX_AUTH_TYPE=iam or YANDEX_AUTH_TYPE=apikey
+        # to avoid heuristic detection. Defaults to heuristic: IAM tokens start
+        # with "t1." or are long JWT strings.
+        auth_type = get_secret_str("YANDEX_AUTH_TYPE") or ""
+        if auth_type.lower() == "iam" or (
+            not auth_type
+            and (api_key.startswith("t1.") or len(api_key) > _YANDEX_IAM_TOKEN_MIN_LENGTH)
+        ):
+            # IAM token
             auth_header = f"Bearer {api_key}"
         else:
             # API key
@@ -210,8 +217,8 @@ class YandexConfig(BaseConfig):
         if "temperature" in optional_params:
             completion_options["temperature"] = optional_params["temperature"]
         if "maxTokens" in optional_params:
-            # Yandex API requires maxTokens as a string per their API specification
-            completion_options["maxTokens"] = str(optional_params["maxTokens"])
+            # Yandex API accepts maxTokens as an integer
+            completion_options["maxTokens"] = int(optional_params["maxTokens"])
         if "stream" in optional_params:
             completion_options["stream"] = optional_params["stream"]
 
@@ -284,10 +291,11 @@ class YandexConfig(BaseConfig):
         ]
 
         usage_data = result.get("usage", {})
+        # Yandex may return token counts as strings or integers depending on API version
         model_response.usage = Usage(
-            prompt_tokens=int(usage_data.get("inputTextTokens", 0)),
-            completion_tokens=int(usage_data.get("completionTokens", 0)),
-            total_tokens=int(usage_data.get("totalTokens", 0)),
+            prompt_tokens=int(usage_data.get("inputTextTokens") or 0),
+            completion_tokens=int(usage_data.get("completionTokens") or 0),
+            total_tokens=int(usage_data.get("totalTokens") or 0),
         )
 
         model_response.model = f"yandexgpt/{model}"
