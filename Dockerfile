@@ -83,6 +83,7 @@ RUN apk add --no-cache bash openssl tzdata nodejs npm python3 py3-pip libsndfile
 WORKDIR /app
 # Copy the current directory contents into the container at /app
 COPY . .
+COPY --from=builder /app/litellm/proxy/_experimental/out /app/litellm/proxy/_experimental/out
 RUN ls -la /app
 
 # Copy the built wheel from the builder stage to the runtime stage; assumes only one wheel file is present

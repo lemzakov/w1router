@@ -34,7 +34,7 @@ fi
 # print contents of ui_colors.json
 echo "Contents of ui_colors.json:"
 cat ui_colors.json
-
+export ASSET_PREFIX="/litellm-asset-prefix"
 # Run npm build
 npm run build
 
