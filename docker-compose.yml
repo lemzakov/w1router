@@ -18,6 +18,9 @@ services:
     # command:
     #  - "--config=/app/config.yaml"
     ##############################################
+    labels:
+      timeweb.cloud.deploy: "true"
+      timeweb.cloud.port: "4000"
     ports:
       - "4000:4000" # Map the container port to the host, change the host port if necessary
     environment:
