@@ -2,13 +2,17 @@
 # Volumes are not permitted by the Timeweb sanitizer, so they have been
 # removed.  Postgres data will not persist across container restarts and
 # Prometheus will use its built-in default configuration.
+#
+# NOTE: No `image:` is specified for the litellm service so Docker Compose
+# always builds from the local source files (which include Russian locale
+# and W1 branding changes).  Do NOT add an upstream image tag here or
+# Timeweb will pull the unmodified upstream image from the registry.
 services:
   litellm:
     build:
       context: .
       args:
         target: runtime
-    image: docker.litellm.ai/berriai/litellm:main-stable
     #########################################
     ## Uncomment these lines to start proxy with a config.yaml file ##
     # command:
