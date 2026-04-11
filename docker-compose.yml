@@ -1,3 +1,7 @@
+# Timeweb-compatible docker-compose.
+# Volumes are not permitted by the Timeweb sanitizer, so they have been
+# removed.  Postgres data will not persist across container restarts and
+# Prometheus will use its built-in default configuration.
 services:
   litellm:
     build:
@@ -7,8 +11,6 @@ services:
     image: docker.litellm.ai/berriai/litellm:main-stable
     #########################################
     ## Uncomment these lines to start proxy with a config.yaml file ##
-    # volumes:
-    #  - ./config.yaml:/app/config.yaml
     # command:
     #  - "--config=/app/config.yaml"
     ##############################################
@@ -40,8 +42,6 @@ services:
       POSTGRES_PASSWORD: dbpassword9090
     ports:
       - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data # Persists Postgres data across container restarts
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -d litellm -U llmproxy"]
       interval: 1s
@@ -50,9 +50,6 @@ services:
 
   prometheus:
     image: prom/prometheus
-    volumes:
-      - prometheus_data:/prometheus
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
       - "9090:9090"
     command:
@@ -60,9 +57,3 @@ services:
       - "--storage.tsdb.path=/prometheus"
       - "--storage.tsdb.retention.time=15d"
     restart: always
-
-volumes:
-  prometheus_data:
-    driver: local
-  postgres_data:
-    name: litellm_postgres_data # Named volume for Postgres data persistence
