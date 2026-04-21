@@ -157,9 +157,9 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
     },
     onChange(info) {
       if (info.file.status === "done") {
-        NotificationsManager.success(`${info.file.name} file uploaded successfully`);
+        NotificationsManager.success(`${info.file.name} файл успешно загружен`);
       } else if (info.file.status === "error") {
-        NotificationsManager.fromBackend(`${info.file.name} file upload failed.`);
+        NotificationsManager.fromBackend(`${info.file.name} ошибка загрузки файла.`);
       }
     },
   };
@@ -185,17 +185,17 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
         if (globalRetryPolicy) {
           payload.router_settings.retry_policy = globalRetryPolicy;
         }
-        NotificationsManager.success("Global retry settings saved successfully");
+        NotificationsManager.success("Глобальные настройки повторных попыток успешно сохранены");
       } else {
         if (modelGroupRetryPolicy) {
           payload.router_settings.model_group_retry_policy = modelGroupRetryPolicy;
         }
-        NotificationsManager.success(`Retry settings saved successfully for ${selectedModelGroup}`);
+        NotificationsManager.success(`Настройки повторных попыток успешно сохранены для ${selectedModelGroup}`);
       }
 
       await setCallbacksCall(accessToken, payload);
     } catch (error) {
-      NotificationsManager.fromBackend("Failed to save retry settings");
+      NotificationsManager.fromBackend("Не удалось сохранить настройки повторных попыток");
     }
   };
 
@@ -233,8 +233,8 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
     const { Title, Paragraph } = Typography;
     return (
       <div>
-        <Title level={1}>Access Denied</Title>
-        <Paragraph>Ask your proxy admin for access to view all models</Paragraph>
+        <Title level={1}>Доступ запрещён</Title>
+        <Paragraph>Обратитесь к администратору прокси для просмотра всех моделей</Paragraph>
       </div>
     );
   }
@@ -249,7 +249,7 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
           ?.map((field: any) => {
             return `${field.name.join(".")}: ${field.errors.join(", ")}`;
           })
-          .join(" | ") || "Unknown validation error";
+          .join(" | ") || "Неизвестная ошибка валидации";
       NotificationsManager.fromBackend(`Please fill in the following required fields: ${errorMessages}`);
     }
   };
@@ -281,11 +281,11 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
           {/* Model Management Header */}
           <div className="flex justify-between items-center mb-4">
             <div>
-              <h2 className="text-lg font-semibold">Model Management</h2>
+              <h2 className="text-lg font-semibold">Управление моделями</h2>
               {!all_admin_roles.includes(userRole) ? (
-                <p className="text-sm text-gray-600">Add models for teams you are an admin for.</p>
+                <p className="text-sm text-gray-600">Добавьте модели для команд, где вы являетесь администратором.</p>
               ) : (
-                <p className="text-sm text-gray-600">Add and manage models for the proxy</p>
+                <p className="text-sm text-gray-600">Добавляйте и управляйте моделями для прокси</p>
               )}
             </div>
             {!showMissingProviderBanner && (
@@ -296,7 +296,7 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#6366f1] hover:text-[#5558e3] border border-[#6366f1] hover:border-[#5558e3] rounded-lg transition-colors"
               >
                 <PlusCircleOutlined style={{ fontSize: "12px" }} />
-                Request Provider
+                Запросить провайдера
               </a>
             )}
           </div>
@@ -308,10 +308,10 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
                 <PlusCircleOutlined style={{ fontSize: "18px", color: "#6366f1" }} />
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="text-gray-900 font-semibold text-sm m-0">Missing a provider?</h4>
+                <h4 className="text-gray-900 font-semibold text-sm m-0">Не хватает провайдера?</h4>
                 <p className="text-gray-500 text-xs m-0 mt-0.5">
-                  The LiteLLM engineering team is constantly adding support for new LLM models, providers, endpoints. If
-                  you don&apos;t see the one you need, let us know and we&apos;ll prioritize it.
+                  Мы постоянно добавляем поддержку новых моделей, провайдеров и эндпоинтов. Если вы не нашли нужное,
+                  дайте нам знать — мы расставим приоритеты.
                 </p>
               </div>
               <a
@@ -320,7 +320,7 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
                 rel="noopener noreferrer"
                 className="flex-shrink-0 inline-flex items-center gap-2 px-4 py-2 bg-[#6366f1] hover:bg-[#5558e3] text-white text-sm font-medium rounded-lg transition-colors"
               >
-                Request Provider
+                Запросить провайдера
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-4 w-4"
@@ -342,7 +342,7 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
                   localStorage.setItem("hideMissingProviderBanner", "true");
                 }}
                 className="flex-shrink-0 p-1 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-colors"
-                aria-label="Dismiss banner"
+                aria-label="Закрыть баннер"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -376,18 +376,18 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
             <TabGroup index={selectedTabIndex} onIndexChange={setSelectedTabIndex} className="gap-2 h-[75vh] w-full ">
               <TabList className="flex justify-between mt-2 w-full items-center">
                 <div className="flex">
-                  {all_admin_roles.includes(userRole) ? <Tab>All Models</Tab> : <Tab>Your Models</Tab>}
-                  {!shouldHideAddModelTab && <Tab>Add Model</Tab>}
-                  {all_admin_roles.includes(userRole) && <Tab>LLM Credentials</Tab>}
-                  {all_admin_roles.includes(userRole) && <Tab>Pass-Through Endpoints</Tab>}
-                  {all_admin_roles.includes(userRole) && <Tab>Health Status</Tab>}
-                  {all_admin_roles.includes(userRole) && <Tab>Model Retry Settings</Tab>}
-                  {all_admin_roles.includes(userRole) && <Tab>Model Group Alias</Tab>}
-                  {all_admin_roles.includes(userRole) && <Tab>Price Data Reload</Tab>}
+                  {all_admin_roles.includes(userRole) ? <Tab>Все модели</Tab> : <Tab>Ваши модели</Tab>}
+                  {!shouldHideAddModelTab && <Tab>Добавить модель</Tab>}
+                  {all_admin_roles.includes(userRole) && <Tab>Учётные данные LLM</Tab>}
+                  {all_admin_roles.includes(userRole) && <Tab>Транзитные эндпоинты</Tab>}
+                  {all_admin_roles.includes(userRole) && <Tab>Состояние здоровья</Tab>}
+                  {all_admin_roles.includes(userRole) && <Tab>Настройки повторных попыток</Tab>}
+                  {all_admin_roles.includes(userRole) && <Tab>Псевдоним группы моделей</Tab>}
+                  {all_admin_roles.includes(userRole) && <Tab>Перезагрузка ценовых данных</Tab>}
                 </div>
 
                 <div className="flex items-center space-x-2 self-center">
-                  {lastRefreshed && <span className="text-xs text-gray-500">Last Refreshed: {lastRefreshed}</span>}
+                  {lastRefreshed && <span className="text-xs text-gray-500">Последнее обновление: {lastRefreshed}</span>}
                   <Icon
                     icon={RefreshIcon}
                     variant="shadow"

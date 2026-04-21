@@ -208,7 +208,7 @@ const AllModelsTab = ({
     try {
       setDeleteLoading(true);
       await modelDeleteCall(accessToken, deleteModalModelId);
-      NotificationsManager.success("Model deleted successfully");
+      NotificationsManager.success("Модель успешно удалена");
       queryClient.invalidateQueries({ queryKey: ["models", "list"] });
       refetchModels();
     } catch (error) {
@@ -229,7 +229,7 @@ const AllModelsTab = ({
             <div className="border-b px-6 py-4 bg-gray-50">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                  <Text className="text-lg font-semibold text-gray-900">Current Team:</Text>
+                  <Text className="text-lg font-semibold text-gray-900">Текущая команда:</Text>
                   <div className="w-80">
                     {isLoading ? (
                       <Skeleton.Input active block size="large" />
@@ -262,7 +262,7 @@ const AllModelsTab = ({
                             label: (
                               <Space direction="horizontal" align="center">
                                 <Badge color="blue" size="small" />
-                                <Text style={{ fontSize: 16 }}>Personal</Text>
+                                <Text style={{ fontSize: 16 }}>Личный</Text>
                               </Space>
                             ),
                           },
@@ -285,7 +285,7 @@ const AllModelsTab = ({
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
-                  <Text className="text-lg font-semibold text-gray-900">View:</Text>
+                  <Text className="text-lg font-semibold text-gray-900">Вид:</Text>
                   <div className="w-64">
                     {isLoading ? (
                       <Skeleton.Input active block size="large" />
@@ -302,7 +302,7 @@ const AllModelsTab = ({
                             label: (
                               <Space direction="horizontal" align="center">
                                 <Badge color="purple" size="small" />
-                                <Text style={{ fontSize: 16 }}>Current Team Models</Text>
+                                <Text style={{ fontSize: 16 }}>Модели текущей команды</Text>
                               </Space>
                             ),
                           },
@@ -311,7 +311,7 @@ const AllModelsTab = ({
                             label: (
                               <Space direction="horizontal" align="center">
                                 <Badge color="gray" size="small" />
-                                <Text style={{ fontSize: 16 }}>All Available Models</Text>
+                                <Text style={{ fontSize: 16 }}>Все доступные модели</Text>
                               </Space>
                             ),
                           },
@@ -328,24 +328,23 @@ const AllModelsTab = ({
                   <div className="text-xs text-gray-500">
                     {currentTeam === "personal" ? (
                       <span>
-                        To access these models: Create a Virtual Key without selecting a team on the{" "}
+                        Для доступа к этим моделям: создайте виртуальный ключ без выбора команды на{" "}
                         <a
                           href="/public?login=success&page=api-keys"
                           className="text-gray-600 hover:text-gray-800 underline"
                         >
-                          Virtual Keys page
+                          странице виртуальных ключей
                         </a>
                       </span>
                     ) : (
                       <span>
-                        To access these models: Create a Virtual Key and select Team as &quot;
-                        {typeof currentTeam !== "string" ? currentTeam.team_alias || currentTeam.team_id : ""}&quot; on
-                        the{" "}
+                        Для доступа к этим моделям: создайте виртуальный ключ и выберите команду &quot;
+                        {typeof currentTeam !== "string" ? currentTeam.team_alias || currentTeam.team_id : ""}&quot; на{" "}
                         <a
                           href="/public?login=success&page=api-keys"
                           className="text-gray-600 hover:text-gray-800 underline"
                         >
-                          Virtual Keys page
+                          странице виртуальных ключей
                         </a>
                       </span>
                     )}
@@ -364,7 +363,7 @@ const AllModelsTab = ({
                     <div className="relative w-64">
                       <input
                         type="text"
-                        placeholder="Search model names..."
+                        placeholder="Поиск по названиям моделей..."
                         className="w-full px-3 py-2 pl-8 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         value={modelNameSearch}
                         onChange={(e) => setModelNameSearch(e.target.value)}
@@ -397,7 +396,7 @@ const AllModelsTab = ({
                           d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
                         />
                       </svg>
-                      Filters
+                      Фильтры
                     </button>
 
                     {/* Reset Filters Button */}
@@ -413,7 +412,7 @@ const AllModelsTab = ({
                           d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
                         />
                       </svg>
-                      Reset Filters
+                      Сбросить фильтры
                     </button>
                   </div>
 
@@ -421,7 +420,7 @@ const AllModelsTab = ({
                   <Button
                     icon={<SettingOutlined />}
                     onClick={() => setIsModelSettingsModalVisible(true)}
-                    title="Model Settings"
+                    title="Настройки модели"
                   />
                 </div>
 
@@ -434,11 +433,11 @@ const AllModelsTab = ({
                         className="w-full"
                         value={selectedModelGroup ?? "all"}
                         onChange={(value) => setSelectedModelGroup(value === "all" ? "all" : value)}
-                        placeholder="Filter by Public Model Name"
+                        placeholder="Фильтр по публичному названию модели"
                         showSearch
                         options={[
-                          { value: "all", label: "All Models" },
-                          { value: "wildcard", label: "Wildcard Models (*)" },
+                          { value: "all", label: "Все модели" },
+                          { value: "wildcard", label: "Шаблонные модели (*)" },
                           ...availableModelGroups.map((group, idx) => ({
                             value: group,
                             label: group,
@@ -453,10 +452,10 @@ const AllModelsTab = ({
                         className="w-full"
                         value={selectedModelAccessGroupFilter ?? "all"}
                         onChange={(value) => setSelectedModelAccessGroupFilter(value === "all" ? null : value)}
-                        placeholder="Filter by Model Access Group"
+                        placeholder="Фильтр по группе доступа модели"
                         showSearch
                         options={[
-                          { value: "all", label: "All Model Access Groups" },
+                          { value: "all", label: "Все группы доступа моделей" },
                           ...availableModelAccessGroups.map((accessGroup, idx) => ({
                             value: accessGroup,
                             label: accessGroup,
@@ -474,8 +473,8 @@ const AllModelsTab = ({
                   ) : (
                     <span className="text-sm text-gray-700">
                       {paginationMeta.total_count > 0
-                        ? `Showing ${((currentPage - 1) * pageSize) + 1} - ${Math.min(currentPage * pageSize, paginationMeta.total_count)} of ${paginationMeta.total_count} results`
-                        : "Showing 0 results"}
+                        ? `Показано ${((currentPage - 1) * pageSize) + 1} - ${Math.min(currentPage * pageSize, paginationMeta.total_count)} из ${paginationMeta.total_count} результатов`
+                        : "Показано 0 результатов"}
                     </span>
                   )}
 
@@ -495,7 +494,7 @@ const AllModelsTab = ({
                           : "hover:bg-gray-50"
                           }`}
                       >
-                        Previous
+                        Назад
                       </button>
                     )}
 
@@ -514,7 +513,7 @@ const AllModelsTab = ({
                           : "hover:bg-gray-50"
                           }`}
                       >
-                        Next
+                        Вперёд
                       </button>
                     )}
                   </div>
@@ -551,26 +550,26 @@ const AllModelsTab = ({
 
       <DeleteResourceModal
         isOpen={!!deleteModalModelId}
-        title="Delete Model"
-        alertMessage="This action cannot be undone."
-        message="Are you sure you want to delete this model?"
-        resourceInformationTitle="Model Information"
+        title="Удалить модель"
+        alertMessage="Это действие нельзя отменить."
+        message="Вы уверены, что хотите удалить эту модель?"
+        resourceInformationTitle="Информация о модели"
         resourceInformation={modelToDelete ? [
           {
-            label: "Model Name",
-            value: modelToDelete.model_name || "Not Set",
+            label: "Название модели",
+            value: modelToDelete.model_name || "Не задано",
           },
           {
-            label: "LiteLLM Model Name",
-            value: modelToDelete.litellm_model_name || "Not Set",
+            label: "Название модели LiteLLM",
+            value: modelToDelete.litellm_model_name || "Не задано",
           },
           {
-            label: "Provider",
-            value: modelToDelete.provider || "Not Set",
+            label: "Провайдер",
+            value: modelToDelete.provider || "Не задано",
           },
           {
-            label: "Created By",
-            value: modelToDelete.model_info?.created_by || "Not Set",
+            label: "Создано кем",
+            value: modelToDelete.model_info?.created_by || "Не задано",
           },
         ] : []}
         onCancel={() => setDeleteModalModelId(null)}
