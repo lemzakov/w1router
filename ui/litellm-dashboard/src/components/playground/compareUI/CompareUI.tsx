@@ -46,11 +46,11 @@ interface CompareUIProps {
   disabledPersonalKeyCreation: boolean;
 }
 const GENERIC_FOLLOW_UPS = [
-  "Can you summarize the key points?",
-  "What assumptions did you make?",
-  "What are the next steps?",
+  "Можете подвести итог ключевых моментов?",
+  "Какие предположения вы сделали?",
+  "Каковы следующие шаги?",
 ];
-const SUGGESTED_PROMPTS = ["Write me a poem", "Explain quantum computing", "Draft a polite email requesting a meeting"];
+const SUGGESTED_PROMPTS = ["Напишите мне стихотворение", "Объясните квантовые вычисления", "Составьте вежливое письмо с просьбой о встрече"];
 const DEFAULT_ENDPOINT = EndpointId.CHAT_COMPLETIONS;
 export default function CompareUI({ accessToken, disabledPersonalKeyCreation }: CompareUIProps) {
   const [comparisons, setComparisons] = useState<ComparisonInstance[]>([
@@ -485,7 +485,7 @@ export default function CompareUI({ accessToken, disabledPersonalKeyCreation }: 
       return;
     }
     if (!effectiveApiKey) {
-      NotificationsManager.fromBackend("Please provide a Virtual Key or select Current UI Session");
+      NotificationsManager.fromBackend("Укажите виртуальный ключ или выберите текущую сессию UI");
       return;
     }
     const targetComparisons = comparisons;
@@ -645,13 +645,13 @@ export default function CompareUI({ accessToken, disabledPersonalKeyCreation }: 
                 messages[messages.length - 1] = {
                   ...last,
                   content: assistantContent
-                    ? `${assistantContent}\nError fetching response: ${errorMessage}`
-                    : `Error fetching response: ${errorMessage}`,
+                    ? `${assistantContent}\nОшибка получения ответа: ${errorMessage}`
+                    : `Ошибка получения ответа: ${errorMessage}`,
                 };
               } else {
                 messages.push({
                   role: "assistant",
-                  content: `Error fetching response: ${errorMessage}`,
+                  content: `Ошибка получения ответа: ${errorMessage}`,
                 });
               }
               return {
@@ -695,7 +695,7 @@ export default function CompareUI({ accessToken, disabledPersonalKeyCreation }: 
         <div className="border-b px-4 py-2">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-2">
-              <span className="text-sm font-medium text-gray-600">Virtual Key Source</span>
+              <span className="text-sm font-medium text-gray-600">Источник виртуального ключа</span>
               <Select
                 value={apiKeySource}
                 onChange={(value) => setApiKeySource(value as "session" | "custom")}
@@ -703,21 +703,21 @@ export default function CompareUI({ accessToken, disabledPersonalKeyCreation }: 
                 className="w-48"
               >
                 <Select.Option value="session" disabled={!canUseSessionKey}>
-                  Current UI Session
+                  Текущая сессия UI
                 </Select.Option>
-                <Select.Option value="custom">Virtual Key</Select.Option>
+                <Select.Option value="custom">Виртуальный ключ</Select.Option>
               </Select>
               {apiKeySource === "custom" && (
                 <Input.Password
                   value={customApiKey}
                   onChange={(event) => setCustomApiKey(event.target.value)}
-                  placeholder="Enter Virtual Key"
+                  placeholder="Введите виртуальный ключ"
                   className="w-56"
                 />
               )}
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-sm font-medium text-gray-600">Endpoint</span>
+              <span className="text-sm font-medium text-gray-600">Конечная точка</span>
               <Select 
                 value={selectedEndpoint} 
                 onChange={(value) => setSelectedEndpoint(value as EndpointIdType)}
@@ -735,15 +735,15 @@ export default function CompareUI({ accessToken, disabledPersonalKeyCreation }: 
             </div>
             <div className="flex items-center gap-3">
               <Button onClick={clearAllChats} disabled={!hasMessages} icon={<ClearOutlined />}>
-                Clear All Chats
+                Очистить все чаты
               </Button>
               <Tooltip
                 title={
-                  comparisons.length >= maxComparisons ? "Compare up to 3 models at a time" : "Add another comparison"
+                  comparisons.length >= maxComparisons ? "Сравнивайте до 3 моделей одновременно" : "Добавить ещё одно сравнение"
                 }
               >
                 <Button onClick={addComparison} disabled={comparisons.length >= maxComparisons} icon={<PlusOutlined />}>
-                  Add Comparison
+                  Добавить сравнение
                 </Button>
               </Tooltip>
             </div>
@@ -775,7 +775,7 @@ export default function CompareUI({ accessToken, disabledPersonalKeyCreation }: 
             <div className="border border-gray-200 shadow-lg rounded-xl bg-white p-4">
               <div className="flex items-center justify-between gap-4 mb-3 min-h-8">
                 {hasAttachment ? (
-                  <span className="text-sm text-gray-500">Attachment ready to send</span>
+                  <span className="text-sm text-gray-500">Вложение готово к отправке</span>
                 ) : showSuggestedPrompts ? (
                   <div className="flex items-center gap-2 overflow-x-auto">
                     {SUGGESTED_PROMPTS.map((prompt) => (
@@ -829,7 +829,7 @@ export default function CompareUI({ accessToken, disabledPersonalKeyCreation }: 
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="text-sm font-medium text-gray-900 truncate">{uploadedFile.name}</div>
-                      <div className="text-xs text-gray-500">{isUploadedFilePdf ? "PDF" : "Image"}</div>
+                      <div className="text-xs text-gray-500">{isUploadedFilePdf ? "PDF" : "Изображение"}</div>
                     </div>
                     <button
                       className="flex items-center justify-center w-6 h-6 text-gray-400 hover:text-gray-600 hover:bg-gray-200 rounded-full transition-colors"
