@@ -33,7 +33,7 @@ export function InputCard({ messages, promptTokens, inputCost }: InputCardProps)
   const handleCopy = () => {
     const content = lastMessage?.content || '';
     navigator.clipboard.writeText(content);
-    MessageManager.success('Input copied');
+    MessageManager.success('Входные данные скопированы');
   };
 
   return (
@@ -68,7 +68,7 @@ export function InputCard({ messages, promptTokens, inputCost }: InputCardProps)
           {/* System Message - Collapsible with arrow */}
           {systemMessage && (
             <CollapsibleMessage
-              label="SYSTEM"
+              label="СИСТЕМА"
               content={systemMessage.content}
               defaultExpanded={!!(systemMessage.content && systemMessage.content.length < 200)}
             />

@@ -27,8 +27,8 @@ export function DataTable<TData, TValue>({
   renderChildRows,
   getRowCanExpand,
   isLoading = false,
-  loadingMessage = "🚅 Loading logs...",
-  noDataMessage = "No logs found",
+  loadingMessage = "🚅 Загрузка логов...",
+  noDataMessage = "Логи не найдены",
   enableSorting = false,
 }: DataTableProps<TData, TValue>) {
   const supportsExpansion = !!(renderSubComponent || renderChildRows) && !!getRowCanExpand;

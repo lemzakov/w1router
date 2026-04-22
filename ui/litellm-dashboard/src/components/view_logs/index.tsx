@@ -156,7 +156,7 @@ export default function SpendLogsTable({
   const LiveTailControls = () => {
     return (
       <div className="flex items-center gap-2">
-        <span className="text-sm font-medium text-gray-900">Live Tail</span>
+        <span className="text-sm font-medium text-gray-900">Живая лента</span>
         <Switch color="green" checked={isLiveTail} defaultChecked={true} onChange={setIsLiveTail} />
       </div>
     );
@@ -393,7 +393,7 @@ export default function SpendLogsTable({
   const logFilterOptions: FilterOption[] = [
     {
       name: "Team ID",
-      label: "Team ID",
+      label: "ID команды",
       isSearchable: true,
       searchFn: async (searchText: string) => {
         if (!allTeams || allTeams.length === 0) return [];
@@ -411,26 +411,26 @@ export default function SpendLogsTable({
     },
     {
       name: "Status",
-      label: "Status",
+      label: "Статус",
       isSearchable: false,
       options: [
-        { label: "Success", value: "success" },
-        { label: "Failure", value: "failure" },
+        { label: "Успешно", value: "success" },
+        { label: "Ошибка", value: "failure" },
       ],
     },
     {
       name: "Model",
-      label: "Model",
+      label: "Модель",
       customComponent: PaginatedModelSelect,
     },
     {
       name: "Key Alias",
-      label: "Key Alias",
+      label: "Псевдоним ключа",
       customComponent: PaginatedKeyAliasSelect,
     },
     {
       name: "End User",
-      label: "End User",
+      label: "Конечный пользователь",
       isSearchable: true,
       searchFn: async (searchText: string) => {
         if (!accessToken) return [];
@@ -443,7 +443,7 @@ export default function SpendLogsTable({
     },
     {
       name: "Error Code",
-      label: "Error Code",
+      label: "Код ошибки",
       isSearchable: true,
       searchFn: async (searchText: string) => {
         if (!searchText) return ERROR_CODE_OPTIONS;
@@ -458,12 +458,12 @@ export default function SpendLogsTable({
     },
     {
       name: "Key Hash",
-      label: "Key Hash",
+      label: "Хэш ключа",
       isSearchable: false,
     },
     {
       name: "Error Message",
-      label: "Error Message",
+      label: "Сообщение об ошибке",
       isSearchable: false,
     },
   ];
@@ -487,19 +487,19 @@ export default function SpendLogsTable({
     <div className="w-full max-w-screen p-6 overflow-x-hidden box-border">
       <TabGroup defaultIndex={0} onIndexChange={(index) => setActiveTab(index === 0 ? "request logs" : "audit logs")}>
         <TabList>
-          <Tab>Request Logs</Tab>
-          <Tab>Audit Logs</Tab>
-          <Tab>Deleted Keys</Tab>
-          <Tab>Deleted Teams</Tab>
+          <Tab>Журнал запросов</Tab>
+          <Tab>Журнал аудита</Tab>
+          <Tab>Удалённые ключи</Tab>
+          <Tab>Удалённые команды</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
             <div className="flex items-center justify-between mb-4">
-              <h1 className="text-xl font-semibold">Request Logs</h1>
+              <h1 className="text-xl font-semibold">Журнал запросов</h1>
               <Button
                 icon={<SettingOutlined />}
                 onClick={() => setIsSpendLogsSettingsModalVisible(true)}
-                title="Spend Logs Settings"
+                title="Настройки логов расходов"
               />
             </div>
             {selectedKeyInfo && selectedKeyIdInfoView && selectedKeyInfo.api_key === selectedKeyIdInfoView ? (
@@ -508,7 +508,7 @@ export default function SpendLogsTable({
                 keyData={selectedKeyInfo}
                 teams={allTeams}
                 onClose={() => setSelectedKeyIdInfoView(null)}
-                backButtonText="Back to Logs"
+                backButtonText="Назад к логам"
               />
             ) : (
               <>
@@ -529,7 +529,7 @@ export default function SpendLogsTable({
                         <div className="relative w-64 min-w-0 flex-shrink-0">
                           <input
                             type="text"
-                            placeholder="Search by Request ID"
+                            placeholder="Поиск по ID запроса"
                             className="w-full px-3 py-2 pl-8 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
@@ -596,7 +596,7 @@ export default function SpendLogsTable({
                                       }`}
                                     onClick={() => setIsCustomDate(!isCustomDate)}
                                   >
-                                    Custom Range
+                                    Произвольный диапазон
                                   </button>
                                 </div>
                               </div>
@@ -610,9 +610,9 @@ export default function SpendLogsTable({
                             icon={<SyncOutlined spin={isButtonLoading} />}
                             onClick={handleRefresh}
                             disabled={isButtonLoading}
-                            title="Fetch data"
+                            title="Получить данные"
                           >
-                            {isButtonLoading ? "Fetching" : "Fetch"}
+                            {isButtonLoading ? "Загрузка..." : "Получить"}
                           </Button>
                         </div>
 
@@ -629,7 +629,7 @@ export default function SpendLogsTable({
                                 className="px-3 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                               />
                             </div>
-                            <span className="text-gray-500">to</span>
+                            <span className="text-gray-500">до</span>
                             <div>
                               <input
                                 type="datetime-local"
@@ -647,17 +647,17 @@ export default function SpendLogsTable({
 
                       <div className="flex items-center space-x-4">
                         <span className="text-sm text-gray-700 whitespace-nowrap">
-                          Showing {logs.isLoading ? "..." : filteredLogs ? (currentPage - 1) * pageSize + 1 : 0} -{" "}
+                          Показано {logs.isLoading ? "..." : filteredLogs ? (currentPage - 1) * pageSize + 1 : 0} -{" "}
                           {logs.isLoading
                             ? "..."
                             : filteredLogs
                               ? Math.min(currentPage * pageSize, filteredLogs.total)
                               : 0}{" "}
-                          of {logs.isLoading ? "..." : filteredLogs ? filteredLogs.total : 0} results
+                          из {logs.isLoading ? "..." : filteredLogs ? filteredLogs.total : 0} результатов
                         </span>
                         <div className="flex items-center space-x-2">
                           <span className="text-sm text-gray-700 min-w-[90px]">
-                            Page {logs.isLoading ? "..." : currentPage} of{" "}
+                            Страница {logs.isLoading ? "..." : currentPage} из{" "}
                             {logs.isLoading ? "..." : filteredLogs ? filteredLogs.total_pages : 1}
                           </span>
                           <button
@@ -665,14 +665,14 @@ export default function SpendLogsTable({
                             disabled={logs.isLoading || currentPage === 1}
                             className="px-3 py-1 text-sm border rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                           >
-                            Previous
+                            Назад
                           </button>
                           <button
                             onClick={() => setCurrentPage((p) => Math.min(filteredLogs.total_pages || 1, p + 1))}
                             disabled={logs.isLoading || currentPage === (filteredLogs.total_pages || 1)}
                             className="px-3 py-1 text-sm border rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                           >
-                            Next
+                            Далее
                           </button>
                         </div>
                       </div>
@@ -681,13 +681,13 @@ export default function SpendLogsTable({
                   {isLiveTail && currentPage === 1 && isMainQueryEnabled && (
                     <div className="mb-4 px-4 py-2 bg-green-50 border border-greem-200 rounded-md flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <span className="text-sm text-green-700">Auto-refreshing every 15 seconds</span>
+                        <span className="text-sm text-green-700">Автообновление каждые 15 секунд</span>
                       </div>
                       <button
                         onClick={() => setIsLiveTail(false)}
                         className="text-sm text-green-600 hover:text-green-800"
                       >
-                        Stop
+                        Стоп
                       </button>
                     </div>
                   )}
@@ -829,12 +829,12 @@ export function RequestViewer({ row, onOpenSettings }: { row: Row<LogEntry>; onO
       {/* Combined Info Card */}
       <div className="bg-white rounded-lg shadow w-full max-w-full overflow-hidden">
         <div className="p-4 border-b">
-          <h3 className="text-lg font-medium">Request Details</h3>
+          <h3 className="text-lg font-medium">Детали запроса</h3>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 w-full max-w-full overflow-hidden">
           <div className="space-y-2">
             <div className="flex">
-              <span className="font-medium w-1/3">Request ID:</span>
+              <span className="font-medium w-1/3">ID запроса:</span>
               {row.original.request_id.length > 64 ? (
                 <Tooltip title={row.original.request_id}>
                   <span className="font-mono text-sm">{truncatedRequestId}</span>
@@ -844,19 +844,19 @@ export function RequestViewer({ row, onOpenSettings }: { row: Row<LogEntry>; onO
               )}
             </div>
             <div className="flex">
-              <span className="font-medium w-1/3">Model:</span>
+              <span className="font-medium w-1/3">Модель:</span>
               <span>{row.original.model}</span>
             </div>
             <div className="flex">
-              <span className="font-medium w-1/3">Model ID:</span>
+              <span className="font-medium w-1/3">ID модели:</span>
               <span>{row.original.model_id}</span>
             </div>
             <div className="flex">
-              <span className="font-medium w-1/3">Call Type:</span>
+              <span className="font-medium w-1/3">Тип вызова:</span>
               <span>{row.original.call_type}</span>
             </div>
             <div className="flex">
-              <span className="font-medium w-1/3">Provider:</span>
+              <span className="font-medium w-1/3">Провайдер:</span>
               <span>{row.original.custom_llm_provider || "-"}</span>
             </div>
             <div className="flex">
@@ -867,13 +867,13 @@ export function RequestViewer({ row, onOpenSettings }: { row: Row<LogEntry>; onO
             </div>
             {row?.original?.requester_ip_address && (
               <div className="flex">
-                <span className="font-medium w-1/3">IP Address:</span>
+                <span className="font-medium w-1/3">IP-адрес:</span>
                 <span>{row?.original?.requester_ip_address}</span>
               </div>
             )}
             {hasGuardrailData && (
               <div className="flex">
-                <span className="font-medium w-1/3">Guardrail:</span>
+                <span className="font-medium w-1/3">Защита:</span>
                 <div>
                   <span className="font-mono">{primaryGuardrailLabel}</span>
                   {totalMaskedEntities > 0 && (
@@ -887,69 +887,69 @@ export function RequestViewer({ row, onOpenSettings }: { row: Row<LogEntry>; onO
           </div>
           <div className="space-y-2">
             <div className="flex">
-              <span className="font-medium w-1/3">Tokens:</span>
+              <span className="font-medium w-1/3">Токены:</span>
               <span>
                 {row.original.total_tokens} ({row.original.prompt_tokens} prompt tokens +{" "}
                 {row.original.completion_tokens} completion tokens)
               </span>
             </div>
             <div className="flex">
-              <span className="font-medium w-1/3">Cache Read Tokens:</span>
+              <span className="font-medium w-1/3">Токены кеш-чтения:</span>
               <span>
                 {formatNumberWithCommas(row.original.metadata?.additional_usage_values?.cache_read_input_tokens || 0)}
               </span>
             </div>
             <div className="flex">
-              <span className="font-medium w-1/3">Cache Creation Tokens:</span>
+              <span className="font-medium w-1/3">Токены создания кеша:</span>
               <span>
                 {formatNumberWithCommas(row.original.metadata?.additional_usage_values.cache_creation_input_tokens)}
               </span>
             </div>
             <div className="flex">
-              <span className="font-medium w-1/3">Cost:</span>
+              <span className="font-medium w-1/3">Стоимость:</span>
               <span>${formatNumberWithCommas(row.original.spend || 0, 6)}</span>
             </div>
             <div className="flex">
-              <span className="font-medium w-1/3">Cache Hit:</span>
+              <span className="font-medium w-1/3">Кеш-попадание:</span>
               <span>{row.original.cache_hit}</span>
             </div>
 
             <div className="flex">
-              <span className="font-medium w-1/3">Status:</span>
+              <span className="font-medium w-1/3">Статус:</span>
               <span
                 className={`px-2 py-1 rounded-md text-xs font-medium inline-block text-center w-16 ${(row.original.metadata?.status || "Success").toLowerCase() !== "failure"
                   ? "bg-green-100 text-green-800"
                   : "bg-red-100 text-red-800"
                   }`}
               >
-                {(row.original.metadata?.status || "Success").toLowerCase() !== "failure" ? "Success" : "Failure"}
+                {(row.original.metadata?.status || "Success").toLowerCase() !== "failure" ? "Успешно" : "Ошибка"}
               </span>
             </div>
             <div className="flex">
-              <span className="font-medium w-1/3">Start Time:</span>
+              <span className="font-medium w-1/3">Время начала:</span>
               <span>{row.original.startTime}</span>
             </div>
             <div className="flex">
-              <span className="font-medium w-1/3">End Time:</span>
+              <span className="font-medium w-1/3">Время окончания:</span>
               <span>{row.original.endTime}</span>
             </div>
             <div className="flex">
-              <span className="font-medium w-1/3">Duration:</span>
+              <span className="font-medium w-1/3">Длительность:</span>
               <span>{row.original.request_duration_ms != null ? (row.original.request_duration_ms / 1000).toFixed(3) : "-"} s.</span>
             </div>
             {row.original.metadata?.litellm_overhead_time_ms !== undefined && (
               <div className="flex">
-                <span className="font-medium w-1/3">LiteLLM Overhead:</span>
+                <span className="font-medium w-1/3">Накладные расходы LiteLLM:</span>
                 <span>{row.original.metadata.litellm_overhead_time_ms} ms</span>
               </div>
             )}
             <div className="flex">
-              <span className="font-medium w-1/3">Retries:</span>
+              <span className="font-medium w-1/3">Повторы:</span>
               <span>
                 {row.original.metadata?.attempted_retries !== undefined && row.original.metadata?.attempted_retries !== null
                   ? row.original.metadata.attempted_retries > 0
                     ? `${row.original.metadata.attempted_retries}${row.original.metadata.max_retries !== undefined && row.original.metadata.max_retries !== null ? ` / ${row.original.metadata.max_retries}` : ''}`
-                    : <Tag color="green">None</Tag>
+                    : <Tag color="green">Нет</Tag>
                   : '-'}
               </span>
             </div>
@@ -995,7 +995,7 @@ export function RequestViewer({ row, onOpenSettings }: { row: Row<LogEntry>; onO
       {row.original.request_tags && Object.keys(row.original.request_tags).length > 0 && (
         <div className="bg-white rounded-lg shadow">
           <div className="flex justify-between items-center p-4 border-b">
-            <h3 className="text-lg font-medium">Request Tags</h3>
+            <h3 className="text-lg font-medium">Теги запроса</h3>
           </div>
           <div className="p-4">
             <div className="flex flex-wrap gap-2">
@@ -1013,13 +1013,13 @@ export function RequestViewer({ row, onOpenSettings }: { row: Row<LogEntry>; onO
       {row.original.metadata && Object.keys(row.original.metadata).length > 0 && (
         <div className="bg-white rounded-lg shadow">
           <div className="flex justify-between items-center p-4 border-b">
-            <h3 className="text-lg font-medium">Metadata</h3>
+            <h3 className="text-lg font-medium">Метаданные</h3>
             <button
               onClick={() => {
                 navigator.clipboard.writeText(JSON.stringify(row.original.metadata, null, 2));
               }}
               className="p-1 hover:bg-gray-200 rounded"
-              title="Copy metadata"
+              title="Копировать метаданные"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

@@ -117,7 +117,7 @@ function RequestIdSection({ requestId }: { requestId: string }) {
       <Tooltip title={requestId}>
         <Text
           strong
-          copyable={{ text: requestId, tooltips: ["Copy Request ID", "Copied!"] }}
+          copyable={{ text: requestId, tooltips: ["Копировать ID запроса", "Скопировано!"] }}
           style={{
             fontSize: FONT_SIZE_HEADER,
             fontFamily: FONT_FAMILY_MONO,
@@ -167,7 +167,7 @@ function NavigationSection({
         <DownOutlined />
         <span style={keyboardShortcutStyle}>J</span>
       </Button>
-      <Tooltip title="ESC to close">
+      <Tooltip title="ESC для закрытия">
         <Button type="text" icon={<CloseOutlined />} onClick={onClose} />
       </Tooltip>
     </Space>
@@ -191,7 +191,7 @@ function StatusBar({
   return (
     <Space size={SPACING_LARGE}>
       <Tag color={statusColor}>{statusLabel}</Tag>
-      <Tag>Env: {environment}</Tag>
+      <Tag>Окружение: {environment}</Tag>
       <Space size={SPACING_MEDIUM}>
         <Text type="secondary" style={{ fontSize: FONT_SIZE_MEDIUM }}>
           {moment(log.startTime).format("MMM D, YYYY h:mm:ss A")}

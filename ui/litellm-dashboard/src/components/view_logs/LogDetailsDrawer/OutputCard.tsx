@@ -26,7 +26,7 @@ export function OutputCard({ message, completionTokens, outputCost }: OutputCard
     
     const content = message.content || '';
     navigator.clipboard.writeText(content);
-    MessageManager.success('Output copied');
+    MessageManager.success('Выходные данные скопированы');
   };
 
   if (!message) {
@@ -56,7 +56,7 @@ export function OutputCard({ message, completionTokens, outputCost }: OutputCard
         >
           <div style={{ padding: '12px 16px' }}>
             <Text type="secondary" style={{ fontSize: 13, fontStyle: 'italic' }}>
-              No response data available
+              Данные ответа недоступны
             </Text>
           </div>
         </div>
@@ -93,7 +93,7 @@ export function OutputCard({ message, completionTokens, outputCost }: OutputCard
       >
         <div style={{ padding: '12px 16px' }}>
           <SimpleMessageBlock
-            label="ASSISTANT"
+            label="АССИСТЕНТ"
             content={message.content}
             toolCalls={message.toolCalls}
           />
