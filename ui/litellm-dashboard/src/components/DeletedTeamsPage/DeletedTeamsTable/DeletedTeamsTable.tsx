@@ -46,7 +46,7 @@ export function DeletedTeamsTable({
     {
       id: "team_alias",
       accessorKey: "team_alias",
-      header: "Team Name",
+      header: "Название команды",
       size: 150,
       maxSize: 200,
       cell: (info) => {
@@ -63,7 +63,7 @@ export function DeletedTeamsTable({
     {
       id: "team_id",
       accessorKey: "team_id",
-      header: "Team ID",
+      header: "ID команды",
       size: 150,
       maxSize: 250,
       cell: (info) => {
@@ -80,7 +80,7 @@ export function DeletedTeamsTable({
     {
       id: "created_at",
       accessorKey: "created_at",
-      header: "Created",
+      header: "Создана",
       size: 120,
       maxSize: 140,
       cell: (info) => {
@@ -95,7 +95,7 @@ export function DeletedTeamsTable({
     {
       id: "spend",
       accessorKey: "spend",
-      header: "Spend (USD)",
+      header: "Расходы (USD)",
       size: 100,
       maxSize: 140,
       cell: (info) => {
@@ -110,14 +110,14 @@ export function DeletedTeamsTable({
     {
       id: "max_budget",
       accessorKey: "max_budget",
-      header: "Budget (USD)",
+      header: "Бюджет (USD)",
       size: 110,
       maxSize: 150,
       cell: (info) => {
         const maxBudget = info.getValue() as number | null;
         return (
           <span className="block max-w-[150px]">
-            {maxBudget === null || maxBudget === undefined ? "No limit" : `$${formatNumberWithCommas(maxBudget)}`}
+            {maxBudget === null || maxBudget === undefined ? "Без ограничений" : `$${formatNumberWithCommas(maxBudget)}`}
           </span>
         );
       },
@@ -125,7 +125,7 @@ export function DeletedTeamsTable({
     {
       id: "models",
       accessorKey: "models",
-      header: "Models",
+      header: "Модели",
       size: 200,
       maxSize: 300,
       cell: (info) => {
@@ -133,7 +133,7 @@ export function DeletedTeamsTable({
         if (!Array.isArray(models) || models.length === 0) {
           return (
             <Badge size={"xs"} color="red">
-              <Text>All Proxy Models</Text>
+              <Text>Все модели прокси</Text>
             </Badge>
           );
         }
@@ -142,7 +142,7 @@ export function DeletedTeamsTable({
             {models.slice(0, 3).map((model: string, index: number) =>
               model === "all-proxy-models" ? (
                 <Badge key={index} size={"xs"} color="red">
-                  <Text>All Proxy Models</Text>
+                  <Text>Все модели прокси</Text>
                 </Badge>
               ) : (
                 <Badge key={index} size={"xs"} color="blue">
@@ -157,7 +157,7 @@ export function DeletedTeamsTable({
             {models.length > 3 && (
               <Badge size={"xs"} color="gray">
                 <Text>
-                  +{models.length - 3} {models.length - 3 === 1 ? "more model" : "more models"}
+                  +{models.length - 3} {models.length - 3 === 1 ? "ещё модель" : "ещё моделей"}
                 </Text>
               </Badge>
             )}
@@ -168,7 +168,7 @@ export function DeletedTeamsTable({
     {
       id: "organization_id",
       accessorKey: "organization_id",
-      header: "Organization",
+      header: "Организация",
       size: 150,
       maxSize: 200,
       cell: (info) => {
@@ -185,7 +185,7 @@ export function DeletedTeamsTable({
     {
       id: "deleted_at",
       accessorKey: "deleted_at",
-      header: "Deleted At",
+      header: "Удалена",
       size: 120,
       maxSize: 140,
       cell: (info) => {
@@ -200,7 +200,7 @@ export function DeletedTeamsTable({
     {
       id: "deleted_by",
       accessorKey: "deleted_by",
-      header: "Deleted By",
+      header: "Удалил",
       size: 120,
       maxSize: 180,
       cell: (info) => {
@@ -236,10 +236,10 @@ export function DeletedTeamsTable({
       <div className="border-b py-4 flex-1 overflow-hidden">
         <div className="flex items-center justify-between w-full mb-4">
           {isLoading || isFetching ? (
-            <span className="inline-flex text-sm text-gray-700">Loading...</span>
+            <span className="inline-flex text-sm text-gray-700">Загрузка...</span>
           ) : (
             <span className="inline-flex text-sm text-gray-700">
-              Showing {teams.length} {teams.length === 1 ? "team" : "teams"}
+              Показано {teams.length} {teams.length === 1 ? "команда" : "команд"}
             </span>
           )}
         </div>
@@ -319,7 +319,7 @@ export function DeletedTeamsTable({
                     <TableRow>
                       <TableCell colSpan={columns.length} className="h-8 text-center">
                         <div className="text-center text-gray-500">
-                          <p>🚅 Loading teams...</p>
+                          <p>🚅 Загрузка команд...</p>
                         </div>
                       </TableCell>
                     </TableRow>
@@ -346,7 +346,7 @@ export function DeletedTeamsTable({
                     <TableRow>
                       <TableCell colSpan={columns.length} className="h-8 text-center">
                         <div className="text-center text-gray-500">
-                          <p>No deleted teams found</p>
+                          <p>Удалённые команды не найдены</p>
                         </div>
                       </TableCell>
                     </TableRow>

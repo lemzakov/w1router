@@ -219,7 +219,7 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
       {
         id: "token",
         accessorKey: "token",
-        header: "Key ID",
+        header: "ID ключа",
         size: 100,
         enableSorting: true,
         cell: (info) => {
@@ -243,7 +243,7 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
       {
         id: "key_alias",
         accessorKey: "key_alias",
-        header: "Key Alias",
+        header: "Псевдоним ключа",
         size: 150,
         enableSorting: true,
         cell: (info) => {
@@ -264,7 +264,7 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
       {
         id: "key_name",
         accessorKey: "key_name",
-        header: "Secret Key",
+        header: "Секретный ключ",
         size: 120,
         enableSorting: false,
         cell: (info) => <span className="font-mono text-xs">{info.getValue() as string}</span>,
@@ -272,7 +272,7 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
       {
         id: "organization_id",
         accessorKey: "organization_id",
-        header: "Organization ID",
+        header: "ID организации",
         size: 140,
         enableSorting: false,
         cell: (info) => (info.getValue() ? info.renderValue() : "-"),
@@ -280,7 +280,7 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
       {
         id: "user_email",
         accessorKey: "user",
-        header: "User Email",
+        header: "Email пользователя",
         size: 160,
         enableSorting: false,
         cell: (info) => {
@@ -302,7 +302,7 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
       {
         id: "user_id",
         accessorKey: "user_id",
-        header: "User ID",
+        header: "ID пользователя",
         size: 70,
         enableSorting: false,
         cell: (info) => {
@@ -324,7 +324,7 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
       {
         id: "created_at",
         accessorKey: "created_at",
-        header: "Created At",
+        header: "Создан",
         size: 120,
         enableSorting: true,
         cell: (info) => {
@@ -335,7 +335,7 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
       {
         id: "created_by",
         accessorKey: "created_by",
-        header: "Created By",
+        header: "Создан кем",
         size: 70,
         enableSorting: false,
         cell: (info) => {
@@ -357,12 +357,12 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
       {
         id: "updated_at",
         accessorKey: "updated_at",
-        header: "Updated At",
+        header: "Обновлён",
         size: 120,
         enableSorting: true,
         cell: (info) => {
           const value = info.getValue();
-          return value ? new Date(value as string).toLocaleDateString() : "Never";
+          return value ? new Date(value as string).toLocaleDateString() : "Никогда";
         },
       },
       {
@@ -370,9 +370,9 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
         accessorKey: "last_active",
         header: () => (
           <span className="flex items-center gap-1">
-            Last Active
+            Последняя активность
             <Popover
-              content="This is a new field and is not backfilled. Only new key usage will update this value."
+              content="Это новое поле и не заполняется ретроспективно. Только новое использование ключа будет обновлять это значение."
               trigger="hover"
             >
               <InfoCircleOutlined className="text-gray-400 text-xs cursor-help" />
@@ -383,7 +383,7 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
         enableSorting: false,
         cell: (info) => {
           const value = info.getValue();
-          if (!value) return "Unknown";
+          if (!value) return "Неизвестно";
           const date = new Date(value as string);
           return (
             <Tooltip title={date.toLocaleString(undefined, { dateStyle: "medium", timeStyle: "long" })}>
@@ -395,18 +395,18 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
       {
         id: "expires",
         accessorKey: "expires",
-        header: "Expires",
+        header: "Истекает",
         size: 120,
         enableSorting: false,
         cell: (info) => {
           const value = info.getValue();
-          return value ? new Date(value as string).toLocaleDateString() : "Never";
+          return value ? new Date(value as string).toLocaleDateString() : "Никогда";
         },
       },
       {
         id: "spend",
         accessorKey: "spend",
-        header: "Spend (USD)",
+        header: "Расходы (USD)",
         size: 100,
         enableSorting: true,
         cell: (info) => formatNumberWithCommas(info.getValue() as number, 4),
@@ -414,30 +414,30 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
       {
         id: "max_budget",
         accessorKey: "max_budget",
-        header: "Budget (USD)",
+        header: "Бюджет (USD)",
         size: 110,
         enableSorting: true,
         cell: (info) => {
           const maxBudget = info.getValue() as number | null;
-          if (maxBudget === null) return "Unlimited";
+          if (maxBudget === null) return "Без ограничений";
           return `$${formatNumberWithCommas(maxBudget)}`;
         },
       },
       {
         id: "budget_reset_at",
         accessorKey: "budget_reset_at",
-        header: "Budget Reset",
+        header: "Сброс бюджета",
         size: 130,
         enableSorting: false,
         cell: (info) => {
           const value = info.getValue();
-          return value ? new Date(value as string).toLocaleString() : "Never";
+          return value ? new Date(value as string).toLocaleString() : "Никогда";
         },
       },
       {
         id: "models",
         accessorKey: "models",
-        header: "Models",
+        header: "Модели",
         size: 200,
         enableSorting: false,
         cell: (info) => {
@@ -522,15 +522,15 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
       },
       {
         id: "rate_limits",
-        header: "Rate Limits",
+        header: "Лимиты скорости",
         size: 140,
         enableSorting: false,
         cell: ({ row }) => {
           const key = row.original;
           return (
             <div>
-              <div>TPM: {key.tpm_limit !== null ? key.tpm_limit : "Unlimited"}</div>
-              <div>RPM: {key.rpm_limit !== null ? key.rpm_limit : "Unlimited"}</div>
+              <div>TPM: {key.tpm_limit !== null ? key.tpm_limit : "Без ограничений"}</div>
+              <div>RPM: {key.rpm_limit !== null ? key.rpm_limit : "Без ограничений"}</div>
             </div>
           );
         },
@@ -601,7 +601,7 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
                 <Skeleton.Node active style={{ width: 74, height: 20 }} />
               ) : (
                 <span className="text-sm text-gray-700">
-                  Page {pageIndex + 1} of {table.getPageCount()}
+                  Страница {pageIndex + 1} из {table.getPageCount()}
                 </span>
               )}
 
@@ -613,7 +613,7 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
                   disabled={isLoading || isFetching || !table.getCanPreviousPage()}
                   className="px-3 py-1 text-sm border rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Previous
+                  Назад
                 </button>
               )}
 
@@ -625,7 +625,7 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
                   disabled={isLoading || isFetching || !table.getCanNextPage()}
                   className="px-3 py-1 text-sm border rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Next
+                  Вперёд
                 </button>
               )}
             </div>
@@ -719,7 +719,7 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
                       <TableRow>
                         <TableCell colSpan={columns.length} className="h-8 text-center">
                           <div className="text-center text-gray-500">
-                            <p>Loading keys...</p>
+                            <p>Загрузка ключей...</p>
                           </div>
                         </TableCell>
                       </TableRow>
@@ -752,7 +752,7 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
                       <TableRow>
                         <TableCell colSpan={columns.length} className="h-8 text-center">
                           <div className="text-center text-gray-500">
-                            <p>No keys found</p>
+                            <p>Ключи не найдены</p>
                           </div>
                         </TableCell>
                       </TableRow>

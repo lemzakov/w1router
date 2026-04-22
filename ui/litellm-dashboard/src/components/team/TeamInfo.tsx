@@ -601,11 +601,11 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
   };
 
   if (loading) {
-    return <div className="p-4">Loading...</div>;
+    return <div className="p-4">Загрузка...</div>;
   }
 
   if (!teamData?.team_info) {
-    return <div className="p-4">Team not found</div>;
+    return <div className="p-4">Команда не найдена</div>;
   }
 
   const { team_info: info } = teamData;
@@ -630,7 +630,7 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
             onClick={onClose}
             className="mb-4"
           >
-            Back to Teams
+            Назад к командам
           </Button>
           <Title>{info.team_alias}</Title>
           <div className="flex items-center">
@@ -659,28 +659,28 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
             children: (
               <Grid numItems={1} numItemsSm={2} numItemsLg={3} className="gap-6">
                 <Card>
-                  <Text>Budget Status</Text>
+                  <Text>Бюджет</Text>
                   <div className="mt-2">
                     <Title>${formatNumberWithCommas(info.spend, 4)}</Title>
                     <Text>
-                      of {info.max_budget === null ? "Unlimited" : `$${formatNumberWithCommas(info.max_budget, 4)}`}
+                      из {info.max_budget === null ? "Без ограничений" : `$${formatNumberWithCommas(info.max_budget, 4)}`}
                     </Text>
-                    {info.budget_duration && <Text className="text-gray-500">Reset: {info.budget_duration}</Text>}
+                    {info.budget_duration && <Text className="text-gray-500">Сброс: {info.budget_duration}</Text>}
                     <br />
                     {info.team_member_budget_table && (
                       <Text className="text-gray-500">
-                        Team Member Budget: ${formatNumberWithCommas(info.team_member_budget_table.max_budget, 4)}
+                        Бюджет участника команды: ${formatNumberWithCommas(info.team_member_budget_table.max_budget, 4)}
                       </Text>
                     )}
                   </div>
                 </Card>
 
                 <Card>
-                  <Text>Rate Limits</Text>
+                  <Text>Лимиты скорости</Text>
                   <div className="mt-2">
-                    <Text>TPM: {info.tpm_limit || "Unlimited"}</Text>
-                    <Text>RPM: {info.rpm_limit || "Unlimited"}</Text>
-                    {info.max_parallel_requests && <Text>Max Parallel Requests: {info.max_parallel_requests}</Text>}
+                    <Text>TPM: {info.tpm_limit || "Без ограничений"}</Text>
+                    <Text>RPM: {info.rpm_limit || "Без ограничений"}</Text>
+                    {info.max_parallel_requests && <Text>Макс. параллельных запросов: {info.max_parallel_requests}</Text>}
                     {(() => {
                       const modelTpm = (info.metadata?.model_tpm_limit ?? {}) as Record<string, number>;
                       const modelRpm = (info.metadata?.model_rpm_limit ?? {}) as Record<string, number>;
@@ -688,7 +688,7 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                       if (models.length === 0) return null;
                       return (
                         <div className="mt-3">
-                          <Text className="text-gray-500">Per-model limits:</Text>
+                          <Text className="text-gray-500">Лимиты по моделям:</Text>
                           {models.map((m) => (
                             <Text key={m} className="text-xs">
                               {m}: TPM {modelTpm[m] ?? "—"}, RPM {modelRpm[m] ?? "—"}
@@ -701,10 +701,10 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                 </Card>
 
                 <Card>
-                  <Text>Models</Text>
+                  <Text>Модели</Text>
                   <div className="mt-2 flex flex-wrap gap-2">
                     {info.models.length === 0 || info.models.includes("all-proxy-models") ? (
-                      <Badge color="red">All proxy models</Badge>
+                      <Badge color="red">Все модели прокси</Badge>
                     ) : (
                       <>
                         {info.models.map((model: string, index: number) => (
@@ -723,11 +723,11 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                 </Card>
 
                 <Card>
-                  <Text className="font-semibold text-gray-900">Virtual Keys</Text>
+                  <Text className="font-semibold text-gray-900">Виртуальные ключи</Text>
                   <div className="mt-2">
-                    <Text>User Keys: {teamData.keys.filter((key) => key.user_id).length}</Text>
-                    <Text>Service Account Keys: {teamData.keys.filter((key) => !key.user_id).length}</Text>
-                    <Text className="text-gray-500">Total: {teamData.keys.length}</Text>
+                    <Text>Ключи пользователей: {teamData.keys.filter((key) => key.user_id).length}</Text>
+                    <Text>Ключи сервисных аккаунтов: {teamData.keys.filter((key) => !key.user_id).length}</Text>
+                    <Text className="text-gray-500">Всего: {teamData.keys.length}</Text>
                   </div>
                 </Card>
 
@@ -748,28 +748,28 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                       ))}
                     </div>
                   ) : (
-                    <Text className="text-gray-500">No guardrails configured</Text>
+                    <Text className="text-gray-500">Guardrails не настроены</Text>
                   )}
                   {info.metadata?.disable_global_guardrails && (
                     <div className="mt-3 pt-3 border-t border-gray-200">
-                      <Badge color="yellow">Global Guardrails Disabled</Badge>
+                      <Badge color="yellow">Глобальные Guardrails отключены</Badge>
                     </div>
                   )}
                 </Card>
 
                 <Card>
-                  <Text className="font-semibold text-gray-900 mb-3">Policies</Text>
+                  <Text className="font-semibold text-gray-900 mb-3">Политики</Text>
                   {info.policies && info.policies.length > 0 ? (
                     <div className="space-y-4">
                       {info.policies.map((policy: string, index: number) => (
                         <div key={index} className="space-y-2">
                           <div className="flex items-center gap-2">
                             <Badge color="purple">{policy}</Badge>
-                            {loadingPolicies && <Text className="text-xs text-gray-400">Loading guardrails...</Text>}
+                            {loadingPolicies && <Text className="text-xs text-gray-400">Загрузка guardrails...</Text>}
                           </div>
                           {!loadingPolicies && policyGuardrails[policy] && policyGuardrails[policy].length > 0 && (
                             <div className="ml-4 pl-3 border-l-2 border-gray-200">
-                              <Text className="text-xs text-gray-500 mb-1">Resolved Guardrails:</Text>
+                              <Text className="text-xs text-gray-500 mb-1">Применённые Guardrails:</Text>
                               <div className="flex flex-wrap gap-1">
                                 {policyGuardrails[policy].map((guardrail: string, gIndex: number) => (
                                   <Badge key={gIndex} color="blue" size="xs">
@@ -783,7 +783,7 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                       ))}
                     </div>
                   ) : (
-                    <Text className="text-gray-500">No policies configured</Text>
+                    <Text className="text-gray-500">Политики не настроены</Text>
                   )}
                 </Card>
 
@@ -833,9 +833,9 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
             children: (
               <Card className="overflow-y-auto max-h-[65vh]">
                 <div className="flex justify-between items-center mb-4">
-                  <Title>Team Settings</Title>
+                  <Title>Настройки команды</Title>
                   {canEditTeam && !isEditing && (
-                    <Button icon={<EditOutlined className="h-4 w-4" />} onClick={() => setIsEditing(true)}>Edit Settings</Button>
+                    <Button icon={<EditOutlined className="h-4 w-4" />} onClick={() => setIsEditing(true)}>Редактировать настройки</Button>
                   )}
                 </div>
 
@@ -903,17 +903,17 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                     layout="vertical"
                   >
                     <Form.Item
-                      label="Team Name"
+                      label="Название команды"
                       name="team_alias"
-                      rules={[{ required: true, message: "Please input a team name" }]}
+                      rules={[{ required: true, message: "Пожалуйста, введите название команды" }]}
                     >
                       <Input type="" />
                     </Form.Item>
 
                     <Form.Item
-                      label="Models"
+                      label="Модели"
                       name="models"
-                      rules={[{ required: true, message: "Please select at least one model" }]}
+                      rules={[{ required: true, message: "Пожалуйста, выберите хотя бы одну модель" }]}
                     >
                       <ModelSelect
                         value={form.getFieldValue("models") || []}
@@ -930,31 +930,31 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                       />
                     </Form.Item>
 
-                    <Form.Item label="Max Budget (USD)" name="max_budget">
+                    <Form.Item label="Максимальный бюджет (USD)" name="max_budget">
                       <NumericalInput step={0.01} precision={2} style={{ width: "100%" }} />
                     </Form.Item>
 
-                    <Form.Item label="Soft Budget (USD)" name="soft_budget">
+                    <Form.Item label="Мягкий бюджет (USD)" name="soft_budget">
                       <NumericalInput step={0.01} precision={2} style={{ width: "100%" }} />
                     </Form.Item>
 
                     <Form.Item
-                      label="Soft Budget Alerting Emails"
+                      label="Email для уведомлений о мягком бюджете"
                       name="soft_budget_alerting_emails"
-                      tooltip="Comma-separated email addresses to receive alerts when the soft budget is reached"
+                      tooltip="Email-адреса через запятую для получения уведомлений при достижении мягкого бюджета"
                     >
                       <Input placeholder="example1@test.com, example2@test.com" />
                     </Form.Item>
 
                     <Form.Item
-                      label="Team Member Budget (USD)"
+                      label="Бюджет участника команды (USD)"
                       name="team_member_budget"
-                      tooltip="This is the individual budget for a user in the team."
+                      tooltip="Индивидуальный бюджет пользователя в команде."
                     >
                       <NumericalInput step={0.01} precision={2} style={{ width: "100%" }} />
                     </Form.Item>
 
-                    <Form.Item label="Team Member Budget Duration" name="team_member_budget_duration">
+                    <Form.Item label="Период бюджета участника" name="team_member_budget_duration">
                       <DurationSelect
                         onChange={(value) => form.setFieldValue("team_member_budget_duration", value)}
                         value={form.getFieldValue("team_member_budget_duration")}
@@ -962,48 +962,48 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                     </Form.Item>
 
                     <Form.Item
-                      label="Team Member Key Duration (eg: 1d, 1mo)"
+                      label="Длительность ключа участника (напр.: 1d, 1mo)"
                       name="team_member_key_duration"
-                      tooltip="Set a limit to the duration of a team member's key. Format: 30s (seconds), 30m (minutes), 30h (hours), 30d (days), 1mo (month)"
+                      tooltip="Ограничение на длительность ключа участника. Формат: 30s (секунды), 30m (минуты), 30h (часы), 30d (дни), 1mo (месяц)"
                     >
-                      <TextInput placeholder="e.g., 30d" />
+                      <TextInput placeholder="напр., 30d" />
                     </Form.Item>
 
                     <Form.Item
-                      label="Team Member TPM Limit"
+                      label="Лимит TPM участника команды"
                       name="team_member_tpm_limit"
-                      tooltip="Default tokens per minute limit for an individual team member. This limit applies to all requests the user makes within this team. Can be overridden per member."
+                      tooltip="Лимит токенов в минуту по умолчанию для отдельного участника команды. Применяется ко всем запросам пользователя в этой команде. Может быть переопределён для каждого участника."
                     >
                       <NumericalInput step={1} style={{ width: "100%" }} placeholder="e.g., 1000" />
                     </Form.Item>
 
                     <Form.Item
-                      label="Team Member RPM Limit"
+                      label="Лимит RPM участника команды"
                       name="team_member_rpm_limit"
-                      tooltip="Default requests per minute limit for an individual team member. This limit applies to all requests the user makes within this team. Can be overridden per member."
+                      tooltip="Лимит запросов в минуту по умолчанию для отдельного участника команды. Применяется ко всем запросам пользователя в этой команде. Может быть переопределён для каждого участника."
                     >
                       <NumericalInput step={1} style={{ width: "100%" }} placeholder="e.g., 100" />
                     </Form.Item>
 
-                    <Form.Item label="Reset Budget" name="budget_duration">
-                      <Select placeholder="n/a">
-                        <Select.Option value="24h">daily</Select.Option>
-                        <Select.Option value="7d">weekly</Select.Option>
-                        <Select.Option value="30d">monthly</Select.Option>
+                    <Form.Item label="Сбросить бюджет" name="budget_duration">
+                      <Select placeholder="н/п">
+                        <Select.Option value="24h">ежедневно</Select.Option>
+                        <Select.Option value="7d">еженедельно</Select.Option>
+                        <Select.Option value="30d">ежемесячно</Select.Option>
                       </Select>
                     </Form.Item>
 
-                    <Form.Item label="Tokens per minute Limit (TPM)" name="tpm_limit">
+                    <Form.Item label="Лимит токенов в минуту (TPM)" name="tpm_limit">
                       <NumericalInput step={1} style={{ width: "100%" }} />
                     </Form.Item>
 
-                    <Form.Item label="Requests per minute Limit (RPM)" name="rpm_limit">
+                    <Form.Item label="Лимит запросов в минуту (RPM)" name="rpm_limit">
                       <NumericalInput step={1} style={{ width: "100%" }} />
                     </Form.Item>
 
                     <Form.Item
-                      label="Model-Specific Rate Limits"
-                      tooltip="Set per-model TPM/RPM limits that apply across the whole team."
+                      label="Лимиты скорости по моделям"
+                      tooltip="Установите лимиты TPM/RPM для каждой модели, применяемые ко всей команде."
                     >
                       <Form.List name="modelLimits">
                         {(fields, { add, remove }) => (
@@ -1018,7 +1018,7 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                                   {...restField}
                                   name={[name, "model"]}
                                   rules={[
-                                    { required: true, message: "Missing model" },
+                                    { required: true, message: "Выберите модель" },
                                     {
                                       validator: (_, value) => {
                                         if (!value) return Promise.resolve();
@@ -1027,7 +1027,7 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                                           (entry: { model?: string }) => entry?.model === value,
                                         );
                                         if (dupes.length > 1) {
-                                          return Promise.reject(new Error("Duplicate model"));
+                                          return Promise.reject(new Error("Дублирующаяся модель"));
                                         }
                                         return Promise.resolve();
                                       },
@@ -1037,7 +1037,7 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                                 >
                                   <Select
                                     showSearch
-                                    placeholder="Select model"
+                                    placeholder="Выбрать модель"
                                     allowClear
                                     options={availableRateLimitModels.map((m) => ({
                                       value: m,
@@ -1053,17 +1053,17 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                                       validator: async (_, value) => {
                                         const row = (form.getFieldValue("modelLimits") ?? [])[name] ?? {};
                                         if (row.model && value == null && row.rpm == null) {
-                                          return Promise.reject(new Error("Set at least one of TPM or RPM"));
+                                          return Promise.reject(new Error("Укажите хотя бы TPM или RPM"));
                                         }
                                         return Promise.resolve();
                                       },
                                     },
                                   ]}
                                 >
-                                  <InputNumber placeholder="TPM Limit" min={0} />
+                                  <InputNumber placeholder="Лимит TPM" min={0} />
                                 </Form.Item>
                                 <Form.Item {...restField} name={[name, "rpm"]}>
-                                  <InputNumber placeholder="RPM Limit" min={0} />
+                                  <InputNumber placeholder="Лимит RPM" min={0} />
                                 </Form.Item>
                                 <MinusCircleOutlined
                                   onClick={() => remove(name)}
@@ -1078,7 +1078,7 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                                 block
                                 icon={<PlusOutlined />}
                               >
-                                Add Model Limit
+                                Добавить лимит по модели
                               </Button>
                             </Form.Item>
                           </>
@@ -1103,11 +1103,11 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                         </span>
                       }
                       name="guardrails"
-                      help="Select existing guardrails or enter new ones"
+                      help="Выберите существующие guardrails или введите новые"
                     >
                       <Select
                         mode="tags"
-                        placeholder="Select or enter guardrails"
+                        placeholder="Выбрать или ввести guardrails"
                         options={guardrailsList.map((name) => ({ value: name, label: name }))}
                       />
                     </Form.Item>
@@ -1115,17 +1115,17 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                     <Form.Item
                       label={
                         <span>
-                          Disable Global Guardrails
-                          <Tooltip title="When enabled, this team will bypass any guardrails configured to run on every request (global guardrails)">
+                          Отключить глобальные Guardrails
+                          <Tooltip title="Если включено, эта команда будет обходить все guardrails, настроенные для выполнения при каждом запросе (глобальные guardrails)">
                             <InfoCircleOutlined style={{ marginLeft: "4px" }} />
                           </Tooltip>
                         </span>
                       }
                       name="disable_global_guardrails"
                       valuePropName="checked"
-                      help="Bypass global guardrails for this team"
+                      help="Обходить глобальные guardrails для этой команды"
                     >
-                      <Switch checkedChildren="Yes" unCheckedChildren="No" />
+                      <Switch checkedChildren="Да" unCheckedChildren="Нет" />
                     </Form.Item>
 
                     <Form.Item
@@ -1145,11 +1145,11 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                         </span>
                       }
                       name="policies"
-                      help="Select existing policies or enter new ones"
+                      help="Выберите существующие политики или введите новые"
                     >
                       <Select
                         mode="tags"
-                        placeholder="Select or enter policies"
+                        placeholder="Выбрать или ввести политики"
                         options={policiesList.map((name) => ({ value: name, label: name }))}
                       />
                     </Form.Item>
@@ -1157,41 +1157,41 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                     <Form.Item
                       label={
                         <span>
-                          Access Groups{" "}
-                          <Tooltip title="Assign access groups to this team. Access groups control which models, MCP servers, and agents this team can use">
+                          Группы доступа{" "}
+                          <Tooltip title="Назначьте группы доступа этой команде. Группы доступа управляют тем, какие модели, MCP серверы и агенты доступны команде">
                             <InfoCircleOutlined style={{ marginLeft: "4px" }} />
                           </Tooltip>
                         </span>
                       }
                       name="access_group_ids"
                     >
-                      <AccessGroupSelector placeholder="Select access groups (optional)" />
+                      <AccessGroupSelector placeholder="Выбрать группы доступа (необязательно)" />
                     </Form.Item>
 
-                    <Form.Item label="Vector Stores" name="vector_stores" aria-label="Vector Stores">
+                    <Form.Item label="Хранилища векторов" name="vector_stores" aria-label="Vector Stores">
                       <VectorStoreSelector
                         onChange={(values: string[]) => form.setFieldValue("vector_stores", values)}
                         value={form.getFieldValue("vector_stores")}
                         accessToken={accessToken || ""}
-                        placeholder="Select vector stores"
+                        placeholder="Выбрать хранилища векторов"
                       />
                     </Form.Item>
 
-                    <Form.Item label="Allowed Pass Through Routes" name="allowed_passthrough_routes">
+                    <Form.Item label="Разрешённые маршруты транзита" name="allowed_passthrough_routes">
                       <PassThroughRoutesSelector
                         onChange={(values: string[]) => form.setFieldValue("allowed_passthrough_routes", values)}
                         value={form.getFieldValue("allowed_passthrough_routes")}
                         accessToken={accessToken || ""}
-                        placeholder="Select pass through routes"
+                        placeholder="Выбрать маршруты транзита"
                       />
                     </Form.Item>
 
-                    <Form.Item label="MCP Servers / Access Groups" name="mcp_servers_and_groups">
+                    <Form.Item label="MCP серверы / Группы доступа" name="mcp_servers_and_groups">
                       <MCPServerSelector
                         onChange={(val) => form.setFieldValue("mcp_servers_and_groups", val)}
                         value={form.getFieldValue("mcp_servers_and_groups")}
                         accessToken={accessToken || ""}
-                        placeholder="Select MCP servers or access groups (optional)"
+                        placeholder="Выбрать MCP серверы или группы доступа (необязательно)"
                       />
                     </Form.Item>
 
@@ -1219,19 +1219,19 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                       )}
                     </Form.Item>
 
-                    <Form.Item label="Agents / Access Groups" name="agents_and_groups">
+                    <Form.Item label="Агенты / Группы доступа" name="agents_and_groups">
                       <AgentSelector
                         onChange={(val) => form.setFieldValue("agents_and_groups", val)}
                         value={form.getFieldValue("agents_and_groups")}
                         accessToken={accessToken || ""}
-                        placeholder="Select agents or access groups (optional)"
+                        placeholder="Выбрать агентов или группы доступа (необязательно)"
                       />
                     </Form.Item>
 
-                    <Form.Item label="Organization" name="organization_id">
+                    <Form.Item label="Организация" name="organization_id">
                       <Select
                         allowClear
-                        placeholder="Select an organization"
+                        placeholder="Выбрать организацию"
                         showSearch
                         optionFilterProp="label"
                         options={userOrganizations.map((org) => ({
@@ -1241,7 +1241,7 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                       />
                     </Form.Item>
 
-                    <Form.Item label="Logging Settings" name="logging_settings">
+                    <Form.Item label="Настройки логирования" name="logging_settings">
                       <EditLoggingSettings
                         value={form.getFieldValue("logging_settings")}
                         onChange={(values) => form.setFieldValue("logging_settings", values)}
@@ -1249,12 +1249,12 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                     </Form.Item>
 
                     <Form.Item
-                      label="Secret Manager Settings"
+                      label="Настройки менеджера секретов"
                       name="secret_manager_settings"
                       help={
                         premiumUser
-                          ? "Enter secret manager configuration as a JSON object."
-                          : "Premium feature - Upgrade to manage secret manager settings."
+                          ? "Введите конфигурацию менеджера секретов в формате JSON."
+                          : "Премиум функция — Обновите план для управления настройками менеджера секретов."
                       }
                       rules={[
                         {
@@ -1266,7 +1266,7 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                               JSON.parse(value);
                               return Promise.resolve();
                             } catch (error) {
-                              return Promise.reject(new Error("Please enter valid JSON"));
+                              return Promise.reject(new Error("Пожалуйста, введите корректный JSON"));
                             }
                           },
                         },
@@ -1279,17 +1279,17 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                       />
                     </Form.Item>
 
-                    <Form.Item label="Metadata" name="metadata">
+                    <Form.Item label="Метаданные" name="metadata">
                       <Input.TextArea rows={10} />
                     </Form.Item>
 
                     <div className="sticky z-10 bg-white p-4 pr-0 border-t border-gray-200 bottom-[-1.5rem] inset-x-[-1.5rem]">
                       <div className="flex justify-end items-center gap-2">
                         <Button onClick={() => setIsEditing(false)} disabled={isTeamSaving}>
-                          Cancel
+                          Отмена
                         </Button>
                         <Button icon={<SaveOutlined className="h-4 w-4" />} type="primary" htmlType="submit" loading={isTeamSaving}>
-                          Save Changes
+                          Сохранить
                         </Button>
                       </div>
                     </div>
@@ -1297,19 +1297,19 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                 ) : (
                   <div className="space-y-4">
                     <div>
-                      <Text className="font-medium">Team Name</Text>
+                      <Text className="font-medium">Название команды</Text>
                       <div>{info.team_alias}</div>
                     </div>
                     <div>
-                      <Text className="font-medium">Team ID</Text>
+                      <Text className="font-medium">ID команды</Text>
                       <div className="font-mono">{info.team_id}</div>
                     </div>
                     <div>
-                      <Text className="font-medium">Created At</Text>
+                      <Text className="font-medium">Создано</Text>
                       <div>{new Date(info.created_at).toLocaleString()}</div>
                     </div>
                     <div>
-                      <Text className="font-medium">Models</Text>
+                      <Text className="font-medium">Модели</Text>
                       <div className="flex flex-wrap gap-2 mt-1">
                         {info.models.map((model, index) => (
                           <Badge key={index} color="red">
@@ -1319,9 +1319,9 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                       </div>
                     </div>
                     <div>
-                      <Text className="font-medium">Rate Limits</Text>
-                      <div>TPM: {info.tpm_limit || "Unlimited"}</div>
-                      <div>RPM: {info.rpm_limit || "Unlimited"}</div>
+                      <Text className="font-medium">Лимиты скорости</Text>
+                      <div>TPM: {info.tpm_limit || "Без ограничений"}</div>
+                      <div>RPM: {info.rpm_limit || "Без ограничений"}</div>
                       {(() => {
                         const modelTpm = (info.metadata?.model_tpm_limit ?? {}) as Record<string, number>;
                         const modelRpm = (info.metadata?.model_rpm_limit ?? {}) as Record<string, number>;
@@ -1329,7 +1329,7 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                         if (models.length === 0) return null;
                         return (
                           <div className="mt-2">
-                            <Text className="text-gray-500">Per-model limits:</Text>
+                            <Text className="text-gray-500">Лимиты по моделям:</Text>
                             {models.map((m) => (
                               <div key={m} className="text-xs ml-2">
                                 {m}: TPM {modelTpm[m] ?? "—"}, RPM {modelRpm[m] ?? "—"}
@@ -1340,55 +1340,55 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                       })()}
                     </div>
                     <div>
-                      <Text className="font-medium">Team Budget</Text>
+                      <Text className="font-medium">Бюджет команды</Text>
                       <div>
-                        Max Budget:{" "}
-                        {info.max_budget !== null ? `$${formatNumberWithCommas(info.max_budget, 4)}` : "No Limit"}
+                        Максимальный бюджет:{" "}
+                        {info.max_budget !== null ? `$${formatNumberWithCommas(info.max_budget, 4)}` : "Без ограничений"}
                       </div>
                       <div>
-                        Soft Budget:{" "}
+                        Мягкий бюджет:{" "}
                         {info.soft_budget !== null && info.soft_budget !== undefined
                           ? `$${formatNumberWithCommas(info.soft_budget, 4)}`
-                          : "No Limit"}
+                          : "Без ограничений"}
                       </div>
-                      <div>Budget Reset: {info.budget_duration || "Never"}</div>
+                      <div>Сброс бюджета: {info.budget_duration || "Никогда"}</div>
                       {info.metadata?.soft_budget_alerting_emails &&
                         Array.isArray(info.metadata.soft_budget_alerting_emails) &&
                         info.metadata.soft_budget_alerting_emails.length > 0 && (
                           <div>
-                            Soft Budget Alerting Emails: {info.metadata.soft_budget_alerting_emails.join(", ")}
+                            Email для уведомлений: {info.metadata.soft_budget_alerting_emails.join(", ")}
                           </div>
                         )}
                     </div>
                     <div>
                       <Text className="font-medium">
-                        Team Member Settings{" "}
-                        <Tooltip title="These are limits on individual team members">
+                        Настройки участников команды{" "}
+                        <Tooltip title="Это ограничения для отдельных участников команды">
                           <InfoCircleOutlined style={{ marginLeft: "4px" }} />
                         </Tooltip>
                       </Text>
-                      <div>Max Budget: {info.team_member_budget_table?.max_budget || "No Limit"}</div>
-                      <div>Budget Duration: {info.team_member_budget_table?.budget_duration || "No Limit"}</div>
-                      <div>Key Duration: {info.metadata?.team_member_key_duration || "No Limit"}</div>
-                      <div>TPM Limit: {info.team_member_budget_table?.tpm_limit || "No Limit"}</div>
-                      <div>RPM Limit: {info.team_member_budget_table?.rpm_limit || "No Limit"}</div>
+                      <div>Макс. бюджет: {info.team_member_budget_table?.max_budget || "Без ограничений"}</div>
+                      <div>Период бюджета: {info.team_member_budget_table?.budget_duration || "Без ограничений"}</div>
+                      <div>Длительность ключа: {info.metadata?.team_member_key_duration || "Без ограничений"}</div>
+                      <div>Лимит TPM: {info.team_member_budget_table?.tpm_limit || "Без ограничений"}</div>
+                      <div>Лимит RPM: {info.team_member_budget_table?.rpm_limit || "Без ограничений"}</div>
                     </div>
                     <div>
-                      <Text className="font-medium">Organization ID</Text>
+                      <Text className="font-medium">ID организации</Text>
                       <div>{info.organization_id}</div>
                     </div>
                     <div>
-                      <Text className="font-medium">Status</Text>
-                      <Badge color={info.blocked ? "red" : "green"}>{info.blocked ? "Blocked" : "Active"}</Badge>
+                      <Text className="font-medium">Статус</Text>
+                      <Badge color={info.blocked ? "red" : "green"}>{info.blocked ? "Заблокировано" : "Активно"}</Badge>
                     </div>
 
                     <div>
-                      <Text className="font-medium">Disable Global Guardrails</Text>
+                      <Text className="font-medium">Отключить глобальные Guardrails</Text>
                       <div>
                         {info.metadata?.disable_global_guardrails === true ? (
-                          <Badge color="yellow">Enabled - Global guardrails bypassed</Badge>
+                          <Badge color="yellow">Включено — глобальные guardrails обходятся</Badge>
                         ) : (
-                          <Badge color="green">Disabled - Global guardrails active</Badge>
+                          <Badge color="green">Отключено — глобальные guardrails активны</Badge>
                         )}
                       </div>
                     </div>
@@ -1409,7 +1409,7 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
 
                     {info.metadata?.secret_manager_settings && (
                       <div className="pt-4 border-t border-gray-200">
-                        <Text className="font-medium">Secret Manager Settings</Text>
+                        <Text className="font-medium">Настройки менеджера секретов</Text>
                         <pre className="mt-2 bg-gray-50 p-3 rounded text-xs overflow-x-auto">
                           {JSON.stringify(info.metadata.secret_manager_settings, null, 2)}
                         </pre>
@@ -1430,20 +1430,20 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
         initialData={selectedEditMember}
         mode="edit"
         config={{
-          title: "Edit Member",
+          title: "Редактировать участника",
           showEmail: true,
           showUserId: true,
           roleOptions: [
-            { label: "Admin", value: "admin" },
-            { label: "User", value: "user" },
+            { label: "Администратор", value: "admin" },
+            { label: "Пользователь", value: "user" },
           ],
           additionalFields: [
             {
               name: "max_budget_in_team",
               label: (
                 <span>
-                  Team Member Budget (USD){" "}
-                  <Tooltip title="Maximum amount in USD this member can spend within this team. This is separate from any global user budget limits">
+                  Бюджет участника команды (USD){" "}
+                  <Tooltip title="Максимальная сумма в USD, которую этот участник может потратить в рамках данной команды. Не зависит от глобальных бюджетных ограничений пользователя">
                     <InfoCircleOutlined style={{ marginLeft: "4px" }} />
                   </Tooltip>
                 </span>
@@ -1451,14 +1451,14 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
               type: "numerical" as const,
               step: 0.01,
               min: 0,
-              placeholder: "Budget limit for this member within this team",
+              placeholder: "Лимит бюджета для этого участника в данной команде",
             },
             {
               name: "tpm_limit",
               label: (
                 <span>
-                  Team Member TPM Limit{" "}
-                  <Tooltip title="Maximum tokens per minute this member can use within this team. This is separate from any global user TPM limit">
+                  Лимит TPM участника команды{" "}
+                  <Tooltip title="Максимальное количество токенов в минуту для этого участника в данной команде. Не зависит от глобальных ограничений пользователя">
                     <InfoCircleOutlined style={{ marginLeft: "4px" }} />
                   </Tooltip>
                 </span>
@@ -1466,14 +1466,14 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
               type: "numerical" as const,
               step: 1,
               min: 0,
-              placeholder: "Tokens per minute limit for this member in this team",
+              placeholder: "Лимит токенов в минуту для этого участника в данной команде",
             },
             {
               name: "rpm_limit",
               label: (
                 <span>
-                  Team Member RPM Limit{" "}
-                  <Tooltip title="Maximum requests per minute this member can make within this team. This is separate from any global user RPM limit">
+                  Лимит RPM участника команды{" "}
+                  <Tooltip title="Максимальное количество запросов в минуту для этого участника в данной команде. Не зависит от глобальных ограничений пользователя">
                     <InfoCircleOutlined style={{ marginLeft: "4px" }} />
                   </Tooltip>
                 </span>
@@ -1481,7 +1481,7 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
               type: "numerical" as const,
               step: 1,
               min: 0,
-              placeholder: "Requests per minute limit for this member in this team",
+              placeholder: "Лимит запросов в минуту для этого участника в данной команде",
             },
           ],
         }}
@@ -1498,14 +1498,14 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
       {/* Delete Member Confirmation Modal */}
       <DeleteResourceModal
         isOpen={isDeleteModalOpen}
-        title="Delete Team Member"
-        alertMessage="Removing team members will also delete any keys created by or created for this member."
-        message="Are you sure you want to remove this member from the team? This action cannot be undone."
-        resourceInformationTitle="Team Member Information"
+        title="Удалить участника команды"
+        alertMessage="Удаление участников команды также удалит все ключи, созданные ими или для них."
+        message="Вы уверены, что хотите удалить этого участника из команды? Это действие нельзя отменить."
+        resourceInformationTitle="Информация об участнике"
         resourceInformation={[
-          { label: "User ID", value: memberToDelete?.user_id, code: true },
+          { label: "ID пользователя", value: memberToDelete?.user_id, code: true },
           { label: "Email", value: memberToDelete?.user_email },
-          { label: "Role", value: memberToDelete?.role },
+          { label: "Роль", value: memberToDelete?.role },
         ]}
         onCancel={handleDeleteCancel}
         onOk={handleDeleteConfirm}

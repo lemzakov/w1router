@@ -42,15 +42,15 @@ const TeamsTable = ({
     <Table>
       <TableHead>
         <TableRow>
-          <TableHeaderCell>Team Name</TableHeaderCell>
-          <TableHeaderCell>Team ID</TableHeaderCell>
-          <TableHeaderCell>Created</TableHeaderCell>
-          <TableHeaderCell>Spend (USD)</TableHeaderCell>
-          <TableHeaderCell>Budget (USD)</TableHeaderCell>
-          <TableHeaderCell>Models</TableHeaderCell>
-          <TableHeaderCell>Organization</TableHeaderCell>
-          <TableHeaderCell>Your Role</TableHeaderCell>
-          <TableHeaderCell>Info</TableHeaderCell>
+          <TableHeaderCell>Название команды</TableHeaderCell>
+          <TableHeaderCell>ID команды</TableHeaderCell>
+          <TableHeaderCell>Создано</TableHeaderCell>
+          <TableHeaderCell>Расходы (USD)</TableHeaderCell>
+          <TableHeaderCell>Бюджет (USD)</TableHeaderCell>
+          <TableHeaderCell>Модели</TableHeaderCell>
+          <TableHeaderCell>Организация</TableHeaderCell>
+          <TableHeaderCell>Ваша роль</TableHeaderCell>
+          <TableHeaderCell>Информация</TableHeaderCell>
         </TableRow>
       </TableHead>
 
@@ -116,7 +116,7 @@ const TeamsTable = ({
                       overflow: "hidden",
                     }}
                   >
-                    {team["max_budget"] !== null && team["max_budget"] !== undefined ? team["max_budget"] : "No limit"}
+                    {team["max_budget"] !== null && team["max_budget"] !== undefined ? team["max_budget"] : "Без ограничений"}
                   </TableCell>
                   <ModelsCell team={team} />
                   <TableCell>{team.organization_id}</TableCell>
@@ -128,7 +128,7 @@ const TeamsTable = ({
                         perTeamInfo[team.team_id] &&
                         perTeamInfo[team.team_id].keys &&
                         perTeamInfo[team.team_id].keys.length}{" "}
-                      Keys
+                      Ключей
                     </Text>
                     <Text>
                       {perTeamInfo &&
@@ -137,7 +137,7 @@ const TeamsTable = ({
                         perTeamInfo[team.team_id].team_info &&
                         perTeamInfo[team.team_id].team_info.members_with_roles &&
                         perTeamInfo[team.team_id].team_info.members_with_roles.length}{" "}
-                      Members
+                      Участников
                     </Text>
                   </TableCell>
                   <TableCell>

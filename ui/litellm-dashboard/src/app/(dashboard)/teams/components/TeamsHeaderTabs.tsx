@@ -15,12 +15,12 @@ const TeamsHeaderTabs = ({ lastRefreshed, onRefresh, userRole, children }: Teams
     <TabGroup className="gap-2 h-[75vh] w-full">
       <TabList className="flex justify-between mt-2 w-full items-center">
         <div className="flex">
-          <Tab>Your Teams</Tab>
-          <Tab>Available Teams</Tab>
-          {isAdminRole(userRole || "") && <Tab>Default Team Settings</Tab>}
+          <Tab>Ваши команды</Tab>
+          <Tab>Доступные команды</Tab>
+          {isAdminRole(userRole || "") && <Tab>Настройки команды по умолчанию</Tab>}
         </div>
         <div className="flex items-center space-x-2">
-          {lastRefreshed && <Text>Last Refreshed: {lastRefreshed}</Text>}
+          {lastRefreshed && <Text>Последнее обновление: {lastRefreshed}</Text>}
           <Icon
             icon={RefreshIcon} // Modify as necessary for correct icon name
             variant="shadow"
