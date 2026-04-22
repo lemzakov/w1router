@@ -162,7 +162,7 @@ export const CreateUserButton: React.FC<CreateuserProps> = ({
         setIsInvitationLinkModalVisible(true);
       }
 
-      NotificationsManager.success("API user Created");
+      NotificationsManager.success("Пользователь API создан");
       form.resetFields();
       localStorage.removeItem("userData" + userID);
     } catch (error: any) {
@@ -177,13 +177,12 @@ export const CreateUserButton: React.FC<CreateuserProps> = ({
     return (
       <Form form={form} onFinish={handleCreate} labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} labelAlign="left">
         <Alert
-          message="Email invitations"
+          message="Приглашения по электронной почте"
           description={
             <>
-              New users receive an email invite only when an email integration (SMTP, Resend, or SendGrid) is
-              configured.{" "}
+              Новые пользователи получают приглашение по электронной почте только при настроенной интеграции (SMTP, Resend или SendGrid).{" "}
               <Link href="https://docs.litellm.ai/docs/proxy/email" target="_blank">
-                Learn how to set up email notifications
+                Узнать, как настроить уведомления по электронной почте
               </Link>
             </>
           }
@@ -191,10 +190,10 @@ export const CreateUserButton: React.FC<CreateuserProps> = ({
           showIcon
           className="mb-4"
         />
-        <Form.Item label="User Email" name="user_email">
+        <Form.Item label="Email пользователя" name="user_email">
           <TextInput placeholder="" />
         </Form.Item>
-        <Form.Item label="User Role" name="user_role">
+        <Form.Item label="Роль пользователя" name="user_role">
           <Select2>
             {possibleUIRoles &&
               Object.entries(possibleUIRoles).map(([role, { ui_label, description }]) => (
@@ -209,16 +208,16 @@ export const CreateUserButton: React.FC<CreateuserProps> = ({
               ))}
           </Select2>
         </Form.Item>
-        <Form.Item label="Team" name="team_id">
+        <Form.Item label="Команда" name="team_id">
           <TeamDropdown />
         </Form.Item>
 
-        <Form.Item label="Metadata" name="metadata">
-          <Input.TextArea rows={4} placeholder="Enter metadata as JSON" />
+        <Form.Item label="Метаданные" name="metadata">
+          <Input.TextArea rows={4} placeholder="Введите метаданные в формате JSON" />
         </Form.Item>
 
         <div style={{ textAlign: "right", marginTop: "10px" }}>
-          <Button htmlType="submit">Create User</Button>
+          <Button htmlType="submit">Создать пользователя</Button>
         </div>
       </Form>
     );
@@ -228,11 +227,11 @@ export const CreateUserButton: React.FC<CreateuserProps> = ({
   return (
     <div className="flex gap-2">
       <Button type="primary" className="mb-0" onClick={() => setIsModalVisible(true)}>
-        + Invite User
+        + Пригласить пользователя
       </Button>
       <BulkCreateUsers accessToken={accessToken} teams={teams} possibleUIRoles={possibleUIRoles} />
       <Modal
-        title="Invite User"
+        title="Пригласить пользователя"
         open={isModalVisible}
         width={800}
         footer={null}
@@ -240,15 +239,14 @@ export const CreateUserButton: React.FC<CreateuserProps> = ({
         onCancel={handleCancel}
       >
         <Space direction="vertical" size="middle">
-          <Text className="mb-1">Create a User who can own keys</Text>
+          <Text className="mb-1">Создайте пользователя, который может владеть ключами</Text>
           <Alert
-            message="Email invitations"
+            message="Приглашения по электронной почте"
             description={
               <>
-                New users receive an email invite only when an email integration (SMTP, Resend, or SendGrid) is
-                configured.{" "}
+                Новые пользователи получают приглашение по электронной почте только при настроенной интеграции (SMTP, Resend или SendGrid).{" "}
                 <Link href="https://docs.litellm.ai/docs/proxy/email" target="_blank">
-                  Learn how to set up email notifications
+                  Узнать, как настроить уведомления по электронной почте
                 </Link>
               </>
             }
@@ -258,14 +256,14 @@ export const CreateUserButton: React.FC<CreateuserProps> = ({
           />
         </Space>
         <Form form={form} onFinish={handleCreate} labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} labelAlign="left">
-          <Form.Item label="User Email" name="user_email">
+          <Form.Item label="Email пользователя" name="user_email">
             <Input />
           </Form.Item>
           <Form.Item
             label={
               <span>
-                Global Proxy Role{" "}
-                <Tooltip title="This role is independent of any team/org specific roles. Configure Team / Organization Admins in the Settings">
+                Глобальная роль прокси{" "}
+                <Tooltip title="Эта роль не зависит от ролей в командах/организациях. Настройте администраторов команды/организации в настройках">
                   <InfoCircleOutlined />
                 </Tooltip>
               </span>
@@ -287,20 +285,20 @@ export const CreateUserButton: React.FC<CreateuserProps> = ({
           </Form.Item>
 
           <Form.Item
-            label="Team"
+            label="Команда"
             className="gap-2"
             name="team_id"
-            help="If selected, user will be added as a 'user' role to the team."
+            help="При выборе пользователь будет добавлен в команду с ролью 'user'."
           >
             <TeamDropdown />
           </Form.Item>
 
           <Form.Item
-            label="Organization"
+            label="Организация"
             name="organization_ids"
-            help="The user will be added to the selected organization(s)."
+            help="Пользователь будет добавлен в выбранные организации."
           >
-            <Select mode="multiple" placeholder="Select Organization" style={{ width: "100%" }}>
+            <Select mode="multiple" placeholder="Выбрать организацию" style={{ width: "100%" }}>
               {organizations.map((org) => (
                 <Option key={org.organization_id} value={org.organization_id}>
                   {org.organization_alias} ({org.organization_id})
@@ -309,33 +307,33 @@ export const CreateUserButton: React.FC<CreateuserProps> = ({
             </Select>
           </Form.Item>
 
-          <Form.Item label="Metadata" name="metadata">
-            <Input.TextArea rows={4} placeholder="Enter metadata as JSON" />
+          <Form.Item label="Метаданные" name="metadata">
+            <Input.TextArea rows={4} placeholder="Введите метаданные в формате JSON" />
           </Form.Item>
           <Accordion>
             <AccordionHeader>
-              <Text strong>Personal Key Creation</Text>
+              <Text strong>Создание личных ключей</Text>
             </AccordionHeader>
             <AccordionBody>
               <Form.Item
                 className="gap-2"
                 label={
                   <span>
-                    Models{" "}
-                    <Tooltip title="Models user has access to, outside of team scope.">
+                    Модели{" "}
+                    <Tooltip title="Модели, доступные пользователю вне командного контекста.">
                       <InfoCircleOutlined style={{ marginLeft: "4px" }} />
                     </Tooltip>
                   </span>
                 }
                 name="models"
-                help="Models user has access to, outside of team scope."
+                help="Модели, доступные пользователю вне командного контекста."
               >
-                <Select2 mode="multiple" placeholder="Select models" style={{ width: "100%" }}>
+                <Select2 mode="multiple" placeholder="Выбрать модели" style={{ width: "100%" }}>
                   <Select2.Option key="all-proxy-models" value="all-proxy-models">
-                    All Proxy Models
+                    Все прокси-модели
                   </Select2.Option>
                   <Select2.Option key="no-default-models" value="no-default-models">
-                    No Default Models
+                    Нет моделей по умолчанию
                   </Select2.Option>
                   {userModels.map((model) => (
                     <Select2.Option key={model} value={model}>
@@ -348,7 +346,7 @@ export const CreateUserButton: React.FC<CreateuserProps> = ({
           </Accordion>
           <div style={{ textAlign: "right", marginTop: "10px" }}>
             <Button type="primary" icon={<UserAddOutlined />} htmlType="submit">
-              Invite User
+              Пригласить пользователя
             </Button>
           </div>
         </Form>

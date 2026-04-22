@@ -306,9 +306,9 @@ export default function UserInfoView({
     return (
       <div className="p-4">
         <Button icon={ArrowLeftIcon} variant="light" onClick={onClose} className="mb-4">
-          Back to Users
+          Назад к пользователям
         </Button>
-        <Text>Loading user data...</Text>
+        <Text>Загрузка данных пользователя...</Text>
       </div>
     );
   }
@@ -317,9 +317,9 @@ export default function UserInfoView({
     return (
       <div className="p-4">
         <Button icon={ArrowLeftIcon} variant="light" onClick={onClose} className="mb-4">
-          Back to Users
+          Назад к пользователям
         </Button>
-        <Text>User not found</Text>
+        <Text>Пользователь не найден</Text>
       </div>
     );
   }
@@ -353,7 +353,7 @@ export default function UserInfoView({
       <div className="flex justify-between items-center mb-6">
         <div>
           <Button icon={ArrowLeftIcon} variant="light" onClick={onClose} className="mb-4">
-            Back to Users
+            Назад к пользователям
           </Button>
           <Title>{userData.user_email || "User"}</Title>
           <div className="flex items-center cursor-pointer">
@@ -374,7 +374,7 @@ export default function UserInfoView({
         {userRole && rolesWithWriteAccess.includes(userRole) && (
           <div className="flex items-center space-x-2">
             <Button icon={RefreshIcon} variant="secondary" onClick={handleResetPassword} className="flex items-center">
-              Reset Password
+              Сбросить пароль
             </Button>
             <Button
               icon={TrashIcon}
@@ -382,7 +382,7 @@ export default function UserInfoView({
               onClick={() => setIsDeleteModalOpen(true)}
               className="flex items-center text-red-500 border-red-500 hover:text-red-600 hover:border-red-600"
             >
-              Delete User
+              Удалить пользователя
             </Button>
           </div>
         )}
@@ -390,21 +390,21 @@ export default function UserInfoView({
 
       <DeleteResourceModal
         isOpen={isDeleteModalOpen}
-        title="Delete User?"
-        message="Are you sure you want to delete this user? This action cannot be undone."
-        resourceInformationTitle="User Information"
+        title="Удалить пользователя?"
+        message="Вы уверены, что хотите удалить этого пользователя? Это действие нельзя отменить."
+        resourceInformationTitle="Информация о пользователе"
         resourceInformation={[
-          { label: "Email", value: userData.user_email },
-          { label: "User ID", value: userData.user_id, code: true },
+          { label: "Электронная почта", value: userData.user_email },
+          { label: "ID пользователя", value: userData.user_id, code: true },
           {
-            label: "Global Proxy Role",
+            label: "Глобальная роль прокси",
             value:
               (userData.user_role && possibleUIRoles?.[userData.user_role]?.ui_label) ||
               userData.user_role ||
               "-",
           },
           {
-            label: "Total Spend (USD)",
+            label: "Общие расходы (USD)",
             value:
               userData.spend !== null && userData.spend !== undefined
                 ? userData.spend.toFixed(2)
@@ -418,8 +418,8 @@ export default function UserInfoView({
 
       <TabGroup defaultIndex={activeTab} onIndexChange={setActiveTab}>
         <TabList className="mb-4">
-          <Tab>Overview</Tab>
-          <Tab>Details</Tab>
+          <Tab>Обзор</Tab>
+          <Tab>Детали</Tab>
         </TabList>
 
         <TabPanels>
@@ -427,21 +427,21 @@ export default function UserInfoView({
           <TabPanel>
             <Grid numItems={1} numItemsSm={2} numItemsLg={3} className="gap-6">
               <Card>
-                <Text>Spend</Text>
+                <Text>Расходы</Text>
                 <div className="mt-2">
                   <Title>${formatNumberWithCommas(userData.spend || 0, 4)}</Title>
                   <Text>
-                    of{" "}
+                    из{" "}
                     {userData.max_budget !== null
                       ? `$${formatNumberWithCommas(userData.max_budget, 4)}`
-                      : "Unlimited"}
+                      : "Без ограничений"}
                   </Text>
                 </div>
               </Card>
 
               <Card>
                 <div className="flex justify-between items-center mb-2">
-                  <Text>Teams</Text>
+                  <Text>Команды</Text>
                   {isProxyAdmin && (
                     <Button
                       icon={PlusIcon}
@@ -449,7 +449,7 @@ export default function UserInfoView({
                       size="xs"
                       onClick={handleOpenAddTeamModal}
                     >
-                      Add Team
+                      Добавить команду
                     </Button>
                   )}
                 </div>
@@ -459,8 +459,8 @@ export default function UserInfoView({
                     <Table>
                       <TableHead>
                         <TableRow>
-                          <TableHeaderCell>Team Name</TableHeaderCell>
-                          {isProxyAdmin && <TableHeaderCell className="text-right">Actions</TableHeaderCell>}
+                          <TableHeaderCell>Название команды</TableHeaderCell>
+                          {isProxyAdmin && <TableHeaderCell className="text-right">Действия</TableHeaderCell>}
                         </TableRow>
                       </TableHead>
                       <TableBody>
@@ -484,7 +484,7 @@ export default function UserInfoView({
                     </Table>
                     </div>
                   ) : (
-                    <Text>No teams</Text>
+                    <Text>Нет команд</Text>
                   )}
                   {!isTeamsExpanded && teamDetails.length > 20 && (
                     <Button
@@ -493,7 +493,7 @@ export default function UserInfoView({
                       className="mt-2"
                       onClick={() => setIsTeamsExpanded(true)}
                     >
-                      +{teamDetails.length - 20} more
+                      Показать ещё {teamDetails.length - 20}
                     </Button>
                   )}
                   {isTeamsExpanded && teamDetails.length > 20 && (
@@ -503,19 +503,19 @@ export default function UserInfoView({
                       className="mt-2"
                       onClick={() => setIsTeamsExpanded(false)}
                     >
-                      Show Less
+                      Свернуть
                     </Button>
                   )}
                 </div>
               </Card>
 
               <Card>
-                <Text>Personal Models</Text>
+                <Text>Личные модели</Text>
                 <div className="mt-2">
                   {userData.models?.length && userData.models?.length > 0 ? (
                     userData.models?.map((model, index) => <Text key={index}>{model}</Text>)
                   ) : (
-                    <Text>All proxy models</Text>
+                    <Text>Все прокси-модели</Text>
                   )}
                 </div>
               </Card>
@@ -526,9 +526,9 @@ export default function UserInfoView({
           <TabPanel>
             <Card>
               <div className="flex justify-between items-center mb-4">
-                <Title>User Settings</Title>
+                <Title>Настройки пользователя</Title>
                 {!isEditing && userRole && rolesWithWriteAccess.includes(userRole) && (
-                  <Button onClick={() => setIsEditing(true)}>Edit Settings</Button>
+                  <Button onClick={() => setIsEditing(true)}>Редактировать настройки</Button>
                 )}
               </div>
 
@@ -547,7 +547,7 @@ export default function UserInfoView({
               ) : (
                 <div className="space-y-4">
                   <div>
-                    <Text className="font-medium">User ID</Text>
+                    <Text className="font-medium">ID пользователя</Text>
                     <div className="flex items-center cursor-pointer">
                       <Text className="font-mono">{userData.user_id}</Text>
                       <AntdButton
@@ -565,40 +565,40 @@ export default function UserInfoView({
                   </div>
 
                   <div>
-                    <Text className="font-medium">Email</Text>
-                    <Text>{userData.user_email || "Not Set"}</Text>
+                    <Text className="font-medium">Электронная почта</Text>
+                    <Text>{userData.user_email || "Не задано"}</Text>
                   </div>
 
                   <div>
-                    <Text className="font-medium">User Alias</Text>
-                    <Text>{userData.user_alias || "Not Set"}</Text>
+                    <Text className="font-medium">Псевдоним пользователя</Text>
+                    <Text>{userData.user_alias || "Не задано"}</Text>
                   </div>
 
                   <div>
-                    <Text className="font-medium">Global Proxy Role</Text>
-                    <Text>{userData.user_role || "Not Set"}</Text>
+                    <Text className="font-medium">Глобальная роль прокси</Text>
+                    <Text>{userData.user_role || "Не задано"}</Text>
                   </div>
 
                   <div>
-                    <Text className="font-medium">Created</Text>
+                    <Text className="font-medium">Создано</Text>
                     <Text>
                       {userData.created_at
                         ? new Date(userData.created_at).toLocaleString()
-                        : "Unknown"}
+                        : "Неизвестно"}
                     </Text>
                   </div>
 
                   <div>
-                    <Text className="font-medium">Last Updated</Text>
+                    <Text className="font-medium">Последнее обновление</Text>
                     <Text>
                       {userData.updated_at
                         ? new Date(userData.updated_at).toLocaleString()
-                        : "Unknown"}
+                        : "Неизвестно"}
                     </Text>
                   </div>
 
                   <div>
-                    <Text className="font-medium">Personal Models</Text>
+                    <Text className="font-medium">Личные модели</Text>
                     <div className="flex flex-wrap gap-2 mt-1">
                       {userData.models?.length && userData.models?.length > 0 ? (
                         userData.models?.map((model, index) => (
@@ -607,27 +607,27 @@ export default function UserInfoView({
                           </span>
                         ))
                       ) : (
-                        <Text>All proxy models</Text>
+                        <Text>Все прокси-модели</Text>
                       )}
                     </div>
                   </div>
 
                   <div>
-                    <Text className="font-medium">Max Budget</Text>
+                    <Text className="font-medium">Максимальный бюджет</Text>
                     <Text>
                       {userData.max_budget !== null && userData.max_budget !== undefined
                         ? `$${formatNumberWithCommas(userData.max_budget, 4)}`
-                        : "Unlimited"}
+                        : "Без ограничений"}
                     </Text>
                   </div>
 
                   <div>
-                    <Text className="font-medium">Budget Reset</Text>
+                    <Text className="font-medium">Сброс бюджета</Text>
                     <Text>{getBudgetDurationLabel(userData.budget_duration ?? null)}</Text>
                   </div>
 
                   <div>
-                    <Text className="font-medium">Metadata</Text>
+                    <Text className="font-medium">Метаданные</Text>
                     <pre className="bg-gray-100 p-2 rounded text-xs overflow-auto mt-1">
                       {JSON.stringify(userData.metadata || {}, null, 2)}
                     </pre>
@@ -649,14 +649,14 @@ export default function UserInfoView({
       {/* Delete Team Member Modal */}
       <DeleteResourceModal
         isOpen={isRemoveTeamModalOpen}
-        title="Remove from Team"
-        alertMessage="Removing this user from the team will also delete any keys the user created for this team."
-        message="Are you sure you want to remove this user from the team? This action cannot be undone."
-        resourceInformationTitle="Team Membership"
+        title="Удалить из команды"
+        alertMessage="Удаление этого пользователя из команды также удалит все ключи, созданные пользователем для этой команды."
+        message="Вы уверены, что хотите удалить этого пользователя из команды? Это действие нельзя отменить."
+        resourceInformationTitle="Членство в команде"
         resourceInformation={[
-          { label: "Team", value: teamToRemove?.team_alias || teamToRemove?.team_id },
-          { label: "User ID", value: userData?.user_id, code: true },
-          { label: "Email", value: userData?.user_email },
+          { label: "Команда", value: teamToRemove?.team_alias || teamToRemove?.team_id },
+          { label: "ID пользователя", value: userData?.user_id, code: true },
+          { label: "Электронная почта", value: userData?.user_email },
         ]}
         onCancel={handleRemoveTeamCancel}
         onOk={handleRemoveTeamConfirm}
@@ -665,7 +665,7 @@ export default function UserInfoView({
 
       {/* Add to Team Modal */}
       <Modal
-        title="Add User to Team"
+        title="Добавить пользователя в команду"
         open={isAddTeamModalOpen}
         onCancel={() => setIsAddTeamModalOpen(false)}
         footer={null}
@@ -676,12 +676,12 @@ export default function UserInfoView({
           layout="vertical"
           onFinish={handleAddTeamSubmit}
         >
-          <Form.Item label="Team" required>
+          <Form.Item label="Команда" required>
             <AntdSelect
               showSearch
               value={selectedTeamId || undefined}
               onChange={setSelectedTeamId}
-              placeholder="Select a team"
+              placeholder="Выбрать команду"
               filterOption={(input, option) => {
                 const team = availableTeamsForAdd.find((t) => t.team_id === option?.value);
                 if (!team) return false;
@@ -697,18 +697,18 @@ export default function UserInfoView({
             </AntdSelect>
           </Form.Item>
 
-          <Form.Item label="Member Role">
+          <Form.Item label="Роль участника">
             <AntdSelect value={selectedRole} onChange={setSelectedRole}>
               <AntdSelect.Option value="user">
-                <Tooltip title="Can view team info, but not manage it">
+                <Tooltip title="Может просматривать информацию команды, но не управлять ей">
                   <span className="font-medium">user</span>
-                  <span className="ml-2 text-gray-500 text-sm">- Can view team info, but not manage it</span>
+                  <span className="ml-2 text-gray-500 text-sm">- Может просматривать информацию команды, но не управлять ей</span>
                 </Tooltip>
               </AntdSelect.Option>
               <AntdSelect.Option value="admin">
-                <Tooltip title="Can create team keys, add members, and manage settings">
+                <Tooltip title="Может создавать ключи команды, добавлять участников и управлять настройками">
                   <span className="font-medium">admin</span>
-                  <span className="ml-2 text-gray-500 text-sm">- Can create team keys, add members, and manage settings</span>
+                  <span className="ml-2 text-gray-500 text-sm">- Может создавать ключи команды, добавлять участников и управлять настройками</span>
                 </Tooltip>
               </AntdSelect.Option>
             </AntdSelect>
@@ -721,7 +721,7 @@ export default function UserInfoView({
               loading={isAddingTeam}
               disabled={!selectedTeamId}
             >
-              {isAddingTeam ? "Adding..." : "Add to Team"}
+              {isAddingTeam ? "Добавление..." : "Добавить в команду"}
             </AntdButton>
           </div>
         </Form>

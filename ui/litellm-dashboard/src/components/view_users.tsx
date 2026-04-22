@@ -312,13 +312,13 @@ const ViewUserDashboard: React.FC<ViewUserDashboardProps> = ({ accessToken, toke
                   type={selectionMode ? "primary" : "default"}
                   className="flex items-center"
                 >
-                  {selectionMode ? "Cancel Selection" : "Select Users"}
+                  {selectionMode ? "Отменить выбор" : "Выбрать пользователей"}
                 </Button>
               )}
 
               {isProxyAdmin && selectionMode && (
                 <Button type="primary" onClick={handleBulkEdit} disabled={selectedUsers.length === 0} className="flex items-center">
-                  Bulk Edit ({selectedUsers.length} selected)
+                  Массовое редактирование ({selectedUsers.length} выбрано)
                 </Button>
               )}
             </>
@@ -329,8 +329,8 @@ const ViewUserDashboard: React.FC<ViewUserDashboardProps> = ({ accessToken, toke
       {isProxyAdmin ? (
         <TabGroup defaultIndex={0} onIndexChange={(index) => setActiveTab(index === 0 ? "users" : "settings")}>
           <TabList className="mb-4">
-            <Tab>Users</Tab>
-            <Tab>Default User Settings</Tab>
+            <Tab>Пользователи</Tab>
+            <Tab>Настройки пользователей по умолчанию</Tab>
           </TabList>
 
           <TabPanels>
@@ -425,18 +425,18 @@ const ViewUserDashboard: React.FC<ViewUserDashboardProps> = ({ accessToken, toke
 
       <DeleteResourceModal
         isOpen={isDeleteModalOpen}
-        title="Delete User?"
-        message="Are you sure you want to delete this user? This action cannot be undone."
-        resourceInformationTitle="User Information"
+        title="Удалить пользователя?"
+        message="Вы уверены, что хотите удалить этого пользователя? Это действие нельзя отменить."
+        resourceInformationTitle="Информация о пользователе"
         resourceInformation={[
-          { label: "Email", value: userToDelete?.user_email },
-          { label: "User ID", value: userToDelete?.user_id, code: true },
+          { label: "Электронная почта", value: userToDelete?.user_email },
+          { label: "ID пользователя", value: userToDelete?.user_id, code: true },
           {
-            label: "Global Proxy Role",
+            label: "Глобальная роль прокси",
             value:
               (userToDelete && possibleUIRoles?.[userToDelete.user_role]?.ui_label) || userToDelete?.user_role || "-",
           },
-          { label: "Total Spend (USD)", value: userToDelete?.spend?.toFixed(2) },
+          { label: "Общие расходы (USD)", value: userToDelete?.spend?.toFixed(2) },
         ]}
         onCancel={cancelDelete}
         onOk={confirmDelete}

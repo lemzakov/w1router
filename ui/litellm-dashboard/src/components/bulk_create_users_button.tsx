@@ -459,33 +459,33 @@ const BulkCreateUsersButton: React.FC<BulkCreateUsersProps> = ({
 
   const columns = [
     {
-      title: "Row",
+      title: "Строка",
       dataIndex: "rowNumber",
       key: "rowNumber",
       width: 80,
     },
     {
-      title: "Email",
+      title: "Электронная почта",
       dataIndex: "user_email",
       key: "user_email",
     },
     {
-      title: "Role",
+      title: "Роль",
       dataIndex: "user_role",
       key: "user_role",
     },
     {
-      title: "Teams",
+      title: "Команды",
       dataIndex: "teams",
       key: "teams",
     },
     {
-      title: "Budget",
+      title: "Бюджет",
       dataIndex: "max_budget",
       key: "max_budget",
     },
     {
-      title: "Status",
+      title: "Статус",
       key: "status",
       render: (_: any, record: UserData) => {
         if (!record.isValid) {
@@ -493,21 +493,21 @@ const BulkCreateUsersButton: React.FC<BulkCreateUsersProps> = ({
             <div>
               <div className="flex items-center">
                 <XCircleIcon className="h-5 w-5 text-red-500 mr-2" />
-                <span className="text-red-500">Invalid</span>
+                <span className="text-red-500">Ошибка</span>
               </div>
               {record.error && <span className="text-sm text-red-500 ml-7">{record.error}</span>}
             </div>
           );
         }
         if (!record.status || record.status === "pending") {
-          return <span className="text-gray-500">Pending</span>;
+          return <span className="text-gray-500">Ожидание</span>;
         }
         if (record.status === "success") {
           return (
             <div>
               <div className="flex items-center">
                 <CheckCircleIcon className="h-5 w-5 text-green-500 mr-2" />
-                <span className="text-green-500">Success</span>
+                <span className="text-green-500">Успешно</span>
               </div>
               {record.invitation_link && (
                 <div className="mt-1">
@@ -515,9 +515,9 @@ const BulkCreateUsersButton: React.FC<BulkCreateUsersProps> = ({
                     <span className="text-xs text-gray-500 truncate max-w-[150px]">{record.invitation_link}</span>
                     <CopyToClipboard
                       text={record.invitation_link}
-                      onCopy={() => NotificationsManager.success("Invitation link copied!")}
+                      onCopy={() => NotificationsManager.success("Ссылка-приглашение скопирована!")}
                     >
-                      <button className="ml-1 text-blue-500 text-xs hover:text-blue-700">Copy</button>
+                      <button className="ml-1 text-blue-500 text-xs hover:text-blue-700">Копировать</button>
                     </CopyToClipboard>
                   </div>
                 </div>
@@ -529,7 +529,7 @@ const BulkCreateUsersButton: React.FC<BulkCreateUsersProps> = ({
           <div>
             <div className="flex items-center">
               <XCircleIcon className="h-5 w-5 text-red-500 mr-2" />
-              <span className="text-red-500">Failed</span>
+              <span className="text-red-500">Ошибка</span>
             </div>
             {record.error && <span className="text-sm text-red-500 ml-7">{JSON.stringify(record.error)}</span>}
           </div>
@@ -541,11 +541,11 @@ const BulkCreateUsersButton: React.FC<BulkCreateUsersProps> = ({
   return (
     <>
       <Button type="primary" className="mb-0" onClick={() => setIsModalVisible(true)}>
-        + Bulk Invite Users
+        + Массовое приглашение пользователей
       </Button>
 
       <Modal
-        title="Bulk Invite Users"
+        title="Массовое приглашение пользователей"
         open={isModalVisible}
         width={800}
         onCancel={() => setIsModalVisible(false)}
@@ -560,26 +560,26 @@ const BulkCreateUsersButton: React.FC<BulkCreateUsersProps> = ({
                 <div className="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center mr-3">
                   1
                 </div>
-                <h3 className="text-lg font-medium">Download and fill the template</h3>
+                <h3 className="text-lg font-medium">Скачайте и заполните шаблон</h3>
               </div>
 
               <div className="ml-11 mb-6">
-                <p className="mb-4">Add multiple users at once by following these steps:</p>
+                <p className="mb-4">Добавьте нескольких пользователей сразу, следуя этим шагам:</p>
                 <ol className="list-decimal list-inside space-y-2 ml-2 mb-4">
-                  <li>Download our CSV template</li>
-                  <li>Add your users&apos; information to the spreadsheet</li>
-                  <li>Save the file and upload it here</li>
-                  <li>After creation, download the results file containing the Virtual Keys for each user</li>
+                  <li>Скачайте наш CSV-шаблон</li>
+                  <li>Добавьте информацию о пользователях в таблицу</li>
+                  <li>Сохраните файл и загрузите его здесь</li>
+                  <li>После создания скачайте файл с результатами, содержащий виртуальные ключи для каждого пользователя</li>
                 </ol>
 
                 <div className="bg-gray-50 p-4 rounded-md border border-gray-200 mb-4">
-                  <h4 className="font-medium mb-2">Template Column Names</h4>
+                  <h4 className="font-medium mb-2">Названия столбцов шаблона</h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div className="flex items-start">
                       <div className="w-3 h-3 rounded-full bg-red-500 mt-1.5 mr-2 flex-shrink-0"></div>
                       <div>
                         <p className="font-medium">user_email</p>
-                        <p className="text-sm text-gray-600">User&apos;s email address (required)</p>
+                        <p className="text-sm text-gray-600">Email пользователя (обязательно)</p>
                       </div>
                     </div>
                     <div className="flex items-start">
@@ -587,7 +587,7 @@ const BulkCreateUsersButton: React.FC<BulkCreateUsersProps> = ({
                       <div>
                         <p className="font-medium">user_role</p>
                         <p className="text-sm text-gray-600">
-                          User&apos;s role (one of: &quot;proxy_admin&quot;, &quot;proxy_admin_viewer&quot;,
+                          Роль пользователя (одна из: &quot;proxy_admin&quot;, &quot;proxy_admin_viewer&quot;,
                           &quot;internal_user&quot;, &quot;internal_user_viewer&quot;)
                         </p>
                       </div>
@@ -597,7 +597,7 @@ const BulkCreateUsersButton: React.FC<BulkCreateUsersProps> = ({
                       <div>
                         <p className="font-medium">teams</p>
                         <p className="text-sm text-gray-600">
-                          Comma-separated team IDs (e.g., &quot;team-1,team-2&quot;)
+                          ID команд через запятую (например, &quot;team-1,team-2&quot;)
                         </p>
                       </div>
                     </div>
@@ -605,7 +605,7 @@ const BulkCreateUsersButton: React.FC<BulkCreateUsersProps> = ({
                       <div className="w-3 h-3 rounded-full bg-gray-300 mt-1.5 mr-2 flex-shrink-0"></div>
                       <div>
                         <p className="font-medium">max_budget</p>
-                        <p className="text-sm text-gray-600">Maximum budget as a number (e.g., &quot;100&quot;)</p>
+                        <p className="text-sm text-gray-600">Максимальный бюджет числом (например, &quot;100&quot;)</p>
                       </div>
                     </div>
                     <div className="flex items-start">
@@ -613,7 +613,7 @@ const BulkCreateUsersButton: React.FC<BulkCreateUsersProps> = ({
                       <div>
                         <p className="font-medium">budget_duration</p>
                         <p className="text-sm text-gray-600">
-                          Budget reset period (e.g., &quot;30d&quot;, &quot;1mo&quot;)
+                          Период сброса бюджета (например, &quot;30d&quot;, &quot;1mo&quot;)
                         </p>
                       </div>
                     </div>
@@ -622,7 +622,7 @@ const BulkCreateUsersButton: React.FC<BulkCreateUsersProps> = ({
                       <div>
                         <p className="font-medium">models</p>
                         <p className="text-sm text-gray-600">
-                          Comma-separated allowed models (e.g., &quot;gpt-3.5-turbo,gpt-4&quot;)
+                          Разрешённые модели через запятую (например, &quot;gpt-3.5-turbo,gpt-4&quot;)
                         </p>
                       </div>
                     </div>
@@ -630,7 +630,7 @@ const BulkCreateUsersButton: React.FC<BulkCreateUsersProps> = ({
                 </div>
 
                 <Button type="primary" size="large" className="w-full md:w-auto" icon={<DownloadOutlined />}>
-                  Download CSV Template
+                  Скачать CSV-шаблон
                 </Button>
               </div>
 
@@ -638,7 +638,7 @@ const BulkCreateUsersButton: React.FC<BulkCreateUsersProps> = ({
                 <div className="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center mr-3">
                   2
                 </div>
-                <h3 className="text-lg font-medium">Upload your completed CSV</h3>
+                <h3 className="text-lg font-medium">Загрузите заполненный CSV</h3>
               </div>
 
               <div className="ml-11">
@@ -668,7 +668,7 @@ const BulkCreateUsersButton: React.FC<BulkCreateUsersProps> = ({
                         className="flex items-center"
                         icon={<DeleteOutlined />}
                       >
-                        Remove
+                        Удалить
                       </Button>
                     </div>
 
@@ -683,7 +683,7 @@ const BulkCreateUsersButton: React.FC<BulkCreateUsersProps> = ({
                           <div className="w-full bg-gray-200 rounded-full h-1.5">
                             <div className="bg-blue-500 h-1.5 rounded-full w-full animate-pulse"></div>
                           </div>
-                          <span className="ml-2 text-xs text-blue-600">Processing...</span>
+                          <span className="ml-2 text-xs text-blue-600">Обработка...</span>
                         </div>
                       )
                     )}
@@ -692,10 +692,10 @@ const BulkCreateUsersButton: React.FC<BulkCreateUsersProps> = ({
                   <Upload beforeUpload={handleFileUpload} accept=".csv" maxCount={1} showUploadList={false}>
                     <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-500 transition-colors cursor-pointer">
                       <UploadOutlined className="text-3xl text-gray-400 mb-2" />
-                      <p className="mb-1">Drag and drop your CSV file here</p>
-                      <p className="text-sm text-gray-500 mb-3">or</p>
-                      <Button size="small">Browse files</Button>
-                      <p className="text-xs text-gray-500 mt-4">Only CSV files (.csv) are supported</p>
+                      <p className="mb-1">Перетащите CSV-файл сюда</p>
+                      <p className="text-sm text-gray-500 mb-3">или</p>
+                      <Button size="small">Выбрать файл</Button>
+                      <p className="text-xs text-gray-500 mt-4">Поддерживаются только CSV-файлы (.csv)</p>
                     </div>
                   </Upload>
                 )}
@@ -706,13 +706,13 @@ const BulkCreateUsersButton: React.FC<BulkCreateUsersProps> = ({
                       <ExclamationIcon className="h-5 w-5 text-yellow-500 mr-2 mt-0.5" />
                       <div>
                         <Typography.Text strong className="text-yellow-800">
-                          CSV Structure Error
+                          Ошибка структуры CSV
                         </Typography.Text>
                         <Typography.Paragraph className="text-yellow-700 mt-1 mb-0">
                           {csvStructureError}
                         </Typography.Paragraph>
                         <Typography.Paragraph className="text-yellow-700 mt-2 mb-0">
-                          Please download our template and ensure your CSV follows the required format.
+                          Скачайте наш шаблон и убедитесь, что CSV соответствует требуемому формату.
                         </Typography.Paragraph>
                       </div>
                     </div>
@@ -728,8 +728,8 @@ const BulkCreateUsersButton: React.FC<BulkCreateUsersProps> = ({
                 </div>
                 <h3 className="text-lg font-medium">
                   {parsedData.some((user) => user.status === "success" || user.status === "failed")
-                    ? "User Creation Results"
-                    : "Review and create users"}
+                    ? "Результаты создания пользователей"
+                    : "Проверьте и создайте пользователей"}
                 </h3>
               </div>
 
@@ -741,12 +741,11 @@ const BulkCreateUsersButton: React.FC<BulkCreateUsersProps> = ({
                       <Text className="text-red-600 font-medium">{parseError}</Text>
                       {parsedData.some((user) => !user.isValid) && (
                         <ul className="mt-2 list-disc list-inside text-red-600 text-sm">
-                          <li>Check the table below for specific errors in each row</li>
+                          <li>Проверьте таблицу ниже для деталей по каждой строке</li>
                           <li>
-                            Common issues include invalid email formats, missing required fields, or incorrect role
-                            values
+                            Частые проблемы: неверный формат email, отсутствующие обязательные поля, некорректные значения роли
                           </li>
-                          <li>Fix these issues in your CSV file and upload again</li>
+                          <li>Исправьте ошибки в CSV и загрузите снова</li>
                         </ul>
                       )}
                     </div>
@@ -759,21 +758,21 @@ const BulkCreateUsersButton: React.FC<BulkCreateUsersProps> = ({
                   <div className="flex items-center">
                     {parsedData.some((user) => user.status === "success" || user.status === "failed") ? (
                       <div className="flex items-center">
-                        <Text className="text-lg font-medium mr-3">Creation Summary</Text>
+                        <Text className="text-lg font-medium mr-3">Сводка создания</Text>
                         <Text className="text-sm bg-green-100 text-green-800 px-2 py-1 rounded mr-2">
-                          {parsedData.filter((d) => d.status === "success").length} Successful
+                          {parsedData.filter((d) => d.status === "success").length} Успешно
                         </Text>
                         {parsedData.some((d) => d.status === "failed") && (
                           <Text className="text-sm bg-red-100 text-red-800 px-2 py-1 rounded">
-                            {parsedData.filter((d) => d.status === "failed").length} Failed
+                            {parsedData.filter((d) => d.status === "failed").length} Ошибок
                           </Text>
                         )}
                       </div>
                     ) : (
                       <div className="flex items-center">
-                        <Text className="text-lg font-medium mr-3">User Preview</Text>
+                        <Text className="text-lg font-medium mr-3">Предпросмотр пользователей</Text>
                         <Text className="text-sm bg-blue-100 text-blue-800 px-2 py-1 rounded">
-                          {parsedData.filter((d) => d.isValid).length} of {parsedData.length} users valid
+                          {parsedData.filter((d) => d.isValid).length} из {parsedData.length} пользователей корректны
                         </Text>
                       </div>
                     )}
@@ -787,14 +786,14 @@ const BulkCreateUsersButton: React.FC<BulkCreateUsersProps> = ({
                           setParseError(null);
                         }}
                       >
-                        Back
+                        Назад
                       </Button>
                       <Button
                         type="primary"
                         onClick={handleBulkCreate}
                         disabled={parsedData.filter((d) => d.isValid).length === 0 || isProcessing}
                       >
-                        {isProcessing ? "Creating..." : `Create ${parsedData.filter((d) => d.isValid).length} Users`}
+                        {isProcessing ? "Создание..." : `Создать ${parsedData.filter((d) => d.isValid).length} пользователей`}
                       </Button>
                     </div>
                   )}
@@ -807,11 +806,9 @@ const BulkCreateUsersButton: React.FC<BulkCreateUsersProps> = ({
                         <CheckCircleIcon className="h-5 w-5 text-blue-500" />
                       </div>
                       <div>
-                        <Text className="font-medium text-blue-800">User creation complete</Text>
+                        <Text className="font-medium text-blue-800">Создание пользователей завершено</Text>
                         <Text className="block text-sm text-blue-700 mt-1">
-                          <span className="font-medium">Next step:</span> Download the credentials file containing
-                          Virtual Keys and invitation links. Users will need these Virtual Keys to make LLM requests
-                          through LiteLLM.
+                          <span className="font-medium">Следующий шаг:</span> Скачайте файл с учётными данными, содержащий виртуальные ключи и ссылки-приглашения. Пользователям потребуются эти виртуальные ключи для запросов через LiteLLM.
                         </Text>
                       </div>
                     </div>
@@ -836,14 +833,14 @@ const BulkCreateUsersButton: React.FC<BulkCreateUsersProps> = ({
                       }}
                       className="mr-3"
                     >
-                      Back
+                      Назад
                     </Button>
                     <Button
                       type="primary"
                       onClick={handleBulkCreate}
                       disabled={parsedData.filter((d) => d.isValid).length === 0 || isProcessing}
                     >
-                      {isProcessing ? "Creating..." : `Create ${parsedData.filter((d) => d.isValid).length} Users`}
+                      {isProcessing ? "Создание..." : `Создать ${parsedData.filter((d) => d.isValid).length} пользователей`}
                     </Button>
                   </div>
                 )}
@@ -857,10 +854,10 @@ const BulkCreateUsersButton: React.FC<BulkCreateUsersProps> = ({
                       }}
                       className="mr-3"
                     >
-                      Start New Bulk Import
+                      Новый массовый импорт
                     </Button>
                     <Button type="primary" onClick={downloadResults} icon={<DownloadOutlined />}>
-                      Download User Credentials
+                      Скачать учётные данные
                     </Button>
                   </div>
                 )}

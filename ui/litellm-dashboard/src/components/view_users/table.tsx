@@ -220,7 +220,7 @@ export function UserDataTable({
           <div className="flex flex-wrap items-center gap-3">
             {/* Email Search */}
             <FilterInput
-              placeholder="Search by email..."
+              placeholder="Поиск по email..."
               value={filters.email}
               onChange={(value) => updateFilters({ email: value })}
               icon={Search}
@@ -246,14 +246,14 @@ export function UserDataTable({
             <div className="flex flex-wrap items-center gap-3 mt-3">
               {/* User ID Search */}
               <FilterInput
-                placeholder="Filter by User ID"
+                placeholder="Фильтр по ID пользователя"
                 value={filters.user_id}
                 onChange={(value) => updateFilters({ user_id: value })}
                 icon={User}
               />
 
               <FilterInput
-                placeholder="Filter by SSO ID"
+                placeholder="Фильтр по SSO ID"
                 value={filters.sso_user_id}
                 onChange={(value) => updateFilters({ sso_user_id: value })}
                 icon={CircleUserRound}
@@ -264,7 +264,7 @@ export function UserDataTable({
                 <Select
                   value={filters.user_role}
                   onValueChange={(value) => updateFilters({ user_role: value })}
-                  placeholder="Select Role"
+                  placeholder="Выбрать роль"
                 >
                   {possibleUIRoles &&
                     Object.entries(possibleUIRoles).map(([key, value]) => (
@@ -280,7 +280,7 @@ export function UserDataTable({
                 <Select
                   value={filters.team}
                   onValueChange={(value) => updateFilters({ team: value })}
-                  placeholder="Select Team"
+                  placeholder="Выбрать команду"
                 >
                   {teams?.map((team) => (
                     <SelectItem key={team.team_id} value={team.team_id}>
@@ -298,7 +298,7 @@ export function UserDataTable({
               <Skeleton.Input active style={{ width: 192, height: 20 }} />
             ) : (
               <span className="text-sm text-gray-700">
-                Showing{" "}
+                Показано{" "}
                 {userListResponse && userListResponse.users && userListResponse.users.length > 0
                   ? (userListResponse.page - 1) * userListResponse.page_size + 1
                   : 0}{" "}
@@ -306,7 +306,7 @@ export function UserDataTable({
                 {userListResponse && userListResponse.users
                   ? Math.min(userListResponse.page * userListResponse.page_size, userListResponse.total)
                   : 0}{" "}
-                of {userListResponse ? userListResponse.total : 0} results
+                из {userListResponse ? userListResponse.total : 0} результатов
               </span>
             )}
 
@@ -326,7 +326,7 @@ export function UserDataTable({
                       currentPage === 1 ? "bg-gray-100 text-gray-400 cursor-not-allowed" : "hover:bg-gray-50"
                     }`}
                   >
-                    Previous
+                    Назад
                   </button>
                   <button
                     onClick={() => handlePageChange(currentPage + 1)}
@@ -337,7 +337,7 @@ export function UserDataTable({
                         : "hover:bg-gray-50"
                     }`}
                   >
-                    Next
+                    Далее
                   </button>
                 </>
               )}
@@ -393,7 +393,7 @@ export function UserDataTable({
                   <TableRow>
                     <TableCell colSpan={columns.length} className="h-8 text-center">
                       <div className="text-center text-gray-500">
-                        <p>🚅 Loading users...</p>
+                        <p>🚅 Загрузка пользователей...</p>
                       </div>
                     </TableCell>
                   </TableRow>
@@ -427,7 +427,7 @@ export function UserDataTable({
                   <TableRow>
                     <TableCell colSpan={columns.length} className="h-8 text-center">
                       <div className="text-center text-gray-500">
-                        <p>No users found</p>
+                        <p>Пользователи не найдены</p>
                       </div>
                     </TableCell>
                   </TableRow>

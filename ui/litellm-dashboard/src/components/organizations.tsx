@@ -221,7 +221,7 @@ const OrganizationsTable: React.FC<OrganizationsTableProps> = ({
         <Col numColSpan={1} className="flex flex-col gap-2">
           {(userRole === "Admin" || userRole === "Org Admin") && (
             <Button className="w-fit" onClick={() => setIsOrgModalVisible(true)}>
-              + Create New Organization
+              + Создать новую организацию
             </Button>
           )}
           {selectedOrgId ? (
@@ -241,10 +241,10 @@ const OrganizationsTable: React.FC<OrganizationsTableProps> = ({
             <TabGroup className="gap-2 h-[75vh] w-full">
               <TabList className="flex justify-between mt-2 w-full items-center">
                 <div className="flex">
-                  <Tab>Your Organizations</Tab>
+                  <Tab>Ваши организации</Tab>
                 </div>
                 <div className="flex items-center space-x-2">
-                  {lastRefreshed && <Text>Last Refreshed: {lastRefreshed}</Text>}
+                  {lastRefreshed && <Text>Последнее обновление: {lastRefreshed}</Text>}
                   <Icon
                     icon={RefreshIcon}
                     variant="shadow"
@@ -256,7 +256,7 @@ const OrganizationsTable: React.FC<OrganizationsTableProps> = ({
               </TabList>
               <TabPanels>
                 <TabPanel>
-                  <Text>Click on &ldquo;Organization ID&rdquo; to view organization details.</Text>
+                  <Text>Нажмите на &ldquo;ID организации&rdquo; для просмотра деталей.</Text>
                   <Grid numItems={1} className="gap-2 pt-2 pb-2 h-[75vh] w-full mt-2">
                     <Col numColSpan={1}>
                       <Card className="w-full mx-auto flex-auto overflow-hidden overflow-y-auto max-h-[50vh]">

@@ -82,26 +82,26 @@ export function UserEditView({
   return (
     <Form form={form} onFinish={handleSubmit} layout="vertical">
       {!isBulkEdit && (
-        <Form.Item label="User ID" name="user_id">
+        <Form.Item label="ID пользователя" name="user_id">
           <TextInput disabled />
         </Form.Item>
       )}
 
       {!isBulkEdit && (
-        <Form.Item label="Email" name="user_email">
+        <Form.Item label="Электронная почта" name="user_email">
           <TextInput />
         </Form.Item>
       )}
 
-      <Form.Item label="User Alias" name="user_alias">
+      <Form.Item label="Псевдоним пользователя" name="user_alias">
         <TextInput />
       </Form.Item>
 
       <Form.Item
         label={
           <span>
-            Global Proxy Role{" "}
-            <Tooltip title="This is the role that the user will globally on the proxy. This role is independent of any team/org specific roles.">
+            Глобальная роль прокси{" "}
+            <Tooltip title="Это роль пользователя глобально на прокси. Данная роль не зависит от ролей в командах/организациях.">
               <InfoCircleOutlined />
             </Tooltip>
           </span>
@@ -126,8 +126,8 @@ export function UserEditView({
       <Form.Item
         label={
           <span>
-            Personal Models{" "}
-            <Tooltip title="Select which models this user can access outside of team-scope. Choose 'All Proxy Models' to grant access to all models available on the proxy.">
+            Личные модели{" "}
+            <Tooltip title="Выберите модели, доступные этому пользователю вне командного контекста. Выберите 'Все прокси-модели' для доступа ко всем моделям прокси.">
               <InfoCircleOutlined style={{ marginLeft: "4px" }} />
             </Tooltip>
           </span>
@@ -136,15 +136,15 @@ export function UserEditView({
       >
         <Select
           mode="multiple"
-          placeholder="Select models"
+          placeholder="Выбрать модели"
           style={{ width: "100%" }}
           disabled={!all_admin_roles.includes(userRole || "")}
         >
           <Select.Option key="all-proxy-models" value="all-proxy-models">
-            All Proxy Models
+            Все прокси-модели
           </Select.Option>
           <Select.Option key="no-default-models" value="no-default-models">
-            No Default Models
+            Нет моделей по умолчанию
           </Select.Option>
           {userModels.map((model) => (
             <Select.Option key={model} value={model}>
@@ -157,12 +157,12 @@ export function UserEditView({
       <Form.Item
         label={
           <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-            <span>Max Budget (USD)</span>
+            <span>Максимальный бюджет (USD)</span>
             <Checkbox
               checked={unlimitedBudget}
               onChange={handleUnlimitedBudgetChange}
             >
-              Unlimited Budget
+              Неограниченный бюджет
             </Checkbox>
           </div>
         }
@@ -171,7 +171,7 @@ export function UserEditView({
           {
             validator: (_, value) => {
               if (!unlimitedBudget && (value === "" || value === null || value === undefined)) {
-                return Promise.reject(new Error("Please enter a budget or select Unlimited Budget"));
+                return Promise.reject(new Error("Введите бюджет или выберите «Неограниченный бюджет»"));
               }
               return Promise.resolve();
             },
@@ -186,19 +186,19 @@ export function UserEditView({
         />
       </Form.Item>
 
-      <Form.Item label="Reset Budget" name="budget_duration">
+      <Form.Item label="Сброс бюджета" name="budget_duration">
         <BudgetDurationDropdown />
       </Form.Item>
 
-      <Form.Item label="Metadata" name="metadata">
-        <Textarea rows={4} placeholder="Enter metadata as JSON" />
+      <Form.Item label="Метаданные" name="metadata">
+        <Textarea rows={4} placeholder="Введите метаданные в формате JSON" />
       </Form.Item>
 
       <div className="flex justify-end space-x-2">
         <Button variant="secondary" type="button" onClick={onCancel}>
-          Cancel
+          Отмена
         </Button>
-        <Button type="submit">Save Changes</Button>
+        <Button type="submit">Сохранить</Button>
       </div>
     </Form>
   );
