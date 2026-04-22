@@ -848,7 +848,7 @@ const ChatPage: React.FC<ChatPageProps> = ({ accessToken, userRole, userId, user
               </span>
             </div>
           )}
-          <Tooltip title={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"} placement="right">
+          <Tooltip title={sidebarCollapsed ? "Развернуть меню" : "Свернуть меню"} placement="right">
             <button
               onClick={() => setSidebarCollapsed((v) => !v)}
               style={{
