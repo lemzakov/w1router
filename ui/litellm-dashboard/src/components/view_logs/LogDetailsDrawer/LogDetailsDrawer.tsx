@@ -209,7 +209,7 @@ export function LogDetailsDrawer({
   const metadata = currentLog?.metadata || {};
 
   // Status display values
-  const statusLabel = metadata.status === "failure" ? "Failure" : "Success";
+  const statusLabel = metadata.status === "failure" ? "Ошибка" : "Успешно";
   const statusColor = metadata.status === "failure" ? ("error" as const) : ("success" as const);
   const environment = metadata?.user_api_key_team_alias || "default";
 
@@ -266,7 +266,7 @@ export function LogDetailsDrawer({
               icon={<LeftOutlined />}
               onClick={() => setIsSidebarCollapsed(true)}
               className="absolute top-2 left-2 z-20 !bg-white !border !border-slate-200 !rounded-md"
-              aria-label="Collapse trace sidebar"
+              aria-label="Свернуть панель трейса"
             />
           ) : (
             <Button
@@ -275,7 +275,7 @@ export function LogDetailsDrawer({
               icon={<RightOutlined />}
               onClick={() => setIsSidebarCollapsed(false)}
               className="absolute top-2 left-2 z-20 !bg-white !border !border-slate-200 !rounded-md"
-              aria-label="Expand trace sidebar"
+              aria-label="Развернуть панель трейса"
             />
           )}
           {!isSidebarCollapsed && (
@@ -287,7 +287,7 @@ export function LogDetailsDrawer({
               <div className="flex items-start justify-between gap-2">
                 <div>
                   <div className="text-[10px] uppercase tracking-wide text-slate-500">
-                    {isSessionMode ? "Session" : "Trace"}
+                    {isSessionMode ? "Сессия" : "Трейс"}
                   </div>
                   <div className="font-mono text-[12px] text-slate-900 leading-tight flex items-center gap-1">
                     <span className="truncate">{leftPanelDisplayId}</span>
@@ -295,7 +295,7 @@ export function LogDetailsDrawer({
                       type="button"
                       onClick={handleCopyLeftPanelId}
                       className="text-slate-400 hover:text-slate-600"
-                      aria-label="Copy trace id"
+                      aria-label="Копировать ID трейса"
                     >
                       {copiedLeftPanelId ? (
                         <CheckOutlined className="text-[11px]" />

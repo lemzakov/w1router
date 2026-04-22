@@ -24,11 +24,11 @@ const asset_logos_folder = "../ui/assets/";
 export const auditLogsPreviewImg = `${asset_logos_folder}audit-logs-preview.png`;
 
 const TABLE_NAME_DISPLAY: Record<string, string> = {
-  LiteLLM_VerificationToken: "Keys",
-  LiteLLM_TeamTable: "Teams",
-  LiteLLM_UserTable: "Users",
-  LiteLLM_OrganizationTable: "Organizations",
-  LiteLLM_ProxyModelTable: "Models",
+  LiteLLM_VerificationToken: "Ключи",
+  LiteLLM_TeamTable: "Команды",
+  LiteLLM_UserTable: "Пользователи",
+  LiteLLM_OrganizationTable: "Организации",
+  LiteLLM_ProxyModelTable: "Модели",
 };
 
 const ACTION_COLOR: Record<string, string> = {
@@ -107,7 +107,7 @@ export default function AuditLogs({
 
   const columns: ColumnsType<AuditLogEntry> = [
     {
-      title: "Timestamp",
+      title: "Метка времени",
       dataIndex: "updated_at",
       key: "updated_at",
       width: 200,
@@ -118,7 +118,7 @@ export default function AuditLogs({
       ),
     },
     {
-      title: "Action",
+      title: "Действие",
       dataIndex: "action",
       key: "action",
       width: 100,
@@ -129,14 +129,14 @@ export default function AuditLogs({
       ),
     },
     {
-      title: "Table",
+      title: "Таблица",
       dataIndex: "table_name",
       key: "table_name",
       width: 130,
       render: (val: string) => TABLE_NAME_DISPLAY[val] ?? val,
     },
     {
-      title: "Object ID",
+      title: "ID объекта",
       dataIndex: "object_id",
       key: "object_id",
       render: (val: string) => (
@@ -144,14 +144,14 @@ export default function AuditLogs({
       ),
     },
     {
-      title: "Changed By",
+      title: "Изменено кем",
       dataIndex: "changed_by",
       key: "changed_by",
       width: 200,
       render: (val: string) => <DefaultProxyAdminTag userId={val} />,
     },
     {
-      title: "API Key (Hash)",
+      title: "API-ключ (хэш)",
       dataIndex: "changed_by_api_key",
       key: "changed_by_api_key",
       width: 140,
@@ -167,16 +167,16 @@ export default function AuditLogs({
   if (!premiumUser) {
     return (
       <div style={{ textAlign: "center", marginTop: "20px" }}>
-        <h1 style={{ display: "block", marginBottom: "10px" }}>✨ Enterprise Feature.</h1>
+        <h1 style={{ display: "block", marginBottom: "10px" }}>✨ Функция уровня Enterprise.</h1>
         <p style={{ display: "block", marginBottom: "10px" }}>
-          This is a LiteLLM Enterprise feature, and requires a valid key to use.
+          Это функция LiteLLM Enterprise, для использования требуется действующий ключ.
         </p>
         <p style={{ display: "block", marginBottom: "20px", fontStyle: "italic" }}>
-          Here&apos;s a preview of what Audit Logs offer:
+          Вот предварительный просмотр возможностей журнала аудита:
         </p>
         <img
           src={auditLogsPreviewImg}
-          alt="Audit Logs Preview"
+          alt="Предварительный просмотр журнала аудита"
           style={{
             maxWidth: "100%",
             maxHeight: "700px",
@@ -201,61 +201,61 @@ export default function AuditLogs({
         {/* Header */}
         <div className="border-b px-6 py-4">
           <div className="flex items-center justify-between mb-4">
-            <h1 className="text-xl font-semibold">Audit Logs</h1>
+            <h1 className="text-xl font-semibold">Журнал аудита</h1>
           </div>
 
           {/* Filters + pagination on same row */}
           <div className="flex flex-wrap items-center gap-3">
             <Search
-              placeholder="Object ID"
+              placeholder="ID объекта"
               allowClear
               style={{ width: 200 }}
               onSearch={(val) => { setObjectId(val); resetPage(); }}
               onChange={(e) => { if (!e.target.value) { setObjectId(""); resetPage(); } }}
             />
             <Search
-              placeholder="Changed By"
+              placeholder="Изменено кем"
               allowClear
               style={{ width: 180 }}
               onSearch={(val) => { setChangedBy(val); resetPage(); }}
               onChange={(e) => { if (!e.target.value) { setChangedBy(""); resetPage(); } }}
             />
             <Search
-              placeholder="Team ID"
+              placeholder="ID команды"
               allowClear
               style={{ width: 180 }}
               onSearch={(val) => { setTeamId(val); resetPage(); }}
               onChange={(e) => { if (!e.target.value) { setTeamId(""); resetPage(); } }}
             />
             <Search
-              placeholder="Key Hash"
+              placeholder="Хэш ключа"
               allowClear
               style={{ width: 180 }}
               onSearch={(val) => { setKeyHash(val); resetPage(); }}
               onChange={(e) => { if (!e.target.value) { setKeyHash(""); resetPage(); } }}
             />
             <Select
-              placeholder="All Actions"
+              placeholder="Все действия"
               allowClear
               style={{ width: 140 }}
               options={[
-                { label: "Created", value: "created" },
-                { label: "Updated", value: "updated" },
-                { label: "Deleted", value: "deleted" },
-                { label: "Rotated", value: "rotated" },
+                { label: "Создано", value: "created" },
+                { label: "Обновлено", value: "updated" },
+                { label: "Удалено", value: "deleted" },
+                { label: "Ротировано", value: "rotated" },
               ]}
               onChange={(val) => { setAction(val); resetPage(); }}
             />
             <Select
-              placeholder="All Tables"
+              placeholder="Все таблицы"
               allowClear
               style={{ width: 150 }}
               options={[
-                { label: "Keys", value: "LiteLLM_VerificationToken" },
-                { label: "Teams", value: "LiteLLM_TeamTable" },
-                { label: "Users", value: "LiteLLM_UserTable" },
-                { label: "Organizations", value: "LiteLLM_OrganizationTable" },
-                { label: "Models", value: "LiteLLM_ProxyModelTable" },
+                { label: "Ключи", value: "LiteLLM_VerificationToken" },
+                { label: "Команды", value: "LiteLLM_TeamTable" },
+                { label: "Пользователи", value: "LiteLLM_UserTable" },
+                { label: "Организации", value: "LiteLLM_OrganizationTable" },
+                { label: "Модели", value: "LiteLLM_ProxyModelTable" },
               ]}
               onChange={(val) => { setTableName(val); resetPage(); }}
             />
@@ -271,7 +271,7 @@ export default function AuditLogs({
                 current={page}
                 pageSize={PAGE_SIZE}
                 total={total}
-                showTotal={(t) => `${t} total`}
+                showTotal={(t) => `${t} всего`}
                 showSizeChanger={false}
                 size="small"
                 onChange={(p) => setPage(p)}

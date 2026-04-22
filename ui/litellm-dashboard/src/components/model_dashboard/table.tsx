@@ -160,7 +160,7 @@ export function ModelDataTable<TData, TValue>({
                 <TableRow>
                   <TableCell colSpan={columns.length} className="h-8 text-center">
                     <div className="text-center text-gray-500">
-                      <p>🚅 Loading models...</p>
+                      <p>🚅 Загрузка моделей...</p>
                     </div>
                   </TableCell>
                 </TableRow>
@@ -194,7 +194,7 @@ export function ModelDataTable<TData, TValue>({
                 <TableRow>
                   <TableCell colSpan={columns.length} className="h-8 text-center">
                     <div className="text-center text-gray-500">
-                      <p>No models found</p>
+                      <p>Модели не найдены</p>
                     </div>
                   </TableCell>
                 </TableRow>

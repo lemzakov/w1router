@@ -38,10 +38,10 @@ export default function PlaygroundPage() {
     <div className="h-full w-full flex flex-col">
     <TabGroup className="w-full" style={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column" }}>
       <TabList className="mb-0">
-        <Tab>Chat</Tab>
-        <Tab>Compare</Tab>
-        <Tab>Compliance</Tab>
-        <Tab>Agent Builder (Experimental)</Tab>
+        <Tab>Чат</Tab>
+        <Tab>Сравнение</Tab>
+        <Tab>Соответствие</Tab>
+        <Tab>Конструктор агентов (Экспериментально)</Tab>
       </TabList>
       <TabPanels className="h-full">
         <TabPanel className="h-full">

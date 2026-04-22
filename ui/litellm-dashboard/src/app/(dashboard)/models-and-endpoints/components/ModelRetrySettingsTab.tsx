@@ -23,12 +23,12 @@ interface ModelRetrySettingsTabProps {
 }
 
 const retryPolicyMap: Record<string, string> = {
-  "BadRequestError (400)": "BadRequestErrorRetries",
-  "AuthenticationError  (401)": "AuthenticationErrorRetries",
-  "TimeoutError (408)": "TimeoutErrorRetries",
-  "RateLimitError (429)": "RateLimitErrorRetries",
-  "ContentPolicyViolationError (400)": "ContentPolicyViolationErrorRetries",
-  "InternalServerError (500)": "InternalServerErrorRetries",
+  "Некорректный запрос (400)": "BadRequestErrorRetries",
+  "Ошибка аутентификации (401)": "AuthenticationErrorRetries",
+  "Превышение времени ожидания (408)": "TimeoutErrorRetries",
+  "Превышение лимита запросов (429)": "RateLimitErrorRetries",
+  "Нарушение правил контента (400)": "ContentPolicyViolationErrorRetries",
+  "Внутренняя ошибка сервера (500)": "InternalServerErrorRetries",
 };
 
 const ModelRetrySettingsTab = ({
@@ -48,14 +48,14 @@ const ModelRetrySettingsTab = ({
     <TabPanel>
       <div className="flex items-center gap-4 mb-6">
         <div className="flex items-center">
-          <Text>Retry Policy Scope:</Text>
+          <Text>Область политики повторов:</Text>
           <Select
             className="ml-2 w-48"
             defaultValue="global"
             value={selectedModelGroup === "global" ? "global" : selectedModelGroup || availableModelGroups[0]}
             onValueChange={(value) => setSelectedModelGroup(value)}
           >
-            <SelectItem value="global">Global Default</SelectItem>
+            <SelectItem value="global">Глобальный по умолчанию</SelectItem>
             {availableModelGroups.map((group, idx) => (
               <SelectItem key={idx} value={group} onClick={() => setSelectedModelGroup(group)}>
                 {group}
@@ -67,13 +67,13 @@ const ModelRetrySettingsTab = ({
 
       {selectedModelGroup === "global" ? (
         <>
-          <Title>Global Retry Policy</Title>
-          <Text className="mb-6">Default retry settings applied to all model groups unless overridden</Text>
+          <Title>Глобальная политика повторов</Title>
+          <Text className="mb-6">Настройки повторных попыток по умолчанию, применяемые ко всем группам моделей, если не переопределены</Text>
         </>
       ) : (
         <>
-          <Title>Retry Policy for {selectedModelGroup}</Title>
-          <Text className="mb-6">Model-specific retry settings. Falls back to global defaults if not set.</Text>
+          <Title>Политика повторов для {selectedModelGroup}</Title>
+          <Text className="mb-6">Настройки повторных попыток для конкретной модели. Используются глобальные настройки по умолчанию, если не заданы.</Text>
         </>
       )}
       {retryPolicyMap && (
@@ -102,7 +102,7 @@ const ModelRetrySettingsTab = ({
                     <Text>{exceptionType}</Text>
                     {selectedModelGroup !== "global" && (
                       <Text className="text-xs text-gray-500 ml-2">
-                        (Global: {globalRetryPolicy?.[retryPolicyKey] ?? defaultRetry})
+                        (Глобальный: {globalRetryPolicy?.[retryPolicyKey] ?? defaultRetry})
                       </Text>
                     )}
                   </td>
@@ -145,7 +145,7 @@ const ModelRetrySettingsTab = ({
         </table>
       )}
       <Button className="mt-6 mr-8" onClick={handleSaveRetrySettings}>
-        Save
+        Сохранить
       </Button>
     </TabPanel>
   );

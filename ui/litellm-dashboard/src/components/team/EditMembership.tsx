@@ -131,7 +131,7 @@ const MemberModal = <T extends BaseMember>({
             step={field.step || 1}
             min={field.min || 0}
             style={{ width: "100%" }}
-            placeholder={field.placeholder || "Enter a numerical value"}
+            placeholder={field.placeholder || "Введите числовое значение"}
           />
         );
       case "select":
@@ -151,7 +151,7 @@ const MemberModal = <T extends BaseMember>({
 
   return (
     <Modal
-      title={config.title || (mode === "add" ? "Add Member" : "Edit Member")}
+      title={config.title || (mode === "add" ? "Добавить участника" : "Редактировать участника")}
       open={visible}
       width={1000}
       footer={null}
@@ -160,10 +160,10 @@ const MemberModal = <T extends BaseMember>({
       <Form form={form} onFinish={handleSubmit} labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} labelAlign="left">
         {config.showEmail && (
           <Form.Item
-            label="Email"
+            label="Электронная почта"
             name="user_email"
             className="mb-4"
-            rules={[{ type: "email", message: "Please enter a valid email!" }]}
+            rules={[{ type: "email", message: "Пожалуйста, введите корректный email!" }]}
           >
             <TextInput placeholder="user@example.com" />
           </Form.Item>
@@ -171,12 +171,12 @@ const MemberModal = <T extends BaseMember>({
 
         {config.showEmail && config.showUserId && (
           <div className="text-center mb-4">
-            <Text>OR</Text>
+            <Text>ИЛИ</Text>
           </div>
         )}
 
         {config.showUserId && (
-          <Form.Item label="User ID" name="user_id" className="mb-4">
+          <Form.Item label="ID пользователя" name="user_id" className="mb-4">
             <TextInput placeholder="user_123" />
           </Form.Item>
         )}
@@ -184,15 +184,15 @@ const MemberModal = <T extends BaseMember>({
         <Form.Item
           label={
             <div className="flex items-center gap-2">
-              <span>Role</span>
+              <span>Роль</span>
               {mode === "edit" && initialData && (
-                <span className="text-gray-500 text-sm">(Current: {getRoleLabel(initialData.role)})</span>
+                <span className="text-gray-500 text-sm">(Текущая: {getRoleLabel(initialData.role)})</span>
               )}
             </div>
           }
           name="role"
           className="mb-4"
-          rules={[{ required: true, message: "Please select a role!" }]}
+          rules={[{ required: true, message: "Пожалуйста, выберите роль!" }]}
         >
           <Select>
             {mode === "edit" && initialData
@@ -222,16 +222,16 @@ const MemberModal = <T extends BaseMember>({
 
         <div className="text-right mt-6">
           <AntButton onClick={onCancel} className="mr-2" disabled={isSubmitting}>
-            Cancel
+            Отмена
           </AntButton>
           <AntButton type="default" htmlType="submit" loading={isSubmitting}>
             {mode === "add"
               ? isSubmitting
-                ? "Adding..."
-                : "Add Member"
+                ? "Добавление..."
+                : "Добавить участника"
               : isSubmitting
-                ? "Saving..."
-                : "Save Changes"}
+                ? "Сохранение..."
+                : "Сохранить"}
           </AntButton>
         </div>
       </Form>

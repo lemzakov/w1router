@@ -65,7 +65,7 @@ const AdditionalModelSettings: React.FC<AdditionalModelSettingsProps> = ({
   return (
     <div className="space-y-4 p-4 w-80">
       <Checkbox checked={useAdvancedParams} onChange={(e) => handleUseAdvancedParamsChange(e.target.checked)}>
-        <span className="font-medium">Use Advanced Parameters</span>
+        <span className="font-medium">Использовать расширенные параметры</span>
       </Checkbox>
 
       {onMockTestFallbacksChange && (
@@ -74,7 +74,7 @@ const AdditionalModelSettings: React.FC<AdditionalModelSettingsProps> = ({
             checked={mockTestFallbacks ?? false}
             onChange={(e) => onMockTestFallbacksChange(e.target.checked)}
           >
-            <span className="font-medium">Simulate failure to test fallbacks</span>
+            <span className="font-medium">Имитировать сбой для тестирования резервных вариантов</span>
           </Checkbox>
           <Popover
             trigger="hover"
@@ -82,18 +82,17 @@ const AdditionalModelSettings: React.FC<AdditionalModelSettingsProps> = ({
             content={
               <div style={{ maxWidth: 340 }}>
                 <Typography.Paragraph className="text-sm" style={{ marginBottom: 8 }}>
-                  Causes the first request to fail so the router tries fallbacks (if configured). Use
-                  this to verify your fallback setup.
+                  Вызывает сбой первого запроса, чтобы маршрутизатор попробовал резервные варианты (если настроены). Используйте это для проверки настройки резервных вариантов.
                 </Typography.Paragraph>
                 <Typography.Paragraph className="text-sm" style={{ marginBottom: 0 }}>
-                  Behavior can differ when keys, teams, or router settings are configured.{" "}
+                  Поведение может отличаться при настройке ключей, команд или маршрутизатора.{" "}
                   <a
                     href="https://docs.litellm.ai/docs/proxy/keys_teams_router_settings"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:text-blue-800"
                   >
-                    Learn more
+                    Подробнее
                   </a>
                 </Typography.Paragraph>
               </div>
@@ -101,7 +100,7 @@ const AdditionalModelSettings: React.FC<AdditionalModelSettingsProps> = ({
           >
             <InfoCircleOutlined
               className="text-xs text-gray-400 cursor-pointer shrink-0 hover:text-gray-600"
-              aria-label="Help: Simulate failure to test fallbacks"
+              aria-label="Помощь: Имитировать сбой для тестирования резервных вариантов"
             />
           </Popover>
         </div>
@@ -111,8 +110,8 @@ const AdditionalModelSettings: React.FC<AdditionalModelSettingsProps> = ({
         <div>
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-1">
-              <Text className={`text-sm ${disabledTextColor}`}>Temperature</Text>
-              <Tooltip title="Controls randomness. Lower values make output more deterministic, higher values more creative.">
+              <Text className={`text-sm ${disabledTextColor}`}>Температура</Text>
+              <Tooltip title="Управляет случайностью. Меньшие значения делают вывод более детерминированным, большие — более творческим.">
                 <InfoCircleOutlined className={`text-xs ${disabledTextColor} cursor-help`} />
               </Tooltip>
             </div>
@@ -145,8 +144,8 @@ const AdditionalModelSettings: React.FC<AdditionalModelSettingsProps> = ({
         <div>
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-1">
-              <Text className={`text-sm ${disabledTextColor}`}>Max Tokens</Text>
-              <Tooltip title="Maximum number of tokens to generate in the response.">
+              <Text className={`text-sm ${disabledTextColor}`}>Максимум токенов</Text>
+              <Tooltip title="Максимальное количество токенов для генерации в ответе.">
                 <InfoCircleOutlined className={`text-xs ${disabledTextColor} cursor-help`} />
               </Tooltip>
             </div>

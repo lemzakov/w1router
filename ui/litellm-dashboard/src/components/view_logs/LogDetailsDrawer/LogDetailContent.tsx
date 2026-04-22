@@ -96,7 +96,7 @@ export function LogDetailContent({ logEntry, onOpenSettings, isLoadingDetails = 
         <Alert
           type="error"
           showIcon
-          message="Request Failed"
+          message="Запрос завершился ошибкой"
           description={<ErrorDescription errorInfo={errorInfo} />}
           className="mb-6"
         />
@@ -109,22 +109,22 @@ export function LogDetailContent({ logEntry, onOpenSettings, isLoadingDetails = 
 
       {/* Request Details */}
       <div className="bg-white rounded-lg shadow w-full max-w-full overflow-hidden mb-6">
-        <Card title="Request Details" size="small" bordered={false} style={{ marginBottom: 0 }}>
+        <Card title="Детали запроса" size="small" bordered={false} style={{ marginBottom: 0 }}>
           <Descriptions column={2} size="small">
-            <Descriptions.Item label="Model">{logEntry.model}</Descriptions.Item>
-            <Descriptions.Item label="Provider">{logEntry.custom_llm_provider || "-"}</Descriptions.Item>
-            <Descriptions.Item label="Call Type">{logEntry.call_type}</Descriptions.Item>
-            <Descriptions.Item label="Model ID">
+            <Descriptions.Item label="Модель">{logEntry.model}</Descriptions.Item>
+            <Descriptions.Item label="Провайдер">{logEntry.custom_llm_provider || "-"}</Descriptions.Item>
+            <Descriptions.Item label="Тип вызова">{logEntry.call_type}</Descriptions.Item>
+            <Descriptions.Item label="ID модели">
               <TruncatedValue value={logEntry.model_id} />
             </Descriptions.Item>
             <Descriptions.Item label="API Base">
               <TruncatedValue value={logEntry.api_base} maxWidth={API_BASE_MAX_WIDTH} />
             </Descriptions.Item>
             {logEntry.requester_ip_address && (
-              <Descriptions.Item label="IP Address">{logEntry.requester_ip_address}</Descriptions.Item>
+              <Descriptions.Item label="IP-адрес">{logEntry.requester_ip_address}</Descriptions.Item>
             )}
             {hasGuardrailData && (
-              <Descriptions.Item label="Guardrail">
+              <Descriptions.Item label="Защита">
                 <GuardrailLabel label={primaryGuardrailLabel} maskedCount={totalMaskedEntities} />
               </Descriptions.Item>
             )}
@@ -158,7 +158,7 @@ export function LogDetailContent({ logEntry, onOpenSettings, isLoadingDetails = 
       {isLoadingDetails ? (
         <div className="bg-white rounded-lg shadow w-full max-w-full overflow-hidden mb-6 p-8 text-center">
           <Spin size="default" />
-          <div style={{ marginTop: 8, color: "#999" }}>Loading request &amp; response data...</div>
+          <div style={{ marginTop: 8, color: "#999" }}>Загрузка данных запроса и ответа...</div>
         </div>
       ) : (
         <RequestResponseSection
@@ -210,12 +210,12 @@ function ErrorDescription({ errorInfo }: { errorInfo: any }) {
     <div>
       {errorInfo.error_code && (
         <div>
-          <Text strong>Error Code:</Text> {errorInfo.error_code}
+          <Text strong>Код ошибки:</Text> {errorInfo.error_code}
         </div>
       )}
       {errorInfo.error_message && (
         <div>
-          <Text strong>Message:</Text> {errorInfo.error_message}
+          <Text strong>Сообщение:</Text> {errorInfo.error_message}
         </div>
       )}
     </div>
@@ -226,7 +226,7 @@ function TagsSection({ tags }: { tags: Record<string, any> }) {
   return (
     <div className="bg-white rounded-lg shadow w-full max-w-full overflow-hidden p-4 mb-6">
       <Text strong style={{ display: "block", marginBottom: 8, fontSize: 16 }}>
-        Tags
+        Теги
       </Text>
       <Space size={SPACING_MEDIUM} wrap>
         {Object.entries(tags).map(([key, value]) => (
@@ -250,7 +250,7 @@ function GuardrailLabel({ label, maskedCount }: { label: string; maskedCount: nu
       <a onClick={handleClick} style={{ cursor: "pointer" }}>{label}</a>
       {maskedCount > 0 && (
         <Tag color="blue">
-          {maskedCount} masked
+          {maskedCount} замаскировано
         </Tag>
       )}
     </Space>
@@ -279,33 +279,33 @@ function MetricsSection({ logEntry, metadata }: { logEntry: LogEntry; metadata: 
 
   return (
     <div className="bg-white rounded-lg shadow w-full max-w-full overflow-hidden mb-6">
-      <Card title="Metrics" size="small" style={{ marginBottom: 0 }}>
+      <Card title="Метрики" size="small" style={{ marginBottom: 0 }}>
         <Descriptions column={2} size="small">
-          <Descriptions.Item label="Tokens">
+          <Descriptions.Item label="Токены">
             <TokenFlow
               prompt={logEntry.prompt_tokens}
               completion={logEntry.completion_tokens}
               total={logEntry.total_tokens}
             />
           </Descriptions.Item>
-          <Descriptions.Item label="Cost">${formatNumberWithCommas(logEntry.spend || 0, 8)}</Descriptions.Item>
-          <Descriptions.Item label="Duration">{logEntry.request_duration_ms != null ? (logEntry.request_duration_ms / 1000).toFixed(3) : "-"} s</Descriptions.Item>
+          <Descriptions.Item label="Стоимость">${formatNumberWithCommas(logEntry.spend || 0, 8)}</Descriptions.Item>
+          <Descriptions.Item label="Длительность">{logEntry.request_duration_ms != null ? (logEntry.request_duration_ms / 1000).toFixed(3) : "-"} s</Descriptions.Item>
           {ttftMs != null && ttftMs > 0 && (
-            <Descriptions.Item label="Time to First Token">{(ttftMs / 1000).toFixed(3)} s</Descriptions.Item>
+            <Descriptions.Item label="Время до первого токена">{(ttftMs / 1000).toFixed(3)} s</Descriptions.Item>
           )}
 
           {hasCacheActivity && (
             <>
-              <Descriptions.Item label="Cache Hit">
+              <Descriptions.Item label="Кеш-попадание">
                 <Tag color={cacheHitColor}>{cacheHitValue}</Tag>
               </Descriptions.Item>
               {metadata?.additional_usage_values?.cache_read_input_tokens > 0 && (
-                <Descriptions.Item label="Cache Read Tokens">
+                <Descriptions.Item label="Токены кеш-чтения">
                   {formatNumberWithCommas(metadata.additional_usage_values.cache_read_input_tokens)}
                 </Descriptions.Item>
               )}
               {metadata?.additional_usage_values?.cache_creation_input_tokens > 0 && (
-                <Descriptions.Item label="Cache Creation Tokens">
+                <Descriptions.Item label="Токены создания кеша">
                   {formatNumberWithCommas(metadata.additional_usage_values.cache_creation_input_tokens)}
                 </Descriptions.Item>
               )}
@@ -313,12 +313,12 @@ function MetricsSection({ logEntry, metadata }: { logEntry: LogEntry; metadata: 
           )}
 
           {metadata?.litellm_overhead_time_ms !== undefined && metadata.litellm_overhead_time_ms !== null && (
-            <Descriptions.Item label="LiteLLM Overhead">
+            <Descriptions.Item label="Накладные расходы LiteLLM">
               {metadata.litellm_overhead_time_ms.toFixed(2)} ms
             </Descriptions.Item>
           )}
 
-          <Descriptions.Item label="Retries">
+          <Descriptions.Item label="Повторы">
             {metadata?.attempted_retries !== undefined && metadata?.attempted_retries !== null
               ? metadata.attempted_retries > 0
                 ? <>{metadata.attempted_retries}{metadata.max_retries !== undefined && metadata.max_retries !== null ? ` / ${metadata.max_retries}` : ''}</>
@@ -326,10 +326,10 @@ function MetricsSection({ logEntry, metadata }: { logEntry: LogEntry; metadata: 
               : "-"}
           </Descriptions.Item>
 
-          <Descriptions.Item label="Start Time">
+          <Descriptions.Item label="Время начала">
             {moment(logEntry.startTime).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]")}
           </Descriptions.Item>
-          <Descriptions.Item label="End Time">
+          <Descriptions.Item label="Время окончания">
             {moment(logEntry.endTime).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]")}
           </Descriptions.Item>
         </Descriptions>
@@ -398,13 +398,13 @@ function RequestResponseSection({
                   }
                 }}
               >
-                <h3 className="text-lg font-medium text-gray-900" style={{ margin: 0 }}>Request & Response</h3>
+                <h3 className="text-lg font-medium text-gray-900" style={{ margin: 0 }}>Запрос и ответ</h3>
                 <Radio.Group
                   size="small"
                   value={viewMode}
                   onChange={(e) => setViewMode(e.target.value)}
                 >
-                  <Radio.Button value="pretty">Pretty</Radio.Button>
+                  <Radio.Button value="pretty">Красиво</Radio.Button>
                   <Radio.Button value="json">JSON</Radio.Button>
                 </Radio.Group>
               </div>
@@ -430,7 +430,7 @@ function RequestResponseSection({
                       <Text
                         copyable={{
                           text: getCopyText(),
-                          tooltips: ["Copy JSON", "Copied!"]
+                          tooltips: ["Копировать JSON", "Скопировано!"]
                         }}
                         disabled={activeTab === TAB_RESPONSE && !hasResponse && !hasError}
                       />
@@ -438,7 +438,7 @@ function RequestResponseSection({
                     items={[
                       {
                         key: TAB_REQUEST,
-                        label: "Request",
+                        label: "Запрос",
                         children: (
                           <div style={{ paddingTop: SPACING_XLARGE, paddingBottom: SPACING_XLARGE }}>
                             <JsonViewer data={getRawRequest()} mode="formatted" />
@@ -447,14 +447,14 @@ function RequestResponseSection({
                       },
                       {
                         key: TAB_RESPONSE,
-                        label: "Response",
+                        label: "Ответ",
                         children: (
                           <div style={{ paddingTop: SPACING_XLARGE, paddingBottom: SPACING_XLARGE }}>
                             {hasResponse || hasError ? (
                               <JsonViewer data={getFormattedResponse()} mode="formatted" />
                             ) : (
                               <div style={{ textAlign: "center", padding: 20, color: "#999", fontStyle: "italic" }}>
-                                Response data not available
+                                Данные ответа недоступны
                               </div>
                             )}
                           </div>
@@ -501,7 +501,7 @@ export function GuardrailJumpLink({ guardrailEntries }: { guardrailEntries: any[
           border: `1px solid ${allPassed ? "#bbf7d0" : "#fecaca"}`,
         }}
       >
-        {allPassed ? "\u2713" : "\u2717"} {guardrailEntries.length} guardrail{guardrailEntries.length !== 1 ? "s" : ""} evaluated
+        {allPassed ? "\u2713" : "\u2717"} {guardrailEntries.length} {guardrailEntries.length !== 1 ? "защит проверено" : "защита проверена"}
         <span style={{ fontSize: 11, opacity: 0.7 }}>{"\u2193"}</span>
       </div>
     </div>
@@ -517,14 +517,14 @@ function MetadataSection({ metadata }: { metadata: Record<string, any> }) {
         items={[
           {
             key: "1",
-            label: <h3 className="text-lg font-medium text-gray-900">Metadata</h3>,
+            label: <h3 className="text-lg font-medium text-gray-900">Метаданные</h3>,
             children: (
               <div>
                 <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 8 }}>
                   <Text
                     copyable={{
                       text: JSON.stringify(metadata, null, 2),
-                      tooltips: ["Copy Metadata", "Copied!"]
+                      tooltips: ["Копировать метаданные", "Скопировано!"]
                     }}
                   />
                 </div>

@@ -78,16 +78,16 @@ const SpendLogsSettingsModal: React.FC<SpendLogsSettingsModalProps> = ({ isVisib
 
       await mutateAsync(updateParams, {
         onSuccess: () => {
-          NotificationsManager.success("Spend logs settings updated successfully");
+          NotificationsManager.success("Настройки логов расходов успешно обновлены");
           refetch(); // Refetch config to get updated values
           onSuccess?.();
         },
         onError: (error) => {
-          NotificationsManager.fromBackend("Failed to save spend logs settings: " + parseErrorMessage(error));
+          NotificationsManager.fromBackend("Не удалось сохранить настройки логов расходов: " + parseErrorMessage(error));
         },
       });
     } catch (error) {
-      NotificationsManager.fromBackend("Failed to save spend logs settings: " + parseErrorMessage(error));
+      NotificationsManager.fromBackend("Не удалось сохранить настройки логов расходов: " + parseErrorMessage(error));
     }
   };
 
@@ -98,15 +98,15 @@ const SpendLogsSettingsModal: React.FC<SpendLogsSettingsModalProps> = ({ isVisib
 
   return (
     <Modal
-      title={<Typography.Title level={5}>Spend Logs Settings</Typography.Title>}
+      title={<Typography.Title level={5}>Настройки логов расходов</Typography.Title>}
       open={isVisible}
       footer={
         <Space>
           <Button onClick={handleCancel} disabled={isPending || isDeletingField || isLoadingConfig}>
-            Cancel
+            Отмена
           </Button>
           <Button type="primary" loading={isPending || isDeletingField} disabled={isLoadingConfig} onClick={() => form.submit()}>
-            {isPending || isDeletingField ? "Saving..." : "Save Settings"}
+            {isPending || isDeletingField ? "Сохранение..." : "Сохранить настройки"}
           </Button>
         </Space>
       }
@@ -121,11 +121,11 @@ const SpendLogsSettingsModal: React.FC<SpendLogsSettingsModalProps> = ({ isVisib
         initialValues={initialValues}
       >
         <Form.Item
-          label="Store Prompts in Spend Logs"
+          label="Сохранять запросы в логах расходов"
           name="store_prompts_in_spend_logs"
           tooltip={
             proxyConfigData?.find(f => f.field_name === 'store_prompts_in_spend_logs')?.field_description ||
-            "When enabled, prompts will be stored in spend logs for tracking and analysis purposes."
+            "Если включено, запросы будут сохраняться в логах расходов для отслеживания и анализа."
           }
           valuePropName="checked"
         >
@@ -136,11 +136,11 @@ const SpendLogsSettingsModal: React.FC<SpendLogsSettingsModalProps> = ({ isVisib
         </Form.Item>
 
         <Form.Item
-          label="Maximum Spend Logs Retention Period (Optional)"
+          label="Максимальный период хранения логов расходов (опционально)"
           name="maximum_spend_logs_retention_period"
           tooltip={
             proxyConfigData?.find(f => f.field_name === 'maximum_spend_logs_retention_period')?.field_description ||
-            "Set the maximum retention period for spend logs (e.g., '7d' for 7 days, '30d' for 30 days). Leave empty for no limit."
+            "Установите максимальный период хранения логов расходов (например, '7d' — 7 дней, '30d' — 30 дней). Оставьте пустым для хранения без ограничений."
           }
         >
           {isLoadingConfig ? <Skeleton.Input active block /> : <Input

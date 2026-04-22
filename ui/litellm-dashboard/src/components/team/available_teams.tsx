@@ -55,12 +55,12 @@ const AvailableTeamsPanel: React.FC<AvailableTeamsProps> = ({ accessToken, userI
         role: "user",
       });
 
-      NotificationsManager.success("Successfully joined team");
+      NotificationsManager.success("Вы успешно вступили в команду");
       // Update available teams list
       setAvailableTeams((teams) => teams.filter((team) => team.team_id !== teamId));
     } catch (error) {
       console.error("Error joining team:", error);
-      NotificationsManager.fromBackend("Failed to join team");
+      NotificationsManager.fromBackend("Не удалось присоединиться к команде");
     }
   };
 
@@ -69,11 +69,11 @@ const AvailableTeamsPanel: React.FC<AvailableTeamsProps> = ({ accessToken, userI
       <Table>
         <TableHead>
           <TableRow>
-            <TableHeaderCell>Team Name</TableHeaderCell>
-            <TableHeaderCell>Description</TableHeaderCell>
-            <TableHeaderCell>Members</TableHeaderCell>
-            <TableHeaderCell>Models</TableHeaderCell>
-            <TableHeaderCell>Actions</TableHeaderCell>
+            <TableHeaderCell>Название команды</TableHeaderCell>
+            <TableHeaderCell>Описание</TableHeaderCell>
+            <TableHeaderCell>Участники</TableHeaderCell>
+            <TableHeaderCell>Модели</TableHeaderCell>
+            <TableHeaderCell>Действия</TableHeaderCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -83,10 +83,10 @@ const AvailableTeamsPanel: React.FC<AvailableTeamsProps> = ({ accessToken, userI
                 <Text>{team.team_alias}</Text>
               </TableCell>
               <TableCell>
-                <Text>{team.description || "No description available"}</Text>
+                <Text>{team.description || "Описание отсутствует"}</Text>
               </TableCell>
               <TableCell>
-                <Text>{team.members_with_roles.length} members</Text>
+                <Text>{team.members_with_roles.length} участников</Text>
               </TableCell>
               <TableCell>
                 <div className="flex flex-col">
@@ -105,7 +105,7 @@ const AvailableTeamsPanel: React.FC<AvailableTeamsProps> = ({ accessToken, userI
               </TableCell>
               <TableCell>
                 <Button size="xs" variant="secondary" onClick={() => handleJoinTeam(team.team_id)}>
-                  Join Team
+                  Присоединиться к команде
                 </Button>
               </TableCell>
             </TableRow>
@@ -113,14 +113,14 @@ const AvailableTeamsPanel: React.FC<AvailableTeamsProps> = ({ accessToken, userI
           {availableTeams.length === 0 && (
             <TableRow>
               <TableCell colSpan={5} className="text-center">
-                <Text>No available teams to join. See how to set available teams{" "}
+                <Text>Нет доступных команд для вступления. Смотрите как настроить доступные команды{" "}
                   <a
                     href="https://docs.litellm.ai/docs/proxy/self_serve#all-settings-for-self-serve--sso-flow"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-500 hover:text-blue-700 underline"
                   >
-                    here
+                    здесь
                   </a>.
                 </Text>
               </TableCell>
