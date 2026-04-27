@@ -1,5 +1,5 @@
 "use client";
-import { useTranslation, getI18n } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 import { Layout, Menu, ConfigProvider } from "antd";
 import {
@@ -34,8 +34,6 @@ import { useRouter, usePathname } from "next/navigation";
 import { all_admin_roles, internalUserRoles, isAdminRole, rolesWithWriteAccess } from "@/utils/roles";
 import UsageIndicator from "@/components/UsageIndicator";
 import { serverRootPath } from "@/components/networking";
-const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
-
 const { Sider } = Layout;
 
 // -------- Types --------
@@ -159,7 +157,7 @@ const toHref = (slugOrPath: string) => {
 };
 
 // ----- Menu config (unchanged labels/icons; same appearance) -----
-const menuItems: MenuItemCfg[] = [
+const buildMenuItems = (t: (key: string) => string): MenuItemCfg[] => [
   { key: "1", page: "api-keys", label: t('Virtualnye_klyuchi'), icon: <KeyOutlined style={{ fontSize: 18 }} /> },
   {
     key: "3",
@@ -332,13 +330,13 @@ const router = useRouter();
 
   // ----- Filter by role without mutating originals -----
   const filteredMenuItems = React.useMemo<MenuItemCfg[]>(() => {
-    return menuItems
+    return buildMenuItems(t)
       .filter((item) => !item.roles || item.roles.includes(userRole))
       .map((item) => ({
         ...item,
         children: item.children ? item.children.filter((c) => !c.roles || c.roles.includes(userRole)) : undefined,
       }));
-  }, [userRole]);
+  }, [userRole, t]);
 
   // ----- Compute selected key from current path -----
   const selectedMenuKey = React.useMemo(() => {
