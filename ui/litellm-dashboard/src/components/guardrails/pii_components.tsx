@@ -1,3 +1,4 @@
+import "@/i18n";
 import React from "react";
 import { Typography, Select, Button, Checkbox, Tooltip, Tag } from "antd";
 import { CloseOutlined, EyeInvisibleOutlined, StopOutlined, FilterOutlined } from "@ant-design/icons";

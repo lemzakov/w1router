@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 
+import "@/i18n";
 import React, { useState } from "react";
 import { Card, Typography, Space, Alert, Button, Switch, Form, Collapse } from "antd";
 import { TabPanel, TabPanels, TabGroup, TabList, Tab, Title as TremorTitle, Text as TremorText } from "@tremor/react";

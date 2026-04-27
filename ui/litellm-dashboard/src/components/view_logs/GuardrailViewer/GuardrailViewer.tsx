@@ -1,3 +1,4 @@
+import "@/i18n";
 import React, { useState, useMemo } from "react";
 import { Tooltip } from "antd";
 import PresidioDetectedEntities from "./PresidioDetectedEntities";

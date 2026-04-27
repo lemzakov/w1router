@@ -1,3 +1,4 @@
+import "@/i18n";
 import { useModelCostMap } from "@/app/(dashboard)/hooks/models/useModelCostMap";
 import { ArrowRightIcon, PlayIcon, TrashIcon } from "@heroicons/react/outline";
 import { Icon, Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow } from "@tremor/react";

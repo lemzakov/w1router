@@ -4,6 +4,7 @@
  * in a readable format instead of raw JSON.
  */
 
+import "@/i18n";
 import { useState } from 'react';
 import { Typography, Tag, Tooltip } from 'antd';
 import {

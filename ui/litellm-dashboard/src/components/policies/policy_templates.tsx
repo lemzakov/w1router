@@ -1,3 +1,4 @@
+import "@/i18n";
 import React, { useState, useEffect, useMemo } from "react";
 import { Card, Button, Spin, Checkbox } from "antd";
 import MessageManager from "@/components/molecules/message_manager";

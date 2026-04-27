@@ -1,3 +1,4 @@
+import "@/i18n";
 import React from "react";
 import { Button, TextInput } from "@tremor/react";
 import { MCPTool, InputSchema, InputSchemaProperty } from "./types";

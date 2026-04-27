@@ -1,4 +1,5 @@
 "use client";
+import "@/i18n";
 import { useTranslation, getI18n } from "react-i18next";
 
 import NotificationsManager from "@/components/molecules/notifications_manager";

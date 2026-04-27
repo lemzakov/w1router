@@ -1,4 +1,5 @@
 "use client";
+import "@/i18n";
 import { useTranslation, getI18n } from "react-i18next";
 
 import { CommentOutlined, DeleteOutlined, ExperimentOutlined, LinkOutlined, PlusOutlined, RobotOutlined, SaveOutlined } from "@ant-design/icons";

@@ -1,3 +1,4 @@
+import "@/i18n";
 import { ColumnDef } from "@tanstack/react-table";
 import { Tooltip, Checkbox } from "antd";
 import { Text } from "@tremor/react";

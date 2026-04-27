@@ -1,3 +1,4 @@
+import "@/i18n";
 import React, { useEffect, useState, useImperativeHandle, forwardRef, useRef } from "react";
 import { TabPanel, TabPanels, TabGroup, TabList, Tab } from "@tremor/react";
 import { getRouterSettingsCall } from "../networking";

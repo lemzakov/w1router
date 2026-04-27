@@ -1,3 +1,4 @@
+import "@/i18n";
 import React, { useState } from "react";
 import { useTranslation, getI18n } from "react-i18next";
 const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;

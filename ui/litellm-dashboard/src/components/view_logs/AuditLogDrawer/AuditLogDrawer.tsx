@@ -1,3 +1,4 @@
+import "@/i18n";
 import { Drawer, Tag, Typography } from "antd";
 import { CloseOutlined, CopyOutlined, CheckOutlined } from "@ant-design/icons";
 import { useState, useCallback } from "react";

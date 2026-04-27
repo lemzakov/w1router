@@ -1,5 +1,6 @@
 "use client";
 
+import "@/i18n";
 import { Suspense, useEffect, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import { getSecureItem, setSecureItem } from "@/utils/secureStorage";

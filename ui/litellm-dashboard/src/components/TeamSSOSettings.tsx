@@ -1,3 +1,4 @@
+import "@/i18n";
 import React, { useState, useEffect } from "react";
 import { Card, Button, InputNumber, Typography, Spin, Select, Tag, Row, Col } from "antd";
 import { EditOutlined, SaveOutlined } from "@ant-design/icons";

@@ -1,3 +1,4 @@
+import "@/i18n";
 import { ColumnDef } from "@tanstack/react-table";
 import { Button, Badge, Text } from "@tremor/react";
 import { Tooltip, Tag } from "antd";

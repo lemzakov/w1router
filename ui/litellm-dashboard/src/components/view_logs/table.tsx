@@ -1,3 +1,4 @@
+import "@/i18n";
 import { Fragment, useState } from "react";
 import { ColumnDef, flexRender, getCoreRowModel, getExpandedRowModel, Row, useReactTable, getSortedRowModel, SortingState } from "@tanstack/react-table";
 

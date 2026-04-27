@@ -1,5 +1,6 @@
 "use client";
 
+import "@/i18n";
 import React, { useState, useEffect, useCallback } from "react";
 import {
   SearchIcon,

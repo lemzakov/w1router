@@ -1,3 +1,4 @@
+import "@/i18n";
 import React from "react";
 import { Form, Select, Typography, Input, Button } from "antd";
 import NumericalInput from "../shared/numerical_input";

@@ -1,5 +1,6 @@
 "use client";
 
+import "@/i18n";
 import { ToolOutlined, CopyOutlined, CheckOutlined, EditOutlined } from "@ant-design/icons";
 import { Collapse, Tooltip } from "antd";
 import React, { useEffect, useRef, useState } from "react";

@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react/no-unescaped-entities */
+import "@/i18n";
 import React from "react";
 import { Select, Tooltip, Divider } from "antd";
 import { InfoCircleOutlined } from "@ant-design/icons";

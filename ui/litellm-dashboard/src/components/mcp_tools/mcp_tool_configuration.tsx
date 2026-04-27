@@ -1,3 +1,4 @@
+import "@/i18n";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Card, Title, Text } from "@tremor/react";
 import { ToolOutlined, CheckCircleOutlined, SearchOutlined, EditOutlined } from "@ant-design/icons";

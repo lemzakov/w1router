@@ -1,3 +1,4 @@
+import "@/i18n";
 import { getSpendString } from "@/utils/dataUtils";
 import type { ColumnDef } from "@tanstack/react-table";
 import { Badge, Button } from "@tremor/react";

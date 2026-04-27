@@ -1,3 +1,4 @@
+import "@/i18n";
 import { keepPreviousData, useQuery, useQueryClient } from "@tanstack/react-query";
 import moment from "moment";
 import { useCallback, useDeferredValue, useEffect, useRef, useState } from "react";

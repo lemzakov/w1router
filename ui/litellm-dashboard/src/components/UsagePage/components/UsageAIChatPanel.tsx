@@ -1,3 +1,4 @@
+import "@/i18n";
 import React, { useEffect, useRef, useState } from "react";
 import { Button, Select, Input, Spin } from "antd";
 import ReactMarkdown from "react-markdown";

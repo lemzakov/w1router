@@ -1,3 +1,4 @@
+import "@/i18n";
 import React, { useState, useEffect } from "react";
 import { Text, Button, Icon, Title } from "@tremor/react";
 import { deletePassThroughEndpointsCall, getPassThroughEndpointsCall } from "./networking";

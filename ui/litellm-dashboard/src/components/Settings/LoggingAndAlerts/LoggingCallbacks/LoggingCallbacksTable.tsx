@@ -1,3 +1,4 @@
+import "@/i18n";
 import { Button } from "@tremor/react";
 import type { TableProps } from "antd";
 import { Table } from "antd";

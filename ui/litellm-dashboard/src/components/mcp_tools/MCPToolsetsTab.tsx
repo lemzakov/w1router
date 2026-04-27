@@ -1,3 +1,4 @@
+import "@/i18n";
 import React, { useState, useCallback } from "react";
 import { Button, Text, Title } from "@tremor/react";
 import { Modal, Form, Input, message, Spin, Card, Typography, Space } from "antd";

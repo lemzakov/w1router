@@ -1,3 +1,4 @@
+import "@/i18n";
 import { useState } from "react";
 import { Typography, Descriptions, Card, Tag, Tabs, Alert, Collapse, Radio, Space, Spin } from "antd";
 import moment from "moment";

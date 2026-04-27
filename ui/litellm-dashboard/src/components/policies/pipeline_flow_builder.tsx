@@ -1,3 +1,4 @@
+import "@/i18n";
 import React, { useState } from "react";
 import { Select, Typography, Spin } from "antd";
 import MessageManager from "@/components/molecules/message_manager";

@@ -1,3 +1,4 @@
+import "@/i18n";
 import { useState } from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import { MCPServer } from "./types";

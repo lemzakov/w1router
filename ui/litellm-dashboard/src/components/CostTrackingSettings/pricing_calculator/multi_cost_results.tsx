@@ -1,3 +1,4 @@
+import "@/i18n";
 import React, { useState } from "react";
 import { Text, Button } from "@tremor/react";
 import { Card, Statistic, Row, Col, Divider, Spin, Table, Tag } from "antd";

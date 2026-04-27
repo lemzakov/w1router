@@ -1,5 +1,6 @@
 "use client";
 
+import "@/i18n";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Spin, Input, Button, Skeleton } from "antd";
 import { SearchOutlined, ArrowLeftOutlined, RightOutlined, ToolOutlined, CheckCircleOutlined } from "@ant-design/icons";

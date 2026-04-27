@@ -1,3 +1,4 @@
+import "@/i18n";
 import { Button, Space, Tag, Tooltip, Typography } from "antd";
 import { CloseOutlined, UpOutlined, DownOutlined } from "@ant-design/icons";
 import moment from "moment";
