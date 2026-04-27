@@ -13,6 +13,7 @@ i18n
       ru: { translation: ru },
       en: { translation: en },
     },
+    lng: "ru",
     fallbackLng: "ru",
     defaultNS: "translation",
     interpolation: {
