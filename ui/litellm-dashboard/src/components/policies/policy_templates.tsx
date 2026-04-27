@@ -9,7 +9,8 @@ import {
   CheckCircleIcon,
 } from "@heroicons/react/outline";
 import { getPolicyTemplates } from "../networking";
-import { useTranslation } from "react-i18next";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 interface PolicyTemplateCardProps {
   title: string;

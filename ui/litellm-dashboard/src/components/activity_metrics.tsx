@@ -8,7 +8,8 @@ import { Team } from "./key_team_helpers/key_list";
 import KeyModelUsageView from "./UsagePage/components/KeyModelUsageView";
 import { DailyData, KeyMetricWithMetadata, ModelActivityData, TopApiKeyData, TopModelData } from "./UsagePage/types";
 import { valueFormatter } from "./UsagePage/utils/value_formatters";
-import { useTranslation } from "react-i18next";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 interface ActivityMetricsProps {
   modelMetrics: Record<string, ModelActivityData>;

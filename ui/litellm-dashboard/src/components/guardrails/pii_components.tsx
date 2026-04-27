@@ -2,7 +2,8 @@ import React from "react";
 import { Typography, Select, Button, Checkbox, Tooltip, Tag } from "antd";
 import { CloseOutlined, EyeInvisibleOutlined, StopOutlined, FilterOutlined } from "@ant-design/icons";
 import { PiiEntityCategory } from "./types";
-import { useTranslation } from "react-i18next";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 const { Text } = Typography;
 const { Option } = Select;

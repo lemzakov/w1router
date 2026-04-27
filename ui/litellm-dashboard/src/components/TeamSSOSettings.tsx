@@ -6,7 +6,8 @@ import BudgetDurationDropdown, { getBudgetDurationLabel } from "./common_compone
 import { getModelDisplayName } from "./key_team_helpers/fetch_available_models_team_key";
 import NotificationsManager from "./molecules/notifications_manager";
 import { ModelSelect } from "./ModelSelect/ModelSelect";
-import { useTranslation } from "react-i18next";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 const { Title, Text } = Typography;
 

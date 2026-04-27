@@ -36,7 +36,8 @@ import NewBadge from "./common_components/NewBadge";
 import type { Organization } from "./networking";
 import UsageIndicator from "./UsageIndicator";
 import { serverRootPath } from "./networking";
-import { useTranslation } from "react-i18next";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 const { Sider } = Layout;
 
 /**

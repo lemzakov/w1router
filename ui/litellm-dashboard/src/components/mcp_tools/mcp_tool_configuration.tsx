@@ -4,7 +4,8 @@ import { ToolOutlined, CheckCircleOutlined, SearchOutlined, EditOutlined } from 
 import { Badge, Spin, Checkbox, Input, Radio } from "antd";
 import { useTestMCPConnection } from "../../hooks/useTestMCPConnection";
 import McpCrudPermissionPanel from "./McpCrudPermissionPanel";
-import { useTranslation } from "react-i18next";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 interface KeyTool {
   name: string;

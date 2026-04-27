@@ -30,9 +30,9 @@ import GuardrailOptionalParams from "./guardrail_optional_params";
 import GuardrailProviderFields from "./guardrail_provider_fields";
 import PiiConfiguration from "./pii_configuration";
 import ToolPermissionRulesEditor, {
-import { useTranslation } from "react-i18next";
   ToolPermissionConfig,
 } from "./tool_permission/ToolPermissionRulesEditor";
+import { useTranslation } from "react-i18next";
 
 export interface GuardrailInfoProps {
   guardrailId: string;

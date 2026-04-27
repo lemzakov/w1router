@@ -30,6 +30,7 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { useUISettings } from "@/app/(dashboard)/hooks/uiSettings/useUISettings";
 import { checkTokenValidity } from "@/utils/jwtUtils";
 import { getCookie } from "@/utils/cookieUtils";
+import { useTranslation } from "react-i18next";
 
 interface ModelHubTableProps {
   accessToken: string | null;
@@ -993,7 +994,6 @@ print(response.choices[0].message.content)`}
               <SyntaxHighlighter language="python" className="text-sm">
                 {`from fastmcp import Client
 import asyncio
-import { useTranslation } from "react-i18next";
 
 # Standard MCP configuration
 config = {

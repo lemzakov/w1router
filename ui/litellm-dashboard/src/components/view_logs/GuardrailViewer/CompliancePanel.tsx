@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Tooltip } from "antd";
 import {
-import { useTranslation } from "react-i18next";
   checkEuAiActCompliance,
   checkGdprCompliance,
   ComplianceResponse,
   ComplianceCheckRequest,
 } from "@/components/networking";
+import { useTranslation } from "react-i18next";
 
 interface CompliancePanelProps {
   accessToken: string | null;

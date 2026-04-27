@@ -7,7 +7,8 @@ import { deleteMCPOAuthUserCredential, fetchMCPServers, getMCPOAuthUserCredentia
 import { AUTH_TYPE, MCPServer, MCPTool, handleTransport } from "../mcp_tools/types";
 import MessageManager from "@/components/molecules/message_manager";
 import { useUserMcpOAuthFlow } from "@/hooks/useUserMcpOAuthFlow";
-import { useTranslation } from "react-i18next";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 // ── OAuth2 connect button ─────────────────────────────────────────────────────
 // Wraps useUserMcpOAuthFlow so each server card can hold its own hook instance.

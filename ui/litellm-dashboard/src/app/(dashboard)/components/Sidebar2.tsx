@@ -1,5 +1,5 @@
 "use client";
-import { useTranslation } from "react-i18next";
+import { useTranslation, getI18n } from "react-i18next";
 
 import { Layout, Menu, ConfigProvider } from "antd";
 import {
@@ -34,6 +34,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { all_admin_roles, internalUserRoles, isAdminRole, rolesWithWriteAccess } from "@/utils/roles";
 import UsageIndicator from "@/components/UsageIndicator";
 import { serverRootPath } from "@/components/networking";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 const { Sider } = Layout;
 

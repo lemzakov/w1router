@@ -24,12 +24,12 @@ interface ModelRetrySettingsTabProps {
 }
 
 const retryPolicyMap: Record<string, string> = {
-  t('Nekorrektnyy_zapros_400'): "BadRequestErrorRetries",
-  t('Oshibka_autentifikatsii_401'): "AuthenticationErrorRetries",
-  t('Prevyshenie_vremeni_ozhidaniya_408'): "TimeoutErrorRetries",
-  t('Prevyshenie_limita_zaprosov_429'): "RateLimitErrorRetries",
-  t('Narushenie_pravil_kontenta_400'): "ContentPolicyViolationErrorRetries",
-  t('Vnutrennyaya_oshibka_servera_500'): "InternalServerErrorRetries",
+  "Некорректный запрос (400)": "BadRequestErrorRetries",
+  "Ошибка аутентификации (401)": "AuthenticationErrorRetries",
+  "Превышение времени ожидания (408)": "TimeoutErrorRetries",
+  "Превышение лимита запросов (429)": "RateLimitErrorRetries",
+  "Нарушение правил контента (400)": "ContentPolicyViolationErrorRetries",
+  "Внутренняя ошибка сервера (500)": "InternalServerErrorRetries",
 };
 
 const ModelRetrySettingsTab = ({
@@ -43,8 +43,7 @@ const ModelRetrySettingsTab = ({
   setModelGroupRetryPolicy,
   handleSaveRetrySettings,
 }: ModelRetrySettingsTabProps) => {
-  //    const { t } = useTranslation();
-const [modelGroupRetryPolicy, setModelGroupRetryPolicy] = useState<RetryPolicyObject | null>(null);
+  const { t } = useTranslation();
 
   return (
     <TabPanel>

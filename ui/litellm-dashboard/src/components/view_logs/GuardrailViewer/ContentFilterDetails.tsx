@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 export interface ContentFilterDetection {
   type: "pattern" | "blocked_word" | "category_keyword";

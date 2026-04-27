@@ -13,7 +13,8 @@ import {
   getFrameworks,
 } from "../../data/compliancePrompts";
 import type { CompliancePrompt } from "../../data/compliancePrompts";
-import { useTranslation } from "react-i18next";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 const TEST_SOURCE_QUICK = "quick_chat";
 const TEST_SOURCE_ALL = "__all__";

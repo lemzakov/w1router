@@ -100,6 +100,7 @@ const router = useRouter();
 }
 
 export default function Layout({ children }: { children: React.ReactNode }) {
+  const { t } = useTranslation();
   return (
     <Suspense fallback={<div className="flex items-center justify-center min-h-screen">{t('Zagruzka_1')}</div>}>
       <LayoutContent>{children}</LayoutContent>

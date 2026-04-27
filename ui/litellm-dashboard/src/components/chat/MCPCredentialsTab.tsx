@@ -13,11 +13,11 @@ import MessageManager from "@/components/molecules/message_manager";
 import { DeleteOutlined, LinkOutlined } from "@ant-design/icons";
 import { Badge, Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow } from "@tremor/react";
 import {
-import { useTranslation } from "react-i18next";
   deleteMCPOAuthUserCredential,
   listMCPUserCredentials,
   MCPUserCredentialListItem,
 } from "../networking";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   accessToken: string;

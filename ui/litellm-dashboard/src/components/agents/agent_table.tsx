@@ -5,7 +5,6 @@ import { Tooltip } from "antd";
 import { CopyOutlined } from "@ant-design/icons";
 import { Agent } from "./types";
 import {
-import { useTranslation } from "react-i18next";
   ColumnDef,
   flexRender,
   getCoreRowModel,
@@ -13,6 +12,7 @@ import { useTranslation } from "react-i18next";
   SortingState,
   useReactTable,
 } from "@tanstack/react-table";
+import { useTranslation } from "react-i18next";
 
 interface AgentTableProps {
   agentsList: Agent[];

@@ -1,5 +1,4 @@
 "use client";
-import { useTranslation } from "react-i18next";
 
 import {
   getFrameworks,
@@ -49,6 +48,7 @@ import {
 } from "lucide-react";
 import Papa from "papaparse";
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const CATEGORY_ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   lock: Lock,
@@ -1014,13 +1014,13 @@ const [policyValueToLabel, setPolicyValueToLabel] = useState<Map<string, string>
 
                 <div className="mb-2 p-2 bg-white rounded border border-gray-200">
                   <p className="text-[10px] text-gray-500 leading-relaxed">
-                    <span className="font-semibold text-gray-600t('Obyazatelnye_stolbtsy_span') "}
+                    <span className="font-semibold text-gray-600">{t('Obyazatelnye_stolbtsy_span')}</span>{" "}
                     <code className="bg-gray-100 px-1 rounded text-[10px]">prompt</code>,{" "}
                     <code className="bg-gray-100 px-1 rounded text-[10px]">expected_result</code>{" "}
                     <span className="text-gray-400">{t('fail_ili_pass')}</span>
                   </p>
                   <p className="text-[10px] text-gray-500 leading-relaxed mt-0.5">
-                    <span className="font-semibold text-gray-600t('Neobyazatelnye_stolbtsy_span') "}
+                    <span className="font-semibold text-gray-600">{t('Neobyazatelnye_stolbtsy_span')}</span>{" "}
                     <code className="bg-gray-100 px-1 rounded text-[10px]">framework</code>,{" "}
                     <code className="bg-gray-100 px-1 rounded text-[10px]">category</code>
                   </p>
@@ -1614,7 +1614,7 @@ const [policyValueToLabel, setPolicyValueToLabel] = useState<Map<string, string>
                                   </div>
                                 )}
                                 <div>
-                                  <span className="text-gray-400t('Verdikt_span') "}
+                                  <span className="text-gray-400">{t('Verdikt_span')}</span>{" "}
                                   <span
                                     className={
                                       result.isMatch

@@ -6,7 +6,8 @@ import BedrockGuardrailDetails, {
 } from "@/components/view_logs/GuardrailViewer/BedrockGuardrailDetails";
 import ContentFilterDetails from "./ContentFilterDetails";
 import CompliancePanel from "./CompliancePanel";
-import { useTranslation } from "react-i18next";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 // ── Interfaces ──────────────────────────────────────────────────────────────
 

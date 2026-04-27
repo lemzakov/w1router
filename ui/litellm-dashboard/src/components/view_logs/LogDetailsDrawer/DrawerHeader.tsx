@@ -4,7 +4,6 @@ import moment from "moment";
 import { LogEntry } from "../columns";
 import { getProviderLogoAndName } from "../../provider_info_helpers";
 import {
-import { useTranslation } from "react-i18next";
   DRAWER_HEADER_PADDING,
   COLOR_BORDER,
   COLOR_BACKGROUND,
@@ -15,6 +14,8 @@ import { useTranslation } from "react-i18next";
   FONT_FAMILY_MONO,
   SPACING_SMALL,
 } from "./constants";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 const { Text } = Typography;
 

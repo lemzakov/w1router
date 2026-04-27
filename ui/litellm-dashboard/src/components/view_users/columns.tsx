@@ -5,7 +5,8 @@ import { UserInfo } from "./types";
 import { PencilAltIcon, TrashIcon, InformationCircleIcon, RefreshIcon } from "@heroicons/react/outline";
 import { CopyOutlined } from "@ant-design/icons";
 import { formatNumberWithCommas, copyToClipboard } from "@/utils/dataUtils";
-import { useTranslation } from "react-i18next";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 interface SelectionOptions {
   selectedUsers: UserInfo[];

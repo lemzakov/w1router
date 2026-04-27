@@ -2,7 +2,8 @@ import { Fragment, useState } from "react";
 import { ColumnDef, flexRender, getCoreRowModel, getExpandedRowModel, Row, useReactTable, getSortedRowModel, SortingState } from "@tanstack/react-table";
 
 import { Table, TableHead, TableHeaderCell, TableBody, TableRow, TableCell } from "@tremor/react";
-import { useTranslation } from "react-i18next";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 interface DataTableProps<TData, TValue> {
   data: TData[];

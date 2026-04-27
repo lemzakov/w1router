@@ -3,10 +3,10 @@ import { Select, Skeleton } from "antd";
 import { TeamOutlined } from "@ant-design/icons";
 import { Text } from "@tremor/react";
 import {
-import { useTranslation } from "react-i18next";
   useAccessGroups,
   AccessGroupResponse,
 } from "@/app/(dashboard)/hooks/accessGroups/useAccessGroups";
+import { useTranslation } from "react-i18next";
 
 export interface AccessGroupSelectorProps {
   value?: string[];

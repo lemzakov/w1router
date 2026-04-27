@@ -7,7 +7,8 @@ import { Button, Card, TextInput } from "@tremor/react";
 import { PlusIcon, TrashIcon, CogIcon, BanIcon } from "@heroicons/react/outline";
 import { callbackInfo, callback_map, mapDisplayToInternalNames } from "../callback_info_helpers";
 import NumericalInput from "../shared/numerical_input";
-import { useTranslation } from "react-i18next";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 const { Option } = Select;
 

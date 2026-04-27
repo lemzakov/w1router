@@ -2,7 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { Button, Select, Input, Spin } from "antd";
 import ReactMarkdown from "react-markdown";
 import { modelHubCall, usageAiChatStream, UsageAiToolCallEvent } from "../../networking";
-import { useTranslation } from "react-i18next";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 const { TextArea } = Input;
 

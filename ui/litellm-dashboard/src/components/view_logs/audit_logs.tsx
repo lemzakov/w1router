@@ -8,7 +8,8 @@ import { uiAuditLogsCall } from "../networking";
 import { AuditLogEntry } from "./columns";
 import { AuditLogDrawer } from "./AuditLogDrawer/AuditLogDrawer";
 import DefaultProxyAdminTag from "../common_components/DefaultProxyAdminTag";
-import { useTranslation } from "react-i18next";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 const { Search } = Input;
 
@@ -273,7 +274,7 @@ const [page, setPage] = useState(1);
                 current={page}
                 pageSize={PAGE_SIZE}
                 total={total}
-                showTotal={(t) => `${t} ${t('vsego')}`}
+                showTotal={(total) => `${total} ${t('vsego')}`}
                 showSizeChanger={false}
                 size="small"
                 onChange={(p) => setPage(p)}

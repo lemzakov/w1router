@@ -10,7 +10,8 @@ import { FilterInput } from "@/components/common_components/Filters/FilterInput"
 import { FiltersButton } from "@/components/common_components/Filters/FiltersButton";
 import { ResetFiltersButton } from "@/components/common_components/Filters/ResetFiltersButton";
 import { Search, User, CircleUserRound } from "lucide-react";
-import { useTranslation } from "react-i18next";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 interface FilterState {
   email: string;

@@ -4,7 +4,8 @@ import { useState, useCallback } from "react";
 import moment from "moment";
 import { AuditLogEntry } from "../columns";
 import DefaultProxyAdminTag from "../../common_components/DefaultProxyAdminTag";
-import { useTranslation } from "react-i18next";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 const { Text } = Typography;
 

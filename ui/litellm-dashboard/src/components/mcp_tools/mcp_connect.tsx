@@ -6,7 +6,8 @@ import { TabPanel, TabPanels, TabGroup, TabList, Tab, Title as TremorTitle, Text
 import { CopyIcon, Code, Terminal, Globe, CheckIcon, ExternalLinkIcon, KeyIcon, ServerIcon, Zap } from "lucide-react";
 import { getProxyBaseUrl } from "../networking";
 import { copyToClipboard as utilCopyToClipboard } from "../../utils/dataUtils";
-import { useTranslation } from "react-i18next";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 const { Title, Text } = Typography;
 const { Panel } = Collapse;

@@ -3,7 +3,8 @@ import { Badge } from "@tremor/react";
 import { AlertTriangle, Calendar, ChevronDown, ChevronUp, Loader2, Minus, TrendingUp, UserCheck, Users } from "lucide-react";
 import { useEffect, useState } from "react";
 import { getRemainingUsers, getLicenseInfo, LicenseInfo } from "./networking";
-import { useTranslation } from "react-i18next";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 // Simple utility function to combine class names
 const cn = (...classes: (string | boolean | undefined)[]) => {

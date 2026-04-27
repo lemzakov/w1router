@@ -3,7 +3,8 @@
 import { Suspense, useEffect, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import { getSecureItem, setSecureItem } from "@/utils/secureStorage";
-import { useTranslation } from "react-i18next";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 // Written to sessionStorage so both the admin hook (useMcpOAuthFlow) and the
 // user hook (useUserMcpOAuthFlow) can pick up the result.  Each hook reads

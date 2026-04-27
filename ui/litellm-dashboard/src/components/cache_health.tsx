@@ -2,7 +2,8 @@ import React from "react";
 import { Text, Button, TabGroup, TabList, Tab, TabPanel, TabPanels } from "@tremor/react";
 import { CheckCircleIcon, XCircleIcon, ClipboardCopyIcon } from "@heroicons/react/outline";
 import { ResponseTimeIndicator } from "./response_time_indicator";
-import { useTranslation } from "react-i18next";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 // Helper function to deep-parse a JSON string if possible
 const deepParse = (input: any) => {

@@ -1,7 +1,8 @@
 import React from "react";
 import { Form, Select, Typography, Input, Button } from "antd";
 import NumericalInput from "../shared/numerical_input";
-import { useTranslation } from "react-i18next";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 const { Title } = Typography;
 

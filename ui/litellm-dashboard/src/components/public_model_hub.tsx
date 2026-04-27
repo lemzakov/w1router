@@ -19,6 +19,7 @@ import { generateCodeSnippet } from "./playground/chat_ui/CodeSnippets";
 import { getEndpointType } from "./playground/chat_ui/mode_endpoint_mapping";
 import { MessageType } from "./playground/chat_ui/types";
 import { getProviderLogoAndName } from "./provider_info_helpers";
+import { useTranslation } from "react-i18next";
 
 const { TabPane } = Tabs;
 
@@ -1956,7 +1957,6 @@ if __name__ == "__main__":
 
 from fastmcp import Client
 import asyncio
-import { useTranslation } from "react-i18next";
 
 # Standard MCP configuration
 config = {

@@ -26,12 +26,12 @@ import { CheckIcon, CopyIcon } from "lucide-react";
 import NotificationsManager from "../molecules/notifications_manager";
 import PromptCodeSnippets from "./prompt_editor_view/PromptCodeSnippets";
 import {
-import { useTranslation } from "react-i18next";
   extractModel,
   extractTemplateVariables,
   getBasePromptId,
   getCurrentVersion
 } from "./prompt_utils";
+import { useTranslation } from "react-i18next";
 
 export interface PromptInfoProps {
   promptId: string;

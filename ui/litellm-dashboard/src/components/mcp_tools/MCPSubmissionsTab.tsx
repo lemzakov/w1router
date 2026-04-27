@@ -21,7 +21,8 @@ import {
 import { MCPServer, MCPSubmissionsSummary } from "./types";
 import { FIELD_GROUPS, MCP_REQUIRED_FIELD_DEFS, SETTINGS_KEY } from "./MCPStandardsSettings";
 import NotificationsManager from "@/components/molecules/notifications_manager";
-import { useTranslation } from "react-i18next";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 type MCPStatus = "active" | "pending_review" | "rejected";
 

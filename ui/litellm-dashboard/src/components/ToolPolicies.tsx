@@ -10,11 +10,11 @@ import FilterComponent, { FilterOption } from "./molecules/filter";
 import { MetricCard } from "./GuardrailsMonitor/MetricCard";
 import { PolicySelect, INPUT_POLICY_OPTIONS, OUTPUT_POLICY_OPTIONS } from "./ToolPolicies/PolicySelect";
 import {
-import { useTranslation } from "react-i18next";
   fetchToolsList,
   updateToolPolicy,
   ToolRow,
 } from "./networking";
+import { useTranslation } from "react-i18next";
 
 function getUTCDateKey(date: Date): string {
   return `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, "0")}-${String(date.getUTCDate()).padStart(2, "0")}`;

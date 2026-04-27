@@ -9,7 +9,8 @@ import { DataTable } from "./view_logs/table";
 import { ColumnDef } from "@tanstack/react-table";
 import { Eye, EyeOff } from "lucide-react";
 import NotificationsManager from "./molecules/notifications_manager";
-import { useTranslation } from "react-i18next";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 interface GeneralSettingsPageProps {
   accessToken: string | null;

@@ -30,7 +30,8 @@ import { RequestResponsePanel } from "./RequestResponsePanel";
 import SpendLogsSettingsModal from "./SpendLogsSettingsModal/SpendLogsSettingsModal";
 import { DataTable } from "./table";
 import { VectorStoreViewer } from "./VectorStoreViewer";
-import { useTranslation } from "react-i18next";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 interface SpendLogsTableProps {
   accessToken: string | null;
@@ -659,7 +660,7 @@ const [searchTerm, setSearchTerm] = useState("");
                         </span>
                         <div className="flex items-center space-x-2">
                           <span className="text-sm text-gray-700 min-w-[90px]">
-                            ${t('Stranitsa')} {logs.isLoading ? "...t('currentPage_iz') "}
+                            ${t('Stranitsa')} {logs.isLoading ? "..." : currentPage} {t('iz')}{" "}
                             {logs.isLoading ? "..." : filteredLogs ? filteredLogs.total_pages : 1}
                           </span>
                           <button

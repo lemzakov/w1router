@@ -10,7 +10,8 @@ import { coy } from "react-syntax-highlighter/dist/esm/styles/prism";
 import ReasoningContent from "../playground/chat_ui/ReasoningContent";
 import MCPEventsDisplay from "../playground/chat_ui/MCPEventsDisplay";
 import { ChatMessage } from "./types";
-import { useTranslation } from "react-i18next";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 const { Panel } = Collapse;
 

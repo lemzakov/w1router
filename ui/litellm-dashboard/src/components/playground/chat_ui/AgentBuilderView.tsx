@@ -1,5 +1,5 @@
 "use client";
-import { useTranslation } from "react-i18next";
+import { useTranslation, getI18n } from "react-i18next";
 
 import { CommentOutlined, DeleteOutlined, ExperimentOutlined, LinkOutlined, PlusOutlined, RobotOutlined, SaveOutlined } from "@ant-design/icons";
 import { Button, Input, Modal, Select, Spin, Tabs } from "antd";
@@ -13,6 +13,7 @@ import { AgentModel, fetchAvailableAgentModels, MCPToolEntry } from "../llm_call
 import { fetchAvailableModels, ModelGroup } from "../llm_calls/fetch_models";
 import ComplianceUI from "../complianceUI/ComplianceUI";
 import ChatUI from "./ChatUI";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 const { TextArea } = Input;
 

@@ -4,13 +4,13 @@ import MessageManager from "@/components/molecules/message_manager";
 import { Button } from "@tremor/react";
 import { registerClaudeCodePlugin } from "../networking";
 import {
-import { useTranslation } from "react-i18next";
   validatePluginName,
   isValidSemanticVersion,
   isValidEmail,
   isValidUrl,
   parseKeywords,
 } from "./helpers";
+import { useTranslation } from "react-i18next";
 
 const { TextArea } = Input;
 const { Option } = Select;

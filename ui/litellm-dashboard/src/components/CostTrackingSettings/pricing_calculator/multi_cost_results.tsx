@@ -6,7 +6,8 @@ import { CostEstimateResponse } from "../types";
 import { formatNumberWithCommas } from "@/utils/dataUtils";
 import { MultiModelResult } from "./types";
 import MultiExportDropdown from "./multi_export_dropdown";
-import { useTranslation } from "react-i18next";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 interface MultiCostResultsProps {
   multiResult: MultiModelResult;

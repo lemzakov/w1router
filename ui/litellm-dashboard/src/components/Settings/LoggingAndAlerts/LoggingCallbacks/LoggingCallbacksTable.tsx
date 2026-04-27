@@ -5,7 +5,8 @@ import Title from "antd/es/typography/Title";
 import React from "react";
 import TableIconActionButton from "../../../common_components/IconActionButton/TableIconActionButtons/TableIconActionButton";
 import { AlertingObject } from "./types";
-import { useTranslation } from "react-i18next";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 type LoggingCallbacksProps = {
   callbacks: AlertingObject[];

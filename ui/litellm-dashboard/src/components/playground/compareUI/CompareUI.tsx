@@ -1,5 +1,5 @@
 "use client";
-import { useTranslation } from "react-i18next";
+import { useTranslation, getI18n } from "react-i18next";
 
 import NotificationsManager from "@/components/molecules/notifications_manager";
 import { ClearOutlined, DeleteOutlined, FilePdfOutlined, PlusOutlined } from "@ant-design/icons";
@@ -26,6 +26,7 @@ import {
   modelOptionsToSelectorOptions,
   agentOptionsToSelectorOptions,
 } from "./endpoint_config";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 export interface ComparisonInstance {
   id: string;
   model: string;

@@ -8,7 +8,8 @@ import { TableHeaderSortDropdown } from "../common_components/TableHeaderSortDro
 import { TimeCell } from "./time_cell";
 import { AGENT_CALL_TYPES, MCP_CALL_TYPES } from "./constants";
 import { AgentBadge, AgentIcon, LlmBadge, McpBadge, SparkleIcon, WrenchIcon } from "./TypeBadges";
-import { useTranslation } from "react-i18next";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 /** API sort field mapping for /spend/logs/ui endpoint */
 export const LOGS_SORT_FIELD_MAP = {
