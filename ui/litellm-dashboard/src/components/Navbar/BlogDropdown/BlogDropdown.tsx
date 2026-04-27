@@ -4,6 +4,7 @@ import { LoadingOutlined } from "@ant-design/icons";
 import { Button, Dropdown, Space, Typography } from "antd";
 import type { MenuProps } from "antd";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const { Text, Title, Paragraph } = Typography;
 
@@ -17,6 +18,7 @@ function formatDate(dateStr: string): string {
 }
 
 export const BlogDropdown: React.FC = () => {
+  const { t } = useTranslation();
   const disableBlogPosts = useDisableBlogPosts();
 
   const { data, isLoading, isError, refetch } = useBlogPosts();
@@ -35,7 +37,7 @@ export const BlogDropdown: React.FC = () => {
         key: "error",
         label: (
           <Space>
-            <Text type="danger">Failed to load posts</Text>
+            <Text type="danger">{t('Failed_to_load_posts')}</Text>
             <Button size="small" onClick={() => refetch()}>
               Retry
             </Button>
@@ -45,7 +47,7 @@ export const BlogDropdown: React.FC = () => {
       },
     ];
   } else if (!data || data.posts.length === 0) {
-    items = [{ key: "empty", label: <Text type="secondary">No posts available</Text>, disabled: true }];
+    items = [{ key: "empty", label: <Text type="secondary">{t('No_posts_available')}</Text>, disabled: true }];
   } else {
     items = [
       ...data.posts.slice(0, 5).map((post: BlogPost) => ({
@@ -76,7 +78,7 @@ export const BlogDropdown: React.FC = () => {
 
   return (
     <Dropdown menu={{ items }} trigger={["hover"]} placement="bottomRight">
-      <Button type="text">Blog</Button>
+      <Button type="text">{t('Blog')}</Button>
     </Dropdown>
   );
 };

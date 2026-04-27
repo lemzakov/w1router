@@ -6,6 +6,7 @@ import { CostEstimateResponse } from "../types";
 import { formatNumberWithCommas } from "@/utils/dataUtils";
 import { MultiModelResult } from "./types";
 import MultiExportDropdown from "./multi_export_dropdown";
+import { useTranslation } from "react-i18next";
 
 interface MultiCostResultsProps {
   multiResult: MultiModelResult;
@@ -30,6 +31,7 @@ const SingleModelBreakdown: React.FC<{
   loading: boolean;
   timePeriod: "day" | "month";
 }> = ({ result, loading, timePeriod }) => {
+  const { t } = useTranslation();
   const periodLabel = timePeriod === "day" ? "Daily" : "Monthly";
   const periodCost = timePeriod === "day" ? result.daily_cost : result.monthly_cost;
   const periodInputCost = timePeriod === "day" ? result.daily_input_cost : result.monthly_input_cost;
@@ -42,25 +44,25 @@ const SingleModelBreakdown: React.FC<{
       {loading && (
         <div className="flex items-center gap-2 text-gray-500 text-sm">
           <Spin indicator={<LoadingOutlined spin />} size="small" />
-          <span>Updating...</span>
+          <span>{t('Updating')}</span>
         </div>
       )}
 
       <div className="grid grid-cols-4 gap-4">
         <div>
-          <Text className="text-xs text-gray-500 block">Total/Request</Text>
+          <Text className="text-xs text-gray-500 block">{t('TotalRequest')}</Text>
           <Text className="text-base font-semibold text-blue-600">{formatCost(result.cost_per_request)}</Text>
         </div>
         <div>
-          <Text className="text-xs text-gray-500 block">Input Cost</Text>
+          <Text className="text-xs text-gray-500 block">{t('Input_Cost_1')}</Text>
           <Text className="text-sm">{formatCost(result.input_cost_per_request)}</Text>
         </div>
         <div>
-          <Text className="text-xs text-gray-500 block">Output Cost</Text>
+          <Text className="text-xs text-gray-500 block">{t('Output_Cost_1')}</Text>
           <Text className="text-sm">{formatCost(result.output_cost_per_request)}</Text>
         </div>
         <div>
-          <Text className="text-xs text-gray-500 block">Margin Fee</Text>
+          <Text className="text-xs text-gray-500 block">{t('Margin_Fee')}</Text>
           <Text className={`text-sm ${result.margin_cost_per_request > 0 ? "text-amber-600" : ""}`}>
             {formatCost(result.margin_cost_per_request)}
           </Text>
@@ -134,7 +136,7 @@ const MultiCostResults: React.FC<MultiCostResultsProps> = ({ multiResult, timePe
     return (
       <div className="py-6 text-center">
         <Spin indicator={<LoadingOutlined spin />} />
-        <Text className="text-gray-500 block mt-2">Calculating costs...</Text>
+        <Text className="text-gray-500 block mt-2">{t('Calculating_costs')}</Text>
       </div>
     );
   }
@@ -145,7 +147,7 @@ const MultiCostResults: React.FC<MultiCostResultsProps> = ({ multiResult, timePe
       <div className="space-y-4">
         <Divider className="my-4" />
         <div className="flex items-center justify-between">
-          <Text className="text-base font-semibold text-gray-900">Cost Estimates</Text>
+          <Text className="text-base font-semibold text-gray-900">{t('Cost_Estimates')}</Text>
           {isAnyLoading && <Spin indicator={<LoadingOutlined spin />} size="small" />}
         </div>
         {/* Error Messages */}
@@ -278,7 +280,7 @@ const MultiCostResults: React.FC<MultiCostResultsProps> = ({ multiResult, timePe
       <Divider className="my-4" />
 
       <div className="flex items-center justify-between">
-        <Text className="text-base font-semibold text-gray-900">Cost Estimates</Text>
+        <Text className="text-base font-semibold text-gray-900">{t('Cost_Estimates')}</Text>
         <div className="flex items-center gap-2">
           {isAnyLoading && <Spin indicator={<LoadingOutlined spin />} size="small" />}
           <MultiExportDropdown multiResult={multiResult} />
@@ -290,7 +292,7 @@ const MultiCostResults: React.FC<MultiCostResultsProps> = ({ multiResult, timePe
         <Row gutter={[16, 8]}>
           <Col xs={24} sm={12}>
             <Statistic
-              title={<span className="text-xs">Total Per Request</span>}
+              title={<span className="text-xs">{t('Total_Per_Request')}</span>}
               value={formatCost(multiResult.totals.cost_per_request)}
               valueStyle={{ color: "#1890ff", fontSize: "18px", fontFamily: "monospace" }}
             />
@@ -306,7 +308,7 @@ const MultiCostResults: React.FC<MultiCostResultsProps> = ({ multiResult, timePe
         {hasMargin && (
           <Row gutter={[16, 8]} className="mt-3 pt-3 border-t border-slate-200">
             <Col xs={24} sm={12}>
-              <div className="text-xs text-gray-500">Margin Fee/Request</div>
+              <div className="text-xs text-gray-500">{t('Margin_FeeRequest')}</div>
               <div className="text-sm font-mono text-amber-600">{formatCost(multiResult.totals.margin_per_request)}</div>
             </Col>
             <Col xs={24} sm={12}>

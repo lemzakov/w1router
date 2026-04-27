@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Select, Button, Card, Typography, Spin, Tag } from "antd";
 import { SaveOutlined, PlusOutlined } from "@ant-design/icons";
 import { getGeneralSettingsCall, updateConfigFieldSetting, deleteConfigFieldSetting, fetchMCPClientIp } from "../networking";
+import { useTranslation } from "react-i18next";
 
 const { Text } = Typography;
 
@@ -19,6 +20,7 @@ function ipToSlash24(ip: string): string {
 }
 
 const MCPNetworkSettings: React.FC<MCPNetworkSettingsProps> = ({ accessToken }) => {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [privateRanges, setPrivateRanges] = useState<string[]>([]);
@@ -89,7 +91,7 @@ const MCPNetworkSettings: React.FC<MCPNetworkSettingsProps> = ({ accessToken }) 
   return (
     <div className="space-y-6 p-4">
       <div>
-        <Text className="text-lg font-semibold">Private IP Ranges</Text>
+        <Text className="text-lg font-semibold">{t('Private_IP_Ranges')}</Text>
         <p className="text-sm text-gray-500 mt-1">
           Define which IP ranges are part of your private network. Callers from these IPs can see all MCP servers. Callers from any other IP can only see servers marked &quot;Available on Public Internet&quot;.
         </p>
@@ -103,7 +105,7 @@ const MCPNetworkSettings: React.FC<MCPNetworkSettingsProps> = ({ accessToken }) 
             </Text>
             {suggestedRange && !privateRanges.includes(suggestedRange) && (
               <div className="mt-1">
-                <Text className="text-sm text-blue-600">Suggested range: </Text>
+                <Text className="text-sm text-blue-600">{t('Suggested_range')}</Text>
                 <Tag
                   className="cursor-pointer font-mono"
                   color="blue"
@@ -118,7 +120,7 @@ const MCPNetworkSettings: React.FC<MCPNetworkSettingsProps> = ({ accessToken }) 
         )}
 
         <div className="flex items-center mb-2">
-          <Text className="font-medium">Your Private Network Ranges</Text>
+          <Text className="font-medium">{t('Your_Private_Network_Ranges')}</Text>
         </div>
         <Select
           mode="tags"

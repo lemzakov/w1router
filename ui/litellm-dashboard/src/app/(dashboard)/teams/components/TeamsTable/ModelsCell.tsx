@@ -3,6 +3,7 @@ import { ChevronDownIcon, ChevronRightIcon } from "@heroicons/react/outline";
 import { getModelDisplayName } from "@/components/key_team_helpers/fetch_available_models_team_key";
 import React, { useMemo, useState } from "react";
 import { Team } from "@/components/key_team_helpers/key_list";
+import { useTranslation } from "react-i18next";
 
 interface ModelsCellProps {
   team: Team;
@@ -14,6 +15,7 @@ interface ModelEntry {
 }
 
 const ModelsCell = ({ team }: ModelsCellProps) => {
+  const { t } = useTranslation();
   const [expandedAccordion, setExpandedAccordion] = useState<boolean>(false);
 
   const isAllModels = !team.models || team.models.length === 0 || team.models.includes("all-proxy-models");
@@ -34,7 +36,7 @@ const ModelsCell = ({ team }: ModelsCellProps) => {
     if (entry.name === "all-proxy-models") {
       return (
         <Badge key={index} size={"xs"} color="red">
-          <Text>All Proxy Models</Text>
+          <Text>{t('All_Proxy_Models')}</Text>
         </Badge>
       );
     }
@@ -64,7 +66,7 @@ const ModelsCell = ({ team }: ModelsCellProps) => {
       <div className="flex flex-col">
         {modelEntries.length === 0 ? (
           <Badge size={"xs"} className="mb-1" color="red">
-            <Text>All Proxy Models</Text>
+            <Text>{t('All_Proxy_Models')}</Text>
           </Badge>
         ) : (
           <div className="flex flex-col">

@@ -2,6 +2,7 @@ import React from "react";
 import { Form, Button, Tooltip, Typography, Modal } from "antd";
 import { TextInput } from "@tremor/react";
 import { CredentialItem } from "../networking";
+import { useTranslation } from "react-i18next";
 const { Title, Link } = Typography;
 
 interface ReuseCredentialsModalProps {
@@ -19,6 +20,7 @@ const ReuseCredentialsModal: React.FC<ReuseCredentialsModalProps> = ({
   existingCredential,
   setIsCredentialModalOpen,
 }) => {
+  const { t } = useTranslation();
   const [form] = Form.useForm();
 
   console.log(`existingCredential in add credentials tab: ${JSON.stringify(existingCredential)}`);
@@ -61,7 +63,7 @@ const ReuseCredentialsModal: React.FC<ReuseCredentialsModalProps> = ({
         {/* Modal Footer */}
         <div className="flex justify-between items-center">
           <Tooltip title="Get help on our github">
-            <Link href="https://github.com/BerriAI/litellm/issues">Need Help?</Link>
+            <Link href="https://github.com/BerriAI/litellm/issues">{t('Need_Help')}</Link>
           </Tooltip>
 
           <div>
@@ -74,7 +76,7 @@ const ReuseCredentialsModal: React.FC<ReuseCredentialsModalProps> = ({
             >
               Cancel
             </Button>
-            <Button htmlType="submit">Reuse Credentials</Button>
+            <Button htmlType="submit">{t('Reuse_Credentials')}</Button>
           </div>
         </div>
       </Form>

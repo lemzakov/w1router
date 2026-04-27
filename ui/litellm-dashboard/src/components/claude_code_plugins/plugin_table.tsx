@@ -34,6 +34,7 @@ import {
   getCategoryBadgeColor
 } from "./helpers";
 import { Plugin } from "./types";
+import { useTranslation } from "react-i18next";
 
 interface PluginTableProps {
   pluginsList: Plugin[];
@@ -54,6 +55,7 @@ const PluginTable: React.FC<PluginTableProps> = ({
   isAdmin,
   onPluginClick,
 }) => {
+  const { t } = useTranslation();
   const [sorting, setSorting] = useState<SortingState>([
     { id: "created_at", desc: true },
   ]);
@@ -306,7 +308,7 @@ const PluginTable: React.FC<PluginTableProps> = ({
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-8 text-center">
                   <div className="text-center text-gray-500">
-                    <p>Loading...</p>
+                    <p>{t('Loading')}</p>
                   </div>
                 </TableCell>
               </TableRow>
@@ -333,7 +335,7 @@ const PluginTable: React.FC<PluginTableProps> = ({
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-8 text-center">
                   <div className="text-center text-gray-500">
-                    <p>No plugins found. Add one to get started.</p>
+                    <p>{t('No_plugins_found_Add_one_to_get_started')}</p>
                   </div>
                 </TableCell>
               </TableRow>

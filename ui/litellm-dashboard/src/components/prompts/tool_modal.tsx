@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Modal, Button } from "antd";
+import { useTranslation } from "react-i18next";
 
 interface ToolModalProps {
   visible: boolean;
@@ -31,6 +32,7 @@ const defaultToolJson = `{
 }`;
 
 const ToolModal: React.FC<ToolModalProps> = ({ visible, initialJson, onSave, onClose }) => {
+  const { t } = useTranslation();
   const [json, setJson] = useState(initialJson || defaultToolJson);
   const [error, setError] = useState<string | null>(null);
 
@@ -53,7 +55,7 @@ const ToolModal: React.FC<ToolModalProps> = ({ visible, initialJson, onSave, onC
     <Modal
       title={
         <div className="flex items-center justify-between">
-          <span className="text-lg font-medium">Add Tool</span>
+          <span className="text-lg font-medium">{t('Add_Tool')}</span>
         </div>
       }
       open={visible}

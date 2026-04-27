@@ -86,7 +86,7 @@ export const columns = (
     {
       header: () => (
         <div className="flex items-center gap-2">
-          <span>SSO ID</span>
+          <span>{t('SSO_ID')}</span>
           <Tooltip title={t('SSO_ID_eto_identifikator_polzovatelya')}>
             <InformationCircleIcon className="w-4 h-4" />
           </Tooltip>

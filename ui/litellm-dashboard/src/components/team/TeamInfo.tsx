@@ -740,7 +740,7 @@ const [teamData, setTeamData] = useState<TeamData | null>(null);
                 />
 
                 <Card>
-                  <Text className="font-semibold text-gray-900 mb-3">Guardrails</Text>
+                  <Text className="font-semibold text-gray-900 mb-3">{t('Guardrails')}</Text>
                   {info.guardrails && info.guardrails.length > 0 ? (
                     <div className="flex flex-wrap gap-2">
                       {info.guardrails.map((guardrail: string, index: number) => (

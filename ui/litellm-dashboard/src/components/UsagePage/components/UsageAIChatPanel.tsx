@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Button, Select, Input, Spin } from "antd";
 import ReactMarkdown from "react-markdown";
 import { modelHubCall, usageAiChatStream, UsageAiToolCallEvent } from "../../networking";
+import { useTranslation } from "react-i18next";
 
 const { TextArea } = Input;
 
@@ -32,6 +33,7 @@ const TOOL_ICONS: Record<string, string> = {
 };
 
 const ToolCallDisplay: React.FC<{ step: ToolCallStep }> = ({ step }) => {
+  const { t } = useTranslation();
   const icon = TOOL_ICONS[step.tool_name] || "🔧";
   const args = step.arguments;
   const dateRange = args.start_date && args.end_date
@@ -261,7 +263,7 @@ const UsageAIChatPanel: React.FC<UsageAIChatPanelProps> = ({
             <svg className="w-5 h-5 text-blue-600" viewBox="0 0 16 16" fill="currentColor">
               <path d="M8 1l1.5 3.5L13 6l-3.5 1.5L8 11 6.5 7.5 3 6l3.5-1.5L8 1zm4 7l.75 1.75L14.5 10.5l-1.75.75L12 13l-.75-1.75L9.5 10.5l1.75-.75L12 8zM4 9l.75 1.75L6.5 11.5l-1.75.75L4 14l-.75-1.75L1.5 11.5l1.75-.75L4 9z" />
             </svg>
-            <h3 className="text-base font-semibold text-gray-900">Ask AI</h3>
+            <h3 className="text-base font-semibold text-gray-900">{t('Ask_AI')}</h3>
           </div>
           <button
             onClick={handleClose}
@@ -302,7 +304,7 @@ const UsageAIChatPanel: React.FC<UsageAIChatPanelProps> = ({
             <svg className="w-8 h-8 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
             </svg>
-            <p className="text-sm font-medium">Ask a question about your usage</p>
+            <p className="text-sm font-medium">{t('Ask_a_question_about_your_usage')}</p>
             <p className="text-xs mt-1">e.g. &quot;Which model costs me the most?&quot;</p>
           </div>
         )}

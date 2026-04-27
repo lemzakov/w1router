@@ -323,7 +323,7 @@ function MetricsSection({ logEntry, metadata }: { logEntry: LogEntry; metadata: 
             {metadata?.attempted_retries !== undefined && metadata?.attempted_retries !== null
               ? metadata.attempted_retries > 0
                 ? <>{metadata.attempted_retries}{metadata.max_retries !== undefined && metadata.max_retries !== null ? ` / ${metadata.max_retries}` : ''}</>
-                : <Tag color="green">None</Tag>
+                : <Tag color="green">{t('None')}</Tag>
               : "-"}
           </Descriptions.Item>
 

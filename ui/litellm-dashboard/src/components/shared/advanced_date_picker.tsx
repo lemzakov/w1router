@@ -2,6 +2,7 @@ import { CalendarOutlined, ClockCircleOutlined } from "@ant-design/icons";
 import { Button, DateRangePickerValue, Text } from "@tremor/react";
 import moment from "moment";
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 interface AdvancedDatePickerProps {
   value: DateRangePickerValue;
@@ -69,6 +70,7 @@ const AdvancedDatePicker: React.FC<AdvancedDatePickerProps> = ({
   label = "Select Time Range",
   showTimeRange = true,
 }) => {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [tempValue, setTempValue] = useState<DateRangePickerValue>(value);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
@@ -304,7 +306,7 @@ const AdvancedDatePicker: React.FC<AdvancedDatePickerProps> = ({
               {/* Left side - Relative time options */}
               <div className="w-1/2 border-r border-gray-200">
                 <div className="p-3 border-b border-gray-200">
-                  <span className="text-sm font-semibold text-gray-900">Relative time</span>
+                  <span className="text-sm font-semibold text-gray-900">{t('Relative_time')}</span>
                 </div>
                 <div className="h-[350px] overflow-y-auto">
                   {relativeTimeOptions.map((option) => {
@@ -338,14 +340,14 @@ const AdvancedDatePicker: React.FC<AdvancedDatePickerProps> = ({
                 <div className="p-3.5 border-b border-gray-200">
                   <div className="flex items-center gap-2">
                     <CalendarOutlined className="text-gray-600" />
-                    <span className="text-sm font-semibold text-gray-900">Start and end dates</span>
+                    <span className="text-sm font-semibold text-gray-900">{t('Start_and_end_dates')}</span>
                   </div>
                 </div>
 
                 <div className="p-6 space-y-6 pb-20">
                   {/* Start date */}
                   <div>
-                    <label className="text-sm text-gray-700 mb-1 block">Start date</label>
+                    <label className="text-sm text-gray-700 mb-1 block">{t('Start_date')}</label>
                     <input
                       type="date"
                       value={startDate}
@@ -360,7 +362,7 @@ const AdvancedDatePicker: React.FC<AdvancedDatePickerProps> = ({
 
                   {/* End date */}
                   <div>
-                    <label className="text-sm text-gray-700 mb-1 block">End date</label>
+                    <label className="text-sm text-gray-700 mb-1 block">{t('End_date')}</label>
                     <input
                       type="date"
                       value={endDate}
@@ -394,7 +396,7 @@ const AdvancedDatePicker: React.FC<AdvancedDatePickerProps> = ({
                   {tempValue.from && tempValue.to && validation.isValid && (
                     <div className="bg-blue-50 p-3 rounded-md space-y-1">
                       <div className="text-xs text-blue-800">
-                        <span className="font-medium">From:</span>{" "}
+                        <span className="font-medium">{t('From')}</span>{" "}
                         {moment(tempValue.from).format("MMM D, YYYY [at] HH:mm:ss")}
                       </div>
                       <div className="text-xs text-blue-800">

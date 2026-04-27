@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Input, Tooltip } from "antd";
 import { InfoCircleOutlined, LinkOutlined } from "@ant-design/icons";
+import { useTranslation } from "react-i18next";
 
 const logos = "/ui/assets/logos/";
 
@@ -33,6 +34,7 @@ interface MCPLogoSelectorProps {
 }
 
 const MCPLogoSelector: React.FC<MCPLogoSelectorProps> = ({ value, onChange }) => {
+  const { t } = useTranslation();
   const [imgErrors, setImgErrors] = useState<Set<string>>(new Set());
 
   const handleSelect = (url: string) => {
@@ -46,7 +48,7 @@ const MCPLogoSelector: React.FC<MCPLogoSelectorProps> = ({ value, onChange }) =>
   return (
     <div>
       <div className="flex items-center gap-2 mb-2">
-        <span className="text-sm font-medium text-gray-700">Logo</span>
+        <span className="text-sm font-medium text-gray-700">{t('Logo')}</span>
         <Tooltip title="Select a well-known logo or paste a URL to any image. The logo is shown on the admin and chat pages.">
           <InfoCircleOutlined className="text-blue-400 hover:text-blue-600 cursor-help" />
         </Tooltip>

@@ -4,6 +4,7 @@ import { Input, Typography, Tooltip } from "antd";
 import { CopyOutlined, InfoCircleOutlined } from "@ant-design/icons";
 import NotificationsManager from "../molecules/notifications_manager";
 import GuardrailTestResults from "./GuardrailTestResults";
+import { useTranslation } from "react-i18next";
 
 const { TextArea } = Input;
 const { Text } = Typography;
@@ -25,6 +26,7 @@ export function GuardrailTestPanel({
   errors,
   onClose,
 }: GuardrailTestPanelProps) {
+  const { t } = useTranslation();
   const [inputText, setInputText] = useState("");
 
   const handleSubmit = () => {
@@ -87,7 +89,7 @@ export function GuardrailTestPanel({
         <div className="flex items-center space-x-3">
           <div className="flex-1 min-w-0">
             <div className="flex items-center space-x-2 mb-1">
-              <h2 className="text-lg font-semibold text-gray-900">Test Guardrails:</h2>
+              <h2 className="text-lg font-semibold text-gray-900">{t('Test_Guardrails_1')}</h2>
               <div className="flex flex-wrap gap-2">
                 {guardrailNames.map((name) => (
                   <div
@@ -112,7 +114,7 @@ export function GuardrailTestPanel({
           <div>
             <div className="flex justify-between items-center mb-2">
               <div className="flex items-center gap-2">
-                <label className="text-sm font-medium text-gray-700">Input Text</label>
+                <label className="text-sm font-medium text-gray-700">{t('Input_Text')}</label>
                 <Tooltip title="Press Enter to submit. Use Shift+Enter for new line.">
                   <InfoCircleOutlined className="text-gray-400 cursor-help" />
                 </Tooltip>
@@ -138,7 +140,7 @@ export function GuardrailTestPanel({
             />
             <div className="flex justify-between items-center mt-1">
               <Text className="text-xs text-gray-500">
-                Press <kbd className="px-1 py-0.5 bg-gray-100 border border-gray-300 rounded text-xs">Enter</kbd> to submit • <kbd className="px-1 py-0.5 bg-gray-100 border border-gray-300 rounded text-xs">Shift+Enter</kbd> for new line
+                Press <kbd className="px-1 py-0.5 bg-gray-100 border border-gray-300 rounded text-xs">{t('Enter')}</kbd> to submit • <kbd className="px-1 py-0.5 bg-gray-100 border border-gray-300 rounded text-xs">{t('ShiftEnter')}</kbd> for new line
               </Text>
               <Text className="text-xs text-gray-500">Characters: {inputText.length}</Text>
             </div>

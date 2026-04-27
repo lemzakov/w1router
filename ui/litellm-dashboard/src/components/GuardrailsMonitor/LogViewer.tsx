@@ -12,6 +12,7 @@ import { uiSpendLogsCall } from "@/components/networking";
 import { LogDetailsDrawer } from "@/components/view_logs/LogDetailsDrawer";
 import type { LogEntry as ViewLogsLogEntry } from "@/components/view_logs/columns";
 import type { LogEntry } from "./mockData";
+import { useTranslation } from "react-i18next";
 
 const actionConfig: Record<
   "blocked" | "passed" | "flagged",
@@ -61,6 +62,7 @@ export function LogViewer({
   startDate = "",
   endDate = "",
 }: LogViewerProps) {
+  const { t } = useTranslation();
   const [sampleSize, setSampleSize] = useState(10);
   const [activeFilter, setActiveFilter] = useState<string>(filterAction);
   const [selectedRequestId, setSelectedRequestId] = useState<string | null>(null);
@@ -148,7 +150,7 @@ export function LogViewer({
               </div>
               <div className="h-4 w-px bg-gray-200" />
               <div className="flex items-center gap-1">
-                <span className="text-xs text-gray-500 mr-1">Sample:</span>
+                <span className="text-xs text-gray-500 mr-1">{t('Sample')}</span>
                 {sampleSizes.map((size) => (
                   <Button
                     key={size}

@@ -16,6 +16,7 @@ import {
 } from "../vector_store_providers";
 import NotificationsManager from "../molecules/notifications_manager";
 import S3VectorsConfig from "./S3VectorsConfig";
+import { useTranslation } from "react-i18next";
 
 const { Dragger } = Upload;
 
@@ -25,6 +26,7 @@ interface CreateVectorStoreProps {
 }
 
 const CreateVectorStore: React.FC<CreateVectorStoreProps> = ({ accessToken, onSuccess }) => {
+  const { t } = useTranslation();
   const [form] = Form.useForm();
   const [documents, setDocuments] = useState<DocumentUpload[]>([]);
   const [isCreating, setIsCreating] = useState(false);
@@ -194,7 +196,7 @@ const CreateVectorStore: React.FC<CreateVectorStoreProps> = ({ accessToken, onSu
   return (
     <div className="space-y-6">
       <div>
-        <Title>Create Vector Store</Title>
+        <Title>{t('Create_Vector_Store')}</Title>
         <Text className="text-gray-500">
           Upload documents and select a provider to create a new vector store with embedded content.
         </Text>
@@ -203,7 +205,7 @@ const CreateVectorStore: React.FC<CreateVectorStoreProps> = ({ accessToken, onSu
       {/* Upload Area */}
       <Card>
         <div className="mb-4">
-          <Text className="font-medium">Step 1: Upload Documents</Text>
+          <Text className="font-medium">{t('Step_1_Upload_Documents')}</Text>
           <Text className="text-sm text-gray-500 block mt-1">
             Upload one or more documents (PDF, TXT, DOCX, MD). Maximum file size: 50MB per file.
           </Text>
@@ -212,7 +214,7 @@ const CreateVectorStore: React.FC<CreateVectorStoreProps> = ({ accessToken, onSu
           <p className="ant-upload-drag-icon">
             <InboxOutlined style={{ fontSize: "48px", color: "#1890ff" }} />
           </p>
-          <p className="ant-upload-text">Click or drag files to this area to upload</p>
+          <p className="ant-upload-text">{t('Click_or_drag_files_to_this_area_to_uplo')}</p>
           <p className="ant-upload-hint">
             Support for single or bulk upload. Supported formats: PDF, TXT, DOCX, MD
           </p>
@@ -233,7 +235,7 @@ const CreateVectorStore: React.FC<CreateVectorStoreProps> = ({ accessToken, onSu
       <Card>
         <div className="space-y-4">
           <div>
-            <Text className="font-medium">Step 2: Configure Vector Store</Text>
+            <Text className="font-medium">{t('Step_2_Configure_Vector_Store')}</Text>
             <Text className="text-sm text-gray-500 block mt-1">
               Choose the provider and optionally provide a name and description for your vector store.
             </Text>
@@ -416,10 +418,10 @@ const CreateVectorStore: React.FC<CreateVectorStoreProps> = ({ accessToken, onSu
           description={
             <div>
               <p>
-                <strong>Vector Store ID:</strong> {ingestResults[0]?.vector_store_id}
+                <strong>{t('Vector_Store_ID')}</strong> {ingestResults[0]?.vector_store_id}
               </p>
               <p>
-                <strong>Documents Ingested:</strong> {ingestResults.length}
+                <strong>{t('Documents_Ingested')}</strong> {ingestResults.length}
               </p>
             </div>
           }

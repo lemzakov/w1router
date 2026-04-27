@@ -11,6 +11,7 @@ import RouterConfigBuilder from "./RouterConfigBuilder";
 import ComplexityRouterConfig from "./ComplexityRouterConfig";
 import NotificationManager from "../molecules/notifications_manager";
 import { ThunderboltOutlined, BranchesOutlined } from "@ant-design/icons";
+import { useTranslation } from "react-i18next";
 
 interface AddAutoRouterTabProps {
   form: FormInstance;
@@ -31,6 +32,7 @@ interface ComplexityTiers {
 const { Title, Link } = Typography;
 
 const AddAutoRouterTab: React.FC<AddAutoRouterTabProps> = ({ form, handleOk, accessToken, userRole }) => {
+  const { t } = useTranslation();
   // State for connection testing
   const [isResultModalVisible, setIsResultModalVisible] = useState<boolean>(false);
   const [isTestingConnection, setIsTestingConnection] = useState<boolean>(false);
@@ -211,14 +213,14 @@ const AddAutoRouterTab: React.FC<AddAutoRouterTabProps> = ({ form, handleOk, acc
 
   return (
     <>
-      <Title level={2}>Add Auto Router</Title>
+      <Title level={2}>{t('Add_Auto_Router')}</Title>
       <Text className="text-gray-600 mb-6">
         Create an auto router that automatically selects the best model based on request complexity or semantic matching.
       </Text>
 
       <Card className="mb-4">
         <div className="mb-4">
-          <Text className="text-sm font-medium mb-2 block">Router Type</Text>
+          <Text className="text-sm font-medium mb-2 block">{t('Router_Type')}</Text>
           <Radio.Group 
             value={routerType} 
             onChange={(e) => setRouterType(e.target.value)}
@@ -228,7 +230,7 @@ const AddAutoRouterTab: React.FC<AddAutoRouterTabProps> = ({ form, handleOk, acc
               <Radio value="complexity" className="w-full">
                 <div className="flex items-center gap-2">
                   <ThunderboltOutlined className="text-yellow-500" />
-                  <span className="font-medium">Complexity Router</span>
+                  <span className="font-medium">{t('Complexity_Router')}</span>
                   <Badge 
                     count="Recommended" 
                     style={{ 
@@ -247,7 +249,7 @@ const AddAutoRouterTab: React.FC<AddAutoRouterTabProps> = ({ form, handleOk, acc
               <Radio value="semantic" className="w-full mt-2">
                 <div className="flex items-center gap-2">
                   <BranchesOutlined className="text-blue-500" />
-                  <span className="font-medium">Semantic Router</span>
+                  <span className="font-medium">{t('Semantic_Router')}</span>
                 </div>
                 <div className="text-xs text-gray-500 ml-6 mt-1">
                   Routes based on semantic similarity to example utterances. Requires embedding model and training examples.
@@ -363,7 +365,7 @@ const AddAutoRouterTab: React.FC<AddAutoRouterTabProps> = ({ form, handleOk, acc
 
           <div className="flex items-center my-4">
             <div className="flex-grow border-t border-gray-200"></div>
-            <span className="px-4 text-gray-500 text-sm">Additional Settings</span>
+            <span className="px-4 text-gray-500 text-sm">{t('Additional_Settings')}</span>
             <div className="flex-grow border-t border-gray-200"></div>
           </div>
 
@@ -393,7 +395,7 @@ const AddAutoRouterTab: React.FC<AddAutoRouterTabProps> = ({ form, handleOk, acc
 
           <div className="flex justify-between items-center mb-4">
             <Tooltip title="Get help on our github">
-              <Typography.Link href="https://github.com/BerriAI/litellm/issues">Need Help?</Typography.Link>
+              <Typography.Link href="https://github.com/BerriAI/litellm/issues">{t('Need_Help')}</Typography.Link>
             </Tooltip>
             <div className="space-x-2">
               <Button onClick={handleTestConnection} loading={isTestingConnection}>

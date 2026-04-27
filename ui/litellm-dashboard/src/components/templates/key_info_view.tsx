@@ -23,6 +23,7 @@ import ObjectPermissionsView from "../object_permissions_view";
 import { RegenerateKeyModal } from "../organisms/regenerate_key_modal";
 import { parseErrorMessage } from "../shared/errorUtils";
 import { KeyEditView } from "./key_edit_view";
+import { useTranslation } from "react-i18next";
 
 interface KeyInfoViewProps {
   keyId: string;
@@ -49,6 +50,7 @@ export default function KeyInfoView({
   onDelete,
   backButtonText = "Back to Keys",
 }: KeyInfoViewProps) {
+  const { t } = useTranslation();
   const { accessToken, userId: userID, userRole, premiumUser } = useAuthorized();
   const canEditGuardrails = premiumUser || (userRole != null && rolesWithWriteAccess.includes(userRole));
   const { teams: teamsData } = useTeams();
@@ -128,7 +130,7 @@ export default function KeyInfoView({
         <Button icon={ArrowLeftIcon} variant="light" onClick={onClose} className="mb-4">
           {backButtonText}
         </Button>
-        <Text>Key not found</Text>
+        <Text>{t('Key_not_found')}</Text>
       </div>
     );
   }
@@ -460,8 +462,8 @@ export default function KeyInfoView({
 
       <TabGroup>
         <TabList className="mb-4">
-          <Tab>Overview</Tab>
-          <Tab>Settings</Tab>
+          <Tab>{t('Overview')}</Tab>
+          <Tab>{t('Settings')}</Tab>
         </TabList>
 
         <TabPanels>
@@ -469,7 +471,7 @@ export default function KeyInfoView({
           <TabPanel>
             <Grid numItems={1} numItemsSm={2} numItemsLg={3} className="gap-6">
               <Card>
-                <Text>Spend</Text>
+                <Text>{t('Spend')}</Text>
                 <div className="mt-2">
                   <Title>${formatNumberWithCommas(currentKeyData.spend, 4)}</Title>
                   <Text>
@@ -482,7 +484,7 @@ export default function KeyInfoView({
               </Card>
 
               <Card>
-                <Text>Rate Limits</Text>
+                <Text>{t('Rate_Limits')}</Text>
                 <div className="mt-2">
                   <Text>TPM: {currentKeyData.tpm_limit !== null ? currentKeyData.tpm_limit : "Unlimited"}</Text>
                   <Text>RPM: {currentKeyData.rpm_limit !== null ? currentKeyData.rpm_limit : "Unlimited"}</Text>
@@ -490,7 +492,7 @@ export default function KeyInfoView({
               </Card>
 
               <Card>
-                <Text>Models</Text>
+                <Text>{t('Models')}</Text>
                 <div className="mt-2 flex flex-wrap gap-2">
                   {currentKeyData.models && currentKeyData.models.length > 0 ? (
                     currentKeyData.models.map((model, index) => (
@@ -499,7 +501,7 @@ export default function KeyInfoView({
                       </Badge>
                     ))
                   ) : (
-                    <Text>No models specified</Text>
+                    <Text>{t('No_models_specified')}</Text>
                   )}
                 </div>
               </Card>
@@ -513,7 +515,7 @@ export default function KeyInfoView({
               </Card>
 
               <Card>
-                <Text className="font-medium mb-3">Guardrails</Text>
+                <Text className="font-medium mb-3">{t('Guardrails')}</Text>
                 {Array.isArray(currentKeyData.metadata?.guardrails) && currentKeyData.metadata.guardrails.length > 0 ? (
                   <div className="flex flex-wrap gap-2">
                     {currentKeyData.metadata.guardrails.map((guardrail: string, index: number) => (
@@ -523,29 +525,29 @@ export default function KeyInfoView({
                     ))}
                   </div>
                 ) : (
-                  <Text className="text-gray-500">No guardrails configured</Text>
+                  <Text className="text-gray-500">{t('No_guardrails_configured')}</Text>
                 )}
                 {typeof currentKeyData.metadata?.disable_global_guardrails === "boolean" &&
                   currentKeyData.metadata.disable_global_guardrails === true && (
                     <div className="mt-3 pt-3 border-t border-gray-200">
-                      <Badge color="yellow">Global Guardrails Disabled</Badge>
+                      <Badge color="yellow">{t('Global_Guardrails_Disabled')}</Badge>
                     </div>
                   )}
               </Card>
 
               <Card>
-                <Text className="font-medium mb-3">Policies</Text>
+                <Text className="font-medium mb-3">{t('Policies')}</Text>
                 {Array.isArray(currentKeyData.metadata?.policies) && currentKeyData.metadata.policies.length > 0 ? (
                   <div className="space-y-4">
                     {currentKeyData.metadata.policies.map((policy: string, index: number) => (
                       <div key={index} className="space-y-2">
                         <div className="flex items-center gap-2">
                           <Badge color="purple">{policy}</Badge>
-                          {loadingPolicies && <Text className="text-xs text-gray-400">Loading guardrails...</Text>}
+                          {loadingPolicies && <Text className="text-xs text-gray-400">{t('Loading_guardrails')}</Text>}
                         </div>
                         {!loadingPolicies && policyGuardrails[policy] && policyGuardrails[policy].length > 0 && (
                           <div className="ml-4 pl-3 border-l-2 border-gray-200">
-                            <Text className="text-xs text-gray-500 mb-1">Resolved Guardrails:</Text>
+                            <Text className="text-xs text-gray-500 mb-1">{t('Resolved_Guardrails')}</Text>
                             <div className="flex flex-wrap gap-1">
                               {policyGuardrails[policy].map((guardrail: string, gIndex: number) => (
                                 <Badge key={gIndex} color="blue" size="xs">
@@ -559,7 +561,7 @@ export default function KeyInfoView({
                     ))}
                   </div>
                 ) : (
-                  <Text className="text-gray-500">No policies configured</Text>
+                  <Text className="text-gray-500">{t('No_policies_configured')}</Text>
                 )}
               </Card>
 
@@ -588,9 +590,9 @@ export default function KeyInfoView({
           <TabPanel>
             <Card className="overflow-y-auto max-h-[65vh]">
               <div className="flex justify-between items-center mb-4">
-                <Title>Key Settings</Title>
+                <Title>{t('Key_Settings')}</Title>
                 {!isEditing && canModifyKey && (
-                  <Button onClick={() => setIsEditing(true)}>Edit Settings</Button>
+                  <Button onClick={() => setIsEditing(true)}>{t('Edit_Settings')}</Button>
                 )}
               </div>
 
@@ -608,28 +610,28 @@ export default function KeyInfoView({
               ) : (
                 <div className="space-y-4">
                   <div>
-                    <Text className="font-medium">Key ID</Text>
+                    <Text className="font-medium">{t('Key_ID')}</Text>
                     <Text className="font-mono">{currentKeyData.token_id || currentKeyData.token}</Text>
                   </div>
 
                   <div>
-                    <Text className="font-medium">Key Alias</Text>
+                    <Text className="font-medium">{t('Key_Alias')}</Text>
                     <Text>{currentKeyData.key_alias || "Not Set"}</Text>
                   </div>
 
                   <div>
-                    <Text className="font-medium">Secret Key</Text>
+                    <Text className="font-medium">{t('Secret_Key')}</Text>
                     <Text className="font-mono">{currentKeyData.key_name}</Text>
                   </div>
 
                   <div>
-                    <Text className="font-medium">Team ID</Text>
+                    <Text className="font-medium">{t('Team_ID')}</Text>
                     <Text>{currentKeyData.team_id || "Not Set"}</Text>
                   </div>
 
                   {enableProjectsUI && (
                     <div>
-                      <Text className="font-medium">Project</Text>
+                      <Text className="font-medium">{t('Project')}</Text>
                       <Text>
                         {currentKeyData.project_id
                           ? (() => {
@@ -644,18 +646,18 @@ export default function KeyInfoView({
                   )}
 
                   <div>
-                    <Text className="font-medium">Organization</Text>
+                    <Text className="font-medium">{t('Organization')}</Text>
                     <Text>{(currentKeyData.organization_id ?? currentKeyData.org_id) || "Not Set"}</Text>
                   </div>
 
                   <div>
-                    <Text className="font-medium">Created</Text>
+                    <Text className="font-medium">{t('Created')}</Text>
                     <Text>{formatTimestamp(currentKeyData.created_at)}</Text>
                   </div>
 
                   {lastRegeneratedAt && (
                     <div>
-                      <Text className="font-medium">Last Regenerated</Text>
+                      <Text className="font-medium">{t('Last_Regenerated')}</Text>
                       <div className="flex items-center gap-2">
                         <Text>{formatTimestamp(lastRegeneratedAt)}</Text>
                         <Badge color="green" size="xs">
@@ -666,7 +668,7 @@ export default function KeyInfoView({
                   )}
 
                   <div>
-                    <Text className="font-medium">Expires</Text>
+                    <Text className="font-medium">{t('Expires')}</Text>
                     <Text>{currentKeyData.expires ? formatTimestamp(currentKeyData.expires) : "Never"}</Text>
                   </div>
 
@@ -681,12 +683,12 @@ export default function KeyInfoView({
                   />
 
                   <div>
-                    <Text className="font-medium">Spend</Text>
+                    <Text className="font-medium">{t('Spend')}</Text>
                     <Text>${formatNumberWithCommas(currentKeyData.spend, 4)} USD</Text>
                   </div>
 
                   <div>
-                    <Text className="font-medium">Budget</Text>
+                    <Text className="font-medium">{t('Budget')}</Text>
                     <Text>
                       {currentKeyData.max_budget !== null
                         ? `$${formatNumberWithCommas(currentKeyData.max_budget, 2)}`
@@ -695,7 +697,7 @@ export default function KeyInfoView({
                   </div>
 
                   <div>
-                    <Text className="font-medium">Tags</Text>
+                    <Text className="font-medium">{t('Tags')}</Text>
                     <div className="flex flex-wrap gap-2 mt-1">
                       {Array.isArray(currentKeyData.metadata?.tags) && currentKeyData.metadata.tags.length > 0
                         ? currentKeyData.metadata.tags.map((tag, index) => (
@@ -708,7 +710,7 @@ export default function KeyInfoView({
                   </div>
 
                   <div>
-                    <Text className="font-medium">Prompts</Text>
+                    <Text className="font-medium">{t('Prompts')}</Text>
                     <Text>
                       {Array.isArray(currentKeyData.metadata?.prompts) && currentKeyData.metadata.prompts.length > 0
                         ? currentKeyData.metadata.prompts.map((prompt, index) => (
@@ -721,7 +723,7 @@ export default function KeyInfoView({
                   </div>
 
                   <div>
-                    <Text className="font-medium">Allowed Routes</Text>
+                    <Text className="font-medium">{t('Allowed_Routes')}</Text>
                     <div className="flex flex-wrap gap-2 mt-1">
                       {Array.isArray(currentKeyData.allowed_routes) && currentKeyData.allowed_routes.length > 0 ? (
                         currentKeyData.allowed_routes.map((route, index) => (
@@ -730,13 +732,13 @@ export default function KeyInfoView({
                           </span>
                         ))
                       ) : (
-                        <Tag color="green">All routes allowed</Tag>
+                        <Tag color="green">{t('All_routes_allowed')}</Tag>
                       )}
                     </div>
                   </div>
 
                   <div>
-                    <Text className="font-medium">Allowed Pass Through Routes</Text>
+                    <Text className="font-medium">{t('Allowed_Pass_Through_Routes')}</Text>
                     <Text>
                       {Array.isArray(currentKeyData.metadata?.allowed_passthrough_routes) &&
                         currentKeyData.metadata.allowed_passthrough_routes.length > 0
@@ -750,18 +752,18 @@ export default function KeyInfoView({
                   </div>
 
                   <div>
-                    <Text className="font-medium">Disable Global Guardrails</Text>
+                    <Text className="font-medium">{t('Disable_Global_Guardrails')}</Text>
                     <Text>
                       {currentKeyData.metadata?.disable_global_guardrails === true ? (
-                        <Badge color="yellow">Enabled - Global guardrails bypassed</Badge>
+                        <Badge color="yellow">{t('Enabled_Global_guardrails_bypassed')}</Badge>
                       ) : (
-                        <Badge color="green">Disabled - Global guardrails active</Badge>
+                        <Badge color="green">{t('Disabled_Global_guardrails_active')}</Badge>
                       )}
                     </Text>
                   </div>
 
                   <div>
-                    <Text className="font-medium">Models</Text>
+                    <Text className="font-medium">{t('Models')}</Text>
                     <div className="flex flex-wrap gap-2 mt-1">
                       {currentKeyData.models && currentKeyData.models.length > 0 ? (
                         currentKeyData.models.map((model, index) => (
@@ -770,13 +772,13 @@ export default function KeyInfoView({
                           </span>
                         ))
                       ) : (
-                        <Text>No models specified</Text>
+                        <Text>{t('No_models_specified')}</Text>
                       )}
                     </div>
                   </div>
 
                   <div>
-                    <Text className="font-medium">Rate Limits</Text>
+                    <Text className="font-medium">{t('Rate_Limits')}</Text>
                     <Text>TPM: {currentKeyData.tpm_limit !== null ? currentKeyData.tpm_limit : "Unlimited"}</Text>
                     <Text>RPM: {currentKeyData.rpm_limit !== null ? currentKeyData.rpm_limit : "Unlimited"}</Text>
                     <Text>
@@ -800,7 +802,7 @@ export default function KeyInfoView({
                   </div>
 
                   <div>
-                    <Text className="font-medium">Metadata</Text>
+                    <Text className="font-medium">{t('Metadata')}</Text>
                     <pre className="bg-gray-100 p-2 rounded text-xs overflow-auto mt-1">
                       {formatMetadataForDisplay(stripTagsFromMetadata(currentKeyData.metadata))}
                     </pre>

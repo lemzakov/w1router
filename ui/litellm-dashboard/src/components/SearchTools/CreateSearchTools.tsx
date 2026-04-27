@@ -9,6 +9,7 @@ import NotificationsManager from "../molecules/notifications_manager";
 import { createSearchTool, fetchAvailableSearchProviders } from "../networking";
 import SearchConnectionTest from "./SearchConnectionTest";
 import { AvailableSearchProvider, SearchTool } from "./types";
+import { useTranslation } from "react-i18next";
 
 const { TextArea } = Input;
 
@@ -60,6 +61,7 @@ const CreateSearchTool: React.FC<CreateSearchToolProps> = ({
   isModalVisible,
   setModalVisible,
 }) => {
+  const { t } = useTranslation();
   const [form] = Form.useForm();
   const [isLoading, setIsLoading] = useState(false);
   const [formValues, setFormValues] = useState<Record<string, any>>({});
@@ -157,7 +159,7 @@ const CreateSearchTool: React.FC<CreateSearchToolProps> = ({
       title={
         <div className="flex items-center space-x-3 pb-4 border-b border-gray-100">
           <span className="text-2xl">🔍</span>
-          <h2 className="text-xl font-semibold text-gray-900">Add New Search Tool</h2>
+          <h2 className="text-xl font-semibold text-gray-900">{t('Add_New_Search_Tool')}</h2>
         </div>
       }
       open={isModalVisible}
@@ -264,7 +266,7 @@ const CreateSearchTool: React.FC<CreateSearchToolProps> = ({
             </Form.Item>
 
             <Form.Item
-              label={<span className="text-sm font-medium text-gray-700">Description (Optional)</span>}
+              label={<span className="text-sm font-medium text-gray-700">{t('Description_Optional')}</span>}
               name="description"
             >
               <TextArea

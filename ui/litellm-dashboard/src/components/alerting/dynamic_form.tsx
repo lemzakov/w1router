@@ -2,6 +2,7 @@ import React from "react";
 import { Form, Input, InputNumber, Button as Button2 } from "antd";
 import { TrashIcon, CheckCircleIcon } from "@heroicons/react/outline";
 import { Button, Badge, Icon, Text, TableRow, TableCell, Switch } from "@tremor/react";
+import { useTranslation } from "react-i18next";
 interface AlertingSetting {
   field_name: string;
   field_description: string;
@@ -26,6 +27,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({
   handleSubmit,
   premiumUser,
 }) => {
+  const { t } = useTranslation();
   const [form] = Form.useForm();
 
   const onFinish = () => {
@@ -125,9 +127,9 @@ const DynamicForm: React.FC<DynamicFormProps> = ({
                 In DB
               </Badge>
             ) : value.stored_in_db == false ? (
-              <Badge className="text-gray bg-white outline">In Config</Badge>
+              <Badge className="text-gray bg-white outline">{t('In_Config')}</Badge>
             ) : (
-              <Badge className="text-gray bg-white outline">Not Set</Badge>
+              <Badge className="text-gray bg-white outline">{t('Not_Set')}</Badge>
             )}
           </TableCell>
           <TableCell>
@@ -138,7 +140,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({
         </TableRow>
       ))}
       <div>
-        <Button2 htmlType="submit">Update Settings</Button2>
+        <Button2 htmlType="submit">{t('Update_Settings')}</Button2>
       </div>
     </Form>
   );

@@ -4,6 +4,7 @@ import { Select } from "antd";
 import { PlusIcon, TrashIcon, GripVerticalIcon } from "lucide-react";
 import VariableTextArea from "../variable_textarea";
 import { Message } from "./types";
+import { useTranslation } from "react-i18next";
 
 const { Option } = Select;
 
@@ -22,6 +23,7 @@ const PromptMessagesCard: React.FC<PromptMessagesCardProps> = ({
   onRemoveMessage,
   onMoveMessage,
 }) => {
+  const { t } = useTranslation();
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
   const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
 
@@ -51,7 +53,7 @@ const PromptMessagesCard: React.FC<PromptMessagesCardProps> = ({
   return (
     <Card className="p-3">
       <div className="mb-2">
-        <Text className="text-sm font-medium">Prompt messages</Text>
+        <Text className="text-sm font-medium">{t('Prompt_messages')}</Text>
         <Text className="text-gray-500 text-xs mt-1">
           Use <code className="bg-gray-100 px-1 rounded text-xs">{'{{variable}}'}</code> syntax for template variables
         </Text>
@@ -77,9 +79,9 @@ const PromptMessagesCard: React.FC<PromptMessagesCardProps> = ({
                 size="small"
                 bordered={false}
               >
-                <Option value="user">User</Option>
-                <Option value="assistant">Assistant</Option>
-                <Option value="system">System</Option>
+                <Option value="user">{t('User')}</Option>
+                <Option value="assistant">{t('Assistant')}</Option>
+                <Option value="system">{t('System')}</Option>
               </Select>
               <div className="flex items-center gap-1">
                 {messages.length > 1 && (

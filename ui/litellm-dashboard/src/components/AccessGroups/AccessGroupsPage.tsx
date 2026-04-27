@@ -43,6 +43,7 @@ import {
 import { AccessGroupDetail } from "./AccessGroupsDetailsPage";
 import { AccessGroupCreateModal } from "./AccessGroupsModal/AccessGroupCreateModal";
 import { AccessGroup } from "./types";
+import { useTranslation } from "react-i18next";
 
 declare module "@tanstack/react-table" {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -129,6 +130,7 @@ function buildAntdColumns(
 }
 
 export function AccessGroupsPage() {
+  const { t } = useTranslation();
   const { token } = theme.useToken();
   const { data: groupsData, isLoading } = useAccessGroups();
   const groups = useMemo(
@@ -189,13 +191,13 @@ export function AccessGroupsPage() {
       {
         id: "name",
         accessorKey: "name",
-        header: () => <span>Name</span>,
+        header: () => <span>{t('Name_1')}</span>,
         enableSorting: true,
         cell: ({ getValue }) => getValue() as string,
       },
       {
         id: "resources",
-        header: () => <span>Resources</span>,
+        header: () => <span>{t('Resources')}</span>,
         enableSorting: false,
         cell: ({ row }) => {
           const record = row.original;
@@ -235,7 +237,7 @@ export function AccessGroupsPage() {
       {
         id: "createdAt",
         accessorKey: "createdAt",
-        header: () => <span>Created</span>,
+        header: () => <span>{t('Created')}</span>,
         enableSorting: true,
         sortingFn: "datetime",
         cell: ({ getValue }) =>
@@ -245,7 +247,7 @@ export function AccessGroupsPage() {
       {
         id: "updatedAt",
         accessorKey: "updatedAt",
-        header: () => <span>Updated</span>,
+        header: () => <span>{t('Updated')}</span>,
         enableSorting: false,
         cell: ({ getValue }) =>
           new Date(getValue() as string).toLocaleDateString(),
@@ -253,7 +255,7 @@ export function AccessGroupsPage() {
       },
       {
         id: "actions",
-        header: () => <span>Actions</span>,
+        header: () => <span>{t('Actions')}</span>,
         enableSorting: false,
         cell: ({ row }) => (
           <Space>

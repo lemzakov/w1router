@@ -1,5 +1,6 @@
 import React from "react";
 import { TextInput } from "@tremor/react";
+import { useTranslation } from "react-i18next";
 
 interface routingStrategyArgs {
   ttl?: number;
@@ -18,6 +19,7 @@ interface LatencyBasedConfigurationProps {
 const LatencyBasedConfiguration: React.FC<LatencyBasedConfigurationProps> = ({
   routingStrategyArgs,
 }) => {
+  const { t } = useTranslation();
   const paramExplanation: { [key: string]: string } = {
     ttl: "Sliding window to look back over when calculating the average latency of a deployment. Default - 1 hour (in seconds).",
     lowest_latency_buffer:
@@ -28,8 +30,8 @@ const LatencyBasedConfiguration: React.FC<LatencyBasedConfigurationProps> = ({
     <>
       <div className="space-y-6">
         <div className="max-w-3xl">
-          <h3 className="text-sm font-medium text-gray-900">Latency-Based Configuration</h3>
-          <p className="text-xs text-gray-500 mt-1">Fine-tune latency-based routing behavior</p>
+          <h3 className="text-sm font-medium text-gray-900">{t('LatencyBased_Configuration')}</h3>
+          <p className="text-xs text-gray-500 mt-1">{t('Finetune_latencybased_routing_behavior')}</p>
         </div>
         
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 xl:grid-cols-3">

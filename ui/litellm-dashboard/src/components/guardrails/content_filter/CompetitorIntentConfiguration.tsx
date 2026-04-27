@@ -9,6 +9,7 @@ import {
   InputNumber,
 } from "antd";
 import { getMajorAirlines } from "../../networking";
+import { useTranslation } from "react-i18next";
 
 const { Title, Text } = Typography;
 const { Option } = Select;
@@ -56,6 +57,7 @@ const DEFAULT_CONFIG: CompetitorIntentConfig = {
 const CompetitorIntentConfiguration: React.FC<
   CompetitorIntentConfigurationProps
 > = ({ enabled, config, onChange, accessToken }) => {
+  const { t } = useTranslation();
   const effectiveConfig = config ?? DEFAULT_CONFIG;
   const [airlineOptions, setAirlineOptions] = useState<MajorAirline[]>([]);
   const [loadingAirlines, setLoadingAirlines] = useState(false);
@@ -162,8 +164,8 @@ const CompetitorIntentConfiguration: React.FC<
             onChange={(v) => handleConfigChange("competitor_intent_type", v)}
             style={{ width: "100%" }}
           >
-            <Option value="airline">Airline (auto-load competitors from IATA)</Option>
-            <Option value="generic">Generic (specify competitors manually)</Option>
+            <Option value="airline">{t('Airline_autoload_competitors_from_IATA')}</Option>
+            <Option value="generic">{t('Generic_specify_competitors_manually')}</Option>
           </Select>
         </Form.Item>
 
@@ -258,8 +260,8 @@ const CompetitorIntentConfiguration: React.FC<
             onChange={(v) => handlePolicyChange("competitor_comparison", v)}
             style={{ width: "100%" }}
           >
-            <Option value="refuse">Refuse (block request)</Option>
-            <Option value="reframe">Reframe (suggest alternative)</Option>
+            <Option value="refuse">{t('Refuse_block_request')}</Option>
+            <Option value="reframe">{t('Reframe_suggest_alternative')}</Option>
           </Select>
         </Form.Item>
 
@@ -269,8 +271,8 @@ const CompetitorIntentConfiguration: React.FC<
             onChange={(v) => handlePolicyChange("possible_competitor_comparison", v)}
             style={{ width: "100%" }}
           >
-            <Option value="refuse">Refuse (block request)</Option>
-            <Option value="reframe">Reframe (suggest alternative to backend LLM)</Option>
+            <Option value="refuse">{t('Refuse_block_request')}</Option>
+            <Option value="reframe">{t('Reframe_suggest_alternative_to_backend_L')}</Option>
           </Select>
         </Form.Item>
 
@@ -281,13 +283,13 @@ const CompetitorIntentConfiguration: React.FC<
               Classify competitor intent by confidence (0–1). Higher confidence → stronger intent.
               <ul style={{ marginBottom: 0, marginTop: 4, paddingLeft: 20 }}>
                 <li>
-                  <strong>High (≥)</strong>: Treat as full competitor comparison → uses &quot;Competitor comparison&quot; policy
+                  <strong>{t('High_1')}</strong>: Treat as full competitor comparison → uses &quot;Competitor comparison&quot; policy
                 </li>
                 <li>
-                  <strong>Medium (≥)</strong>: Treat as possible comparison → uses &quot;Possible competitor comparison&quot; policy
+                  <strong>{t('Medium_1')}</strong>: Treat as possible comparison → uses &quot;Possible competitor comparison&quot; policy
                 </li>
                 <li>
-                  <strong>Low (≥)</strong>: Log only; allow request. Below Low → allow with no action
+                  <strong>{t('Low')}</strong>: Log only; allow request. Below Low → allow with no action
                 </li>
               </ul>
               Raise thresholds to be more permissive; lower them to be stricter.

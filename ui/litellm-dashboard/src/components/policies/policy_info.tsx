@@ -5,6 +5,7 @@ import { Descriptions, Tag, Spin, Divider, Typography, Alert } from "antd";
 import { Policy } from "./types";
 import { PipelineInfoDisplay } from "./pipeline_flow_builder";
 import { getResolvedGuardrails } from "../networking";
+import { useTranslation } from "react-i18next";
 
 const { Title, Text } = Typography;
 
@@ -25,6 +26,7 @@ const PolicyInfoView: React.FC<PolicyInfoViewProps> = ({
   isAdmin,
   getPolicy,
 }) => {
+  const { t } = useTranslation();
   const [policy, setPolicy] = useState<Policy | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [resolvedGuardrails, setResolvedGuardrails] = useState<string[]>([]);
@@ -70,7 +72,7 @@ const PolicyInfoView: React.FC<PolicyInfoViewProps> = ({
   if (!policy) {
     return (
       <Card>
-        <Text type="danger">Policy not found</Text>
+        <Text type="danger">{t('Policy_not_found')}</Text>
         <br />
         <Button onClick={onClose} className="mt-4">
           Go Back
@@ -107,13 +109,13 @@ const PolicyInfoView: React.FC<PolicyInfoViewProps> = ({
             <code className="text-xs bg-gray-100 px-2 py-1 rounded">{policy.policy_id}</code>
           </Descriptions.Item>
           <Descriptions.Item label="Description">
-            {policy.description || <Text type="secondary">No description</Text>}
+            {policy.description || <Text type="secondary">{t('No_description')}</Text>}
           </Descriptions.Item>
           <Descriptions.Item label="Inherits From">
             {policy.inherit ? (
               <Badge color="blue" size="sm">{policy.inherit}</Badge>
             ) : (
-              <Text type="secondary">None</Text>
+              <Text type="secondary">{t('None')}</Text>
             )}
           </Descriptions.Item>
           <Descriptions.Item label="Created At">
@@ -131,7 +133,7 @@ const PolicyInfoView: React.FC<PolicyInfoViewProps> = ({
         {policy.pipeline && (
           <>
             <Divider orientation="left">
-              <Text strong>Pipeline Flow</Text>
+              <Text strong>{t('Pipeline_Flow')}</Text>
             </Divider>
             <Alert
               message={`Pipeline (${policy.pipeline.mode} mode, ${policy.pipeline.steps.length} step${policy.pipeline.steps.length !== 1 ? "s" : ""})`}
@@ -144,7 +146,7 @@ const PolicyInfoView: React.FC<PolicyInfoViewProps> = ({
         )}
 
         <Divider orientation="left">
-          <Text strong>Guardrails Configuration</Text>
+          <Text strong>{t('Guardrails_Configuration')}</Text>
         </Divider>
 
         {resolvedGuardrails.length > 0 && (
@@ -180,7 +182,7 @@ const PolicyInfoView: React.FC<PolicyInfoViewProps> = ({
                   </Tag>
                 ))
               ) : (
-                <Text type="secondary">None</Text>
+                <Text type="secondary">{t('None')}</Text>
               )}
             </div>
           </Descriptions.Item>
@@ -193,14 +195,14 @@ const PolicyInfoView: React.FC<PolicyInfoViewProps> = ({
                   </Tag>
                 ))
               ) : (
-                <Text type="secondary">None</Text>
+                <Text type="secondary">{t('None')}</Text>
               )}
             </div>
           </Descriptions.Item>
         </Descriptions>
 
         <Divider orientation="left">
-          <Text strong>Conditions</Text>
+          <Text strong>{t('Conditions')}</Text>
         </Divider>
 
         <Descriptions bordered column={1}>
@@ -212,7 +214,7 @@ const PolicyInfoView: React.FC<PolicyInfoViewProps> = ({
                   : JSON.stringify(policy.condition.model)}
               </Tag>
             ) : (
-              <Text type="secondary">No model condition (applies to all models)</Text>
+              <Text type="secondary">{t('No_model_condition_applies_to_all_models')}</Text>
             )}
           </Descriptions.Item>
         </Descriptions>

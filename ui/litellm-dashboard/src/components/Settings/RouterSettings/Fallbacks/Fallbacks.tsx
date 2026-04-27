@@ -9,6 +9,7 @@ import { ProviderLogo } from "../../../molecules/models/ProviderLogo";
 import NotificationsManager from "../../../molecules/notifications_manager";
 import { getCallbacksCall, setCallbacksCall } from "../../../networking";
 import AddFallbacks from "./AddFallbacks";
+import { useTranslation } from "react-i18next";
 
 type FallbackEntry = { [modelName: string]: string[] };
 type Fallbacks = FallbackEntry[];
@@ -38,6 +39,7 @@ function renderFallbacksChain(
   if (list.length === 0) return null;
 
   const ChainCard = ({ modelName }: { modelName: string }) => {
+  const { t } = useTranslation();
     const provider = getProviderFromModel?.(modelName) ?? modelName;
     return (
       <span className={modelCardClass}>
@@ -263,9 +265,9 @@ const Fallbacks: React.FC<FallbacksProps> = ({ accessToken, userRole, userID, mo
         <Table>
           <TableHead>
             <TableRow>
-              <TableHeaderCell>Model Name</TableHeaderCell>
-              <TableHeaderCell>Fallbacks</TableHeaderCell>
-              <TableHeaderCell>Actions</TableHeaderCell>
+              <TableHeaderCell>{t('Model_Name')}</TableHeaderCell>
+              <TableHeaderCell>{t('Fallbacks')}</TableHeaderCell>
+              <TableHeaderCell>{t('Actions')}</TableHeaderCell>
             </TableRow>
           </TableHead>
 

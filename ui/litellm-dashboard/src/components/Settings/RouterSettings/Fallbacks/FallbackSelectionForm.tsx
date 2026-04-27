@@ -10,6 +10,7 @@ import { Plus } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import MessageManager from "@/components/molecules/message_manager";
 import { FallbackGroup, FallbackGroupConfig } from "./FallbackGroupConfig";
+import { useTranslation } from "react-i18next";
 
 interface FallbackSelectionFormProps {
   groups: FallbackGroup[];
@@ -26,6 +27,7 @@ export function FallbackSelectionForm({
   maxFallbacks = 10,
   maxGroups = 5,
 }: FallbackSelectionFormProps) {
+  const { t } = useTranslation();
   const [activeKey, setActiveKey] = useState(groups.length > 0 ? groups[0].id : "1");
 
   // Reset activeKey when groups change (e.g., when modal reopens)
@@ -99,7 +101,7 @@ export function FallbackSelectionForm({
   if (groups.length === 0) {
     return (
       <div className="text-center py-12 bg-gray-50 rounded-lg border border-dashed border-gray-300">
-        <p className="text-gray-500 mb-4">No fallback groups configured</p>
+        <p className="text-gray-500 mb-4">{t('No_fallback_groups_configured')}</p>
         <Button
           variant="primary"
           onClick={handleAddGroup}

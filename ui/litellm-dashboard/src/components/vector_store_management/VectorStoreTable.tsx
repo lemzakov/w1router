@@ -13,6 +13,7 @@ import React from "react";
 import TableIconActionButton from "../common_components/IconActionButton/TableIconActionButtons/TableIconActionButton";
 import { getProviderLogoAndName } from "../provider_info_helpers";
 import { VectorStore } from "./types";
+import { useTranslation } from "react-i18next";
 
 interface VectorStoreTableProps {
   data: VectorStore[];
@@ -22,6 +23,7 @@ interface VectorStoreTableProps {
 }
 
 const VectorStoreTable: React.FC<VectorStoreTableProps> = ({ data, onView, onEdit, onDelete }) => {
+  const { t } = useTranslation();
   const [sorting, setSorting] = React.useState<SortingState>([{ id: "created_at", desc: true }]);
 
   const columns: ColumnDef<VectorStore>[] = [
@@ -218,7 +220,7 @@ const VectorStoreTable: React.FC<VectorStoreTableProps> = ({ data, onView, onEdi
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-8 text-center">
                   <div className="text-center text-gray-500">
-                    <p>No vector stores found</p>
+                    <p>{t('No_vector_stores_found')}</p>
                   </div>
                 </TableCell>
               </TableRow>

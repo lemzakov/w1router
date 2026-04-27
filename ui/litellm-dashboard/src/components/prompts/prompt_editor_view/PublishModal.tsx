@@ -1,6 +1,7 @@
 import React from "react";
 import { Button as TremorButton, Text } from "@tremor/react";
 import { Input, Modal } from "antd";
+import { useTranslation } from "react-i18next";
 
 interface PublishModalProps {
   visible: boolean;
@@ -19,6 +20,7 @@ const PublishModal: React.FC<PublishModalProps> = ({
   onPublish,
   onCancel,
 }) => {
+  const { t } = useTranslation();
   return (
     <Modal
       title="Publish Prompt"
@@ -36,7 +38,7 @@ const PublishModal: React.FC<PublishModalProps> = ({
       ]}
     >
       <div className="py-4">
-        <Text className="mb-2">Name</Text>
+        <Text className="mb-2">{t('Name_1')}</Text>
         <Input
           value={promptName}
           onChange={(e) => onNameChange(e.target.value)}

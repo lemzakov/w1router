@@ -14,6 +14,7 @@ import {
 } from "@tanstack/react-table";
 import { getProviderLogoAndName } from "@/components/provider_info_helpers";
 import { extractModel, getProviderFromModelHub } from "./prompt_utils";
+import { useTranslation } from "react-i18next";
 
 interface PromptTableProps {
   promptsList: PromptSpec[];
@@ -38,6 +39,7 @@ const PromptTable: React.FC<PromptTableProps> = ({
   accessToken,
   isAdmin,
 }) => {
+  const { t } = useTranslation();
   const [sorting, setSorting] = useState<SortingState>([{ id: "created_at", desc: true }]);
   const [modelHubData, setModelHubData] = useState<Map<string, ModelGroupInfo>>(new Map());
 
@@ -309,7 +311,7 @@ const PromptTable: React.FC<PromptTableProps> = ({
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-8 text-center">
                   <div className="text-center text-gray-500">
-                    <p>Loading...</p>
+                    <p>{t('Loading')}</p>
                   </div>
                 </TableCell>
               </TableRow>
@@ -327,7 +329,7 @@ const PromptTable: React.FC<PromptTableProps> = ({
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-8 text-center">
                   <div className="text-center text-gray-500">
-                    <p>No prompts found</p>
+                    <p>{t('No_prompts_found')}</p>
                   </div>
                 </TableCell>
               </TableRow>

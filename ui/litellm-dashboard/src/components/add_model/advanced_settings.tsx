@@ -9,6 +9,7 @@ import CacheControlSettings from "./cache_control_settings";
 import VectorStoreSelector from "../vector_store_management/VectorStoreSelector";
 import { Tag } from "../tag_management/types";
 import { formItemValidateJSON } from "../../utils/textUtils";
+import { useTranslation } from "react-i18next";
 const { Link } = Typography;
 
 interface AdvancedSettingsProps {
@@ -28,6 +29,7 @@ const AdvancedSettings: React.FC<AdvancedSettingsProps> = ({
   tagsList,
   accessToken,
 }) => {
+  const { t } = useTranslation();
   const [form] = Form.useForm();
   const [customPricing, setCustomPricing] = React.useState(false);
   const [pricingModel, setPricingModel] = React.useState<"per_token" | "per_second">("per_token");
@@ -104,7 +106,7 @@ const AdvancedSettings: React.FC<AdvancedSettingsProps> = ({
     <>
       <Accordion className="mt-2 mb-4">
         <AccordionHeader>
-          <b>Advanced Settings</b>
+          <b>{t('Advanced_Settings')}</b>
         </AccordionHeader>
         <AccordionBody>
           <div className="bg-white rounded-lg">

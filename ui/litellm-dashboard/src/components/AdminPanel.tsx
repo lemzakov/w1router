@@ -26,6 +26,7 @@ import UISettings from "./Settings/AdminSettings/UISettings/UISettings";
 import HashicorpVault from "./Settings/AdminSettings/HashicorpVault/HashicorpVault";
 import SSOModals from "./SSOModals";
 import UIAccessControlForm from "./UIAccessControlForm";
+import { useTranslation } from "react-i18next";
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -34,6 +35,7 @@ interface AdminPanelProps {
 }
 
 const AdminPanel: React.FC<AdminPanelProps> = ({ proxySettings }) => {
+  const { t } = useTranslation();
   const { premiumUser, accessToken, userId: userID } = useAuthorized();
   const [form] = Form.useForm();
   const [isAddSSOModalVisible, setIsAddSSOModalVisible] = useState(false);
@@ -265,8 +267,8 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ proxySettings }) => {
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableHeaderCell>IP Address</TableHeaderCell>
-                    <TableHeaderCell className="text-right">Action</TableHeaderCell>
+                    <TableHeaderCell>{t('IP_Address')}</TableHeaderCell>
+                    <TableHeaderCell className="text-right">{t('Action')}</TableHeaderCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -297,7 +299,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ proxySettings }) => {
                   <Input placeholder="Enter IP address" />
                 </Form.Item>
                 <Form.Item>
-                  <Button2 htmlType="submit">Add IP Address</Button2>
+                  <Button2 htmlType="submit">{t('Add_IP_Address')}</Button2>
                 </Form.Item>
               </Form>
             </Modal>
@@ -371,8 +373,8 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ proxySettings }) => {
 
   return (
     <div className="w-full m-2 mt-2 p-8">
-      <Title level={4}>Admin Access </Title>
-      <Paragraph>Go to &apos;Internal Users&apos; page to add other admins.</Paragraph>
+      <Title level={4}>{t('Admin_Access')}</Title>
+      <Paragraph>{t('Go_to_aposInternal_Usersapos_page_to_add')}</Paragraph>
       <Tabs items={tabItems} />
     </div>
   );

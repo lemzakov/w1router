@@ -10,6 +10,7 @@ import DynamicAgentFormFields, { buildDynamicAgentData } from "./dynamic_agent_f
 import { buildAgentDataFromForm, parseAgentForForm } from "./agent_config";
 import AgentCostView from "./agent_cost_view";
 import { detectAgentType, parseDynamicAgentForForm } from "./agent_type_utils";
+import { useTranslation } from "react-i18next";
 
 interface AgentInfoViewProps {
   agentId: string;
@@ -24,6 +25,7 @@ const AgentInfoView: React.FC<AgentInfoViewProps> = ({
   accessToken,
   isAdmin,
 }) => {
+  const { t } = useTranslation();
   const [agent, setAgent] = useState<Agent | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
@@ -136,7 +138,7 @@ const AgentInfoView: React.FC<AgentInfoViewProps> = ({
   if (!agent) {
     return (
       <div className="p-4">
-        <div className="text-center">Agent not found</div>
+        <div className="text-center">{t('Agent_not_found')}</div>
         <TremorButton onClick={onClose} className="mt-4">
           Back to Agents List
         </TremorButton>
@@ -163,8 +165,8 @@ const AgentInfoView: React.FC<AgentInfoViewProps> = ({
 
       <TabGroup>
         <TabList className="mb-4">
-          <Tab key="overview">Overview</Tab>
-          {isAdmin ? <Tab key="settings">Settings</Tab> : <></>}
+          <Tab key="overview">{t('Overview')}</Tab>
+          {isAdmin ? <Tab key="settings">{t('Settings')}</Tab> : <></>}
         </TabList>
 
         <TabPanels>
@@ -216,7 +218,7 @@ const AgentInfoView: React.FC<AgentInfoViewProps> = ({
                 (agent.object_permission.mcp_tool_permissions &&
                   Object.keys(agent.object_permission.mcp_tool_permissions).length > 0)) && (
               <div style={{ marginTop: 24 }}>
-                <Title>MCP Tool Permissions</Title>
+                <Title>{t('MCP_Tool_Permissions')}</Title>
                 <Descriptions bordered column={1} style={{ marginTop: 16 }}>
                   {agent.object_permission.mcp_servers && agent.object_permission.mcp_servers.length > 0 && (
                     <Descriptions.Item label="MCP Servers">
@@ -252,16 +254,16 @@ const AgentInfoView: React.FC<AgentInfoViewProps> = ({
 
             {agent.agent_card_params?.skills && agent.agent_card_params.skills.length > 0 && (
               <div style={{ marginTop: 24 }}>
-                <Title>Skills</Title>
+                <Title>{t('Skills_1')}</Title>
                 <Descriptions bordered column={1} style={{ marginTop: 16 }}>
                   {agent.agent_card_params.skills.map((skill: any, index: number) => (
                     <Descriptions.Item label={skill.name || `Skill ${index + 1}`} key={index}>
                       <div>
                         <div><strong>ID:</strong> {skill.id}</div>
-                        <div><strong>Description:</strong> {skill.description}</div>
-                        <div><strong>Tags:</strong> {Array.isArray(skill.tags) ? skill.tags.join(", ") : skill.tags}</div>
+                        <div><strong>{t('Description')}</strong> {skill.description}</div>
+                        <div><strong>{t('Tags_1')}</strong> {Array.isArray(skill.tags) ? skill.tags.join(", ") : skill.tags}</div>
                         {skill.examples && skill.examples.length > 0 && (
-                          <div><strong>Examples:</strong> {Array.isArray(skill.examples) ? skill.examples.join(", ") : skill.examples}</div>
+                          <div><strong>{t('Examples')}</strong> {Array.isArray(skill.examples) ? skill.examples.join(", ") : skill.examples}</div>
                         )}
                       </div>
                     </Descriptions.Item>
@@ -276,9 +278,9 @@ const AgentInfoView: React.FC<AgentInfoViewProps> = ({
             <TabPanel>
               <Card>
                 <div className="flex justify-between items-center mb-4">
-                  <Title>Agent Settings</Title>
+                  <Title>{t('Agent_Settings')}</Title>
                   {!isEditing && (
-                    <TremorButton onClick={() => setIsEditing(true)}>Edit Settings</TremorButton>
+                    <TremorButton onClick={() => setIsEditing(true)}>{t('Edit_Settings')}</TremorButton>
                   )}
                 </div>
 
@@ -301,7 +303,7 @@ const AgentInfoView: React.FC<AgentInfoViewProps> = ({
                     )}
 
                     <Divider />
-                    <Title className="mb-4">Rate Limits</Title>
+                    <Title className="mb-4">{t('Rate_Limits')}</Title>
                     <div className="grid grid-cols-2 gap-4">
                       <Form.Item label="TPM Limit" name="tpm_limit">
                         <InputNumber className="w-full" min={0} placeholder="Unlimited" />
@@ -332,7 +334,7 @@ const AgentInfoView: React.FC<AgentInfoViewProps> = ({
                     </div>
                   </Form>
                 ) : (
-                  <Text>Click &quot;Edit Settings&quot; to modify agent configuration.</Text>
+                  <Text>{t('Click_quotEdit_Settingsquot_to_modify_ag')}</Text>
                 )}
               </Card>
             </TabPanel>

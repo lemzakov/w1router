@@ -10,6 +10,7 @@ import FilterComponent, { FilterOption } from "./molecules/filter";
 import { MetricCard } from "./GuardrailsMonitor/MetricCard";
 import { PolicySelect, INPUT_POLICY_OPTIONS, OUTPUT_POLICY_OPTIONS } from "./ToolPolicies/PolicySelect";
 import {
+import { useTranslation } from "react-i18next";
   fetchToolsList,
   updateToolPolicy,
   ToolRow,
@@ -53,6 +54,7 @@ interface ToolPoliciesProps {
 }
 
 export const ToolPolicies: React.FC<ToolPoliciesProps> = ({ accessToken, onSelectTool }) => {
+  const { t } = useTranslation();
   const [tools, setTools] = useState<ToolRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [isFetching, setIsFetching] = useState(false);
@@ -263,7 +265,7 @@ export const ToolPolicies: React.FC<ToolPoliciesProps> = ({ accessToken, onSelec
 
   return (
     <div className="w-full">
-      <h1 className="text-2xl font-semibold text-gray-900 mb-6">Tool Policies</h1>
+      <h1 className="text-2xl font-semibold text-gray-900 mb-6">{t('Tool_Policies')}</h1>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <MetricCard
@@ -288,7 +290,7 @@ export const ToolPolicies: React.FC<ToolPoliciesProps> = ({ accessToken, onSelec
 
       {needsReviewTools.length > 0 && (
         <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6">
-          <h2 className="text-sm font-semibold text-amber-900 mb-1">Needs Review</h2>
+          <h2 className="text-sm font-semibold text-amber-900 mb-1">{t('Needs_Review')}</h2>
           <p className="text-sm text-amber-800 mb-3">
             {needsReviewTools.length} new tool{needsReviewTools.length !== 1 ? "s" : ""} discovered that require
             policy decisions.
@@ -346,7 +348,7 @@ export const ToolPolicies: React.FC<ToolPoliciesProps> = ({ accessToken, onSelec
               </div>
 
               <div className="flex items-center gap-2">
-                <span className="text-sm font-medium text-gray-900">Live Tail</span>
+                <span className="text-sm font-medium text-gray-900">{t('Live_Tail')}</span>
                 <Switch checked={isLiveTail} onChange={setIsLiveTail} />
               </div>
 
@@ -411,7 +413,7 @@ export const ToolPolicies: React.FC<ToolPoliciesProps> = ({ accessToken, onSelec
 
         {isLiveTail && (
           <div className="bg-green-50 border-b border-green-100 px-6 py-2 flex items-center justify-between">
-            <span className="text-sm text-green-700">Auto-refreshing every 15 seconds</span>
+            <span className="text-sm text-green-700">{t('Autorefreshing_every_15_seconds')}</span>
             <button onClick={() => setIsLiveTail(false)} className="text-xs text-green-600 underline">
               Stop
             </button>
@@ -443,11 +445,11 @@ export const ToolPolicies: React.FC<ToolPoliciesProps> = ({ accessToken, onSelec
               <TableHeaderCell className="py-1 h-8">
                 <SortHeader label="Team Name" field="team_id" />
               </TableHeaderCell>
-              <TableHeaderCell className="py-1 h-8">Key Hash</TableHeaderCell>
+              <TableHeaderCell className="py-1 h-8">{t('Key_Hash')}</TableHeaderCell>
               <TableHeaderCell className="py-1 h-8">
                 <SortHeader label="Key Name" field="key_alias" />
               </TableHeaderCell>
-              <TableHeaderCell className="py-1 h-8">User Agent</TableHeaderCell>
+              <TableHeaderCell className="py-1 h-8">{t('User_Agent_1')}</TableHeaderCell>
             </TableRow>
           </TableHead>
           <TableBody>

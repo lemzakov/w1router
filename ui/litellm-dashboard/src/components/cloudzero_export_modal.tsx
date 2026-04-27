@@ -3,6 +3,7 @@ import { Text, Button, Callout, TextInput } from "@tremor/react";
 import { Modal, Form, Spin, Select } from "antd";
 import { getGlobalLitellmHeaderName } from "@/components/networking";
 import NotificationsManager from "./molecules/notifications_manager";
+import { useTranslation } from "react-i18next";
 
 interface CloudZeroExportModalProps {
   isOpen: boolean;
@@ -24,6 +25,7 @@ interface CloudZeroSettingsView {
 type ExportType = "cloudzero" | "csv";
 
 const CloudZeroExportModal: React.FC<CloudZeroExportModalProps> = ({ isOpen, onClose, accessToken }) => {
+  const { t } = useTranslation();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const [existingSettings, setExistingSettings] = useState<CloudZeroSettingsView | null>(null);
@@ -203,7 +205,7 @@ const CloudZeroExportModal: React.FC<CloudZeroExportModalProps> = ({ isOpen, onC
               (e.target as HTMLImageElement).style.display = "none";
             }}
           />
-          <span>Export to CloudZero</span>
+          <span>{t('Export_to_CloudZero')}</span>
         </div>
       ),
     },
@@ -219,7 +221,7 @@ const CloudZeroExportModal: React.FC<CloudZeroExportModalProps> = ({ isOpen, onC
               d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
             />
           </svg>
-          <span>Export to CSV</span>
+          <span>{t('Export_to_CSV')}</span>
         </div>
       ),
     },
@@ -230,7 +232,7 @@ const CloudZeroExportModal: React.FC<CloudZeroExportModalProps> = ({ isOpen, onC
       <div className="space-y-4">
         {/* Export Type Selection */}
         <div>
-          <Text className="font-medium mb-2 block">Export Destination</Text>
+          <Text className="font-medium mb-2 block">{t('Export_Destination')}</Text>
           <Select value={exportType} onChange={setExportType} options={exportOptions} className="w-full" size="large" />
         </div>
 
@@ -302,7 +304,7 @@ const CloudZeroExportModal: React.FC<CloudZeroExportModalProps> = ({ isOpen, onC
             )}
             color="blue"
           >
-            <Text>Export your usage data as a CSV file for analysis in spreadsheet applications.</Text>
+            <Text>{t('Export_your_usage_data_as_a_CSV_file_for')}</Text>
           </Callout>
         )}
 

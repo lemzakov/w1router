@@ -6,6 +6,7 @@ import BedrockGuardrailDetails, {
 } from "@/components/view_logs/GuardrailViewer/BedrockGuardrailDetails";
 import ContentFilterDetails from "./ContentFilterDetails";
 import CompliancePanel from "./CompliancePanel";
+import { useTranslation } from "react-i18next";
 
 // ── Interfaces ──────────────────────────────────────────────────────────────
 
@@ -245,6 +246,7 @@ const ExternalLinkIcon = () => (
 // ── Sub-components ──────────────────────────────────────────────────────────
 
 const MatchDetailsTable = ({ matchDetails }: { matchDetails: MatchDetail[] }) => {
+  const { t } = useTranslation();
   if (!matchDetails || matchDetails.length === 0) return null;
 
   return (
@@ -254,10 +256,10 @@ const MatchDetailsTable = ({ matchDetails }: { matchDetails: MatchDetail[] }) =>
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b text-left text-gray-500">
-              <th className="pb-2 pr-4 font-medium">Type</th>
-              <th className="pb-2 pr-4 font-medium">Method</th>
-              <th className="pb-2 pr-4 font-medium">Action</th>
-              <th className="pb-2 font-medium">Detail</th>
+              <th className="pb-2 pr-4 font-medium">{t('Type_1')}</th>
+              <th className="pb-2 pr-4 font-medium">{t('Method')}</th>
+              <th className="pb-2 pr-4 font-medium">{t('Action')}</th>
+              <th className="pb-2 font-medium">{t('Detail')}</th>
             </tr>
           </thead>
           <tbody>
@@ -302,7 +304,7 @@ const GenericGuardrailResponse = ({ response }: { response: any }) => {
         >
           <div className="flex items-center">
             <ChevronIcon expanded={showRaw} />
-            <h5 className="font-medium text-sm ml-1">Raw Guardrail Response</h5>
+            <h5 className="font-medium text-sm ml-1">{t('Raw_Guardrail_Response')}</h5>
           </div>
         </div>
         {showRaw && (
@@ -566,28 +568,28 @@ const EvaluationCard = ({ entry }: { entry: GuardrailInformation }) => {
           {/* Classification details for llm-judge */}
           {entry.classification && (
             <div className="mb-3 bg-gray-50 rounded-lg p-3 space-y-1">
-              <h5 className="text-sm font-medium text-gray-700 mb-2">Classification</h5>
+              <h5 className="text-sm font-medium text-gray-700 mb-2">{t('Classification')}</h5>
               {entry.classification.category && (
                 <div className="flex text-sm">
-                  <span className="font-medium w-1/3 text-gray-500">Category:</span>
+                  <span className="font-medium w-1/3 text-gray-500">{t('Category')}</span>
                   <span>{entry.classification.category}</span>
                 </div>
               )}
               {entry.classification.article_reference && (
                 <div className="flex text-sm">
-                  <span className="font-medium w-1/3 text-gray-500">Reference:</span>
+                  <span className="font-medium w-1/3 text-gray-500">{t('Reference')}</span>
                   <span className="font-mono">{entry.classification.article_reference}</span>
                 </div>
               )}
               {entry.classification.confidence != null && (
                 <div className="flex text-sm">
-                  <span className="font-medium w-1/3 text-gray-500">Confidence:</span>
+                  <span className="font-medium w-1/3 text-gray-500">{t('Confidence')}</span>
                   <span>{(entry.classification.confidence * 100).toFixed(0)}%</span>
                 </div>
               )}
               {entry.classification.reason && (
                 <div className="flex text-sm">
-                  <span className="font-medium w-1/3 text-gray-500">Reason:</span>
+                  <span className="font-medium w-1/3 text-gray-500">{t('Reason')}</span>
                   <span>{entry.classification.reason}</span>
                 </div>
               )}
@@ -602,7 +604,7 @@ const EvaluationCard = ({ entry }: { entry: GuardrailInformation }) => {
           {/* Masked entity summary */}
           {totalMasked > 0 && (
             <div className="mt-3">
-              <h5 className="text-sm font-medium text-gray-700 mb-2">Masked Entities</h5>
+              <h5 className="text-sm font-medium text-gray-700 mb-2">{t('Masked_Entities')}</h5>
               <div className="flex flex-wrap gap-2">
                 {Object.entries(entry.masked_entity_count || {}).map(([entityType, count]) => (
                   <span key={entityType} className="px-2 py-1 bg-blue-50 text-blue-700 rounded text-xs font-medium">

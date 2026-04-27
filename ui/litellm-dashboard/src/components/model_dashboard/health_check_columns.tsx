@@ -3,6 +3,7 @@ import { Tooltip, Checkbox } from "antd";
 import { Text } from "@tremor/react";
 import { InformationCircleIcon, PlayIcon, RefreshIcon } from "@heroicons/react/outline";
 import { Team } from "@/components/key_team_helpers/key_list";
+import { useTranslation } from "react-i18next";
 
 interface HealthCheckData {
   model_name: string;
@@ -54,7 +55,7 @@ export const healthCheckColumns = (
           onChange={(e) => handleSelectAll(e.target.checked)}
           onClick={(e) => e.stopPropagation()}
         />
-        <span>Model ID</span>
+        <span>{t('Model_ID')}</span>
       </div>
     ),
     accessorKey: "model_info.id",
@@ -164,7 +165,7 @@ export const healthCheckColumns = (
                 style={{ animationDelay: "0.4s" }}
               ></div>
             </div>
-            <Text className="text-gray-600 text-sm">Checking...</Text>
+            <Text className="text-gray-600 text-sm">{t('Checking')}</Text>
           </div>
         );
       }
@@ -201,7 +202,7 @@ export const healthCheckColumns = (
       const healthStatus = modelHealthStatuses[modelId];
 
       if (!healthStatus?.error) {
-        return <Text className="text-gray-400 text-sm">No errors</Text>;
+        return <Text className="text-gray-400 text-sm">{t('No_errors')}</Text>;
       }
 
       const cleanedError = healthStatus.error;

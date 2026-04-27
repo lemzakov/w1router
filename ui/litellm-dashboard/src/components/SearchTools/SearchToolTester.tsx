@@ -5,6 +5,7 @@ import { SearchOutlined, LoadingOutlined } from "@ant-design/icons";
 import { searchToolQueryCall } from "../networking";
 import NotificationsManager from "../molecules/notifications_manager";
 import { Card, Title as TremorTitle } from "@tremor/react";
+import { useTranslation } from "react-i18next";
 
 const { Text } = Typography;
 
@@ -25,6 +26,7 @@ interface SearchToolTesterProps {
 }
 
 export const SearchToolTester: React.FC<SearchToolTesterProps> = ({ searchToolName, accessToken, className = "" }) => {
+  const { t } = useTranslation();
   const [query, setQuery] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [searchHistory, setSearchHistory] = useState<
@@ -94,7 +96,7 @@ export const SearchToolTester: React.FC<SearchToolTesterProps> = ({ searchToolNa
   return (
     <Card className="mt-6">
       <div className="mb-6">
-        <TremorTitle>Test Search Tool</TremorTitle>
+        <TremorTitle>{t('Test_Search_Tool')}</TremorTitle>
       </div>
       
       <div className="flex flex-col" style={{ minHeight: "600px" }}>
@@ -157,15 +159,15 @@ export const SearchToolTester: React.FC<SearchToolTesterProps> = ({ searchToolNa
               <div className="flex items-center justify-center w-24 h-24 rounded-full bg-gray-100 mb-6">
                 <SearchOutlined style={{ fontSize: "48px", color: "#9ca3af" }} />
               </div>
-              <Text className="text-lg text-gray-600 font-medium">Test your search tool</Text>
-              <Text className="text-sm text-gray-500 mt-2">Enter a query above to see search results</Text>
+              <Text className="text-lg text-gray-600 font-medium">{t('Test_your_search_tool')}</Text>
+              <Text className="text-sm text-gray-500 mt-2">{t('Enter_a_query_above_to_see_search_result')}</Text>
             </div>
           ) : (
             <div>
               {isLoading && (
                 <div className="flex flex-col justify-center items-center py-16">
                   <Spin indicator={antIcon} />
-                  <Text className="mt-4 text-gray-600 font-medium">Searching...</Text>
+                  <Text className="mt-4 text-gray-600 font-medium">{t('Searching')}</Text>
                 </div>
               )}
 
@@ -175,7 +177,7 @@ export const SearchToolTester: React.FC<SearchToolTesterProps> = ({ searchToolNa
                   <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg" style={{ boxShadow: "0 1px 2px 0 rgba(0, 0, 0, 0.05)" }}>
                     <div className="flex items-center justify-between">
                       <div className="flex-1">
-                        <Text className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Search Query</Text>
+                        <Text className="text-xs font-semibold text-gray-500 uppercase tracking-wide">{t('Search_Query')}</Text>
                         <div className="text-base font-semibold text-gray-900 mt-1.5">{latestResults.query}</div>
                       </div>
                       <div className="text-right ml-4">
@@ -279,8 +281,8 @@ export const SearchToolTester: React.FC<SearchToolTesterProps> = ({ searchToolNa
                       <div className="flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 mx-auto mb-4">
                         <SearchOutlined style={{ fontSize: "24px", color: "#9ca3af" }} />
                       </div>
-                      <Text className="text-gray-600 font-medium">No results found</Text>
-                      <Text className="text-sm text-gray-500 mt-1">Try a different search query</Text>
+                      <Text className="text-gray-600 font-medium">{t('No_results_found')}</Text>
+                      <Text className="text-sm text-gray-500 mt-1">{t('Try_a_different_search_query')}</Text>
                     </div>
                   )}
                 </>
@@ -290,7 +292,7 @@ export const SearchToolTester: React.FC<SearchToolTesterProps> = ({ searchToolNa
               {searchHistory.length > 1 && (
                 <div className="mt-8 pt-6 border-t border-gray-200">
                   <div className="flex items-center justify-between mb-4">
-                    <Text className="text-sm font-semibold text-gray-700">Previous Searches</Text>
+                    <Text className="text-sm font-semibold text-gray-700">{t('Previous_Searches')}</Text>
                     <Button 
                       onClick={clearHistory} 
                       size="small" 

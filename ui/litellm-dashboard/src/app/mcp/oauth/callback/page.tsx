@@ -3,6 +3,7 @@
 import { Suspense, useEffect, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import { getSecureItem, setSecureItem } from "@/utils/secureStorage";
+import { useTranslation } from "react-i18next";
 
 // Written to sessionStorage so both the admin hook (useMcpOAuthFlow) and the
 // user hook (useUserMcpOAuthFlow) can pick up the result.  Each hook reads
@@ -27,6 +28,7 @@ const resolveDefaultRedirect = () => {
 };
 
 const McpOAuthCallbackContent = () => {
+  const { t } = useTranslation();
   const searchParams = useSearchParams();
 
   const payload = useMemo(() => {
@@ -77,7 +79,7 @@ const McpOAuthCallbackContent = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-50 p-6">
       <div className="max-w-lg w-full rounded-lg bg-white shadow-md p-8 text-center space-y-4">
-        <h1 className="text-xl font-semibold text-slate-900">LiteLLM MCP OAuth</h1>
+        <h1 className="text-xl font-semibold text-slate-900">{t('LiteLLM_MCP_OAuth')}</h1>
           <p className="text-sm text-slate-700">
             Authorization complete. You may close this window and return to the LiteLLM dashboard.
           </p>
@@ -91,7 +93,7 @@ const McpOAuthCallbackContent = () => {
 
 const McpOAuthCallbackPage = () => {
   return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">{t('Loading')}</div>}>
       <McpOAuthCallbackContent />
     </Suspense>
   );

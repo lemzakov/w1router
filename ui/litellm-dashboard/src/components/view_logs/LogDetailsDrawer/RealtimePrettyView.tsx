@@ -15,6 +15,7 @@ import {
   UpOutlined,
 } from '@ant-design/icons';
 import { SectionHeader } from './SectionHeader';
+import { useTranslation } from "react-i18next";
 
 const { Text } = Typography;
 
@@ -93,6 +94,7 @@ export function isRealtimeResponse(response: any): boolean {
 }
 
 export function RealtimePrettyView({ response, metrics }: RealtimePrettyViewProps) {
+  const { t } = useTranslation();
   const events: RealtimeEvent[] = response?.results || [];
   const usage = response?.usage;
 
@@ -177,7 +179,7 @@ function SessionCard({ session, turnCount }: { session: RealtimeSession; turnCou
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <SettingOutlined style={{ color: '#8c8c8c', fontSize: 14 }} />
-            <Text style={{ fontWeight: 500, fontSize: 14 }}>Session</Text>
+            <Text style={{ fontWeight: 500, fontSize: 14 }}>{t('Session')}</Text>
           </div>
           <Text type="secondary" style={{ fontSize: 12 }}>
             {session.model}

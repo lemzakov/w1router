@@ -1,6 +1,7 @@
 import React from "react";
 import { Typography, Select, Table, Tag, Button } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
+import { useTranslation } from "react-i18next";
 
 const { Text } = Typography;
 const { Option } = Select;
@@ -25,6 +26,7 @@ const PatternTable: React.FC<PatternTableProps> = ({
   onActionChange,
   onRemove,
 }) => {
+  const { t } = useTranslation();
   const columns = [
     {
       title: "Type",
@@ -61,8 +63,8 @@ const PatternTable: React.FC<PatternTableProps> = ({
           style={{ width: 120 }}
           size="small"
         >
-          <Option value="BLOCK">Block</Option>
-          <Option value="MASK">Mask</Option>
+          <Option value="BLOCK">{t('Block')}</Option>
+          <Option value="MASK">{t('Mask')}</Option>
         </Select>
       ),
     },

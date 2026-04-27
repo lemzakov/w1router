@@ -6,6 +6,7 @@ import BudgetDurationDropdown, { getBudgetDurationLabel } from "./common_compone
 import { getModelDisplayName } from "./key_team_helpers/fetch_available_models_team_key";
 import NotificationsManager from "./molecules/notifications_manager";
 import { ModelSelect } from "./ModelSelect/ModelSelect";
+import { useTranslation } from "react-i18next";
 
 const { Title, Text } = Typography;
 
@@ -52,7 +53,7 @@ const SettingRow: React.FC<SettingRowProps> = ({ label, description, isEditing, 
   </Row>
 );
 
-const NotSet = () => <Text className="text-gray-400 italic">Not set</Text>;
+const NotSet = () => <Text className="text-gray-400 italic">{t('Not_set')}</Text>;
 
 const renderTags = (values: string[], displayFn?: (v: string) => string) => {
   if (!values || values.length === 0) return <NotSet />;
@@ -86,6 +87,7 @@ const DEFAULT_VALUES: SettingsValues = {
 };
 
 const TeamSSOSettings: React.FC<TeamSSOSettingsProps> = ({ accessToken }) => {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState<boolean>(true);
   const [values, setValues] = useState<SettingsValues>(DEFAULT_VALUES);
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -156,7 +158,7 @@ const TeamSSOSettings: React.FC<TeamSSOSettingsProps> = ({ accessToken }) => {
   if (fetchError) {
     return (
       <Card>
-        <Text>No team settings available or you do not have permission to view them.</Text>
+        <Text>{t('No_team_settings_available_or_you_do_not')}</Text>
       </Card>
     );
   }
@@ -194,7 +196,7 @@ const TeamSSOSettings: React.FC<TeamSSOSettingsProps> = ({ accessToken }) => {
       <div className="mt-8">
         {/* Budget & Rate Limits */}
         <div className="mb-8">
-          <div className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Budget & Rate Limits</div>
+          <div className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">{t('Budget_Rate_Limits')}</div>
           <div className="border-t border-gray-100">
             <SettingRow
               label="Max Budget"
@@ -274,7 +276,7 @@ const TeamSSOSettings: React.FC<TeamSSOSettingsProps> = ({ accessToken }) => {
 
         {/* Access & Permissions */}
         <div className="mb-8">
-          <div className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Access & Permissions</div>
+          <div className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">{t('Access_Permissions')}</div>
           <div className="border-t border-gray-100">
             <SettingRow
               label="Models"

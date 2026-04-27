@@ -5,6 +5,7 @@ import { UploadOutlined } from "@ant-design/icons";
 import type { UploadFile, UploadProps } from "antd";
 import { convertPromptFileToJson, createPromptCall } from "../networking";
 import NotificationsManager from "../molecules/notifications_manager";
+import { useTranslation } from "react-i18next";
 
 const { Option } = Select;
 
@@ -22,6 +23,7 @@ interface PromptFormData {
 }
 
 const AddPromptForm: React.FC<AddPromptFormProps> = ({ visible, onClose, accessToken, onSuccess }) => {
+  const { t } = useTranslation();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const [fileList, setFileList] = useState<UploadFile[]>([]);
@@ -156,7 +158,7 @@ const AddPromptForm: React.FC<AddPromptFormProps> = ({ visible, onClose, accessT
             <Divider />
             <Form.Item label="Prompt File" extra="Upload a .prompt file that follows the Dotprompt specification">
               <Upload {...uploadProps}>
-                <Button icon={<UploadOutlined />}>Select .prompt File</Button>
+                <Button icon={<UploadOutlined />}>{t('Select_prompt_File')}</Button>
               </Upload>
               {fileList.length > 0 && <div className="mt-2 text-sm text-gray-600">Selected: {fileList[0].name}</div>}
             </Form.Item>

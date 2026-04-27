@@ -1,6 +1,7 @@
 import { Drawer, List, Skeleton, Tag, Typography } from "antd";
 import React, { useEffect, useState } from "react";
 import { getPromptVersions, PromptSpec } from "../../networking";
+import { useTranslation } from "react-i18next";
 
 const { Text } = Typography;
 
@@ -21,6 +22,7 @@ const VersionHistorySidePanel: React.FC<VersionHistorySidePanelProps> = ({
   activeVersionId,
   onSelectVersion,
 }) => {
+  const { t } = useTranslation();
   const [versions, setVersions] = useState<PromptSpec[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -79,7 +81,7 @@ const VersionHistorySidePanel: React.FC<VersionHistorySidePanelProps> = ({
       {loading ? (
         <Skeleton active paragraph={{ rows: 4 }} />
       ) : versions.length === 0 ? (
-        <div className="text-center py-8 text-gray-500">No version history available.</div>
+        <div className="text-center py-8 text-gray-500">{t('No_version_history_available')}</div>
       ) : (
         <List
           dataSource={versions}
@@ -113,7 +115,7 @@ const VersionHistorySidePanel: React.FC<VersionHistorySidePanelProps> = ({
                     <Tag className="m-0">
                       {getVersionNumber(item)}
                     </Tag>
-                    {index === 0 && <Tag color="blue" className="m-0">Latest</Tag>}
+                    {index === 0 && <Tag color="blue" className="m-0">{t('Latest')}</Tag>}
                   </div>
                   {isSelected && (
                     <Tag color="green" className="m-0">

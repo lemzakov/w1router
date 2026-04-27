@@ -8,6 +8,7 @@ import { VectorStore } from "./types";
 import { Providers, providerLogoMap, provider_map } from "../provider_info_helpers";
 import VectorStoreTester from "./VectorStoreTester";
 import NotificationsManager from "../molecules/notifications_manager";
+import { useTranslation } from "react-i18next";
 
 interface VectorStoreInfoViewProps {
   vectorStoreId: string;
@@ -24,6 +25,7 @@ const VectorStoreInfoView: React.FC<VectorStoreInfoViewProps> = ({
   is_admin,
   editVectorStore,
 }) => {
+  const { t } = useTranslation();
   const [form] = Form.useForm();
   const [vectorStoreDetails, setVectorStoreDetails] = useState<VectorStore | null>(null);
   const [isEditing, setIsEditing] = useState<boolean>(editVectorStore);
@@ -109,7 +111,7 @@ const VectorStoreInfoView: React.FC<VectorStoreInfoViewProps> = ({
   };
 
   if (!vectorStoreDetails) {
-    return <div>Loading...</div>;
+    return <div>{t('Loading')}</div>;
   }
 
   return (
@@ -122,13 +124,13 @@ const VectorStoreInfoView: React.FC<VectorStoreInfoViewProps> = ({
           <Title>Vector Store ID: {vectorStoreDetails.vector_store_id}</Title>
           <Text className="text-gray-500">{vectorStoreDetails.vector_store_description || "No description"}</Text>
         </div>
-        {is_admin && !isEditing && <Button onClick={() => setIsEditing(true)}>Edit Vector Store</Button>}
+        {is_admin && !isEditing && <Button onClick={() => setIsEditing(true)}>{t('Edit_Vector_Store')}</Button>}
       </div>
 
       <TabGroup>
         <TabList className="mb-6">
-          <Tab>Details</Tab>
-          <Tab>Test Vector Store</Tab>
+          <Tab>{t('Details')}</Tab>
+          <Tab>{t('Test_Vector_Store')}</Tab>
         </TabList>
 
         <TabPanels>
@@ -137,7 +139,7 @@ const VectorStoreInfoView: React.FC<VectorStoreInfoViewProps> = ({
             {isEditing ? (
               <div>
                 <div className="flex justify-between items-center mb-4">
-                  <Title>Edit Vector Store</Title>
+                  <Title>{t('Edit_Vector_Store')}</Title>
                 </div>
                 <Card>
                   <Form form={form} onFinish={handleSave} layout="vertical" initialValues={vectorStoreDetails}>
@@ -254,7 +256,7 @@ const VectorStoreInfoView: React.FC<VectorStoreInfoViewProps> = ({
                     </Form.Item>
 
                     <div className="flex justify-end space-x-2">
-                      <AntButton onClick={() => setIsEditing(false)}>Cancel</AntButton>
+                      <AntButton onClick={() => setIsEditing(false)}>{t('Cancel')}</AntButton>
                       <AntButton type="primary" htmlType="submit">
                         Save Changes
                       </AntButton>
@@ -265,8 +267,8 @@ const VectorStoreInfoView: React.FC<VectorStoreInfoViewProps> = ({
             ) : (
               <div>
                 <div className="flex justify-between items-center mb-4">
-                  <Title>Vector Store Details</Title>
-                  {is_admin && <Button onClick={() => setIsEditing(true)}>Edit Vector Store</Button>}
+                  <Title>{t('Vector_Store_Details')}</Title>
+                  {is_admin && <Button onClick={() => setIsEditing(true)}>{t('Edit_Vector_Store')}</Button>}
                 </div>
                 <Card>
                   <div className="space-y-4">
@@ -275,15 +277,15 @@ const VectorStoreInfoView: React.FC<VectorStoreInfoViewProps> = ({
                       <Text>{vectorStoreDetails.vector_store_id}</Text>
                     </div>
                     <div>
-                      <Text className="font-medium">Name</Text>
+                      <Text className="font-medium">{t('Name_1')}</Text>
                       <Text>{vectorStoreDetails.vector_store_name || "-"}</Text>
                     </div>
                     <div>
-                      <Text className="font-medium">Description</Text>
+                      <Text className="font-medium">{t('Description_1')}</Text>
                       <Text>{vectorStoreDetails.vector_store_description || "-"}</Text>
                     </div>
                     <div>
-                      <Text className="font-medium">Provider</Text>
+                      <Text className="font-medium">{t('Provider')}</Text>
                       <div className="flex items-center space-x-2 mt-1">
                         {(() => {
                           const provider = vectorStoreDetails.custom_llm_provider || "bedrock";
@@ -331,19 +333,19 @@ const VectorStoreInfoView: React.FC<VectorStoreInfoViewProps> = ({
                       </div>
                     </div>
                     <div>
-                      <Text className="font-medium">Metadata</Text>
+                      <Text className="font-medium">{t('Metadata')}</Text>
                       <div className="bg-gray-50 p-3 rounded mt-2 font-mono text-xs overflow-auto max-h-48">
                         <pre>{metadataString}</pre>
                       </div>
                     </div>
                     <div>
-                      <Text className="font-medium">Created</Text>
+                      <Text className="font-medium">{t('Created')}</Text>
                       <Text>
                         {vectorStoreDetails.created_at ? new Date(vectorStoreDetails.created_at).toLocaleString() : "-"}
                       </Text>
                     </div>
                     <div>
-                      <Text className="font-medium">Last Updated</Text>
+                      <Text className="font-medium">{t('Last_Updated')}</Text>
                       <Text>
                         {vectorStoreDetails.updated_at ? new Date(vectorStoreDetails.updated_at).toLocaleString() : "-"}
                       </Text>

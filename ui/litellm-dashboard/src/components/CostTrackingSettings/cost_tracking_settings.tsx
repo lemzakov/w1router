@@ -13,6 +13,7 @@ import HowItWorks from "./how_it_works";
 import { useDiscountConfig } from "./use_discount_config";
 import { useMarginConfig } from "./use_margin_config";
 import { fetchAvailableModels, ModelGroup } from "../playground/llm_calls/fetch_models";
+import { useTranslation } from "react-i18next";
 
 const DOCS_LINKS = [
   { label: "Custom pricing for models", href: "https://docs.litellm.ai/docs/proxy/custom_pricing" },
@@ -24,6 +25,7 @@ const CostTrackingSettings: React.FC<CostTrackingSettingsProps> = ({
   userRole, 
   accessToken 
 }) => {
+  const { t } = useTranslation();
   const [selectedProvider, setSelectedProvider] = useState<string | undefined>(undefined);
   const [newDiscount, setNewDiscount] = useState<string>("");
   const [isFetching, setIsFetching] = useState(true);
@@ -157,7 +159,7 @@ const CostTrackingSettings: React.FC<CostTrackingSettingsProps> = ({
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-6">
         <div>
           <div className="flex items-center gap-2">
-            <Title>Cost Tracking Settings</Title>
+            <Title>{t('Cost_Tracking_Settings')}</Title>
             <DocsMenu items={DOCS_LINKS} />
           </div>
           <Text className="text-gray-500 mt-1">
@@ -173,7 +175,7 @@ const CostTrackingSettings: React.FC<CostTrackingSettingsProps> = ({
           <Accordion>
             <AccordionHeader className="px-6 py-4">
               <div className="flex flex-col items-start w-full">
-                <Text className="text-lg font-semibold text-gray-900">Provider Discounts</Text>
+                <Text className="text-lg font-semibold text-gray-900">{t('Provider_Discounts')}</Text>
                 <Text className="text-sm text-gray-500 mt-1">
                   Apply percentage-based discounts to reduce costs for specific providers
                 </Text>
@@ -182,8 +184,8 @@ const CostTrackingSettings: React.FC<CostTrackingSettingsProps> = ({
             <AccordionBody className="px-0">
               <TabGroup>
                 <TabList className="px-6 pt-4">
-                  <Tab>Discounts</Tab>
-                  <Tab>Test It</Tab>
+                  <Tab>{t('Discounts')}</Tab>
+                  <Tab>{t('Test_It')}</Tab>
                 </TabList>
                 <TabPanels>
                   <TabPanel>
@@ -197,7 +199,7 @@ const CostTrackingSettings: React.FC<CostTrackingSettingsProps> = ({
                       </div>
                       {isFetching ? (
                         <div className="py-12 text-center">
-                          <Text className="text-gray-500">Loading configuration...</Text>
+                          <Text className="text-gray-500">{t('Loading_configuration')}</Text>
                         </div>
                       ) : Object.keys(discountConfig).length > 0 ? (
                         <ProviderDiscountTable
@@ -246,7 +248,7 @@ const CostTrackingSettings: React.FC<CostTrackingSettingsProps> = ({
           <Accordion>
             <AccordionHeader className="px-6 py-4">
               <div className="flex flex-col items-start w-full">
-                <Text className="text-lg font-semibold text-gray-900">Fee/Price Margin</Text>
+                <Text className="text-lg font-semibold text-gray-900">{t('FeePrice_Margin')}</Text>
                 <Text className="text-sm text-gray-500 mt-1">
                   Add fees or margins to LLM costs for internal billing and cost recovery
                 </Text>
@@ -263,7 +265,7 @@ const CostTrackingSettings: React.FC<CostTrackingSettingsProps> = ({
                 </div>
                 {isFetching ? (
                   <div className="py-12 text-center">
-                    <Text className="text-gray-500">Loading configuration...</Text>
+                    <Text className="text-gray-500">{t('Loading_configuration')}</Text>
                   </div>
                 ) : Object.keys(marginConfig).length > 0 ? (
                   <ProviderMarginTable
@@ -303,7 +305,7 @@ const CostTrackingSettings: React.FC<CostTrackingSettingsProps> = ({
         <Accordion defaultOpen={true}>
           <AccordionHeader className="px-6 py-4">
             <div className="flex flex-col items-start w-full">
-              <Text className="text-lg font-semibold text-gray-900">Pricing Calculator</Text>
+              <Text className="text-lg font-semibold text-gray-900">{t('Pricing_Calculator')}</Text>
               <Text className="text-sm text-gray-500 mt-1">
                 Estimate LLM costs based on expected token usage and request volume
               </Text>
@@ -323,7 +325,7 @@ const CostTrackingSettings: React.FC<CostTrackingSettingsProps> = ({
       <Modal
         title={
           <div className="flex items-center space-x-3 pb-4 border-b border-gray-100">
-            <h2 className="text-xl font-semibold text-gray-900">Add Provider Discount</h2>
+            <h2 className="text-xl font-semibold text-gray-900">{t('Add_Provider_Discount')}</h2>
           </div>
         }
         open={isModalVisible}
@@ -361,7 +363,7 @@ const CostTrackingSettings: React.FC<CostTrackingSettingsProps> = ({
       <Modal
         title={
           <div className="flex items-center space-x-3 pb-4 border-b border-gray-100">
-            <h2 className="text-xl font-semibold text-gray-900">Add Provider Margin</h2>
+            <h2 className="text-xl font-semibold text-gray-900">{t('Add_Provider_Margin')}</h2>
           </div>
         }
         open={isMarginModalVisible}

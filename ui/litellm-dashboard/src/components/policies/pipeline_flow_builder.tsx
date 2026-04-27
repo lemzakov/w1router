@@ -13,6 +13,7 @@ import {
   getFrameworks,
 } from "../../data/compliancePrompts";
 import type { CompliancePrompt } from "../../data/compliancePrompts";
+import { useTranslation } from "react-i18next";
 
 const TEST_SOURCE_QUICK = "quick_chat";
 const TEST_SOURCE_ALL = "__all__";
@@ -224,6 +225,7 @@ const StepCard: React.FC<StepCardProps> = ({
   onDelete,
   availableGuardrails,
 }) => {
+  const { t } = useTranslation();
   const guardrailOptions = availableGuardrails.map((g) => ({
     label: g.guardrail_name || g.guardrail_id,
     value: g.guardrail_name || g.guardrail_id,
@@ -304,7 +306,7 @@ const StepCard: React.FC<StepCardProps> = ({
       <div style={{ borderTop: "1px solid #f0f0f0", padding: "14px 20px" }}>
         <div className="flex items-center gap-2" style={{ marginBottom: 8 }}>
           <PassIcon />
-          <span style={{ fontSize: 13, fontWeight: 600, color: "#374151" }}>ON PASS</span>
+          <span style={{ fontSize: 13, fontWeight: 600, color: "#374151" }}>{t('ON_PASS')}</span>
         </div>
         <label style={{ fontSize: 12, fontWeight: 500, color: "#6b7280", display: "block", marginBottom: 6 }}>
           Action
@@ -333,7 +335,7 @@ const StepCard: React.FC<StepCardProps> = ({
       <div style={{ borderTop: "1px solid #f0f0f0", padding: "14px 20px" }}>
         <div className="flex items-center gap-2" style={{ marginBottom: 8 }}>
           <FailIcon />
-          <span style={{ fontSize: 13, fontWeight: 600, color: "#374151" }}>ON FAIL</span>
+          <span style={{ fontSize: 13, fontWeight: 600, color: "#374151" }}>{t('ON_FAIL')}</span>
         </div>
         <label style={{ fontSize: 12, fontWeight: 500, color: "#6b7280", display: "block", marginBottom: 6 }}>
           Action
@@ -362,7 +364,7 @@ const StepCard: React.FC<StepCardProps> = ({
       <div style={{ borderTop: "1px solid #f0f0f0", padding: "14px 20px" }}>
         <div className="flex items-center gap-2" style={{ marginBottom: 8 }}>
           <ApiFailureIcon />
-          <span style={{ fontSize: 13, fontWeight: 600, color: "#374151" }}>ON API FAILURE</span>
+          <span style={{ fontSize: 13, fontWeight: 600, color: "#374151" }}>{t('ON_API_FAILURE')}</span>
         </div>
         <label style={{ fontSize: 12, fontWeight: 500, color: "#6b7280", display: "block", marginBottom: 6 }}>
           Action
@@ -762,7 +764,7 @@ const PipelineTestPanel: React.FC<PipelineTestPanelProps> = ({
           justifyContent: "space-between",
         }}
       >
-        <span style={{ fontSize: 14, fontWeight: 600, color: "#111827" }}>Test Pipeline</span>
+        <span style={{ fontSize: 14, fontWeight: 600, color: "#111827" }}>{t('Test_Pipeline')}</span>
         <button
           onClick={onClose}
           style={{
@@ -913,7 +915,7 @@ const PipelineTestPanel: React.FC<PipelineTestPanelProps> = ({
               }}
             >
               <div className="flex items-center justify-between">
-                <span style={{ fontSize: 13, fontWeight: 600, color: "#111827" }}>Result</span>
+                <span style={{ fontSize: 13, fontWeight: 600, color: "#111827" }}>{t('Result')}</span>
                 {(() => {
                   const ts = TERMINAL_STYLES[result.terminal_action] || TERMINAL_STYLES.block;
                   return (
@@ -1524,7 +1526,7 @@ export const FlowBuilderPage: React.FC<FlowBuilderPageProps> = ({
           >
             <ArrowLeftIcon style={{ width: 18, height: 18, color: "#6b7280" }} />
           </button>
-          <span style={{ fontSize: 14, color: "#6b7280" }}>Policies</span>
+          <span style={{ fontSize: 14, color: "#6b7280" }}>{t('Policies')}</span>
           <span style={{ fontSize: 14, color: "#d1d5db" }}>/</span>
           <TextInput
             placeholder="Policy name..."

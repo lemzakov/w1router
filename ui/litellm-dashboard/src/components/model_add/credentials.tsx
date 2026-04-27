@@ -26,11 +26,13 @@ import AddCredentialsTab from "./AddCredentialModal";
 import EditCredentialsModal from "./EditCredentialModal";
 import { useCredentials } from "@/app/(dashboard)/hooks/credentials/useCredentials";
 import useAuthorized from "@/app/(dashboard)/hooks/useAuthorized";
+import { useTranslation } from "react-i18next";
 interface CredentialsPanelProps {
   uploadProps: UploadProps;
 }
 
 const CredentialsPanel: React.FC<CredentialsPanelProps> = ({ uploadProps }) => {
+  const { t } = useTranslation();
   const { accessToken } = useAuthorized();
   const { data: credentialsResponse, refetch: refetchCredentials } = useCredentials();
   const credentialList = credentialsResponse?.credentials || [];
@@ -137,18 +139,18 @@ const CredentialsPanel: React.FC<CredentialsPanelProps> = ({ uploadProps }) => {
 
   return (
     <div className="w-full mx-auto flex-auto overflow-y-auto p-2">
-      <Button onClick={() => setIsAddModalOpen(true)}>Add Credential</Button>
+      <Button onClick={() => setIsAddModalOpen(true)}>{t('Add_Credential')}</Button>
       <div className="flex justify-between items-center mt-4 mb-4">
-        <Text>Configured credentials for different AI providers. Add and manage your API credentials.</Text>
+        <Text>{t('Configured_credentials_for_different_AI')}</Text>
       </div>
 
       <Card>
         <Table>
           <TableHead>
             <TableRow>
-              <TableHeaderCell>Credential Name</TableHeaderCell>
-              <TableHeaderCell>Provider</TableHeaderCell>
-              <TableHeaderCell>Actions</TableHeaderCell>
+              <TableHeaderCell>{t('Credential_Name')}</TableHeaderCell>
+              <TableHeaderCell>{t('Provider')}</TableHeaderCell>
+              <TableHeaderCell>{t('Actions')}</TableHeaderCell>
             </TableRow>
           </TableHead>
           <TableBody>

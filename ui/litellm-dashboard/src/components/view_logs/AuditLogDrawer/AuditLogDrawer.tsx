@@ -4,6 +4,7 @@ import { useState, useCallback } from "react";
 import moment from "moment";
 import { AuditLogEntry } from "../columns";
 import DefaultProxyAdminTag from "../../common_components/DefaultProxyAdminTag";
+import { useTranslation } from "react-i18next";
 
 const { Text } = Typography;
 
@@ -29,6 +30,7 @@ const ACTION_COLOR: Record<string, string> = {
 };
 
 function CopyableJsonBlock({ label, value }: { label: string; value: Record<string, any> }) {
+  const { t } = useTranslation();
   const [copied, setCopied] = useState(false);
 
   const handleCopy = useCallback(async () => {
@@ -157,13 +159,13 @@ function DiffSection({ log }: { log: AuditLogEntry }) {
             </div>
             <div className="px-3 py-3 space-y-1 text-xs">
               {value.token !== undefined && (
-                <p><span className="text-gray-500">Token:</span> {value.token ?? "N/A"}</p>
+                <p><span className="text-gray-500">{t('Token')}</span> {value.token ?? "N/A"}</p>
               )}
               {value.spend !== undefined && (
-                <p><span className="text-gray-500">Spend:</span> ${Number(value.spend).toFixed(6)}</p>
+                <p><span className="text-gray-500">{t('Spend_1')}</span> ${Number(value.spend).toFixed(6)}</p>
               )}
               {value.max_budget !== undefined && (
-                <p><span className="text-gray-500">Max Budget:</span> ${Number(value.max_budget).toFixed(6)}</p>
+                <p><span className="text-gray-500">{t('Max_Budget')}</span> ${Number(value.max_budget).toFixed(6)}</p>
               )}
             </div>
           </div>

@@ -2,6 +2,7 @@ import React from "react";
 import { Text, Button, TabGroup, TabList, Tab, TabPanel, TabPanels } from "@tremor/react";
 import { CheckCircleIcon, XCircleIcon, ClipboardCopyIcon } from "@heroicons/react/outline";
 import { ResponseTimeIndicator } from "./response_time_indicator";
+import { useTranslation } from "react-i18next";
 
 // Helper function to deep-parse a JSON string if possible
 const deepParse = (input: any) => {
@@ -18,6 +19,7 @@ const deepParse = (input: any) => {
 
 // TableClickableErrorField component with copy-to-clipboard functionality
 const TableClickableErrorField: React.FC<{ label: string; value: string | null | undefined }> = ({ label, value }) => {
+  const { t } = useTranslation();
   const [isExpanded, setIsExpanded] = React.useState(false);
   const [copied, setCopied] = React.useState(false);
   const safeValue = value?.toString() || "N/A";
@@ -154,8 +156,8 @@ const HealthCheckDetails: React.FC<{ response: any }> = ({ response }) => {
     <div className="bg-white rounded-lg shadow">
       <TabGroup>
         <TabList className="border-b border-gray-200 px-4">
-          <Tab className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-800">Summary</Tab>
-          <Tab className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-800">Raw Response</Tab>
+          <Tab className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-800">{t('Summary')}</Tab>
+          <Tab className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-800">{t('Raw_Response')}</Tab>
         </TabList>
 
         <TabPanels>

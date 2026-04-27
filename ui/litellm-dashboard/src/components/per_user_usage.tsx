@@ -18,6 +18,7 @@ import {
   TabPanels,
 } from "@tremor/react";
 import { perUserAnalyticsCall } from "./networking";
+import { useTranslation } from "react-i18next";
 
 interface PerUserMetrics {
   user_id: string;
@@ -45,6 +46,7 @@ interface PerUserUsageProps {
 }
 
 const PerUserUsage: React.FC<PerUserUsageProps> = ({ accessToken, selectedTags, formatAbbreviatedNumber }) => {
+  const { t } = useTranslation();
   // Maximum number of user agent categories to show in charts to prevent color palette overflow
   const MAX_USER_AGENTS = 8;
   const [perUserData, setPerUserData] = useState<PerUserAnalyticsResponse>({
@@ -95,13 +97,13 @@ const PerUserUsage: React.FC<PerUserUsageProps> = ({ accessToken, selectedTags, 
 
   return (
     <div className="mb-6">
-      <Title>Per User Usage</Title>
-      <Subtitle>Individual developer usage metrics</Subtitle>
+      <Title>{t('Per_User_Usage')}</Title>
+      <Subtitle>{t('Individual_developer_usage_metrics')}</Subtitle>
 
       <TabGroup>
         <TabList className="mb-6">
-          <Tab>User Details</Tab>
-          <Tab>Usage Distribution</Tab>
+          <Tab>{t('User_Details')}</Tab>
+          <Tab>{t('Usage_Distribution')}</Tab>
         </TabList>
 
         <TabPanels>
@@ -110,13 +112,13 @@ const PerUserUsage: React.FC<PerUserUsageProps> = ({ accessToken, selectedTags, 
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableHeaderCell>User ID</TableHeaderCell>
-                  <TableHeaderCell>User Email</TableHeaderCell>
-                  <TableHeaderCell>User Agent</TableHeaderCell>
-                  <TableHeaderCell className="text-right">Success Generations</TableHeaderCell>
-                  <TableHeaderCell className="text-right">Total Tokens</TableHeaderCell>
-                  <TableHeaderCell className="text-right">Failed Requests</TableHeaderCell>
-                  <TableHeaderCell className="text-right">Total Cost</TableHeaderCell>
+                  <TableHeaderCell>{t('User_ID')}</TableHeaderCell>
+                  <TableHeaderCell>{t('User_Email')}</TableHeaderCell>
+                  <TableHeaderCell>{t('User_Agent_1')}</TableHeaderCell>
+                  <TableHeaderCell className="text-right">{t('Success_Generations')}</TableHeaderCell>
+                  <TableHeaderCell className="text-right">{t('Total_Tokens')}</TableHeaderCell>
+                  <TableHeaderCell className="text-right">{t('Failed_Requests')}</TableHeaderCell>
+                  <TableHeaderCell className="text-right">{t('Total_Cost')}</TableHeaderCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -171,8 +173,8 @@ const PerUserUsage: React.FC<PerUserUsageProps> = ({ accessToken, selectedTags, 
           {/* Tab 2: Usage Distribution Histogram */}
           <TabPanel>
             <div className="mb-4">
-              <Title className="text-lg">User Usage Distribution</Title>
-              <Subtitle>Number of users by successful request frequency</Subtitle>
+              <Title className="text-lg">{t('User_Usage_Distribution')}</Title>
+              <Subtitle>{t('Number_of_users_by_successful_request_fr')}</Subtitle>
             </div>
 
             <BarChart

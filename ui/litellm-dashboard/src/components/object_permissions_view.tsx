@@ -3,6 +3,7 @@ import { Text } from "@tremor/react";
 import VectorStorePermissions from "./permissions/VectorStorePermissions";
 import MCPServerPermissions from "./permissions/MCPServerPermissions";
 import AgentPermissions from "./permissions/AgentPermissions";
+import { useTranslation } from "react-i18next";
 
 interface ObjectPermission {
   object_permission_id: string;
@@ -28,6 +29,7 @@ export function ObjectPermissionsView({
   className = "",
   accessToken,
 }: ObjectPermissionsViewProps) {
+  const { t } = useTranslation();
   const vectorStores = objectPermission?.vector_stores || [];
   const mcpServers = objectPermission?.mcp_servers || [];
   const mcpAccessGroups = objectPermission?.mcp_access_groups || [];
@@ -59,8 +61,8 @@ export function ObjectPermissionsView({
       <div className={`bg-white border border-gray-200 rounded-lg p-6 ${className}`}>
         <div className="flex items-center gap-2 mb-6">
           <div>
-            <Text className="font-semibold text-gray-900">Object Permissions</Text>
-            <Text className="text-xs text-gray-500">Access control for Vector Stores and MCP Servers</Text>
+            <Text className="font-semibold text-gray-900">{t('Object_Permissions')}</Text>
+            <Text className="text-xs text-gray-500">{t('Access_control_for_Vector_Stores_and_MCP')}</Text>
           </div>
         </div>
         {content}
@@ -70,7 +72,7 @@ export function ObjectPermissionsView({
 
   return (
     <div className={`${className}`}>
-      <Text className="font-medium text-gray-900 mb-3">Object Permissions</Text>
+      <Text className="font-medium text-gray-900 mb-3">{t('Object_Permissions')}</Text>
       {content}
     </div>
   );

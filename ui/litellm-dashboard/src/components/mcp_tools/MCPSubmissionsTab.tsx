@@ -21,6 +21,7 @@ import {
 import { MCPServer, MCPSubmissionsSummary } from "./types";
 import { FIELD_GROUPS, MCP_REQUIRED_FIELD_DEFS, SETTINGS_KEY } from "./MCPStandardsSettings";
 import NotificationsManager from "@/components/molecules/notifications_manager";
+import { useTranslation } from "react-i18next";
 
 type MCPStatus = "active" | "pending_review" | "rejected";
 
@@ -67,6 +68,7 @@ function StatCard({
   value: number;
   color: string;
 }) {
+  const { t } = useTranslation();
   return (
     <div className="bg-white border border-gray-200 rounded-lg px-4 py-3">
       <div className={`text-2xl font-bold ${color}`}>{value}</div>
@@ -169,7 +171,7 @@ function SubmissionRulesPanel({ requiredFields, onChange, onSave, isSaving }: Su
       >
         <div className="flex items-center gap-2">
           <SettingsIcon className="h-4 w-4 text-gray-400" />
-          <span className="text-sm font-semibold text-gray-800">Submission Rules</span>
+          <span className="text-sm font-semibold text-gray-800">{t('Submission_Rules')}</span>
           {activeLabels.length > 0 ? (
             <span className="text-xs text-gray-500">
               ({activeLabels.length} required field{activeLabels.length !== 1 ? "s" : ""})
@@ -315,9 +317,9 @@ function MCPServerCard({ server, onApprove, onReject, requiredFields }: MCPServe
               </div>
             )}
             <div className="flex items-center gap-3 mt-1.5 text-xs text-gray-400">
-              <span>Transport: <span className="text-gray-600">{server.transport ?? "sse"}</span></span>
+              <span>{t('Transport')}<span className="text-gray-600">{server.transport ?? "sse"}</span></span>
               <span>·</span>
-              <span>Submitted by: <span className="text-gray-600">{server.submitted_by ?? "—"}</span></span>
+              <span>{t('Submitted_by')}<span className="text-gray-600">{server.submitted_by ?? "—"}</span></span>
               <span>·</span>
               <span>{formatDate(server.submitted_at)}</span>
             </div>
@@ -597,16 +599,16 @@ export function MCPSubmissionsTab({ accessToken }: MCPSubmissionsTabProps) {
           onChange={(e) => setStatusFilter(e.target.value as typeof statusFilter)}
           className="border border-gray-200 rounded-md px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 bg-white"
         >
-          <option value="all">All Status</option>
-          <option value="pending_review">Pending Review</option>
-          <option value="active">Active</option>
-          <option value="rejected">Rejected</option>
+          <option value="all">{t('All_Status')}</option>
+          <option value="pending_review">{t('Pending_Review')}</option>
+          <option value="active">{t('Active')}</option>
+          <option value="rejected">{t('Rejected')}</option>
         </select>
       </div>
 
       <div className="space-y-3">
         {isLoading && (
-          <div className="text-center py-12 text-gray-500 text-sm">Loading submissions…</div>
+          <div className="text-center py-12 text-gray-500 text-sm">{t('Loading_submissions')}</div>
         )}
         {error && (
           <div className="text-center py-12 text-red-600 text-sm">{error}</div>

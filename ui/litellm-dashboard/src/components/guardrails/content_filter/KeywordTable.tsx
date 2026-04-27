@@ -1,6 +1,7 @@
 import { DeleteOutlined } from "@ant-design/icons";
 import { Button, Select, Table, Typography } from "antd";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const { Text } = Typography;
 const { Option } = Select;
@@ -23,6 +24,7 @@ const KeywordTable: React.FC<KeywordTableProps> = ({
   onActionChange,
   onRemove,
 }) => {
+  const { t } = useTranslation();
   const columns = [
     {
       title: "Keyword",
@@ -41,8 +43,8 @@ const KeywordTable: React.FC<KeywordTableProps> = ({
           style={{ width: 120 }}
           size="small"
         >
-          <Option value="BLOCK">Block</Option>
-          <Option value="MASK">Mask</Option>
+          <Option value="BLOCK">{t('Block')}</Option>
+          <Option value="MASK">{t('Mask')}</Option>
         </Select>
       ),
     },

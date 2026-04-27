@@ -2,6 +2,7 @@ import { CodeOutlined, PlayCircleOutlined } from "@ant-design/icons";
 import { Alert, Button, Card, Input, Space, Tabs, Typography } from "antd";
 import ModelSelector from "@/components/common_components/ModelSelector";
 import { TestResult } from "./semanticFilterTestUtils";
+import { useTranslation } from "react-i18next";
 
 interface MCPSemanticFilterTestPanelProps {
   accessToken: string | null;
@@ -28,6 +29,7 @@ export default function MCPSemanticFilterTestPanel({
   testResult,
   curlCommand,
 }: MCPSemanticFilterTestPanelProps) {
+  const { t } = useTranslation();
   return (
     <Card title="Test Configuration" style={{ marginBottom: 16 }}>
       <Tabs
@@ -84,7 +86,7 @@ export default function MCPSemanticFilterTestPanel({
 
           {testResult && (
             <div>
-              <Typography.Title level={5}>Results</Typography.Title>
+              <Typography.Title level={5}>{t('Results')}</Typography.Title>
               <Alert
                 type="success"
                 message={`${testResult.selectedTools} tools selected`}
@@ -116,7 +118,7 @@ export default function MCPSemanticFilterTestPanel({
               <div>
                 <Space style={{ marginBottom: 8 }}>
                   <CodeOutlined />
-                  <Typography.Text strong>API Usage</Typography.Text>
+                  <Typography.Text strong>{t('API_Usage')}</Typography.Text>
                 </Space>
                 <Typography.Text type="secondary" style={{ display: "block", marginBottom: 8 }}>
                   Use this curl command to test the semantic filter with your current configuration.

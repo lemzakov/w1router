@@ -862,7 +862,7 @@ export function RequestViewer({ row, onOpenSettings }: { row: Row<LogEntry>; onO
               <span>{row.original.custom_llm_provider || "-"}</span>
             </div>
             <div className="flex">
-              <span className="font-medium w-1/3">API Base:</span>
+              <span className="font-medium w-1/3">{t('API_Base_1')}</span>
               <Tooltip title={row.original.api_base || "-"}>
                 <span className="max-w-[15ch] truncate block">{row.original.api_base || "-"}</span>
               </Tooltip>

@@ -1,6 +1,7 @@
 import React from "react";
 import { Form, Select, Tooltip } from "antd";
 import { InfoCircleOutlined } from "@ant-design/icons";
+import { useTranslation } from "react-i18next";
 
 const { Option } = Select;
 
@@ -30,6 +31,7 @@ export const RateLimitTypeFormItem: React.FC<RateLimitTypeFormItemProps> = ({
   form,
   onChange,
 }) => {
+  const { t } = useTranslation();
   const limitTypeUpper = type.toUpperCase();
   const limitTypeLower = type.toLowerCase();
 
@@ -69,7 +71,7 @@ export const RateLimitTypeFormItem: React.FC<RateLimitTypeFormItemProps> = ({
           <>
             <Option value="best_effort_throughput" label="Default">
               <div style={{ padding: "4px 0" }}>
-                <div style={{ fontWeight: 500 }}>Default</div>
+                <div style={{ fontWeight: 500 }}>{t('Default')}</div>
                 <div style={{ fontSize: "11px", color: "#6b7280", marginTop: "2px" }}>
                   Best effort throughput - no error if we&apos;re overallocating {limitTypeLower} (Team/Key Limits
                   checked at runtime).
@@ -78,7 +80,7 @@ export const RateLimitTypeFormItem: React.FC<RateLimitTypeFormItemProps> = ({
             </Option>
             <Option value="guaranteed_throughput" label="Guaranteed throughput">
               <div style={{ padding: "4px 0" }}>
-                <div style={{ fontWeight: 500 }}>Guaranteed throughput</div>
+                <div style={{ fontWeight: 500 }}>{t('Guaranteed_throughput')}</div>
                 <div style={{ fontSize: "11px", color: "#6b7280", marginTop: "2px" }}>
                   Guaranteed throughput - raise an error if we&apos;re overallocating {limitTypeLower} (also checks
                   model-specific limits)
@@ -87,7 +89,7 @@ export const RateLimitTypeFormItem: React.FC<RateLimitTypeFormItemProps> = ({
             </Option>
             <Option value="dynamic" label="Dynamic">
               <div style={{ padding: "4px 0" }}>
-                <div style={{ fontWeight: 500 }}>Dynamic</div>
+                <div style={{ fontWeight: 500 }}>{t('Dynamic')}</div>
                 <div style={{ fontSize: "11px", color: "#6b7280", marginTop: "2px" }}>
                   If the key has a set {limitTypeUpper} (e.g. 2 {limitTypeUpper}) and there are no 429 errors, it can
                   dynamically exceed the limit when the model being called is not erroring.
@@ -97,9 +99,9 @@ export const RateLimitTypeFormItem: React.FC<RateLimitTypeFormItemProps> = ({
           </>
         ) : (
           <>
-            <Option value="best_effort_throughput">Best effort throughput</Option>
-            <Option value="guaranteed_throughput">Guaranteed throughput</Option>
-            <Option value="dynamic">Dynamic</Option>
+            <Option value="best_effort_throughput">{t('Best_effort_throughput')}</Option>
+            <Option value="guaranteed_throughput">{t('Guaranteed_throughput')}</Option>
+            <Option value="dynamic">{t('Dynamic')}</Option>
           </>
         )}
       </Select>

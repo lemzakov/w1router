@@ -1,6 +1,7 @@
 import { Alert, Card, Descriptions, Input, Modal, Typography, theme } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 interface DeleteResourceModalProps {
   isOpen: boolean;
@@ -32,6 +33,7 @@ export default function DeleteResourceModal({
   confirmLoading,
   requiredConfirmation,
 }: DeleteResourceModalProps) {
+  const { t } = useTranslation();
   const { Title, Text } = Typography;
   const { token } = theme.useToken();
   const [requiredConfirmationInput, setRequiredConfirmationInput] = useState("");
@@ -89,7 +91,7 @@ export default function DeleteResourceModal({
         {requiredConfirmation && (
           <div className="mb-6 mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
             <Text className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">
-              <Text>Type </Text>
+              <Text>{t('Type_1')}</Text>
               <Text strong type="danger">
                 {requiredConfirmation}
               </Text>

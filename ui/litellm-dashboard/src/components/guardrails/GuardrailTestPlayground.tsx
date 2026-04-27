@@ -5,6 +5,7 @@ import { ExperimentOutlined, SearchOutlined } from "@ant-design/icons";
 import GuardrailTestPanel from "./GuardrailTestPanel";
 import { applyGuardrail } from "../networking";
 import NotificationsManager from "../molecules/notifications_manager";
+import { useTranslation } from "react-i18next";
 
 interface GuardrailItem {
   guardrail_id?: string;
@@ -44,6 +45,7 @@ const GuardrailTestPlayground: React.FC<GuardrailTestPlaygroundProps> = ({
   accessToken,
   onClose,
 }) => {
+  const { t } = useTranslation();
   const [selectedGuardrails, setSelectedGuardrails] = useState<Set<string>>(new Set());
   const [searchQuery, setSearchQuery] = useState("");
   const [testResults, setTestResults] = useState<TestResult[]>([]);
@@ -123,7 +125,7 @@ const GuardrailTestPlayground: React.FC<GuardrailTestPlaygroundProps> = ({
           <div className="w-1/4 border-r border-gray-200 flex flex-col overflow-hidden">
             <div className="p-4 border-b border-gray-200">
               <div className="mb-3">
-                <Title className="text-lg font-semibold mb-3">Guardrails</Title>
+                <Title className="text-lg font-semibold mb-3">{t('Guardrails')}</Title>
                 <TextInput
                   icon={SearchOutlined}
                   placeholder="Search guardrails..."
@@ -185,13 +187,13 @@ const GuardrailTestPlayground: React.FC<GuardrailTestPlaygroundProps> = ({
                         description={
                           <div className="text-xs space-y-1 mt-1">
                             <div>
-                              <span className="font-medium">Type: </span>
+                              <span className="font-medium">{t('Type')}</span>
                               <span className="text-gray-600">
                                 {guardrail.litellm_params.guardrail}
                               </span>
                             </div>
                             <div>
-                              <span className="font-medium">Mode: </span>
+                              <span className="font-medium">{t('Mode')}</span>
                               <span className="text-gray-600">
                                 {guardrail.litellm_params.mode}
                               </span>
@@ -215,7 +217,7 @@ const GuardrailTestPlayground: React.FC<GuardrailTestPlaygroundProps> = ({
           {/* Right Panel - Test Area */}
           <div className="w-3/4 flex flex-col bg-white">
             <div className="p-4 border-b border-gray-200 flex justify-between items-center">
-              <Title className="text-xl font-semibold mb-0">Guardrail Testing Playground</Title>
+              <Title className="text-xl font-semibold mb-0">{t('Guardrail_Testing_Playground')}</Title>
             </div>
 
             <div className="flex-1 overflow-auto p-4">

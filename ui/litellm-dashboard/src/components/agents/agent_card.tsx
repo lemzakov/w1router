@@ -2,6 +2,7 @@ import React from "react";
 import { Card, Badge, Tooltip, Button } from "antd";
 import { CopyOutlined, KeyOutlined, WarningOutlined, DeleteOutlined } from "@ant-design/icons";
 import { Agent, AgentKeyInfo } from "./types";
+import { useTranslation } from "react-i18next";
 
 interface AgentCardProps {
   agent: Agent;
@@ -20,6 +21,7 @@ const AgentCard: React.FC<AgentCardProps> = ({
   onDeleteClick,
   isAdmin,
 }) => {
+  const { t } = useTranslation();
   const description =
     agent.agent_card_params?.description || "No description";
   const url = agent.agent_card_params?.url;
@@ -92,7 +94,7 @@ const AgentCard: React.FC<AgentCardProps> = ({
         ) : (
           <div className="flex items-center gap-1.5 text-amber-600">
             <WarningOutlined />
-            <span>No key assigned</span>
+            <span>{t('No_key_assigned')}</span>
           </div>
         )}
       </div>

@@ -2,6 +2,7 @@ import React from "react";
 import { Button, Spin, Alert, Collapse } from "antd";
 import { CheckCircleOutlined, ExclamationCircleOutlined, ReloadOutlined, ToolOutlined } from "@ant-design/icons";
 import { Card, Title, Text } from "@tremor/react";
+import { useTranslation } from "react-i18next";
 
 interface MCPConnectionStatusProps {
   formValues: Record<string, any>;
@@ -22,6 +23,7 @@ const MCPConnectionStatus: React.FC<MCPConnectionStatusProps> = ({
   canFetchTools,
   fetchTools,
 }) => {
+  const { t } = useTranslation();
 
   // Don't show anything if required fields aren't filled
   if (!canFetchTools && !formValues.url && !formValues.spec_path) {
@@ -33,15 +35,15 @@ const MCPConnectionStatus: React.FC<MCPConnectionStatusProps> = ({
       <div className="space-y-4">
         <div className="flex items-center gap-2">
           <CheckCircleOutlined className="text-blue-600" />
-          <Title>Connection Status</Title>
+          <Title>{t('Connection_Status')}</Title>
         </div>
 
         {!canFetchTools && (formValues.url || formValues.spec_path) && (
           <div className="text-center py-6 text-gray-400 border rounded-lg border-dashed">
             <ToolOutlined className="text-2xl mb-2" />
-            <Text>Complete required fields to test connection</Text>
+            <Text>{t('Complete_required_fields_to_test_connect')}</Text>
             <br />
-            <Text className="text-sm">Fill in URL, Transport, and Authentication to test MCP server connection</Text>
+            <Text className="text-sm">{t('Fill_in_URL_Transport_and_Authentication')}</Text>
           </div>
         )}
 
@@ -65,21 +67,21 @@ const MCPConnectionStatus: React.FC<MCPConnectionStatusProps> = ({
               {isLoadingTools && (
                 <div className="flex items-center text-blue-600">
                   <Spin size="small" className="mr-2" />
-                  <Text className="text-blue-600">Connecting...</Text>
+                  <Text className="text-blue-600">{t('Connecting')}</Text>
                 </div>
               )}
 
               {!isLoadingTools && !toolsError && tools.length > 0 && (
                 <div className="flex items-center text-green-600">
                   <CheckCircleOutlined className="mr-1" />
-                  <Text className="text-green-600 font-medium">Connected</Text>
+                  <Text className="text-green-600 font-medium">{t('Connected')}</Text>
                 </div>
               )}
 
               {toolsError && (
                 <div className="flex items-center text-red-600">
                   <ExclamationCircleOutlined className="mr-1" />
-                  <Text className="text-red-600 font-medium">Failed</Text>
+                  <Text className="text-red-600 font-medium">{t('Failed')}</Text>
                 </div>
               )}
             </div>
@@ -87,7 +89,7 @@ const MCPConnectionStatus: React.FC<MCPConnectionStatusProps> = ({
             {isLoadingTools && (
               <div className="flex items-center justify-center py-6">
                 <Spin size="large" />
-                <Text className="ml-3">Testing connection and loading tools...</Text>
+                <Text className="ml-3">{t('Testing_connection_and_loading_tools')}</Text>
               </div>
             )}
 
@@ -139,9 +141,9 @@ const MCPConnectionStatus: React.FC<MCPConnectionStatusProps> = ({
             {!isLoadingTools && tools.length === 0 && !toolsError && (
               <div className="text-center py-6 text-gray-500 border rounded-lg border-dashed">
                 <CheckCircleOutlined className="text-2xl mb-2 text-green-500" />
-                <Text className="text-green-600 font-medium">Connection successful!</Text>
+                <Text className="text-green-600 font-medium">{t('Connection_successful')}</Text>
                 <br />
-                <Text className="text-gray-500">No tools found for this MCP server</Text>
+                <Text className="text-gray-500">{t('No_tools_found_for_this_MCP_server')}</Text>
               </div>
             )}
           </div>

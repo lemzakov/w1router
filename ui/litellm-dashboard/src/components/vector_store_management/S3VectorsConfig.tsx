@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Alert, Form, Input, Select, Tooltip } from "antd";
 import { InfoCircleOutlined } from "@ant-design/icons";
 import { fetchAvailableModels, ModelGroup } from "../playground/llm_calls/fetch_models";
+import { useTranslation } from "react-i18next";
 
 interface S3VectorsConfigProps {
   accessToken: string | null;
@@ -14,6 +15,7 @@ const S3VectorsConfig: React.FC<S3VectorsConfigProps> = ({
   providerParams,
   onParamsChange,
 }) => {
+  const { t } = useTranslation();
   const [embeddingModels, setEmbeddingModels] = useState<ModelGroup[]>([]);
   const [isLoadingModels, setIsLoadingModels] = useState(false);
 
@@ -51,11 +53,11 @@ const S3VectorsConfig: React.FC<S3VectorsConfigProps> = ({
         message="AWS S3 Vectors Setup"
         description={
           <div>
-            <p>AWS S3 Vectors allows you to store and query vector embeddings directly in S3:</p>
+            <p>{t('AWS_S3_Vectors_allows_you_to_store_and_q')}</p>
             <ul style={{ marginLeft: "16px", marginTop: "8px" }}>
-              <li>Vector buckets and indexes will be automatically created if they don&apos;t exist</li>
-              <li>Vector dimensions are auto-detected from your selected embedding model</li>
-              <li>Ensure your AWS credentials have permissions for S3 Vectors operations</li>
+              <li>{t('Vector_buckets_and_indexes_will_be_autom')}</li>
+              <li>{t('Vector_dimensions_are_autodetected_from')}</li>
+              <li>{t('Ensure_your_AWS_credentials_have_permiss')}</li>
               <li>
                 Learn more:{" "}
                 <a

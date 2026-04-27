@@ -6,6 +6,7 @@ import NotificationsManager from "@/components/molecules/notifications_manager";
 import { parseErrorMessage } from "@/components/shared/errorUtils";
 import { Button, Form, Modal, Skeleton, Space, Switch, Typography } from "antd";
 import React, { useEffect, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 
 interface ModelSettingsModalProps {
   isVisible: boolean;
@@ -14,6 +15,7 @@ interface ModelSettingsModalProps {
 }
 
 const ModelSettingsModal: React.FC<ModelSettingsModalProps> = ({ isVisible, onCancel, onSuccess }) => {
+  const { t } = useTranslation();
   const [form] = Form.useForm();
   const { mutateAsync, isPending } = useStoreModelInDB();
   const { data: proxyConfigData, isLoading: isLoadingConfig, refetch } = useProxyConfig(ConfigType.GENERAL_SETTINGS);
@@ -64,7 +66,7 @@ const ModelSettingsModal: React.FC<ModelSettingsModalProps> = ({ isVisible, onCa
 
   return (
     <Modal
-      title={<Typography.Title level={5}>Model Settings</Typography.Title>}
+      title={<Typography.Title level={5}>{t('Model_Settings')}</Typography.Title>}
       open={isVisible}
       footer={
         <Space>

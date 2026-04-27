@@ -4,6 +4,7 @@ import { Button, Space, Table, Tag, Tooltip, Typography } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import React from "react";
 import TableIconActionButton from "./IconActionButton/TableIconActionButtons/TableIconActionButton";
+import { useTranslation } from "react-i18next";
 
 const { Text } = Typography;
 
@@ -32,6 +33,7 @@ export default function MemberTable({
   showDeleteForMember,
   emptyText,
 }: MemberTableProps) {
+  const { t } = useTranslation();
   const baseColumns: ColumnsType<Member> = [
     {
       title: "User Email",
@@ -45,7 +47,7 @@ export default function MemberTable({
       key: "user_id",
       render: (userId: string | null) =>
         userId === "default_user_id" ? (
-          <Tag color="blue">Default Proxy Admin</Tag>
+          <Tag color="blue">{t('Default_Proxy_Admin')}</Tag>
         ) : (
           <Text>{userId || "-"}</Text>
         ),

@@ -1,5 +1,6 @@
 import React from "react";
 import { ExternalLink } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 function cn(...parts: Array<string | undefined>) {
   return parts.filter(Boolean).join(" ");
@@ -11,6 +12,7 @@ export type DocLinkProps = {
 };
 
 const DocLink = ({ href, className }: DocLinkProps) => {
+  const { t } = useTranslation();
   return (
     <a
       href={href}
@@ -23,7 +25,7 @@ const DocLink = ({ href, className }: DocLinkProps) => {
         className,
       )}
     >
-      <span>API Reference Docs</span>
+      <span>{t('API_Reference_Docs')}</span>
       <ExternalLink aria-hidden className="h-4 w-4 opacity-80" />
       <span className="sr-only">(opens in a new tab)</span>
     </a>

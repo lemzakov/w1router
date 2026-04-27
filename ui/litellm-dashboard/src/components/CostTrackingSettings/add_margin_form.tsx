@@ -5,6 +5,7 @@ import { InfoCircleOutlined } from "@ant-design/icons";
 import { Providers, provider_map, providerLogoMap } from "../provider_info_helpers";
 import { MarginConfig } from "./types";
 import { handleImageError } from "./provider_display_helpers";
+import { useTranslation } from "react-i18next";
 
 interface AddMarginFormProps {
   marginConfig: MarginConfig;
@@ -31,6 +32,7 @@ const AddMarginForm: React.FC<AddMarginFormProps> = ({
   onFixedAmountChange,
   onAddProvider,
 }) => {
+  const { t } = useTranslation();
   return (
     <div className="space-y-6">
       <Form.Item
@@ -58,7 +60,7 @@ const AddMarginForm: React.FC<AddMarginFormProps> = ({
         >
           <AntdSelect.Option key="global" value="global" label="Global (All Providers)">
             <div className="flex items-center space-x-2">
-              <span className="font-medium">Global (All Providers)</span>
+              <span className="font-medium">{t('Global_All_Providers')}</span>
             </div>
           </AntdSelect.Option>
           {Object.entries(Providers).map(([providerEnum, providerDisplayName]) => {
@@ -100,8 +102,8 @@ const AddMarginForm: React.FC<AddMarginFormProps> = ({
           onChange={(e) => onMarginTypeChange(e.target.value)}
           className="w-full"
         >
-          <Radio value="percentage">Percentage-based</Radio>
-          <Radio value="fixed">Fixed Amount</Radio>
+          <Radio value="percentage">{t('Percentagebased')}</Radio>
+          <Radio value="fixed">{t('Fixed_Amount')}</Radio>
         </Radio.Group>
       </Form.Item>
 

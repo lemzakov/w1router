@@ -9,6 +9,7 @@ import { CheckCircle, Edit, Play, Trash2, Upload } from "lucide-react";
 import { useState } from "react";
 import CloudZeroUpdateModal from "./CloudZeroUpdateModal";
 import { CloudZeroSettings } from "./types";
+import { useTranslation } from "react-i18next";
 
 interface CloudZeroIntegrationSettingsProps {
   settings: CloudZeroSettings;
@@ -16,6 +17,7 @@ interface CloudZeroIntegrationSettingsProps {
 }
 
 export function CloudZeroIntegrationSettings({ settings, onSettingsUpdated }: CloudZeroIntegrationSettingsProps) {
+  const { t } = useTranslation();
   const { accessToken } = useAuthorized();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -100,7 +102,7 @@ export function CloudZeroIntegrationSettings({ settings, onSettingsUpdated }: Cl
         <Card
           title={
             <div className="flex items-center gap-2">
-              <span className="text-lg font-semibold">CloudZero Configuration</span>
+              <span className="text-lg font-semibold">{t('CloudZero_Configuration')}</span>
               <Tag color="success" className="ml-2 capitalize">
                 {settings.status || "Active"}
               </Tag>
@@ -136,16 +138,16 @@ export function CloudZeroIntegrationSettings({ settings, onSettingsUpdated }: Cl
           >
             <Descriptions.Item label="API Key (Redacted)">
               <span className="font-mono text-gray-600">
-                {settings.api_key_masked || <span className="text-gray-400 italic">Not configured</span>}
+                {settings.api_key_masked || <span className="text-gray-400 italic">{t('Not_configured')}</span>}
               </span>
             </Descriptions.Item>
             <Descriptions.Item label="Connection ID">
               <span className="font-mono text-gray-600">
-                {settings.connection_id || <span className="text-gray-400 italic">Not configured</span>}
+                {settings.connection_id || <span className="text-gray-400 italic">{t('Not_configured')}</span>}
               </span>
             </Descriptions.Item>
             <Descriptions.Item label="Timezone">
-              {settings.timezone || <span className="text-gray-400 italic">Default (UTC)</span>}
+              {settings.timezone || <span className="text-gray-400 italic">{t('Default_UTC')}</span>}
             </Descriptions.Item>
           </Descriptions>
 

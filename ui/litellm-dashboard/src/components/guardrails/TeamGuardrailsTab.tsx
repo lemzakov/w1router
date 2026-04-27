@@ -25,6 +25,7 @@ import {
 import NotificationsManager from "@/components/molecules/notifications_manager";
 import TeamDropdown from "@/components/common_components/team_dropdown";
 import { useRegisterGuardrail } from "@/app/(dashboard)/hooks/guardrails/useRegisterGuardrail";
+import { useTranslation } from "react-i18next";
 
 type GuardrailStatus = "active" | "pending" | "rejected";
 
@@ -191,6 +192,7 @@ function StatCard({
   value: number;
   color: string;
 }) {
+  const { t } = useTranslation();
   return (
     <div className="bg-white border border-gray-200 rounded-lg px-4 py-3">
       <div className={`text-2xl font-bold ${color}`}>{value}</div>
@@ -671,7 +673,7 @@ function DetailPanel({
               onClick={() => setConfigExpanded(!configExpanded)}
               className="w-full flex items-center justify-between px-3 py-2 text-left text-xs font-semibold text-gray-700 bg-gray-50 hover:bg-gray-100 transition-colors"
             >
-              <span>Equivalent config</span>
+              <span>{t('Equivalent_config')}</span>
               {configExpanded ? (
                 <ChevronUpIcon className="h-3.5 w-3.5 text-gray-500" />
               ) : (
@@ -1005,10 +1007,10 @@ export function TeamGuardrailsTab({ accessToken }: TeamGuardrailsTabProps) {
             }
             className="border border-gray-200 rounded-md px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 bg-white"
           >
-            <option value="all">All Status</option>
-            <option value="pending">Pending Review</option>
-            <option value="active">Active</option>
-            <option value="rejected">Rejected</option>
+            <option value="all">{t('All_Status')}</option>
+            <option value="pending">{t('Pending_Review')}</option>
+            <option value="active">{t('Active')}</option>
+            <option value="rejected">{t('Rejected')}</option>
           </select>
           <button
             type="button"
@@ -1144,9 +1146,9 @@ export function TeamGuardrailsTab({ accessToken }: TeamGuardrailsTabProps) {
             rules={[{ required: true, message: "Select a mode" }]}
           >
             <Select>
-              <Select.Option value="pre_call">Pre Call</Select.Option>
-              <Select.Option value="post_call">Post Call</Select.Option>
-              <Select.Option value="during_call">During Call</Select.Option>
+              <Select.Option value="pre_call">{t('Pre_Call')}</Select.Option>
+              <Select.Option value="post_call">{t('Post_Call')}</Select.Option>
+              <Select.Option value="during_call">{t('During_Call')}</Select.Option>
             </Select>
           </Form.Item>
           <Form.Item

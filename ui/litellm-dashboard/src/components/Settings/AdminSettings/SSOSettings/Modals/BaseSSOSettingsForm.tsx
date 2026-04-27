@@ -4,6 +4,7 @@ import { TextInput } from "@tremor/react";
 import { Checkbox, Form, Input, Select } from "antd";
 import React from "react";
 import { ssoProviderLogoMap, ssoProviderDisplayNames } from "../constants";
+import { useTranslation } from "react-i18next";
 
 export interface BaseSSOSettingsFormProps {
   form: any; // Replace with proper Form type if available
@@ -104,6 +105,7 @@ export const renderProviderFields = (provider: string) => {
 };
 
 const BaseSSOSettingsForm: React.FC<BaseSSOSettingsFormProps> = ({ form, onFormSubmit }) => {
+  const { t } = useTranslation();
   return (
     <div>
       <Form form={form} onFinish={onFormSubmit} labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} labelAlign="left">
@@ -225,10 +227,10 @@ const BaseSSOSettingsForm: React.FC<BaseSSOSettingsFormProps> = ({ form, onFormS
               <>
                 <Form.Item label="Default Role" name="default_role" initialValue="Internal User">
                   <Select>
-                    <Select.Option value="internal_user_viewer">Internal Viewer</Select.Option>
-                    <Select.Option value="internal_user">Internal User</Select.Option>
-                    <Select.Option value="proxy_admin_viewer">Admin Viewer</Select.Option>
-                    <Select.Option value="proxy_admin">Proxy Admin</Select.Option>
+                    <Select.Option value="internal_user_viewer">{t('Internal_Viewer')}</Select.Option>
+                    <Select.Option value="internal_user">{t('Internal_User')}</Select.Option>
+                    <Select.Option value="proxy_admin_viewer">{t('Admin_Viewer')}</Select.Option>
+                    <Select.Option value="proxy_admin">{t('Proxy_Admin')}</Select.Option>
                   </Select>
                 </Form.Item>
 

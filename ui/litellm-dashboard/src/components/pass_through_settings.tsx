@@ -9,6 +9,7 @@ import { DataTable } from "./view_logs/table";
 import { ColumnDef } from "@tanstack/react-table";
 import { Eye, EyeOff } from "lucide-react";
 import NotificationsManager from "./molecules/notifications_manager";
+import { useTranslation } from "react-i18next";
 
 interface GeneralSettingsPageProps {
   accessToken: string | null;
@@ -46,6 +47,7 @@ export interface passThroughItem {
 
 // Password field component for headers
 const PasswordField: React.FC<{ value: object }> = ({ value }) => {
+  const { t } = useTranslation();
   const [showPassword, setShowPassword] = useState(false);
   const headerString = JSON.stringify(value);
 
@@ -152,7 +154,7 @@ const PassThroughSettings: React.FC<GeneralSettingsPageProps> = ({ accessToken, 
     {
       header: () => (
         <div className="flex items-center gap-1">
-          <span>Methods</span>
+          <span>{t('Methods')}</span>
           <Tooltip title="HTTP methods supported by this endpoint">
             <InformationCircleIcon className="w-4 h-4 text-gray-400 cursor-help" />
           </Tooltip>
@@ -178,7 +180,7 @@ const PassThroughSettings: React.FC<GeneralSettingsPageProps> = ({ accessToken, 
     {
       header: () => (
         <div className="flex items-center gap-1">
-          <span>Authentication</span>
+          <span>{t('Authentication')}</span>
           <Tooltip title="LiteLLM Virtual Key required to call endpoint">
             <InformationCircleIcon className="w-4 h-4 text-gray-400 cursor-help" />
           </Tooltip>
@@ -226,7 +228,7 @@ const PassThroughSettings: React.FC<GeneralSettingsPageProps> = ({ accessToken, 
     const selectedEndpoint = generalSettings.find((endpoint) => endpoint.id === selectedEndpointId);
 
     if (!selectedEndpoint) {
-      return <div>Endpoint not found</div>;
+      return <div>{t('Endpoint_not_found')}</div>;
     }
 
     return (
@@ -244,8 +246,8 @@ const PassThroughSettings: React.FC<GeneralSettingsPageProps> = ({ accessToken, 
   return (
     <div>
       <div>
-        <Title>Pass Through Endpoints</Title>
-        <Text className="text-tremor-content">Configure and manage your pass-through endpoints</Text>
+        <Title>{t('Pass_Through_Endpoints')}</Title>
+        <Text className="text-tremor-content">{t('Configure_and_manage_your_passthrough_en')}</Text>
       </div>
 
       <AddPassThroughEndpoint
@@ -281,7 +283,7 @@ const PassThroughSettings: React.FC<GeneralSettingsPageProps> = ({ accessToken, 
               <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <div className="sm:flex sm:items-start">
                   <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                    <h3 className="text-lg leading-6 font-medium text-gray-900">Delete Pass-Through Endpoint</h3>
+                    <h3 className="text-lg leading-6 font-medium text-gray-900">{t('Delete_PassThrough_Endpoint')}</h3>
                     <div className="mt-2">
                       <p className="text-sm text-gray-500">
                         Are you sure you want to delete this pass-through endpoint? This action cannot be undone.
@@ -294,7 +296,7 @@ const PassThroughSettings: React.FC<GeneralSettingsPageProps> = ({ accessToken, 
                 <Button onClick={confirmDelete} color="red" className="ml-2">
                   Delete
                 </Button>
-                <Button onClick={cancelDelete}>Cancel</Button>
+                <Button onClick={cancelDelete}>{t('Cancel')}</Button>
               </div>
             </div>
           </div>

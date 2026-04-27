@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Spin } from "antd";
 import { fetchOpenAPIRegistry } from "../networking";
+import { useTranslation } from "react-i18next";
 
 export interface OpenAPIKeyTool {
   name: string;
@@ -33,6 +34,7 @@ const OpenAPIQuickPicker: React.FC<OpenAPIQuickPickerProps> = ({
   selectedName,
   onSelect,
 }) => {
+  const { t } = useTranslation();
   const [apis, setApis] = useState<OpenAPIRegistryEntry[]>([]);
   const [loading, setLoading] = useState(false);
   const [imgErrors, setImgErrors] = useState<Set<string>>(new Set());
@@ -53,7 +55,7 @@ const OpenAPIQuickPicker: React.FC<OpenAPIQuickPickerProps> = ({
   if (loading) {
     return (
       <div className="mb-4">
-        <span className="text-sm font-medium text-gray-700">Popular APIs</span>
+        <span className="text-sm font-medium text-gray-700">{t('Popular_APIs')}</span>
         <div className="flex justify-center py-6">
           <Spin size="small" />
         </div>
@@ -65,7 +67,7 @@ const OpenAPIQuickPicker: React.FC<OpenAPIQuickPickerProps> = ({
 
   return (
     <div className="mb-4">
-      <span className="text-sm font-medium text-gray-700 block mb-2">Popular APIs</span>
+      <span className="text-sm font-medium text-gray-700 block mb-2">{t('Popular_APIs')}</span>
 
       <div className="grid grid-cols-5 gap-2">
         {apis.map((api) => {

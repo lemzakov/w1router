@@ -4,6 +4,7 @@ import { MCPTool, InputSchema, InputSchemaProperty } from "./types";
 import { Form, Tooltip } from "antd";
 import { InfoCircleOutlined } from "@ant-design/icons";
 import NotificationsManager from "../molecules/notifications_manager";
+import { useTranslation } from "react-i18next";
 
 const isPlainObject = (value: unknown): value is Record<string, any> =>
   typeof value === "object" && value !== null && !Array.isArray(value);
@@ -308,7 +309,7 @@ export function ToolTestPanel({
           )}
           <div className="flex-1 min-w-0">
             <div className="flex items-center space-x-2 mb-1">
-              <h2 className="text-lg font-semibold text-gray-900">Test Tool:</h2>
+              <h2 className="text-lg font-semibold text-gray-900">{t('Test_Tool')}</h2>
               <div
                 className="group inline-flex items-center space-x-1 bg-slate-50 hover:bg-slate-100 px-3 py-1 rounded-md cursor-pointer transition-colors border border-slate-200"
                 onClick={handleCopyToolName}
@@ -347,7 +348,7 @@ export function ToolTestPanel({
         <div className="bg-white border border-gray-200 rounded-lg">
           <div className="border-b border-gray-100 px-4 py-2">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-semibold text-gray-900">Input Parameters</h3>
+              <h3 className="text-sm font-semibold text-gray-900">{t('Input_Parameters')}</h3>
               <Tooltip title="Configure the input parameters for this tool call">
                 <InfoCircleOutlined className="text-gray-400 hover:text-gray-600" />
               </Tooltip>
@@ -377,8 +378,8 @@ export function ToolTestPanel({
               ) : actualSchema.properties === undefined ? (
                 <div className="text-center py-6 bg-gray-50 rounded-lg border border-gray-200">
                   <div className="max-w-sm mx-auto">
-                    <h4 className="text-sm font-medium text-gray-900 mb-1">No Parameters Required</h4>
-                    <p className="text-xs text-gray-500">This tool can be called without any input parameters.</p>
+                    <h4 className="text-sm font-medium text-gray-900 mb-1">{t('No_Parameters_Required')}</h4>
+                    <p className="text-xs text-gray-500">{t('This_tool_can_be_called_without_any_inpu')}</p>
                   </div>
                 </div>
               ) : (
@@ -485,8 +486,8 @@ export function ToolTestPanel({
                             defaultValue={(initialValue ?? false).toString()}
                           >
                             {!actualSchema.required?.includes(key) && <option value="">Select {key}</option>}
-                            <option value="true">True</option>
-                            <option value="false">False</option>
+                            <option value="true">{t('True')}</option>
+                            <option value="false">{t('False')}</option>
                           </select>
                         )}
 
@@ -534,7 +535,7 @@ export function ToolTestPanel({
         {/* Right Column - Tool Result */}
         <div className="bg-white border border-gray-200 rounded-lg">
           <div className="border-b border-gray-100 px-4 py-2">
-            <h3 className="text-sm font-semibold text-gray-900">Tool Result</h3>
+            <h3 className="text-sm font-semibold text-gray-900">{t('Tool_Result')}</h3>
           </div>
 
           <div className="p-4">
@@ -557,7 +558,7 @@ export function ToolTestPanel({
                       />
                     </svg>
                   </div>
-                  <h4 className="text-sm font-medium text-gray-900 mb-1">Ready to Call Tool</h4>
+                  <h4 className="text-sm font-medium text-gray-900 mb-1">{t('Ready_to_Call_Tool')}</h4>
                   <p className="text-xs text-gray-500 leading-relaxed">
                     Configure the input parameters and click &quot;Call Tool&quot; to see the results here.
                   </p>
@@ -578,7 +579,7 @@ export function ToolTestPanel({
                             d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                           />
                         </svg>
-                        <h4 className="text-xs font-medium text-green-900">Tool executed successfully</h4>
+                        <h4 className="text-xs font-medium text-green-900">{t('Tool_executed_successfully')}</h4>
                         {duration !== null && (
                           <span className="text-xs text-green-600 ml-1">• {(duration / 1000).toFixed(2)}s</span>
                         )}
@@ -640,8 +641,8 @@ export function ToolTestPanel({
                         <div className="animate-spin rounded-full h-8 w-8 border-2 border-gray-200"></div>
                         <div className="animate-spin rounded-full h-8 w-8 border-2 border-blue-600 border-t-transparent absolute top-0"></div>
                       </div>
-                      <p className="text-sm font-medium mt-3">Calling tool...</p>
-                      <p className="text-xs text-gray-400 mt-1">Please wait while we process your request</p>
+                      <p className="text-sm font-medium mt-3">{t('Calling_tool')}</p>
+                      <p className="text-xs text-gray-400 mt-1">{t('Please_wait_while_we_process_your_reques')}</p>
                     </div>
                   )}
 
@@ -660,7 +661,7 @@ export function ToolTestPanel({
                         </div>
                         <div className="flex-1">
                           <div className="flex items-center space-x-2 mb-1">
-                            <h4 className="text-xs font-medium text-red-900">Tool Call Failed</h4>
+                            <h4 className="text-xs font-medium text-red-900">{t('Tool_Call_Failed')}</h4>
                             {duration !== null && (
                               <span className="text-xs text-red-600">• {(duration / 1000).toFixed(2)}s</span>
                             )}

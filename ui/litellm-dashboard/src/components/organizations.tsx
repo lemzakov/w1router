@@ -276,15 +276,15 @@ const [selectedOrgId, setSelectedOrgId] = useState<string | null>(null);
                         <Table>
                           <TableHead>
                             <TableRow>
-                              <TableHeaderCell>Organization ID</TableHeaderCell>
-                              <TableHeaderCell>Organization Name</TableHeaderCell>
-                              <TableHeaderCell>Created</TableHeaderCell>
-                              <TableHeaderCell>Spend (USD)</TableHeaderCell>
-                              <TableHeaderCell>Budget (USD)</TableHeaderCell>
-                              <TableHeaderCell>Models</TableHeaderCell>
-                              <TableHeaderCell>TPM / RPM Limits</TableHeaderCell>
-                              <TableHeaderCell>Info</TableHeaderCell>
-                              <TableHeaderCell>Actions</TableHeaderCell>
+                              <TableHeaderCell>{t('Organization_ID')}</TableHeaderCell>
+                              <TableHeaderCell>{t('Organization_Name')}</TableHeaderCell>
+                              <TableHeaderCell>{t('Created')}</TableHeaderCell>
+                              <TableHeaderCell>{t('Spend_USD')}</TableHeaderCell>
+                              <TableHeaderCell>{t('Budget_USD')}</TableHeaderCell>
+                              <TableHeaderCell>{t('Models')}</TableHeaderCell>
+                              <TableHeaderCell>{t('TPM_RPM_Limits')}</TableHeaderCell>
+                              <TableHeaderCell>{t('Info')}</TableHeaderCell>
+                              <TableHeaderCell>{t('Actions')}</TableHeaderCell>
                             </TableRow>
                           </TableHead>
 
@@ -333,7 +333,7 @@ const [selectedOrgId, setSelectedOrgId] = useState<string | null>(null);
                                             <div className="flex flex-col">
                                               {org.models.length === 0 ? (
                                                 <Badge size={"xs"} className="mb-1" color="red">
-                                                  <Text>All Proxy Models</Text>
+                                                  <Text>{t('All_Proxy_Models')}</Text>
                                                 </Badge>
                                               ) : (
                                                 <>
@@ -362,7 +362,7 @@ const [selectedOrgId, setSelectedOrgId] = useState<string | null>(null);
                                                       {org.models.slice(0, 3).map((model, index) =>
                                                         model === "all-proxy-models" ? (
                                                           <Badge key={index} size={"xs"} color="red">
-                                                            <Text>All Proxy Models</Text>
+                                                            <Text>{t('All_Proxy_Models')}</Text>
                                                           </Badge>
                                                         ) : (
                                                           <Badge key={index} size={"xs"} color="blue">
@@ -390,7 +390,7 @@ const [selectedOrgId, setSelectedOrgId] = useState<string | null>(null);
                                                           {org.models.slice(3).map((model, index) =>
                                                             model === "all-proxy-models" ? (
                                                               <Badge key={index + 3} size={"xs"} color="red">
-                                                                <Text>All Proxy Models</Text>
+                                                                <Text>{t('All_Proxy_Models')}</Text>
                                                               </Badge>
                                                             ) : (
                                                               <Badge key={index + 3} size={"xs"} color="blue">
@@ -548,7 +548,7 @@ const [selectedOrgId, setSelectedOrgId] = useState<string | null>(null);
           </Form.Item>
 
           <div style={{ textAlign: "right", marginTop: "10px" }}>
-            <Button type="submit">Create Organization</Button>
+            <Button type="submit">{t('Create_Organization')}</Button>
           </div>
         </Form>
       </Modal>

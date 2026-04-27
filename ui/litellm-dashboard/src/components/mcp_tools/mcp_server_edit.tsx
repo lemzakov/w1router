@@ -13,6 +13,7 @@ import { validateMCPServerUrl, validateMCPServerName } from "./utils";
 import NotificationsManager from "../molecules/notifications_manager";
 import { useMcpOAuthFlow } from "@/hooks/useMcpOAuthFlow";
 import { getSecureItem, setSecureItem } from "@/utils/secureStorage";
+import { useTranslation } from "react-i18next";
 
 interface MCPServerEditProps {
   mcpServer: MCPServer;
@@ -33,6 +34,7 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
   onSuccess,
   availableAccessGroups,
 }) => {
+  const { t } = useTranslation();
   const [form] = Form.useForm();
   const [costConfig, setCostConfig] = useState<MCPServerCostInfo>({});
   const [tools, setTools] = useState<any[]>([]);
@@ -594,8 +596,8 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
   return (
     <TabGroup>
       <TabList className="grid w-full grid-cols-2">
-        <Tab>Server Configuration</Tab>
-        <Tab>Cost Configuration</Tab>
+        <Tab>{t('Server_Configuration')}</Tab>
+        <Tab>{t('Cost_Configuration')}</Tab>
       </TabList>
       <TabPanels className="mt-6">
         <TabPanel>
@@ -631,10 +633,10 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
             <MCPLogoSelector value={logoUrl} onChange={setLogoUrl} />
             <Form.Item label="Transport Type" name="transport" rules={[{ required: true }]}>
               <Select onChange={handleTransportChange}>
-                <Select.Option value="http">Streamable HTTP (Recommended)</Select.Option>
-                <Select.Option value="sse">Server-Sent Events (SSE)</Select.Option>
-                <Select.Option value="stdio">Standard Input/Output (stdio)</Select.Option>
-                <Select.Option value={TRANSPORT.OPENAPI}>OpenAPI Spec</Select.Option>
+                <Select.Option value="http">{t('Streamable_HTTP_Recommended')}</Select.Option>
+                <Select.Option value="sse">{t('ServerSent_Events_SSE')}</Select.Option>
+                <Select.Option value="stdio">{t('Standard_InputOutput_stdio')}</Select.Option>
+                <Select.Option value={TRANSPORT.OPENAPI}>{t('OpenAPI_Spec')}</Select.Option>
               </Select>
             </Form.Item>
 
@@ -680,13 +682,13 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
             {!isStdioTransport && (
               <Form.Item label="Authentication" name="auth_type" rules={[{ required: true }]}>
                 <Select>
-                  <Select.Option value="none">None</Select.Option>
-                  <Select.Option value="api_key">API Key</Select.Option>
-                  <Select.Option value="bearer_token">Bearer Token</Select.Option>
-                  <Select.Option value="token">Token</Select.Option>
-                  <Select.Option value="basic">Basic Auth</Select.Option>
-                  <Select.Option value="oauth2">OAuth</Select.Option>
-                  <Select.Option value="aws_sigv4">AWS SigV4 (Bedrock AgentCore MCPs)</Select.Option>
+                  <Select.Option value="none">{t('None')}</Select.Option>
+                  <Select.Option value="api_key">{t('API_Key')}</Select.Option>
+                  <Select.Option value="bearer_token">{t('Bearer_Token')}</Select.Option>
+                  <Select.Option value="token">{t('Token_1')}</Select.Option>
+                  <Select.Option value="basic">{t('Basic_Auth')}</Select.Option>
+                  <Select.Option value="oauth2">{t('OAuth')}</Select.Option>
+                  <Select.Option value="aws_sigv4">{t('AWS_SigV4_Bedrock_AgentCore_MCPs')}</Select.Option>
                 </Select>
               </Form.Item>
             )}
@@ -935,7 +937,7 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
                   </>
                 )}
                 <div className="rounded-lg border border-dashed border-gray-300 p-4 space-y-2">
-                  <p className="text-sm text-gray-600">Use OAuth to fetch a fresh access token and temporarily save it in the session as the authentication value.</p>
+                  <p className="text-sm text-gray-600">{t('Use_OAuth_to_fetch_a_fresh_access_token')}</p>
                   <Button
                     variant="secondary"
                     onClick={startOAuthFlow}
@@ -1125,8 +1127,8 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
             </div>
 
             <div className="flex justify-end gap-2">
-              <AntdButton onClick={onCancel}>Cancel</AntdButton>
-              <Button type="submit">Save Changes</Button>
+              <AntdButton onClick={onCancel}>{t('Cancel')}</AntdButton>
+              <Button type="submit">{t('Save_Changes')}</Button>
             </div>
           </Form>
         </TabPanel>
@@ -1136,8 +1138,8 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
             <MCPServerCostConfig value={costConfig} onChange={setCostConfig} tools={tools} disabled={isLoadingTools} />
 
             <div className="flex justify-end gap-2">
-              <AntdButton onClick={onCancel}>Cancel</AntdButton>
-              <Button onClick={() => form.submit()}>Save Changes</Button>
+              <AntdButton onClick={onCancel}>{t('Cancel')}</AntdButton>
+              <Button onClick={() => form.submit()}>{t('Save_Changes')}</Button>
             </div>
           </div>
         </TabPanel>

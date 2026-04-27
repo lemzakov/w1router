@@ -5,6 +5,7 @@ import NotificationsManager from "../molecules/notifications_manager";
 import { getEmailEventSettings, updateEmailEventSettings, resetEmailEventSettings } from "../networking";
 import { EmailEvent } from "../../types";
 import { EmailEventSetting } from "./types";
+import { useTranslation } from "react-i18next";
 
 const { Title } = Typography;
 
@@ -13,6 +14,7 @@ interface EmailEventSettingsProps {
 }
 
 const EmailEventSettings: React.FC<EmailEventSettingsProps> = ({ accessToken }) => {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(true);
   const [eventSettings, setEventSettings] = useState<EmailEventSetting[]>([]);
 
@@ -88,8 +90,8 @@ const EmailEventSettings: React.FC<EmailEventSettingsProps> = ({ accessToken }) 
 
   return (
     <Card>
-      <Title level={4}>Email Notifications</Title>
-      <Text>Select which events should trigger email notifications.</Text>
+      <Title level={4}>{t('Email_Notifications')}</Title>
+      <Text>{t('Select_which_events_should_trigger_email')}</Text>
       <Divider />
 
       {loading ? (

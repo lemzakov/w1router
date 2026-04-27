@@ -1,6 +1,7 @@
 import React from "react";
 import { X, Code, ExternalLink } from "lucide-react";
 import { Button } from "antd";
+import { useTranslation } from "react-i18next";
 
 interface ClaudeCodeModalProps {
   isOpen: boolean;
@@ -11,6 +12,7 @@ interface ClaudeCodeModalProps {
 const GOOGLE_FORM_URL = "https://forms.gle/LZeJQ3XytBakckYa9";
 
 export function ClaudeCodeModal({ isOpen, onClose, onComplete }: ClaudeCodeModalProps) {
+  const { t } = useTranslation();
   if (!isOpen) return null;
 
   const handleOpenForm = () => {
@@ -29,7 +31,7 @@ export function ClaudeCodeModal({ isOpen, onClose, onComplete }: ClaudeCodeModal
         <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between bg-gray-50/50">
           <div className="flex items-center gap-2 text-purple-600">
             <Code className="h-5 w-5" />
-            <span className="font-semibold text-sm tracking-wide uppercase">Claude Code Feedback</span>
+            <span className="font-semibold text-sm tracking-wide uppercase">{t('Claude_Code_Feedback')}</span>
           </div>
           <button
             onClick={onClose}

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import ContentFilterConfiguration from "./ContentFilterConfiguration";
 import ContentFilterDisplay from "./ContentFilterDisplay";
 import type { CompetitorIntentConfig } from "./CompetitorIntentConfiguration";
+import { useTranslation } from "react-i18next";
 
 const { Text } = Typography
 
@@ -74,6 +75,7 @@ const ContentFilterManager: React.FC<ContentFilterManagerProps> = ({
   onDataChange,
   onUnsavedChanges,
 }) => {
+  const { t } = useTranslation();
   const [selectedPatterns, setSelectedPatterns] = useState<Pattern[]>([]);
   const [blockedWords, setBlockedWords] = useState<BlockedWord[]>([]);
   const [selectedContentCategories, setSelectedContentCategories] = useState<SelectedContentCategory[]>([]);
@@ -233,7 +235,7 @@ const ContentFilterManager: React.FC<ContentFilterManagerProps> = ({
   // Edit mode
   return (
     <>
-      <Divider orientation="left">Content Filter Configuration</Divider>
+      <Divider orientation="left">{t('Content_Filter_Configuration')}</Divider>
       {hasUnsavedChanges && (
         <Alert
           type="warning"

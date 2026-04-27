@@ -3,6 +3,7 @@ import React from "react";
 import { Text, Tab, TabGroup, TabList, TabPanel, TabPanels, Grid } from "@tremor/react";
 import CodeBlock from "./components/CodeBlock";
 import DocLink from "@/app/(dashboard)/api-reference/components/DocLink";
+import { useTranslation } from "react-i18next";
 
 interface ApiRefProps {
   proxySettings: {
@@ -12,6 +13,7 @@ interface ApiRefProps {
 }
 
 const APIReferenceView: React.FC<ApiRefProps> = ({ proxySettings }) => {
+  const { t } = useTranslation();
   let base_url = "<your_proxy_base_url>";
   const customDocBaseUrl = proxySettings?.LITELLM_UI_API_DOC_BASE_URL;
   if (customDocBaseUrl && customDocBaseUrl.trim()) {
@@ -39,9 +41,9 @@ const APIReferenceView: React.FC<ApiRefProps> = ({ proxySettings }) => {
 
           <TabGroup>
             <TabList>
-              <Tab>OpenAI Python SDK</Tab>
-              <Tab>LlamaIndex</Tab>
-              <Tab>Langchain Py</Tab>
+              <Tab>{t('OpenAI_Python_SDK')}</Tab>
+              <Tab>{t('LlamaIndex')}</Tab>
+              <Tab>{t('Langchain_Py')}</Tab>
             </TabList>
             <TabPanels>
               <TabPanel>

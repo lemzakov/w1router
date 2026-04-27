@@ -94,7 +94,7 @@ const [availableTeams, setAvailableTeams] = useState<AvailableTeam[]>([]);
                 <div className="flex flex-col">
                   {!team.models || team.models.length === 0 ? (
                     <Badge size="xs" color="red">
-                      <Text>All Proxy Models</Text>
+                      <Text>{t('All_Proxy_Models')}</Text>
                     </Badge>
                   ) : (
                     team.models.map((model, index) => (

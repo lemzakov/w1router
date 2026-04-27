@@ -4,6 +4,7 @@ import { Form, Input, Modal, Select as Select2, Tooltip } from "antd";
 import React from "react";
 import BudgetDurationDropdown from "../../common_components/budget_duration_dropdown";
 import NumericalInput from "../../shared/numerical_input";
+import { useTranslation } from "react-i18next";
 
 interface ModelInfo {
   model_name: string;
@@ -23,6 +24,7 @@ interface CreateTagModalProps {
 }
 
 const CreateTagModal: React.FC<CreateTagModalProps> = ({ visible, onCancel, onSubmit, availableModels }) => {
+  const { t } = useTranslation();
   const [form] = Form.useForm();
 
   const handleFinish = (values: any) => {
@@ -71,7 +73,7 @@ const CreateTagModal: React.FC<CreateTagModalProps> = ({ visible, onCancel, onSu
 
         <Accordion className="mt-4 mb-4">
           <AccordionHeader>
-            <Title className="m-0">Budget & Rate Limits (Optional)</Title>
+            <Title className="m-0">{t('Budget_Rate_Limits_Optional')}</Title>
           </AccordionHeader>
           <AccordionBody>
             <Form.Item
@@ -121,7 +123,7 @@ const CreateTagModal: React.FC<CreateTagModalProps> = ({ visible, onCancel, onSu
         </Accordion>
 
         <div style={{ textAlign: "right", marginTop: "10px" }}>
-          <Button type="submit">Create Tag</Button>
+          <Button type="submit">{t('Create_Tag')}</Button>
         </div>
       </Form>
     </Modal>

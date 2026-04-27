@@ -4,6 +4,7 @@ import { Text, Title, Badge } from "@tremor/react";
 import { makeMCPPublicCall } from "../../networking";
 import NotificationsManager from "../../molecules/notifications_manager";
 import { MCPServerData } from "@/components/mcp_hub_table_columns";
+import { useTranslation } from "react-i18next";
 
 const { Step } = Steps;
 
@@ -22,6 +23,7 @@ const MakeMCPPublicForm: React.FC<MakeMCPPublicFormProps> = ({
   mcpHubData,
   onSuccess,
 }) => {
+  const { t } = useTranslation();
   const [currentStep, setCurrentStep] = useState(0);
   const [selectedServers, setSelectedServers] = useState<Set<string>>(new Set());
   const [loading, setLoading] = useState(false);
@@ -114,7 +116,7 @@ const MakeMCPPublicForm: React.FC<MakeMCPPublicFormProps> = ({
     return (
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <Title>Select MCP Servers to Make Public</Title>
+          <Title>{t('Select_MCP_Servers_to_Make_Public')}</Title>
           <div className="flex items-center space-x-2">
             <Checkbox
               checked={allServersSelected}
@@ -136,7 +138,7 @@ const MakeMCPPublicForm: React.FC<MakeMCPPublicFormProps> = ({
           <div className="space-y-3">
             {mcpHubData.length === 0 ? (
               <div className="text-center py-8 text-gray-500">
-                <Text>No MCP servers available.</Text>
+                <Text>{t('No_MCP_servers_available')}</Text>
               </div>
             ) : (
               mcpHubData.map((server) => {
@@ -209,17 +211,17 @@ const MakeMCPPublicForm: React.FC<MakeMCPPublicFormProps> = ({
   const renderStep2Content = () => {
     return (
       <div className="space-y-4">
-        <Title>Confirm Making MCP Servers Public</Title>
+        <Title>{t('Confirm_Making_MCP_Servers_Public')}</Title>
 
         <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
           <Text className="text-sm text-yellow-800">
-            <strong>Warning:</strong> Once you make these MCP servers public, anyone who can go to the{" "}
+            <strong>{t('Warning')}</strong> Once you make these MCP servers public, anyone who can go to the{" "}
             <code>/ui/model_hub_table</code> will be able to know they exist on the proxy.
           </Text>
         </div>
 
         <div className="space-y-3">
-          <Text className="font-medium">MCP Servers to be made public:</Text>
+          <Text className="font-medium">{t('MCP_Servers_to_be_made_public')}</Text>
           <div className="max-h-48 overflow-y-auto border rounded-lg p-3">
             <div className="space-y-2">
               {Array.from(selectedServers).map((serverId) => {

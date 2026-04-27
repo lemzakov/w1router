@@ -34,6 +34,7 @@ import {
 } from "./types";
 import { Guardrail } from "../guardrails/types";
 import DeleteResourceModal from "../common_components/DeleteResourceModal";
+import { useTranslation } from "react-i18next";
 
 interface PoliciesPanelProps {
   accessToken: string | null;
@@ -44,6 +45,7 @@ const PoliciesPanel: React.FC<PoliciesPanelProps> = ({
   accessToken,
   userRole,
 }) => {
+  const { t } = useTranslation();
   const [policiesList, setPoliciesList] = useState<Policy[]>([]);
   const [attachmentsList, setAttachmentsList] = useState<PolicyAttachment[]>([]);
   const [guardrailsList, setGuardrailsList] = useState<Guardrail[]>([]);
@@ -364,10 +366,10 @@ const PoliciesPanel: React.FC<PoliciesPanelProps> = ({
     <div className="w-full mx-auto flex-auto overflow-y-auto m-8 p-2">
       <TabGroup index={activeTab} onIndexChange={setActiveTab}>
         <TabList className="mb-4">
-          <Tab>Templates</Tab>
-          <Tab>Policies</Tab>
-          <Tab>Attachments</Tab>
-          <Tab>Policy Simulator</Tab>
+          <Tab>{t('Templates')}</Tab>
+          <Tab>{t('Policies')}</Tab>
+          <Tab>{t('Attachments')}</Tab>
+          <Tab>{t('Policy_Simulator')}</Tab>
         </TabList>
 
         <TabPanels>
@@ -379,11 +381,11 @@ const PoliciesPanel: React.FC<PoliciesPanelProps> = ({
                   <p className="mb-3">
                     Use policies to group guardrails and control which ones run for specific teams, keys, or models.
                   </p>
-                  <p className="mb-2 font-semibold">Why use policies?</p>
+                  <p className="mb-2 font-semibold">{t('Why_use_policies')}</p>
                   <ul className="list-disc list-inside mb-3 space-y-1 ml-2">
-                    <li>Enable/disable specific guardrails for teams, keys, or models</li>
-                    <li>Group guardrails into a single policy</li>
-                    <li>Inherit from existing policies and override what you need</li>
+                    <li>{t('Enabledisable_specific_guardrails_for_te')}</li>
+                    <li>{t('Group_guardrails_into_a_single_policy')}</li>
+                    <li>{t('Inherit_from_existing_policies_and_overr')}</li>
                   </ul>
                   <a
                     href="https://docs.litellm.ai/docs/proxy/guardrails/guardrail_policies"
@@ -417,11 +419,11 @@ const PoliciesPanel: React.FC<PoliciesPanelProps> = ({
                   <p className="mb-3">
                     Use policies to group guardrails and control which ones run for specific teams, keys, or models.
                   </p>
-                  <p className="mb-2 font-semibold">Why use policies?</p>
+                  <p className="mb-2 font-semibold">{t('Why_use_policies')}</p>
                   <ul className="list-disc list-inside mb-3 space-y-1 ml-2">
-                    <li>Enable/disable specific guardrails for teams, keys, or models</li>
-                    <li>Group guardrails into a single policy</li>
-                    <li>Inherit from existing policies and override what you need</li>
+                    <li>{t('Enabledisable_specific_guardrails_for_te')}</li>
+                    <li>{t('Group_guardrails_into_a_single_policy')}</li>
+                    <li>{t('Inherit_from_existing_policies_and_overr')}</li>
                   </ul>
                   <a
                     href="https://docs.litellm.ai/docs/proxy/guardrails/guardrail_policies"
@@ -533,13 +535,13 @@ const PoliciesPanel: React.FC<PoliciesPanelProps> = ({
                   <p className="mb-3">
                     Policy attachments control where your policies apply. Policies don&apos;t do anything until you attach them to specific teams, keys, models, tags, or globally.
                   </p>
-                  <p className="mb-2 font-semibold">Attachment Scopes:</p>
+                  <p className="mb-2 font-semibold">{t('Attachment_Scopes')}</p>
                   <ul className="list-disc list-inside mb-3 space-y-1 ml-2">
-                    <li><strong>Global (*)</strong> - Applies to all requests</li>
-                    <li><strong>Teams</strong> - Applies only to specific teams</li>
-                    <li><strong>Keys</strong> - Applies only to specific API keys (supports wildcards like dev-*)</li>
-                    <li><strong>Models</strong> - Applies only when specific models are used</li>
-                    <li><strong>Tags</strong> - Matches tags from key/team <code>metadata.tags</code> or tags passed dynamically in the request body (<code>metadata.tags</code>). Use this to enforce policies across groups, e.g. &quot;all keys tagged <code>healthcare</code> get HIPAA guardrails.&quot; Supports wildcards (<code>prod-*</code>).</li>
+                    <li><strong>{t('Global')}</strong> - Applies to all requests</li>
+                    <li><strong>{t('Teams')}</strong> - Applies only to specific teams</li>
+                    <li><strong>{t('Keys')}</strong> - Applies only to specific API keys (supports wildcards like dev-*)</li>
+                    <li><strong>{t('Models')}</strong> - Applies only when specific models are used</li>
+                    <li><strong>{t('Tags')}</strong> - Matches tags from key/team <code>metadata.tags</code> or tags passed dynamically in the request body (<code>metadata.tags</code>). Use this to enforce policies across groups, e.g. &quot;all keys tagged <code>healthcare</code> get HIPAA guardrails.&quot; Supports wildcards (<code>prod-*</code>).</li>
                   </ul>
                   <a
                     href="https://docs.litellm.ai/docs/proxy/guardrails/guardrail_policies#attachments"

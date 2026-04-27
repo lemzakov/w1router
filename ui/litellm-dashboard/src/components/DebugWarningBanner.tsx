@@ -3,8 +3,10 @@
 import React from "react";
 import { Alert } from "antd";
 import { useHealthReadiness } from "@/app/(dashboard)/hooks/healthReadiness/useHealthReadiness";
+import { useTranslation } from "react-i18next";
 
 export const DebugWarningBanner: React.FC = () => {
+  const { t } = useTranslation();
   const { data: healthData } = useHealthReadiness();
 
   // Only show banner if detailed debug mode is explicitly enabled
@@ -17,7 +19,7 @@ export const DebugWarningBanner: React.FC = () => {
       message="Performance Warning: Detailed Debug Mode Active"
       description={
         <>
-          Detailed debug logging (<code>LITELLM_LOG=DEBUG</code>) is currently
+          Detailed debug logging (<code>{t('LITELLMLOGDEBUG')}</code>) is currently
           enabled. This mode logs extensive diagnostic information and will
           significantly degrade performance. It should only be used for
           troubleshooting and disabled in production environments.

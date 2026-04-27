@@ -1,5 +1,6 @@
 import React from "react";
 import { Typography, Select, Modal, Space, Button, Input } from "antd";
+import { useTranslation } from "react-i18next";
 
 const { Text } = Typography;
 const { Option } = Select;
@@ -27,6 +28,7 @@ const KeywordModal: React.FC<KeywordModalProps> = ({
   onAdd,
   onCancel,
 }) => {
+  const { t } = useTranslation();
   return (
     <Modal
       title="Add blocked keyword"
@@ -37,7 +39,7 @@ const KeywordModal: React.FC<KeywordModalProps> = ({
     >
       <Space direction="vertical" style={{ width: "100%" }} size="large">
         <div>
-          <Text strong>Keyword</Text>
+          <Text strong>{t('Keyword')}</Text>
           <Input
             placeholder="Enter sensitive keyword or phrase"
             value={keyword}
@@ -47,7 +49,7 @@ const KeywordModal: React.FC<KeywordModalProps> = ({
         </div>
 
         <div>
-          <Text strong>Action</Text>
+          <Text strong>{t('Action')}</Text>
           <Text type="secondary" style={{ display: "block", marginTop: 4, marginBottom: 8 }}>
             Choose what action the guardrail should take when this keyword is detected
           </Text>
@@ -56,13 +58,13 @@ const KeywordModal: React.FC<KeywordModalProps> = ({
             onChange={onActionChange}
             style={{ width: "100%" }}
           >
-            <Option value="BLOCK">Block</Option>
-            <Option value="MASK">Mask</Option>
+            <Option value="BLOCK">{t('Block')}</Option>
+            <Option value="MASK">{t('Mask')}</Option>
           </Select>
         </div>
 
         <div>
-          <Text strong>Description (optional)</Text>
+          <Text strong>{t('Description_optional')}</Text>
           <Input.TextArea
             placeholder="Explain why this keyword is sensitive"
             value={description}

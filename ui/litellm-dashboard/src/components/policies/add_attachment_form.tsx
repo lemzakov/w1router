@@ -7,6 +7,7 @@ import NotificationsManager from "../molecules/notifications_manager";
 import useAuthorized from "@/app/(dashboard)/hooks/useAuthorized";
 import { buildAttachmentData } from "./build_attachment_data";
 import ImpactPreviewAlert from "./impact_preview_alert";
+import { useTranslation } from "react-i18next";
 
 const { Text } = Typography;
 
@@ -27,6 +28,7 @@ const AddAttachmentForm: React.FC<AddAttachmentFormProps> = ({
   policies,
   createAttachment,
 }) => {
+  const { t } = useTranslation();
   const [form] = Form.useForm();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [scopeType, setScopeType] = useState<"global" | "specific">("global");
@@ -232,7 +234,7 @@ const AddAttachmentForm: React.FC<AddAttachmentFormProps> = ({
         </Form.Item>
 
         <Divider orientation="left">
-          <Text strong>Scope</Text>
+          <Text strong>{t('Scope')}</Text>
         </Divider>
 
         <Form.Item label="Scope Type">
@@ -240,8 +242,8 @@ const AddAttachmentForm: React.FC<AddAttachmentFormProps> = ({
             value={scopeType}
             onChange={(e) => setScopeType(e.target.value)}
           >
-            <Radio value="specific">Specific (teams, keys, models, or tags)</Radio>
-            <Radio value="global">Global (applies to all requests)</Radio>
+            <Radio value="specific">{t('Specific_teams_keys_models_or_tags')}</Radio>
+            <Radio value="global">{t('Global_applies_to_all_requests')}</Radio>
           </Radio.Group>
         </Form.Item>
 

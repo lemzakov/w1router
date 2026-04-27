@@ -18,6 +18,7 @@ import NotificationsManager from "../molecules/notifications_manager";
 import { useMcpOAuthFlow } from "@/hooks/useMcpOAuthFlow";
 import { useTestMCPConnection } from "@/hooks/useTestMCPConnection";
 import { getSecureItem, setSecureItem } from "@/utils/secureStorage";
+import { useTranslation } from "react-i18next";
 
 const asset_logos_folder = "../ui/assets/logos/";
 export const mcpLogoImg = `${asset_logos_folder}mcp_logo.png`;
@@ -56,6 +57,7 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
   prefillData,
   onBackToDiscovery,
 }) => {
+  const { t } = useTranslation();
   const [form] = Form.useForm();
   const [isLoading, setIsLoading] = useState(false);
   const [costConfig, setCostConfig] = useState<MCPServerCostInfo>({});
@@ -600,7 +602,7 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
             </Form.Item>
 
             <Form.Item
-              label={<span className="text-sm font-medium text-gray-700">Description</span>}
+              label={<span className="text-sm font-medium text-gray-700">{t('Description_1')}</span>}
               name="description"
               rules={[
                 {
@@ -618,7 +620,7 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
             <MCPLogoSelector value={logoUrl} onChange={setLogoUrl} />
 
             <Form.Item
-              label={<span className="text-sm font-medium text-gray-700">GitHub / Source URL</span>}
+              label={<span className="text-sm font-medium text-gray-700">{t('GitHub_Source_URL')}</span>}
               name="source_url"
             >
               <TextInput
@@ -628,7 +630,7 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
             </Form.Item>
 
             <Form.Item
-              label={<span className="text-sm font-medium text-gray-700">Transport Type</span>}
+              label={<span className="text-sm font-medium text-gray-700">{t('Transport_Type')}</span>}
               name="transport"
               rules={[{ required: true, message: "Please select a transport type" }]}
             >
@@ -639,17 +641,17 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
                 onChange={handleTransportChange}
                 value={transportType}
               >
-                <Select.Option value="http">Streamable HTTP (Recommended)</Select.Option>
-                <Select.Option value="sse">Server-Sent Events (SSE)</Select.Option>
-                <Select.Option value="stdio">Standard Input/Output (stdio)</Select.Option>
-                <Select.Option value={TRANSPORT.OPENAPI}>OpenAPI Spec</Select.Option>
+                <Select.Option value="http">{t('Streamable_HTTP_Recommended')}</Select.Option>
+                <Select.Option value="sse">{t('ServerSent_Events_SSE')}</Select.Option>
+                <Select.Option value="stdio">{t('Standard_InputOutput_stdio')}</Select.Option>
+                <Select.Option value={TRANSPORT.OPENAPI}>{t('OpenAPI_Spec')}</Select.Option>
               </Select>
             </Form.Item>
 
             {/* URL field - only show for HTTP and SSE */}
             {(transportType === "http" || transportType === "sse") && (
               <Form.Item
-                label={<span className="text-sm font-medium text-gray-700">MCP Server URL</span>}
+                label={<span className="text-sm font-medium text-gray-700">{t('MCP_Server_URL')}</span>}
                 name="url"
                 rules={[
                   { required: true, message: "Please enter a server URL" },
@@ -719,7 +721,7 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
                         {!getFieldValue("auth_type") && (
                           <div className="mb-4 p-3 bg-yellow-50 rounded-lg text-sm text-yellow-700 flex items-start gap-2">
                             <InfoCircleOutlined className="mt-0.5 flex-shrink-0" />
-                            <span>Set the <strong>Authentication Type</strong> below to specify how user keys are sent (e.g., Bearer Token, API Key header).</span>
+                            <span>{t('Set_the')}<strong>{t('Authentication_Type')}</strong> below to specify how user keys are sent (e.g., Bearer Token, API Key header).</span>
                           </div>
                         )}
                         <Form.Item
@@ -769,7 +771,7 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
                 items={[
                   {
                     key: "auth",
-                    label: <span className="text-sm font-semibold text-gray-700">Authentication</span>,
+                    label: <span className="text-sm font-semibold text-gray-700">{t('Authentication')}</span>,
                     children: (
                       <>
                         <Form.Item
@@ -777,13 +779,13 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
                           rules={[{ required: true, message: "Please select an auth type" }]}
                         >
                           <Select placeholder="Select auth type" className="rounded-lg" size="large">
-                            <Select.Option value="none">None</Select.Option>
-                            <Select.Option value="api_key">API Key</Select.Option>
-                            <Select.Option value="bearer_token">Bearer Token</Select.Option>
-                            <Select.Option value="token">Token</Select.Option>
-                            <Select.Option value="basic">Basic Auth</Select.Option>
-                            <Select.Option value="oauth2">OAuth</Select.Option>
-                            <Select.Option value="aws_sigv4">AWS SigV4 (Bedrock AgentCore MCPs)</Select.Option>
+                            <Select.Option value="none">{t('None')}</Select.Option>
+                            <Select.Option value="api_key">{t('API_Key')}</Select.Option>
+                            <Select.Option value="bearer_token">{t('Bearer_Token')}</Select.Option>
+                            <Select.Option value="token">{t('Token_1')}</Select.Option>
+                            <Select.Option value="basic">{t('Basic_Auth')}</Select.Option>
+                            <Select.Option value="oauth2">{t('OAuth')}</Select.Option>
+                            <Select.Option value="aws_sigv4">{t('AWS_SigV4_Bedrock_AgentCore_MCPs')}</Select.Option>
                           </Select>
                         </Form.Item>
 

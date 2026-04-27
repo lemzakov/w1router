@@ -23,6 +23,7 @@ import { Team } from "../../key_team_helpers/key_list";
 import { fetchTeamModels } from "../../organisms/create_key_button";
 import { getModelDisplayName } from "../../key_team_helpers/fetch_available_models_team_key";
 import { getGuardrailsList } from "@/components/networking";
+import { useTranslation } from "react-i18next";
 
 export interface ProjectFormValues {
   project_alias: string;
@@ -43,6 +44,7 @@ interface ProjectBaseFormProps {
 export function ProjectBaseForm({
   form,
 }: ProjectBaseFormProps) {
+  const { t } = useTranslation();
   const { accessToken, userId, userRole } = useAuthorized();
   const { data: teams } = useTeams();
 
@@ -254,7 +256,7 @@ export function ProjectBaseForm({
                 children: (
                   <>
                     <Flex align="center" gap={12}>
-                      <Typography.Text strong>Block Project</Typography.Text>
+                      <Typography.Text strong>{t('Block_Project')}</Typography.Text>
                       <Form.Item name="isBlocked" valuePropName="checked" noStyle>
                         <Switch />
                       </Form.Item>

@@ -978,7 +978,7 @@ const queryClient = useQueryClient();
                   </Option>
                   <Option value="llm_api" label="AI APIs">
                     <div style={{ padding: "4px 0" }}>
-                      <div style={{ fontWeight: 500 }}>AI APIs</div>
+                      <div style={{ fontWeight: 500 }}>{t('AI_APIs')}</div>
                       <div style={{ fontSize: "11px", color: "#6b7280", marginTop: "2px" }}>
                         {t('Tolko_marshruty_AI_API_chat_embeddingi')}
                       </div>
@@ -986,7 +986,7 @@ const queryClient = useQueryClient();
                   </Option>
                   <Option value="management" label="Management">
                     <div style={{ padding: "4px 0" }}>
-                      <div style={{ fontWeight: 500 }}>Management</div>
+                      <div style={{ fontWeight: 500 }}>{t('Management')}</div>
                       <div style={{ fontSize: "11px", color: "#6b7280", marginTop: "2px" }}>
                         {t('Tolko_upravlyayuschie_marshruty_polzovat')}
                       </div>

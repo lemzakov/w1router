@@ -4,6 +4,7 @@ import { Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import React, { useState } from "react";
 import { TopModelData } from "../types";
+import { useTranslation } from "react-i18next";
 
 interface KeyModelUsageViewProps {
   topModels: TopModelData[];
@@ -47,6 +48,7 @@ const columns: ColumnsType<TopModelData> = [
 ];
 
 const KeyModelUsageView: React.FC<KeyModelUsageViewProps> = ({ topModels }) => {
+  const { t } = useTranslation();
   const [viewMode, setViewMode] = useState<"chart" | "table">("table");
 
   if (topModels.length === 0) {
@@ -56,7 +58,7 @@ const KeyModelUsageView: React.FC<KeyModelUsageViewProps> = ({ topModels }) => {
   return (
     <Card className="mt-4">
       <div className="flex justify-between items-center mb-3">
-        <Title>Model Usage</Title>
+        <Title>{t('Model_Usage')}</Title>
         <div className="flex space-x-2">
           <button
             onClick={() => setViewMode("table")}

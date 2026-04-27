@@ -15,6 +15,7 @@ import {
   getProxyBaseUrl,
 } from "../networking";
 import { MCPToolset, MCPToolsetTool } from "./types";
+import { useTranslation } from "react-i18next";
 
 const { Text: AntdText } = Typography;
 
@@ -42,6 +43,7 @@ interface ToolEntry {
 }
 
 function MCPToolList({ serverId, serverName, accessToken, selectedTools, onToggle }: MCPToolListProps) {
+  const { t } = useTranslation();
   const [tools, setTools] = useState<ToolEntry[]>([]);
   const [loading, setLoading] = useState(false);
   const [expanded, setExpanded] = useState(false);
@@ -88,7 +90,7 @@ function MCPToolList({ serverId, serverName, accessToken, selectedTools, onToggl
           {loading ? (
             <div className="flex justify-center py-3"><Spin size="small" /></div>
           ) : tools.length === 0 ? (
-            <p className="text-xs text-gray-400 px-2 py-2">No tools found for this server.</p>
+            <p className="text-xs text-gray-400 px-2 py-2">{t('No_tools_found_for_this_server_1')}</p>
           ) : (
             <div className="flex flex-col gap-1">
               {tools.map((tool) => {
@@ -208,7 +210,7 @@ function CreateToolsetModal({ open, onClose, onSave, accessToken, initialToolset
         {/* Left panel: Available Tools */}
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between mb-2">
-            <Text className="text-sm font-semibold text-gray-700">Available Tools</Text>
+            <Text className="text-sm font-semibold text-gray-700">{t('Available_Tools')}</Text>
           </div>
           <Input
             placeholder="Search MCP servers..."
@@ -246,7 +248,7 @@ function CreateToolsetModal({ open, onClose, onSave, accessToken, initialToolset
           </Text>
           <div className="space-y-1 overflow-y-auto" style={{ maxHeight: 340 }}>
             {selectedTools.length === 0 ? (
-              <Text className="text-gray-400 text-sm">No tools added yet</Text>
+              <Text className="text-gray-400 text-sm">{t('No_tools_added_yet')}</Text>
             ) : (
               selectedTools.map((tool, idx) => (
                 <button
@@ -268,7 +270,7 @@ function CreateToolsetModal({ open, onClose, onSave, accessToken, initialToolset
       </div>
 
       <div className="flex justify-end gap-2 mt-4 pt-4 border-t border-gray-200">
-        <Button variant="secondary" onClick={onClose}>Cancel</Button>
+        <Button variant="secondary" onClick={onClose}>{t('Cancel')}</Button>
         <Button onClick={handleSubmit} loading={saving}>
           {initialToolset ? "Save Changes" : "Create Toolset"}
         </Button>
@@ -401,11 +403,11 @@ function ToolsetUsageGuide() {
 
   return (
     <div className="mb-6 rounded-lg border border-gray-200 bg-gray-50 px-5 py-4">
-      <p className="text-sm font-medium text-gray-700 mb-1">How toolsets work</p>
+      <p className="text-sm font-medium text-gray-700 mb-1">{t('How_toolsets_work')}</p>
       <p className="text-sm text-gray-500 mb-3">
-        Create a toolset, assign it to a key via <span className="font-medium text-gray-700">API Keys → Edit Key → MCP Servers</span>, then point your MCP client at the toolset URL. The client only sees the tools you picked.
+        Create a toolset, assign it to a key via <span className="font-medium text-gray-700">{t('API_Keys_Edit_Key_MCP_Servers')}</span>, then point your MCP client at the toolset URL. The client only sees the tools you picked.
       </p>
-      <div className="text-xs text-gray-400 mb-1">Claude Code / Cursor config</div>
+      <div className="text-xs text-gray-400 mb-1">{t('Claude_Code_Cursor_config')}</div>
       <div className="relative">
         <pre className="bg-white border border-gray-200 rounded px-4 py-3 text-xs font-mono text-gray-700 overflow-x-auto leading-relaxed pr-14">
           {snippet}
@@ -467,7 +469,7 @@ export function MCPToolsetsTab({ accessToken, userRole }: MCPToolsetsTabProps) {
     <div className="mt-4">
       <div className="flex items-center justify-between mb-4">
         <div>
-          <Title>MCP Toolsets</Title>
+          <Title>{t('MCP_Toolsets')}</Title>
           <Text className="text-gray-500 text-sm">
             Curated collections of tools from one or more MCP servers. Assign toolsets to keys and teams via the MCP permissions dropdown.
           </Text>
@@ -517,7 +519,7 @@ export function MCPToolsetsTab({ accessToken, userRole }: MCPToolsetsTabProps) {
         okButtonProps={{ danger: true, loading: deleting }}
         title="Delete Toolset"
       >
-        <p>Are you sure you want to delete this toolset? Keys and teams using it will lose access to the scoped tools.</p>
+        <p>{t('Are_you_sure_you_want_to_delete_this_too')}</p>
       </Modal>
     </div>
   );

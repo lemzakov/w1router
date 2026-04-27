@@ -4,6 +4,7 @@ import { ServerIcon, ChevronDownIcon, ChevronRightIcon } from "@heroicons/react/
 import { Tooltip } from "antd";
 import { fetchMCPServers, fetchMCPToolsets } from "../networking";
 import { MCPServer, MCPToolset } from "../mcp_tools/types";
+import { useTranslation } from "react-i18next";
 
 interface MCPServerPermissionsProps {
   mcpServers: string[];
@@ -20,6 +21,7 @@ export function MCPServerPermissions({
   mcpToolsets = [],
   accessToken
 }: MCPServerPermissionsProps) {
+  const { t } = useTranslation();
   const [mcpServerDetails, setMCPServerDetails] = useState<MCPServer[]>([]);
   const [toolsetDetails, setToolsetDetails] = useState<MCPToolset[]>([]);
   const [expandedServers, setExpandedServers] = useState<Set<string>>(new Set());
@@ -107,7 +109,7 @@ export function MCPServerPermissions({
     <div className="space-y-3">
       <div className="flex items-center gap-2">
         <ServerIcon className="h-4 w-4 text-blue-600" />
-        <Text className="font-semibold text-gray-900">MCP Servers</Text>
+        <Text className="font-semibold text-gray-900">{t('MCP_Servers')}</Text>
         <Badge color="blue" size="xs">
           {totalCount}
         </Badge>
@@ -239,7 +241,7 @@ export function MCPServerPermissions({
       ) : (
         <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-50 border border-gray-200">
           <ServerIcon className="h-4 w-4 text-gray-400" />
-          <Text className="text-gray-500 text-sm">No MCP servers, access groups, or toolsets configured</Text>
+          <Text className="text-gray-500 text-sm">{t('No_MCP_servers_access_groups_or_toolsets')}</Text>
         </div>
       )}
     </div>

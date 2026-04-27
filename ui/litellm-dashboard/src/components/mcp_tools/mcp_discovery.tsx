@@ -3,6 +3,7 @@ import { Modal, Input, Typography } from "antd";
 import { fetchDiscoverableMCPServers } from "../networking";
 import { DiscoverableMCPServer, DiscoverMCPServersResponse } from "./types";
 import { mcpLogoImg } from "./create_mcp_server";
+import { useTranslation } from "react-i18next";
 
 const { Search } = Input;
 const { Text } = Typography;
@@ -41,6 +42,7 @@ const MCPDiscovery: React.FC<MCPDiscoveryProps> = ({
   onCustomServer,
   accessToken,
 }) => {
+  const { t } = useTranslation();
   const [servers, setServers] = useState<DiscoverableMCPServer[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
@@ -116,7 +118,7 @@ const MCPDiscovery: React.FC<MCPDiscoveryProps> = ({
                 objectFit: "contain",
               }}
             />
-            <h2 className="text-xl font-semibold text-gray-900">Add MCP Server</h2>
+            <h2 className="text-xl font-semibold text-gray-900">{t('Add_MCP_Server')}</h2>
           </div>
           <button
             onClick={onCustomServer}

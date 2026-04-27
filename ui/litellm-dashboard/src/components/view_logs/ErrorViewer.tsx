@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 interface ErrorViewerProps {
   errorInfo: {
@@ -11,6 +12,7 @@ interface ErrorViewerProps {
 }
 
 export const ErrorViewer: React.FC<ErrorViewerProps> = ({ errorInfo }) => {
+  const { t } = useTranslation();
   const [expandedFrames, setExpandedFrames] = React.useState<{ [key: number]: boolean }>({});
   const [allExpanded, setAllExpanded] = React.useState(false);
 
@@ -96,11 +98,11 @@ export const ErrorViewer: React.FC<ErrorViewerProps> = ({ errorInfo }) => {
       <div className="p-4">
         <div className="bg-red-50 rounded-md p-4 mb-4">
           <div className="flex">
-            <span className="text-red-800 font-medium w-20">Type:</span>
+            <span className="text-red-800 font-medium w-20">{t('Type')}</span>
             <span className="text-red-700">{errorInfo.error_class || "Unknown Error"}</span>
           </div>
           <div className="flex mt-2">
-            <span className="text-red-800 font-medium w-20 flex-shrink-0">Message:</span>
+            <span className="text-red-800 font-medium w-20 flex-shrink-0">{t('Message')}</span>
             <span className="text-red-700 break-words whitespace-pre-wrap">
               {errorInfo.error_message || "Unknown error occurred"}
             </span>
@@ -110,7 +112,7 @@ export const ErrorViewer: React.FC<ErrorViewerProps> = ({ errorInfo }) => {
         {errorInfo.traceback && (
           <div className="mt-4">
             <div className="flex justify-between items-center mb-2">
-              <h4 className="font-medium">Traceback</h4>
+              <h4 className="font-medium">{t('Traceback')}</h4>
               <div className="flex items-center space-x-4">
                 <button
                   onClick={toggleAllFrames}
@@ -137,7 +139,7 @@ export const ErrorViewer: React.FC<ErrorViewerProps> = ({ errorInfo }) => {
                     <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                     <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                   </svg>
-                  <span className="ml-1">Copy</span>
+                  <span className="ml-1">{t('Copy')}</span>
                 </button>
               </div>
             </div>

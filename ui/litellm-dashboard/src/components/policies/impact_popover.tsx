@@ -4,11 +4,13 @@ import { EyeIcon } from "@heroicons/react/outline";
 import { Tooltip, Tag, Popover, Spin } from "antd";
 import { PolicyAttachment } from "./types";
 import { estimateAttachmentImpactCall } from "../networking";
+import { useTranslation } from "react-i18next";
 
 const ImpactPopover: React.FC<{ attachment: PolicyAttachment; accessToken: string | null }> = ({
   attachment,
   accessToken,
 }) => {
+  const { t } = useTranslation();
   const [impact, setImpact] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const [loaded, setLoaded] = useState(false);
@@ -39,7 +41,7 @@ const ImpactPopover: React.FC<{ attachment: PolicyAttachment; accessToken: strin
   ) : impact ? (
     <div className="text-xs" style={{ maxWidth: 280 }}>
       {impact.affected_keys_count === -1 ? (
-        <p className="font-medium text-amber-600">Global scope — affects all keys and teams</p>
+        <p className="font-medium text-amber-600">{t('Global_scope_affects_all_keys_and_teams')}</p>
       ) : (
         <>
           <p className="mb-1">
@@ -48,7 +50,7 @@ const ImpactPopover: React.FC<{ attachment: PolicyAttachment; accessToken: strin
           </p>
           {impact.sample_keys.length > 0 && (
             <div className="mb-1">
-              <span className="text-gray-500">Keys: </span>
+              <span className="text-gray-500">{t('Keys_1')}</span>
               {impact.sample_keys.map((k: string) => (
                 <Tag key={k} style={{ fontSize: 10, margin: 1 }}>{k}</Tag>
               ))}
@@ -56,20 +58,20 @@ const ImpactPopover: React.FC<{ attachment: PolicyAttachment; accessToken: strin
           )}
           {impact.sample_teams.length > 0 && (
             <div>
-              <span className="text-gray-500">Teams: </span>
+              <span className="text-gray-500">{t('Teams_1')}</span>
               {impact.sample_teams.map((t: string) => (
                 <Tag key={t} style={{ fontSize: 10, margin: 1 }}>{t}</Tag>
               ))}
             </div>
           )}
           {impact.affected_keys_count === 0 && impact.affected_teams_count === 0 && (
-            <p className="text-gray-400">No keys or teams currently affected</p>
+            <p className="text-gray-400">{t('No_keys_or_teams_currently_affected')}</p>
           )}
         </>
       )}
     </div>
   ) : (
-    <p className="text-xs text-gray-400">Click to load</p>
+    <p className="text-xs text-gray-400">{t('Click_to_load')}</p>
   );
 
   return (

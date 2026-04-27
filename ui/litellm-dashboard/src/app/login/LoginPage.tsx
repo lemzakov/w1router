@@ -181,7 +181,7 @@ const [username, setUsername] = useState("");
                     {t('Administrativnyy_interfeys_byl_otklyuchy')}
                   </Paragraph>
                   <Paragraph className="text-sm">
-                    <code className="bg-gray-100 px-1 py-0.5 rounded text-xs">DISABLE_ADMIN_UI=False</code>
+                    <code className="bg-gray-100 px-1 py-0.5 rounded text-xs">{t('DISABLEADMINUIFalse')}</code>
                   </Paragraph>
                 </>
               }

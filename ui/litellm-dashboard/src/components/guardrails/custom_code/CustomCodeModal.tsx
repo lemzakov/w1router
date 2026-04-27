@@ -13,6 +13,7 @@ import {
 } from "@ant-design/icons";
 import { createGuardrailCall, updateGuardrailCall, testCustomCodeGuardrail } from "../../networking";
 import NotificationsManager from "../../molecules/notifications_manager";
+import { useTranslation } from "react-i18next";
 
 const { Panel } = Collapse;
 const { TextArea } = Input;
@@ -173,6 +174,7 @@ const CustomCodeModal: React.FC<CustomCodeModalProps> = ({
   accessToken,
   editData,
 }) => {
+  const { t } = useTranslation();
   const isEditMode = !!editData;
   const [guardrailName, setGuardrailName] = useState("");
   const [mode, setMode] = useState<string[]>(["pre_call"]);
@@ -498,13 +500,13 @@ const CustomCodeModal: React.FC<CustomCodeModalProps> = ({
           <h2 className="text-xl font-semibold text-gray-900">
             {isEditMode ? "Edit Custom Guardrail" : "Create Custom Guardrail"}
           </h2>
-          <p className="text-sm text-gray-500 mt-1">Define custom logic using Python-like syntax</p>
+          <p className="text-sm text-gray-500 mt-1">{t('Define_custom_logic_using_Pythonlike_syn')}</p>
         </div>
 
         {/* Top Controls */}
         <div className="flex items-center gap-4 py-4 border-b border-gray-100">
           <div className="flex-1 max-w-[200px]">
-            <label className="block text-xs font-medium text-gray-600 mb-1">Guardrail Name</label>
+            <label className="block text-xs font-medium text-gray-600 mb-1">{t('Guardrail_Name')}</label>
             <TextInput
               value={guardrailName}
               onValueChange={setGuardrailName}
@@ -512,7 +514,7 @@ const CustomCodeModal: React.FC<CustomCodeModalProps> = ({
             />
           </div>
           <div className="w-[280px]">
-            <label className="block text-xs font-medium text-gray-600 mb-1">Mode (can select multiple)</label>
+            <label className="block text-xs font-medium text-gray-600 mb-1">{t('Mode_can_select_multiple')}</label>
             <Select
               mode="multiple"
               value={mode}
@@ -524,7 +526,7 @@ const CustomCodeModal: React.FC<CustomCodeModalProps> = ({
             />
           </div>
           <div className="w-[180px]">
-            <label className="block text-xs font-medium text-gray-600 mb-1">Template</label>
+            <label className="block text-xs font-medium text-gray-600 mb-1">{t('Template')}</label>
             <Select
               value={selectedTemplate}
               onChange={handleTemplateChange}
@@ -556,7 +558,7 @@ const CustomCodeModal: React.FC<CustomCodeModalProps> = ({
                     }}
                   >
                     <UsergroupAddOutlined />
-                    <span>Browse Community templates</span>
+                    <span>{t('Browse_Community_templates')}</span>
                     <ExportOutlined style={{ fontSize: '10px' }} />
                   </div>
                 </>
@@ -572,7 +574,7 @@ const CustomCodeModal: React.FC<CustomCodeModalProps> = ({
             </Select>
           </div>
           <div className="flex items-center gap-2 pt-5">
-            <span className="text-sm text-gray-600">Default On</span>
+            <span className="text-sm text-gray-600">{t('Default_On')}</span>
             <Switch checked={defaultOn} onChange={setDefaultOn} />
           </div>
         </div>
@@ -582,8 +584,8 @@ const CustomCodeModal: React.FC<CustomCodeModalProps> = ({
           {/* Code Editor */}
           <div className="flex-[2] flex flex-col min-w-0 overflow-y-auto">
             <div className="flex items-center justify-between mb-2 flex-shrink-0">
-              <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Python Logic</span>
-              <span className="text-xs text-gray-400">Restricted environment (no imports)</span>
+              <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">{t('Python_Logic')}</span>
+              <span className="text-xs text-gray-400">{t('Restricted_environment_no_imports')}</span>
             </div>
             <div className="relative rounded-lg overflow-hidden border border-gray-700 bg-[#1e1e1e] flex-shrink-0" style={{ minHeight: "300px", maxHeight: "400px" }}>
               {/* Line numbers */}
@@ -626,9 +628,9 @@ const CustomCodeModal: React.FC<CustomCodeModalProps> = ({
                 <div className="space-y-3">
                   <div>
                     <div className="flex items-center justify-between mb-2">
-                      <label className="block text-xs font-medium text-gray-600">Test Input (JSON)</label>
+                      <label className="block text-xs font-medium text-gray-600">{t('Test_Input_JSON')}</label>
                       <div className="flex items-center gap-2">
-                        <span className="text-xs text-gray-500">Load example:</span>
+                        <span className="text-xs text-gray-500">{t('Load_example')}</span>
                         <button
                           type="button"
                           onClick={() => setTestInput(JSON.stringify(TEST_INPUT_EXAMPLES.pre_call.data, null, 2))}
@@ -723,8 +725,8 @@ const CustomCodeModal: React.FC<CustomCodeModalProps> = ({
                   <UsergroupAddOutlined className="text-blue-600 text-lg" />
                 </div>
                 <div>
-                  <div className="text-sm font-medium text-gray-900">Built a useful guardrail?</div>
-                  <div className="text-xs text-gray-600">Share it with the community and help others build faster</div>
+                  <div className="text-sm font-medium text-gray-900">{t('Built_a_useful_guardrail')}</div>
+                  <div className="text-xs text-gray-600">{t('Share_it_with_the_community_and_help_oth')}</div>
                 </div>
               </div>
               <Button
@@ -743,9 +745,9 @@ const CustomCodeModal: React.FC<CustomCodeModalProps> = ({
           <div className="w-[300px] flex-shrink-0 overflow-auto border-l border-gray-200 pl-6">
             <div className="flex items-center gap-2 mb-3">
               <CodeOutlined className="text-blue-500" />
-              <span className="font-semibold text-gray-700">Available Primitives</span>
+              <span className="font-semibold text-gray-700">{t('Available_Primitives')}</span>
             </div>
-            <p className="text-xs text-gray-500 mb-3">Click to copy functions to clipboard</p>
+            <p className="text-xs text-gray-500 mb-3">{t('Click_to_copy_functions_to_clipboard')}</p>
             
             <Collapse
               defaultActiveKey={["Return Values"]}
@@ -790,7 +792,7 @@ const CustomCodeModal: React.FC<CustomCodeModalProps> = ({
 
         {/* Footer */}
         <div className="flex items-center justify-between pt-4 mt-4 border-t border-gray-200">
-          <span className="text-xs text-gray-400">Changes are auto-saved to local draft</span>
+          <span className="text-xs text-gray-400">{t('Changes_are_autosaved_to_local_draft')}</span>
           <div className="flex items-center gap-3">
             <Button variant="secondary" onClick={onClose}>
               Cancel

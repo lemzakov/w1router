@@ -12,6 +12,7 @@ import {
 } from "../vector_store_providers";
 import { fetchAvailableModels, ModelGroup } from "../playground/llm_calls/fetch_models";
 import NotificationsManager from "../molecules/notifications_manager";
+import { useTranslation } from "react-i18next";
 
 interface VectorStoreFormProps {
   isVisible: boolean;
@@ -28,6 +29,7 @@ const VectorStoreForm: React.FC<VectorStoreFormProps> = ({
   accessToken,
   credentials,
 }) => {
+  const { t } = useTranslation();
   const [form] = Form.useForm();
   const [metadataJson, setMetadataJson] = useState("{}");
   const [selectedProvider, setSelectedProvider] = useState("bedrock");
@@ -159,7 +161,7 @@ const VectorStoreForm: React.FC<VectorStoreFormProps> = ({
             message="PG Vector Setup Required"
             description={
               <div>
-                <p>LiteLLM provides a server to connect to PG Vector. To use this provider:</p>
+                <p>{t('LiteLLM_provides_a_server_to_connect_to')}</p>
                 <ol style={{ marginLeft: "16px", marginTop: "8px" }}>
                   <li>
                     Deploy the litellm-pgvector server from:{" "}
@@ -167,9 +169,9 @@ const VectorStoreForm: React.FC<VectorStoreFormProps> = ({
                       https://github.com/BerriAI/litellm-pgvector
                     </a>
                   </li>
-                  <li>Configure your PostgreSQL database with pgvector extension</li>
-                  <li>Start the server and note the API base URL and API key</li>
-                  <li>Enter those details in the fields below</li>
+                  <li>{t('Configure_your_PostgreSQL_database_with')}</li>
+                  <li>{t('Start_the_server_and_note_the_API_base_U')}</li>
+                  <li>{t('Enter_those_details_in_the_fields_below')}</li>
                 </ol>
               </div>
             }
@@ -185,7 +187,7 @@ const VectorStoreForm: React.FC<VectorStoreFormProps> = ({
             message="Vertex AI RAG Engine Setup"
             description={
               <div>
-                <p>To use Vertex AI RAG Engine:</p>
+                <p>{t('To_use_Vertex_AI_RAG_Engine')}</p>
                 <ol style={{ marginLeft: "16px", marginTop: "8px" }}>
                   <li>
                     Set up your Vertex AI RAG Engine corpus following the guide:{" "}
@@ -197,9 +199,9 @@ const VectorStoreForm: React.FC<VectorStoreFormProps> = ({
                       Vertex AI RAG Engine Overview
                     </a>
                   </li>
-                  <li>Create a corpus in your Google Cloud project</li>
-                  <li>Note the corpus ID from the Vertex AI console</li>
-                  <li>Enter the corpus ID in the Vector Store ID field below</li>
+                  <li>{t('Create_a_corpus_in_your_Google_Cloud_pro')}</li>
+                  <li>{t('Note_the_corpus_ID_from_the_Vertex_AI_co')}</li>
+                  <li>{t('Enter_the_corpus_ID_in_the_Vector_Store')}</li>
                 </ol>
               </div>
             }

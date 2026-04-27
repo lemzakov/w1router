@@ -51,6 +51,7 @@ import SpendByProvider from "./EntityUsage/SpendByProvider";
 import TopKeyView from "./EntityUsage/TopKeyView";
 import UsageAIChatPanel from "./UsageAIChatPanel";
 import { UsageOption, UsageViewSelect } from "./UsageViewSelect/UsageViewSelect";
+import { useTranslation } from "react-i18next";
 
 interface UsagePageProps {
   teams: Team[];
@@ -58,6 +59,7 @@ interface UsagePageProps {
 }
 
 const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
+  const { t } = useTranslation();
   const { accessToken, userRole, userId: userID, premiumUser } = useAuthorized();
   // Aggregated endpoint: try first, fall back to paginated if unavailable
   const [aggregatedData, setAggregatedData] = useState<{ results: DailyData[]; metadata: any } | null>(null);
@@ -482,7 +484,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
             <>
               {isAdmin && (
                 <div className="mb-4">
-                  <Text className="mb-2">Filter by user</Text>
+                  <Text className="mb-2">{t('Filter_by_user')}</Text>
                   <Select
                     showSearch
                     allowClear
@@ -513,11 +515,11 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
               <TabGroup>
                 <div className="flex justify-between items-center">
                   <TabList variant="solid" className="mt-1">
-                    <Tab>Cost</Tab>
-                    <Tab>Model Activity</Tab>
-                    <Tab>Key Activity</Tab>
-                    <Tab>MCP Server Activity</Tab>
-                    <Tab>Endpoint Activity</Tab>
+                    <Tab>{t('Cost')}</Tab>
+                    <Tab>{t('Model_Activity')}</Tab>
+                    <Tab>{t('Key_Activity')}</Tab>
+                    <Tab>{t('MCP_Server_Activity')}</Tab>
+                    <Tab>{t('Endpoint_Activity')}</Tab>
                   </TabList>
                   <div className="flex items-center gap-2">
                     <Button
@@ -584,23 +586,23 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
 
                       <Col numColSpan={2}>
                         <Card>
-                          <Title>Usage Metrics</Title>
+                          <Title>{t('Usage_Metrics')}</Title>
                           <Grid numItems={5} className="gap-4 mt-4">
                             <Card>
-                              <Title>Total Requests</Title>
+                              <Title>{t('Total_Requests')}</Title>
                               <Text className="text-2xl font-bold mt-2">
                                 {userSpendData.metadata?.total_api_requests?.toLocaleString() || 0}
                               </Text>
                             </Card>
                             <Card>
-                              <Title>Successful Requests</Title>
+                              <Title>{t('Successful_Requests')}</Title>
                               <Text className="text-2xl font-bold mt-2 text-green-600">
                                 {userSpendData.metadata?.total_successful_requests?.toLocaleString() || 0}
                               </Text>
                             </Card>
                             <Card>
                               <div className="flex items-center gap-2">
-                                <Title>Failed Requests</Title>
+                                <Title>{t('Failed_Requests')}</Title>
                                 <Tooltip title="Includes requests that failed to route to a provider, tool usage failures, and other request errors where the provider cannot be determined.">
                                   <InfoCircleOutlined className="text-gray-400 hover:text-gray-600" />
                                 </Tooltip>
@@ -610,7 +612,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
                               </Text>
                             </Card>
                             <Card>
-                              <Title>Average Cost per Request</Title>
+                              <Title>{t('Average_Cost_per_Request')}</Title>
                               <Text className="text-2xl font-bold mt-2">
                                 $
                                 {formatNumberWithCommas(
@@ -624,7 +626,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
                               onClick={() => setShowTokenBreakdown(!showTokenBreakdown)}
                             >
                               <div className="flex items-center gap-2">
-                                <Title>Total Tokens</Title>
+                                <Title>{t('Total_Tokens')}</Title>
                                 {showTokenBreakdown ? (
                                   <DownOutlined className="text-gray-400 text-xs" />
                                 ) : (
@@ -639,25 +641,25 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
                           {showTokenBreakdown && (
                             <Grid numItems={4} className="gap-4 mt-4">
                               <Card>
-                                <Title>Input Tokens</Title>
+                                <Title>{t('Input_Tokens')}</Title>
                                 <Text className="text-2xl font-bold mt-2 text-blue-600">
                                   {userSpendData.metadata?.total_prompt_tokens?.toLocaleString() || 0}
                                 </Text>
                               </Card>
                               <Card>
-                                <Title>Output Tokens</Title>
+                                <Title>{t('Output_Tokens')}</Title>
                                 <Text className="text-2xl font-bold mt-2 text-cyan-600">
                                   {userSpendData.metadata?.total_completion_tokens?.toLocaleString() || 0}
                                 </Text>
                               </Card>
                               <Card>
-                                <Title>Cache Read Tokens</Title>
+                                <Title>{t('Cache_Read_Tokens')}</Title>
                                 <Text className="text-2xl font-bold mt-2 text-green-600">
                                   {userSpendData.metadata?.total_cache_read_input_tokens?.toLocaleString() || 0}
                                 </Text>
                               </Card>
                               <Card>
-                                <Title>Cache Write Tokens</Title>
+                                <Title>{t('Cache_Write_Tokens')}</Title>
                                 <Text className="text-2xl font-bold mt-2 text-purple-600">
                                   {userSpendData.metadata?.total_cache_creation_input_tokens?.toLocaleString() || 0}
                                 </Text>
@@ -670,7 +672,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
                       {/* Daily Spend Chart */}
                       <Col numColSpan={2}>
                         <Card>
-                          <Title>Daily Spend</Title>
+                          <Title>{t('Daily_Spend')}</Title>
                           {loading ? (
                             <ChartLoader isDateChanging={isDateChanging} />
                           ) : (
@@ -705,7 +707,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
                       {/* Top API Keys */}
                       <Col numColSpan={1}>
                         <Card className="h-full">
-                          <Title>Top Virtual Keys</Title>
+                          <Title>{t('Top_Virtual_Keys')}</Title>
                           <TopKeyView
                             topKeys={topKeys}
                             teams={null}
@@ -896,7 +898,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
                   description={
                     <Typography.Text>
                       When a reusable credential is used, it will appear as a tag prefixed with{" "}
-                      <Typography.Text code>Credential: </Typography.Text>
+                      <Typography.Text code>{t('Credential')}</Typography.Text>
                       in this view.
                     </Typography.Text>
                   }

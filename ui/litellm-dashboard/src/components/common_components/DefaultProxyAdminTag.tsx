@@ -1,4 +1,5 @@
 import { Tag, Typography } from "antd";
+import { useTranslation } from "react-i18next";
 
 const { Text } = Typography;
 
@@ -16,8 +17,9 @@ interface DefaultProxyAdminTagProps {
 export default function DefaultProxyAdminTag({
   userId,
 }: DefaultProxyAdminTagProps) {
+  const { t } = useTranslation();
   if (userId === DEFAULT_USER_ID) {
-    return <Tag color="blue">Default Proxy Admin</Tag>;
+    return <Tag color="blue">{t('Default_Proxy_Admin')}</Tag>;
   }
 
   return <Text>{userId}</Text>;

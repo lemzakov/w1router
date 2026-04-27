@@ -11,6 +11,7 @@ import { Button, Input, Select, Typography } from "antd";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { getProxyBaseUrl } from "../../networking";
 import { OPEN_AI_VOICE_SELECT_OPTIONS } from "./chatConstants";
+import { useTranslation } from "react-i18next";
 
 const { Text } = Typography;
 
@@ -33,6 +34,7 @@ const RealtimePlayground: React.FC<RealtimePlaygroundProps> = ({
   customProxyBaseUrl,
   selectedGuardrails,
 }) => {
+  const { t } = useTranslation();
   const [messages, setMessages] = useState<RealtimeMessage[]>([]);
   const [inputText, setInputText] = useState("");
   const [isConnected, setIsConnected] = useState(false);
@@ -352,7 +354,7 @@ const RealtimePlayground: React.FC<RealtimePlaygroundProps> = ({
       <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 bg-gray-50">
         <div className="flex items-center gap-3">
           <SoundOutlined className="text-lg text-blue-500" />
-          <Text className="font-semibold text-gray-800">Realtime Voice Chat</Text>
+          <Text className="font-semibold text-gray-800">{t('Realtime_Voice_Chat')}</Text>
           <span
             className={`inline-block w-2 h-2 rounded-full ${isConnected ? "bg-green-500" : "bg-gray-300"}`}
           />
@@ -386,9 +388,9 @@ const RealtimePlayground: React.FC<RealtimePlaygroundProps> = ({
         {messages.length === 0 && !isConnected && (
           <div className="flex flex-col items-center justify-center h-full text-gray-400 gap-3">
             <SoundOutlined style={{ fontSize: 48 }} />
-            <Text className="text-lg text-gray-500">Realtime Voice Playground</Text>
+            <Text className="text-lg text-gray-500">{t('Realtime_Voice_Playground')}</Text>
             <Text className="text-sm text-gray-400 text-center max-w-md">
-              Click <b>Connect</b> to start a realtime session. You can speak using your microphone
+              Click <b>{t('Connect')}</b> to start a realtime session. You can speak using your microphone
               or type messages. The AI will respond with voice and text.
             </Text>
           </div>

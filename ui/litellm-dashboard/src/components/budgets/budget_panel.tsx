@@ -28,6 +28,7 @@ import { useBudgets, useDeleteBudget } from "@/app/(dashboard)/hooks/budgets/use
 import BudgetModal from "./budget_modal";
 import EditBudgetModal from "./edit_budget_modal";
 import { CREATE_END_USER_CURL_COMMAND, CHAT_COMPLETIONS_CURL_COMMAND, OPENAI_SDK_PYTHON_CODE } from "./constants";
+import { useTranslation } from "react-i18next";
 
 interface BudgetSettingsPageProps {
   accessToken: string | null;
@@ -42,6 +43,7 @@ export interface budgetItem {
 }
 
 const BudgetPanel: React.FC<BudgetSettingsPageProps> = ({ accessToken }) => {
+  const { t } = useTranslation();
   const [isCreateModelVisible, setIsCreateModelVisible] = useState(false);
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
   const [selectedBudget, setSelectedBudget] = useState<budgetItem | null>(null);
@@ -94,8 +96,8 @@ const BudgetPanel: React.FC<BudgetSettingsPageProps> = ({ accessToken }) => {
       </Button>
       <TabGroup>
         <TabList>
-          <Tab>Budgets</Tab>
-          <Tab>Examples</Tab>
+          <Tab>{t('Budgets')}</Tab>
+          <Tab>{t('Examples_1')}</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
@@ -112,12 +114,12 @@ const BudgetPanel: React.FC<BudgetSettingsPageProps> = ({ accessToken }) => {
                 />
               )}
               <Card>
-                <Text>Create a budget to assign to customers.</Text>
+                <Text>{t('Create_a_budget_to_assign_to_customers')}</Text>
                 <Table>
                   <TableHead>
                     <TableRow>
-                      <TableHeaderCell>Budget ID</TableHeaderCell>
-                      <TableHeaderCell>Max Budget</TableHeaderCell>
+                      <TableHeaderCell>{t('Budget_ID')}</TableHeaderCell>
+                      <TableHeaderCell>{t('Max_Budget_1')}</TableHeaderCell>
                       <TableHeaderCell>TPM</TableHeaderCell>
                       <TableHeaderCell>RPM</TableHeaderCell>
                     </TableRow>
@@ -169,12 +171,12 @@ const BudgetPanel: React.FC<BudgetSettingsPageProps> = ({ accessToken }) => {
           </TabPanel>
           <TabPanel>
             <div className="mt-6">
-              <Text className="text-base">How to use budget id</Text>
+              <Text className="text-base">{t('How_to_use_budget_id')}</Text>
               <TabGroup>
                 <TabList>
-                  <Tab>Assign Budget to Customer</Tab>
-                  <Tab>Test it (Curl)</Tab>
-                  <Tab>Test it (OpenAI SDK)</Tab>
+                  <Tab>{t('Assign_Budget_to_Customer')}</Tab>
+                  <Tab>{t('Test_it_Curl')}</Tab>
+                  <Tab>{t('Test_it_OpenAI_SDK')}</Tab>
                 </TabList>
                 <TabPanels>
                   <TabPanel>

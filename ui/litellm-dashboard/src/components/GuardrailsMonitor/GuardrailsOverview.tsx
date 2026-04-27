@@ -15,6 +15,7 @@ import { type PerformanceRow } from "./mockData";
 import { EvaluationSettingsModal } from "./EvaluationSettingsModal";
 import { MetricCard } from "./MetricCard";
 import { ScoreChart } from "./ScoreChart";
+import { useTranslation } from "react-i18next";
 
 interface GuardrailsOverviewProps {
   accessToken?: string | null;
@@ -59,6 +60,7 @@ export function GuardrailsOverview({
   endDate,
   onSelectGuardrail,
 }: GuardrailsOverviewProps) {
+  const { t } = useTranslation();
   const [sortBy, setSortBy] = useState<SortKey>("failRate");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
   const [evaluationModalOpen, setEvaluationModalOpen] = useState(false);
@@ -205,7 +207,7 @@ export function GuardrailsOverview({
         <div>
           <div className="flex items-center gap-2 mb-1">
             <SafetyOutlined className="text-lg text-indigo-500" />
-            <h1 className="text-xl font-semibold text-gray-900">Guardrails Monitor</h1>
+            <h1 className="text-xl font-semibold text-gray-900">{t('Guardrails_Monitor')}</h1>
           </div>
           <p className="text-sm text-gray-500">
             Monitor guardrail performance across all requests
@@ -267,7 +269,7 @@ export function GuardrailsOverview({
         {(isLoading || error) && (
           <div className="px-6 py-4 border-b border-gray-200 flex items-center gap-2">
             {isLoading && <Spin size="small" />}
-            {error && <span className="text-sm text-red-600">Failed to load data. Try again.</span>}
+            {error && <span className="text-sm text-red-600">{t('Failed_to_load_data_Try_again')}</span>}
           </div>
         )}
         <div className="px-6 py-4 border-b border-gray-200 flex items-start justify-between gap-4">

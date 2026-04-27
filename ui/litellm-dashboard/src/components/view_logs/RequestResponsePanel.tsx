@@ -2,6 +2,7 @@ import { LogEntry } from "./columns";
 import NotificationsManager from "../molecules/notifications_manager";
 import { JsonView, defaultStyles } from "react-json-view-lite";
 import "react-json-view-lite/dist/index.css";
+import { useTranslation } from "react-i18next";
 
 interface RequestResponsePanelProps {
   row: {
@@ -24,6 +25,7 @@ export function RequestResponsePanel({
   getRawRequest,
   formattedResponse,
 }: RequestResponsePanelProps) {
+  const { t } = useTranslation();
   const copyToClipboard = async (text: string) => {
     try {
       // Try modern clipboard API first
@@ -77,7 +79,7 @@ export function RequestResponsePanel({
       {/* Request Side */}
       <div className="bg-white rounded-lg shadow w-full max-w-full overflow-hidden">
         <div className="flex justify-between items-center p-4 border-b">
-          <h3 className="text-lg font-medium">Request</h3>
+          <h3 className="text-lg font-medium">{t('Request')}</h3>
           <button onClick={handleCopyRequest} className="p-1 hover:bg-gray-200 rounded" title="Copy request">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -137,7 +139,7 @@ export function RequestResponsePanel({
               <JsonView data={formattedResponse()} style={defaultStyles} clickToExpandNode />
             </div>
           ) : (
-            <div className="text-gray-500 text-sm italic text-center py-4">Response data not available</div>
+            <div className="text-gray-500 text-sm italic text-center py-4">{t('Response_data_not_available')}</div>
           )}
         </div>
       </div>

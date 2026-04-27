@@ -3,6 +3,7 @@ import { Button, Divider, Typography } from "antd";
 import React, { useEffect, useState } from "react";
 import NotificationsManager from "../molecules/notifications_manager";
 import { testSearchToolConnection } from "../networking";
+import { useTranslation } from "react-i18next";
 
 const { Text } = Typography;
 
@@ -17,6 +18,7 @@ const SearchConnectionTest: React.FC<SearchConnectionTestProps> = ({
   accessToken,
   onTestComplete,
 }) => {
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(true);
   const [testResult, setTestResult] = useState<{
     status: "success" | "error";
@@ -249,10 +251,10 @@ const SearchConnectionTest: React.FC<SearchConnectionTestProps> = ({
                 Troubleshooting tips:
               </Text>
               <ul style={{ margin: "8px 0", paddingLeft: "20px", color: "#ad6800" }}>
-                <li style={{ marginBottom: "6px" }}>Verify your API key is correct and active</li>
-                <li style={{ marginBottom: "6px" }}>Check if the search provider service is operational</li>
-                <li style={{ marginBottom: "6px" }}>Ensure you have sufficient credits/quota with the provider</li>
-                <li style={{ marginBottom: "6px" }}>Review the provider&apos;s documentation for any additional requirements</li>
+                <li style={{ marginBottom: "6px" }}>{t('Verify_your_API_key_is_correct_and_activ')}</li>
+                <li style={{ marginBottom: "6px" }}>{t('Check_if_the_search_provider_service_is')}</li>
+                <li style={{ marginBottom: "6px" }}>{t('Ensure_you_have_sufficient_creditsquota')}</li>
+                <li style={{ marginBottom: "6px" }}>{t('Review_the_provideraposs_documentation_f')}</li>
               </ul>
             </div>
           </div>

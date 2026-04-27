@@ -1,5 +1,6 @@
 import React from "react";
 import { Typography, Select, Modal, Space, Button, Input } from "antd";
+import { useTranslation } from "react-i18next";
 
 const { Text } = Typography;
 const { Option } = Select;
@@ -27,6 +28,7 @@ const CustomPatternModal: React.FC<CustomPatternModalProps> = ({
   onAdd,
   onCancel,
 }) => {
+  const { t } = useTranslation();
   return (
     <Modal
       title="Add custom regex pattern"
@@ -37,7 +39,7 @@ const CustomPatternModal: React.FC<CustomPatternModalProps> = ({
     >
       <Space direction="vertical" style={{ width: "100%" }} size="large">
         <div>
-          <Text strong>Pattern name</Text>
+          <Text strong>{t('Pattern_name')}</Text>
           <Input
             placeholder="e.g., internal_id, employee_code"
             value={patternName}
@@ -47,7 +49,7 @@ const CustomPatternModal: React.FC<CustomPatternModalProps> = ({
         </div>
 
         <div>
-          <Text strong>Regex pattern</Text>
+          <Text strong>{t('Regex_pattern')}</Text>
           <Input
             placeholder="e.g., ID-[0-9]{6}"
             value={patternRegex}
@@ -60,7 +62,7 @@ const CustomPatternModal: React.FC<CustomPatternModalProps> = ({
         </div>
 
         <div>
-          <Text strong>Action</Text>
+          <Text strong>{t('Action')}</Text>
           <Text type="secondary" style={{ display: "block", marginTop: 4, marginBottom: 8 }}>
             Choose what action the guardrail should take when this pattern is detected
           </Text>
@@ -69,8 +71,8 @@ const CustomPatternModal: React.FC<CustomPatternModalProps> = ({
             onChange={onActionChange}
             style={{ width: "100%" }}
           >
-            <Option value="BLOCK">Block</Option>
-            <Option value="MASK">Mask</Option>
+            <Option value="BLOCK">{t('Block')}</Option>
+            <Option value="MASK">{t('Mask')}</Option>
           </Select>
         </div>
       </Space>

@@ -4,6 +4,7 @@ import { TrashIcon, PencilAltIcon, CheckIcon, XIcon } from "@heroicons/react/out
 import { SimpleTable } from "../common_components/simple_table";
 import { MarginConfig } from "./types";
 import { getProviderDisplayInfo, handleImageError } from "./provider_display_helpers";
+import { useTranslation } from "react-i18next";
 
 interface ProviderMarginTableProps {
   marginConfig: MarginConfig;
@@ -21,6 +22,7 @@ const ProviderMarginTable: React.FC<ProviderMarginTableProps> = ({
   onMarginChange,
   onRemoveProvider,
 }) => {
+  const { t } = useTranslation();
   const [editingProvider, setEditingProvider] = useState<string | null>(null);
   const [editPercentage, setEditPercentage] = useState<string>("");
   const [editFixedAmount, setEditFixedAmount] = useState<string>("");
@@ -108,7 +110,7 @@ const ProviderMarginTable: React.FC<ProviderMarginTableProps> = ({
             if (row.provider === "global") {
               return (
                 <div className="flex items-center space-x-2">
-                  <span className="font-medium">Global (All Providers)</span>
+                  <span className="font-medium">{t('Global_All_Providers')}</span>
                 </div>
               );
             }

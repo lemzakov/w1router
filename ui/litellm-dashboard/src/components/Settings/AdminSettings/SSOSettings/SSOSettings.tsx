@@ -13,10 +13,12 @@ import RoleMappings from "./RoleMappings";
 import SSOSettingsEmptyPlaceholder from "./SSOSettingsEmptyPlaceholder";
 import SSOSettingsLoadingSkeleton from "./SSOSettingsLoadingSkeleton";
 import { detectSSOProvider } from "./utils";
+import { useTranslation } from "react-i18next";
 
 const { Title, Text } = Typography;
 
 export default function SSOSettings() {
+  const { t } = useTranslation();
   const { data: ssoSettings, refetch, isLoading } = useSSOSettings();
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
   const [isAddModalVisible, setIsAddModalVisible] = useState(false);
@@ -37,11 +39,11 @@ export default function SSOSettings() {
   );
 
   const renderSimpleValue = (value?: string | null) =>
-    value ? value : <span className="text-gray-400 italic">Not configured</span>;
+    value ? value : <span className="text-gray-400 italic">{t('Not_configured')}</span>;
 
   const renderTeamMappingsField = (values: SSOSettingsValues) => {
     if (!values.team_mappings?.team_ids_jwt_field) {
-      return <span className="text-gray-400 italic">Not configured</span>;
+      return <span className="text-gray-400 italic">{t('Not_configured')}</span>;
     }
     return (
       <Tag>{values.team_mappings.team_ids_jwt_field}</Tag>
@@ -195,8 +197,8 @@ export default function SSOSettings() {
                 <div className="flex items-center gap-3">
                   <Shield className="w-6 h-6 text-gray-400" />
                   <div>
-                    <Title level={3}>SSO Configuration</Title>
-                    <Text type="secondary">Manage Single Sign-On authentication settings</Text>
+                    <Title level={3}>{t('SSO_Configuration')}</Title>
+                    <Text type="secondary">{t('Manage_Single_SignOn_authentication_sett')}</Text>
                   </div>
                 </div>
 

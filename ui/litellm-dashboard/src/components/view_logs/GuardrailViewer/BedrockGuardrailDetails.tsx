@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export type BedrockGuardrailAction = "NONE" | "GUARDRAIL_INTERVENED";
 
@@ -125,6 +126,7 @@ interface SectionProps {
 }
 
 const Section: React.FC<SectionProps> = ({ title, count, defaultOpen = true, right, children }) => {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(defaultOpen);
   return (
     <div className="border rounded-lg overflow-hidden">
@@ -226,7 +228,7 @@ export const BedrockGuardrailDetails: React.FC<{ response: BedrockGuardrailRespo
         {outputs.length > 0 && (
           <>
             <Divider />
-            <h4 className="font-medium mb-2">Outputs</h4>
+            <h4 className="font-medium mb-2">{t('Outputs')}</h4>
             <div className="space-y-2">
               {outputs.map((o, i) => (
                 <div key={i} className="p-3 bg-gray-50 rounded-md">
@@ -269,7 +271,7 @@ export const BedrockGuardrailDetails: React.FC<{ response: BedrockGuardrailRespo
                 {/* Word policy */}
                 {assess.wordPolicy && (
                   <div className="mb-3">
-                    <h6 className="font-medium mb-2">Word Policy</h6>
+                    <h6 className="font-medium mb-2">{t('Word_Policy')}</h6>
                     {(assess.wordPolicy.customWords?.length ?? 0) > 0 && (
                       <Section title="Custom Words" defaultOpen>
                         <div className="space-y-2">
@@ -307,16 +309,16 @@ export const BedrockGuardrailDetails: React.FC<{ response: BedrockGuardrailRespo
                 {/* Content policy */}
                 {assess.contentPolicy?.filters?.length ? (
                   <div className="mb-3">
-                    <h6 className="font-medium mb-2">Content Policy</h6>
+                    <h6 className="font-medium mb-2">{t('Content_Policy')}</h6>
                     <div className="overflow-x-auto">
                       <table className="min-w-full text-sm">
                         <thead>
                           <tr className="text-left text-gray-600">
-                            <th className="py-1 pr-4">Type</th>
-                            <th className="py-1 pr-4">Action</th>
-                            <th className="py-1 pr-4">Detected</th>
-                            <th className="py-1 pr-4">Strength</th>
-                            <th className="py-1 pr-4">Confidence</th>
+                            <th className="py-1 pr-4">{t('Type_1')}</th>
+                            <th className="py-1 pr-4">{t('Action')}</th>
+                            <th className="py-1 pr-4">{t('Detected')}</th>
+                            <th className="py-1 pr-4">{t('Strength')}</th>
+                            <th className="py-1 pr-4">{t('Confidence_1')}</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -338,16 +340,16 @@ export const BedrockGuardrailDetails: React.FC<{ response: BedrockGuardrailRespo
                 {/* Contextual grounding */}
                 {assess.contextualGroundingPolicy?.filters?.length ? (
                   <div className="mb-3">
-                    <h6 className="font-medium mb-2">Contextual Grounding</h6>
+                    <h6 className="font-medium mb-2">{t('Contextual_Grounding')}</h6>
                     <div className="overflow-x-auto">
                       <table className="min-w-full text-sm">
                         <thead>
                           <tr className="text-left text-gray-600">
-                            <th className="py-1 pr-4">Type</th>
-                            <th className="py-1 pr-4">Action</th>
-                            <th className="py-1 pr-4">Detected</th>
-                            <th className="py-1 pr-4">Score</th>
-                            <th className="py-1 pr-4">Threshold</th>
+                            <th className="py-1 pr-4">{t('Type_1')}</th>
+                            <th className="py-1 pr-4">{t('Action')}</th>
+                            <th className="py-1 pr-4">{t('Detected')}</th>
+                            <th className="py-1 pr-4">{t('Score')}</th>
+                            <th className="py-1 pr-4">{t('Threshold')}</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -369,7 +371,7 @@ export const BedrockGuardrailDetails: React.FC<{ response: BedrockGuardrailRespo
                 {/* Sensitive Information */}
                 {assess.sensitiveInformationPolicy && (
                   <div className="mb-3">
-                    <h6 className="font-medium mb-2">Sensitive Information</h6>
+                    <h6 className="font-medium mb-2">{t('Sensitive_Information')}</h6>
                     {(assess.sensitiveInformationPolicy.piiEntities?.length ?? 0) > 0 && (
                       <Section title="PII Entities" defaultOpen>
                         <div className="space-y-2">
@@ -414,7 +416,7 @@ export const BedrockGuardrailDetails: React.FC<{ response: BedrockGuardrailRespo
                 {/* Topic policy */}
                 {assess.topicPolicy?.topics?.length ? (
                   <div className="mb-3">
-                    <h6 className="font-medium mb-2">Topic Policy</h6>
+                    <h6 className="font-medium mb-2">{t('Topic_Policy')}</h6>
                     <div className="flex flex-wrap gap-2">
                       {assess.topicPolicy.topics!.map((t, i) => (
                         <div key={i} className="px-3 py-1.5 bg-gray-50 rounded-md text-xs">

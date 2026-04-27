@@ -6,6 +6,7 @@ import { Card, Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { getProxyBaseUrl, getPublicModelHubInfo, updateUsefulLinksCall } from "../networking";
+import { useTranslation } from "react-i18next";
 
 interface UsefulLinksManagementProps {
   accessToken: string | null;
@@ -20,6 +21,7 @@ interface Link {
 }
 
 const UsefulLinksManagement: React.FC<UsefulLinksManagementProps> = ({ accessToken, userRole }) => {
+  const { t } = useTranslation();
   const [links, setLinks] = useState<Link[]>([]);
   const [newLink, setNewLink] = useState({ url: "", displayName: "" });
   const [editingLink, setEditingLink] = useState<Link | null>(null);
@@ -230,7 +232,7 @@ const UsefulLinksManagement: React.FC<UsefulLinksManagementProps> = ({ accessTok
     <Card className="mb-6">
       <div className="flex items-center justify-between cursor-pointer" onClick={() => setIsExpanded(!isExpanded)}>
         <div className="flex flex-col">
-          <Title className="mb-0">Link Management</Title>
+          <Title className="mb-0">{t('Link_Management')}</Title>
           <p className="text-sm text-gray-500">
             Manage the links that are displayed under &apos;Useful Links&apos; on the public model hub.
           </p>
@@ -247,10 +249,10 @@ const UsefulLinksManagement: React.FC<UsefulLinksManagementProps> = ({ accessTok
       {isExpanded && (
         <div className="mt-4">
           <div className="mb-6">
-            <Text className="text-sm font-medium text-gray-700 mb-2">Add New Link</Text>
+            <Text className="text-sm font-medium text-gray-700 mb-2">{t('Add_New_Link')}</Text>
             <div className="grid grid-cols-3 gap-4">
               <div>
-                <label className="block text-xs text-gray-500 mb-1">Display Name</label>
+                <label className="block text-xs text-gray-500 mb-1">{t('Display_Name')}</label>
                 <input
                   type="text"
                   value={newLink.displayName}
@@ -292,7 +294,7 @@ const UsefulLinksManagement: React.FC<UsefulLinksManagementProps> = ({ accessTok
             </div>
           </div>
           <div className="flex items-center justify-between mb-2">
-            <Text className="text-sm font-medium text-gray-700">Manage Existing Links</Text>
+            <Text className="text-sm font-medium text-gray-700">{t('Manage_Existing_Links')}</Text>
             <div className="flex items-center space-x-2">
               <Link
                 href={`${getProxyBaseUrl()}/ui/model_hub_table`}
@@ -334,9 +336,9 @@ const UsefulLinksManagement: React.FC<UsefulLinksManagementProps> = ({ accessTok
               <Table className="[&_td]:py-0.5 [&_th]:py-1">
                 <TableHead>
                   <TableRow>
-                    <TableHeaderCell className="py-1 h-8">Display Name</TableHeaderCell>
+                    <TableHeaderCell className="py-1 h-8">{t('Display_Name')}</TableHeaderCell>
                     <TableHeaderCell className="py-1 h-8">URL</TableHeaderCell>
-                    <TableHeaderCell className="py-1 h-8">Actions</TableHeaderCell>
+                    <TableHeaderCell className="py-1 h-8">{t('Actions')}</TableHeaderCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>

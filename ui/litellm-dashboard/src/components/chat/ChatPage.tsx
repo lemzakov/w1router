@@ -667,7 +667,7 @@ const router = useRouter();
         onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "transparent"; }}
       >
         {selectedModels.length === 0 ? (
-          <span style={{ color: "#9ca3af" }}>Select model</span>
+          <span style={{ color: "#9ca3af" }}>{t('Select_model')}</span>
         ) : selectedModels.length === 1 ? (
           <>
             {(() => {
@@ -902,7 +902,7 @@ const router = useRouter();
             >
               <ArrowLeftOutlined style={{ fontSize: 16, flexShrink: 0 }} />
               {!sidebarCollapsed && (
-                <span>Back to Developer Console UI</span>
+                <span>{t('Back_to_Developer_Console_UI')}</span>
               )}
             </a>
           </Tooltip>
@@ -966,7 +966,7 @@ const router = useRouter();
             padding: "6px 20px", fontSize: 13, color: "#874d00",
             display: "flex", justifyContent: "space-between", alignItems: "center",
           }}>
-            <span>Chat history won&apos;t be saved in this browser session.</span>
+            <span>{t('Chat_history_wonapost_be_saved_in_this_b')}</span>
             <button onClick={() => setStorageBannerDismissed(true)}
               style={{ background: "none", border: "none", cursor: "pointer", fontSize: 16, color: "#874d00" }}>
               ×
@@ -1175,7 +1175,7 @@ const router = useRouter();
                                         {responseText}
                                       </ReactMarkdown>
                                     ) : isModelStreaming ? (
-                                      <span style={{ color: "#9ca3af", fontSize: 14 }}>Generating…</span>
+                                      <span style={{ color: "#9ca3af", fontSize: 14 }}>{t('Generating')}</span>
                                     ) : (
                                       <span style={{ color: "#9ca3af", fontSize: 14 }}>—</span>
                                     )}

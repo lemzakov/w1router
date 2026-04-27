@@ -10,6 +10,7 @@ import { coy } from "react-syntax-highlighter/dist/esm/styles/prism";
 import ReasoningContent from "../playground/chat_ui/ReasoningContent";
 import MCPEventsDisplay from "../playground/chat_ui/MCPEventsDisplay";
 import { ChatMessage } from "./types";
+import { useTranslation } from "react-i18next";
 
 const { Panel } = Collapse;
 
@@ -404,7 +405,7 @@ function ThinkingPlaceholder() {
           color: "#6b7280",
         }}
       >
-        <span className="chat-thinking-text">Thinking...</span>
+        <span className="chat-thinking-text">{t('Thinking')}</span>
       </div>
     </>
   );
@@ -543,6 +544,7 @@ interface Props {
 }
 
 const ChatMessages: React.FC<Props> = ({ messages, isStreaming, onEditMessage }) => {
+  const { t } = useTranslation();
   // Scrolling is managed by ChatPage.tsx (scroll lock during streaming,
   // scroll-to-bottom on new message). No auto-scroll here.
 

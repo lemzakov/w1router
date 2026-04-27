@@ -6,6 +6,7 @@ import { PencilAltIcon, TrashIcon } from "@heroicons/react/outline";
 import { getMaskedAndFullUrl } from "./utils";
 import { Tooltip } from "antd";
 import { CheckOutlined } from "@ant-design/icons";
+import { useTranslation } from "react-i18next";
 
 const HealthStatusBadge: React.FC<{
   server: MCPServer;
@@ -57,12 +58,12 @@ const HealthStatusBadge: React.FC<{
       {lastCheck && <div className="text-xs mb-1">Last Check: {new Date(lastCheck).toLocaleString()}</div>}
       {error && (
         <div className="text-xs">
-          <div className="font-medium text-red-400 mb-1">Error:</div>
+          <div className="font-medium text-red-400 mb-1">{t('Error_1')}</div>
           <div className="break-words">{error}</div>
         </div>
       )}
-      {!lastCheck && !error && <div className="text-xs text-gray-400">No health check data available</div>}
-      {isClickable && <div className="text-xs text-gray-400 mt-1">Click to recheck</div>}
+      {!lastCheck && !error && <div className="text-xs text-gray-400">{t('No_health_check_data_available')}</div>}
+      {isClickable && <div className="text-xs text-gray-400 mt-1">{t('Click_to_recheck')}</div>}
     </div>
   );
 

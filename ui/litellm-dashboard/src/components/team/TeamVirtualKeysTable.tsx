@@ -450,7 +450,7 @@ const { accessToken } = useAuthorized();
                 <div className="flex flex-col">
                   {models.length === 0 ? (
                     <Badge size="xs" className="mb-1" color="red">
-                      <Text>All Proxy Models</Text>
+                      <Text>{t('All_Proxy_Models')}</Text>
                     </Badge>
                   ) : (
                     <>
@@ -474,7 +474,7 @@ const { accessToken } = useAuthorized();
                           {models.slice(0, 3).map((model, index) =>
                             model === "all-proxy-models" ? (
                               <Badge key={index} size="xs" color="red">
-                                <Text>All Proxy Models</Text>
+                                <Text>{t('All_Proxy_Models')}</Text>
                               </Badge>
                             ) : (
                               <Badge key={index} size="xs" color="blue">
@@ -498,7 +498,7 @@ const { accessToken } = useAuthorized();
                               {models.slice(3).map((model, index) =>
                                 model === "all-proxy-models" ? (
                                   <Badge key={index + 3} size="xs" color="red">
-                                    <Text>All Proxy Models</Text>
+                                    <Text>{t('All_Proxy_Models')}</Text>
                                   </Badge>
                                 ) : (
                                   <Badge key={index + 3} size="xs" color="blue">

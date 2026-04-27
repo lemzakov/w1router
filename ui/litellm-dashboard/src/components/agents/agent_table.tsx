@@ -5,6 +5,7 @@ import { Tooltip } from "antd";
 import { CopyOutlined } from "@ant-design/icons";
 import { Agent } from "./types";
 import {
+import { useTranslation } from "react-i18next";
   ColumnDef,
   flexRender,
   getCoreRowModel,
@@ -32,6 +33,7 @@ const AgentTable: React.FC<AgentTableProps> = ({
   isAdmin,
   onAgentClick,
 }) => {
+  const { t } = useTranslation();
   const [sorting, setSorting] = useState<SortingState>([{ id: "created_at", desc: true }]);
 
   const formatDate = (dateString?: string) => {
@@ -182,7 +184,7 @@ const AgentTable: React.FC<AgentTableProps> = ({
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-8 text-center">
                   <div className="text-center text-gray-500">
-                    <p>Loading...</p>
+                    <p>{t('Loading')}</p>
                   </div>
                 </TableCell>
               </TableRow>
@@ -200,7 +202,7 @@ const AgentTable: React.FC<AgentTableProps> = ({
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-8 text-center">
                   <div className="text-center text-gray-500">
-                    <p>No agents found. Create one to get started.</p>
+                    <p>{t('No_agents_found_Create_one_to_get_starte')}</p>
                 </div>
               </TableCell>
               </TableRow>

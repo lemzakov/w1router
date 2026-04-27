@@ -2,6 +2,7 @@ import { FilterIcon } from "@heroicons/react/outline";
 import { Button, Input, Select } from "antd";
 import debounce from "lodash/debounce";
 import React, { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export interface FilterOptionCustomComponentProps {
   value?: string;
@@ -38,6 +39,7 @@ const FilterComponent: React.FC<FilterComponentProps> = ({
   initialValues = {},
   buttonLabel = "Filters",
 }) => {
+  const { t } = useTranslation();
   const [showFilters, setShowFilters] = useState<boolean>(false);
   const [tempValues, setTempValues] = useState<FilterValues>(initialValues);
   const [searchOptionsMap, setSearchOptionsMap] = useState<{
@@ -153,7 +155,7 @@ const FilterComponent: React.FC<FilterComponentProps> = ({
         >
           {buttonLabel}
         </Button>
-        <Button onClick={resetFilters}>Reset Filters</Button>
+        <Button onClick={resetFilters}>{t('Reset_Filters')}</Button>
       </div>
 
       {showFilters && (

@@ -26,6 +26,7 @@ import NumericalInput from "../shared/numerical_input";
 import { Tag } from "../tag_management/types";
 import EditLoggingSettings from "../team/EditLoggingSettings";
 import VectorStoreSelector from "../vector_store_management/VectorStoreSelector";
+import { useTranslation } from "react-i18next";
 
 interface KeyEditViewProps {
   keyData: KeyResponse;
@@ -87,6 +88,7 @@ export function KeyEditView({
   userRole,
   premiumUser = false,
 }: KeyEditViewProps) {
+  const { t } = useTranslation();
   const canEditGuardrails = premiumUser || (userRole != null && rolesWithWriteAccess.includes(userRole));
   const [form] = Form.useForm();
   const [promptsList, setPromptsList] = useState<string[]>([]);
@@ -313,7 +315,7 @@ export function KeyEditView({
                   onChange={(value) => setFieldValue("models", value)}
                 >
                   {/* Only show All Team Models if team has models */}
-                  {availableModels.length > 0 && <Select.Option value="all-team-models">All Team Models</Select.Option>}
+                  {availableModels.length > 0 && <Select.Option value="all-team-models">{t('All_Team_Models')}</Select.Option>}
                   {availableModels.map((model) => (
                     <Select.Option key={model} value={model}>
                       {model}
@@ -367,7 +369,7 @@ export function KeyEditView({
               >
                 <Select.Option value="default" label="Default">
                   <div style={{ padding: "4px 0" }}>
-                    <div style={{ fontWeight: 500 }}>Default</div>
+                    <div style={{ fontWeight: 500 }}>{t('Default')}</div>
                     <div style={{ fontSize: "11px", color: "#6b7280", marginTop: "2px" }}>
                       Can call AI APIs + Management routes
                     </div>
@@ -375,7 +377,7 @@ export function KeyEditView({
                 </Select.Option>
                 <Select.Option value="llm_api" label="AI APIs">
                   <div style={{ padding: "4px 0" }}>
-                    <div style={{ fontWeight: 500 }}>AI APIs</div>
+                    <div style={{ fontWeight: 500 }}>{t('AI_APIs')}</div>
                     <div style={{ fontSize: "11px", color: "#6b7280", marginTop: "2px" }}>
                       Can call only AI API routes (chat/completions, embeddings, etc.)
                     </div>
@@ -383,7 +385,7 @@ export function KeyEditView({
                 </Select.Option>
                 <Select.Option value="management" label="Management">
                   <div style={{ padding: "4px 0" }}>
-                    <div style={{ fontWeight: 500 }}>Management</div>
+                    <div style={{ fontWeight: 500 }}>{t('Management')}</div>
                     <div style={{ fontSize: "11px", color: "#6b7280", marginTop: "2px" }}>
                       Can call only management routes (user/team/key management)
                     </div>
@@ -417,9 +419,9 @@ export function KeyEditView({
 
       <Form.Item label="Reset Budget" name="budget_duration">
         <Select placeholder="n/a">
-          <Select.Option value="daily">Daily</Select.Option>
-          <Select.Option value="weekly">Weekly</Select.Option>
-          <Select.Option value="monthly">Monthly</Select.Option>
+          <Select.Option value="daily">{t('Daily')}</Select.Option>
+          <Select.Option value="weekly">{t('Weekly')}</Select.Option>
+          <Select.Option value="monthly">{t('Monthly')}</Select.Option>
         </Select>
       </Form.Item>
 

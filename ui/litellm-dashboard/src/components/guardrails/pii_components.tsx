@@ -2,6 +2,7 @@ import React from "react";
 import { Typography, Select, Button, Checkbox, Tooltip, Tag } from "antd";
 import { CloseOutlined, EyeInvisibleOutlined, StopOutlined, FilterOutlined } from "@ant-design/icons";
 import { PiiEntityCategory } from "./types";
+import { useTranslation } from "react-i18next";
 
 const { Text } = Typography;
 const { Option } = Select;
@@ -30,11 +31,12 @@ export interface CategoryFilterProps {
 }
 
 export const CategoryFilter: React.FC<CategoryFilterProps> = ({ categories, selectedCategories, onChange }) => {
+  const { t } = useTranslation();
   return (
     <div>
       <div className="flex items-center mb-2">
         <FilterOutlined className="text-gray-500 mr-1" />
-        <Text className="text-gray-500 font-medium">Filter by category</Text>
+        <Text className="text-gray-500 font-medium">{t('Filter_by_category')}</Text>
       </div>
       <Select
         mode="multiple"
@@ -149,7 +151,7 @@ export const PiiEntityList: React.FC<PiiEntityListProps> = ({
       </div>
       <div className="max-h-[400px] overflow-y-auto">
         {entities.length === 0 ? (
-          <div className="py-10 text-center text-gray-500">No PII types match your filter criteria</div>
+          <div className="py-10 text-center text-gray-500">{t('No_PII_types_match_your_filter_criteria')}</div>
         ) : (
           entities.map((entity) => (
             <div

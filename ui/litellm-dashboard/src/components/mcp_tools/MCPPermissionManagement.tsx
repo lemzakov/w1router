@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Form, Select, Tooltip, Collapse, Input, Space, Button, Switch } from "antd";
 import { InfoCircleOutlined, MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import { MCPServer } from "./types";
+import { useTranslation } from "react-i18next";
 const { Panel } = Collapse;
 
 interface MCPPermissionManagementProps {
@@ -22,6 +23,7 @@ const MCPPermissionManagement: React.FC<MCPPermissionManagementProps> = ({
   setSearchValue,
   getAccessGroupOptions,
 }) => {
+  const { t } = useTranslation();
   const form = Form.useFormInstance();
 
   // Set initial values when mcpServer changes
@@ -57,9 +59,9 @@ const MCPPermissionManagement: React.FC<MCPPermissionManagementProps> = ({
           <div className="flex items-center">
             <div className="flex items-center space-x-2">
               <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-              <h3 className="text-lg font-semibold text-gray-900">Permission Management / Access Control</h3>
+              <h3 className="text-lg font-semibold text-gray-900">{t('Permission_Management_Access_Control')}</h3>
             </div>
-            <p className="text-sm text-gray-600 ml-4">Configure access permissions and security settings (Optional)</p>
+            <p className="text-sm text-gray-600 ml-4">{t('Configure_access_permissions_and_securit')}</p>
           </div>
         }
         key="permissions"
@@ -75,7 +77,7 @@ const MCPPermissionManagement: React.FC<MCPPermissionManagementProps> = ({
                   <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                 </Tooltip>
               </span>
-              <p className="text-sm text-gray-600 mt-1">Enable if this server should be &quot;public&quot; to all keys.</p>
+              <p className="text-sm text-gray-600 mt-1">{t('Enable_if_this_server_should_be_quotpubl')}</p>
             </div>
             <Form.Item
               name="allow_all_keys"
@@ -95,7 +97,7 @@ const MCPPermissionManagement: React.FC<MCPPermissionManagementProps> = ({
                   <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                 </Tooltip>
               </span>
-              <p className="text-sm text-gray-600 mt-1">Turn on to restrict access to callers within your internal network only.</p>
+              <p className="text-sm text-gray-600 mt-1">{t('Turn_on_to_restrict_access_to_callers_wi')}</p>
             </div>
             <Form.Item
               name="available_on_public_internet"

@@ -51,6 +51,7 @@ import {
 } from "./networking";
 import TopKeyView from "./UsagePage/components/EntityUsage/TopKeyView";
 import { formatNumberWithCommas } from "@/utils/dataUtils";
+import { useTranslation } from "react-i18next";
 console.log("process.env.NODE_ENV", process.env.NODE_ENV);
 
 interface UsagePageProps {
@@ -133,6 +134,7 @@ const isAdminOrAdminViewer = (role: string | null): boolean => {
 };
 
 const UsagePage: React.FC<UsagePageProps> = ({ accessToken, token, userRole, userID, keys, premiumUser }) => {
+  const { t } = useTranslation();
   const currentDate = new Date();
   const [keySpendData, setKeySpendData] = useState<any[]>([]);
   const [topKeys, setTopKeys] = useState<any[]>([]);
@@ -540,7 +542,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ accessToken, token, userRole, use
     return (
       <div style={{ width: "100%" }} className="p-8">
         <Card>
-          <Title>Database Query Limit Reached</Title>
+          <Title>{t('Database_Query_Limit_Reached')}</Title>
           <Text className="mt-4">
             SpendLogs in DB has {proxySettings.NUM_SPEND_LOGS_ROWS} rows.
             <br></br>
@@ -560,13 +562,13 @@ const UsagePage: React.FC<UsagePageProps> = ({ accessToken, token, userRole, use
     <div style={{ width: "100%" }} className="p-8">
       <TabGroup>
         <TabList className="mt-2">
-          <Tab>All Up</Tab>
+          <Tab>{t('All_Up')}</Tab>
 
           {isAdminOrAdminViewer(userRole) ? (
             <>
-              <Tab>Team Based Usage</Tab>
-              <Tab>Customer Usage</Tab>
-              <Tab>Tag Based Usage</Tab>
+              <Tab>{t('Team_Based_Usage')}</Tab>
+              <Tab>{t('Customer_Usage')}</Tab>
+              <Tab>{t('Tag_Based_Usage')}</Tab>
             </>
           ) : (
             <>
@@ -578,8 +580,8 @@ const UsagePage: React.FC<UsagePageProps> = ({ accessToken, token, userRole, use
           <TabPanel>
             <TabGroup>
               <TabList variant="solid" className="mt-1">
-                <Tab>Cost</Tab>
-                <Tab>Activity</Tab>
+                <Tab>{t('Cost')}</Tab>
+                <Tab>{t('Activity')}</Tab>
               </TabList>
               <TabPanels>
                 <TabPanel>
@@ -593,7 +595,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ accessToken, token, userRole, use
                     </Col>
                     <Col numColSpan={2}>
                       <Card>
-                        <Title>Monthly Spend</Title>
+                        <Title>{t('Monthly_Spend')}</Title>
                         <BarChart
                           data={keySpendData}
                           index="date"
@@ -608,13 +610,13 @@ const UsagePage: React.FC<UsagePageProps> = ({ accessToken, token, userRole, use
                     </Col>
                     <Col numColSpan={1}>
                       <Card className="h-full">
-                        <Title>Top Virtual Keys</Title>
+                        <Title>{t('Top_Virtual_Keys')}</Title>
                         <TopKeyView topKeys={topKeys} teams={null} topKeysLimit={5} setTopKeysLimit={() => {}} />
                       </Card>
                     </Col>
                     <Col numColSpan={1}>
                       <Card className="h-full">
-                        <Title>Top Models</Title>
+                        <Title>{t('Top_Models')}</Title>
                         <BarChart
                           className="mt-4 h-40"
                           data={topModels}
@@ -632,7 +634,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ accessToken, token, userRole, use
                     <Col numColSpan={1}></Col>
                     <Col numColSpan={2}>
                       <Card className="mb-2">
-                        <Title>Spend by Provider</Title>
+                        <Title>{t('Spend_by_Provider')}</Title>
                         <>
                           <Grid numItems={2}>
                             <Col numColSpan={1}>
@@ -650,8 +652,8 @@ const UsagePage: React.FC<UsagePageProps> = ({ accessToken, token, userRole, use
                               <Table>
                                 <TableHead>
                                   <TableRow>
-                                    <TableHeaderCell>Provider</TableHeaderCell>
-                                    <TableHeaderCell>Spend</TableHeaderCell>
+                                    <TableHeaderCell>{t('Provider')}</TableHeaderCell>
+                                    <TableHeaderCell>{t('Spend')}</TableHeaderCell>
                                   </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -677,7 +679,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ accessToken, token, userRole, use
                 <TabPanel>
                   <Grid numItems={1} className="gap-2 h-[75vh] w-full">
                     <Card>
-                      <Title>All Up</Title>
+                      <Title>{t('All_Up')}</Title>
                       <Grid numItems={2}>
                         <Col>
                           <Subtitle style={{ fontSize: "15px", fontWeight: "normal", color: "#535452" }}>
@@ -756,11 +758,11 @@ const UsagePage: React.FC<UsagePageProps> = ({ accessToken, token, userRole, use
             <Grid numItems={2} className="gap-2 h-[75vh] w-full">
               <Col numColSpan={2}>
                 <Card className="mb-2">
-                  <Title>Total Spend Per Team</Title>
+                  <Title>{t('Total_Spend_Per_Team')}</Title>
                   <BarList data={totalSpendPerTeam} />
                 </Card>
                 <Card>
-                  <Title>Daily Spend Per Team</Title>
+                  <Title>{t('Daily_Spend_Per_Team')}</Title>
                   <BarChart
                     className="h-72"
                     data={teamSpendData}
@@ -793,7 +795,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ accessToken, token, userRole, use
                 />
               </Col>
               <Col>
-                <Text>Select Key</Text>
+                <Text>{t('Select_Key')}</Text>
                 <Select defaultValue="all-keys">
                   <SelectItem
                     key="all-keys"
@@ -828,9 +830,9 @@ const UsagePage: React.FC<UsagePageProps> = ({ accessToken, token, userRole, use
               <Table className="max-h-[70vh] min-h-[500px]">
                 <TableHead>
                   <TableRow>
-                    <TableHeaderCell>Customer</TableHeaderCell>
-                    <TableHeaderCell>Spend</TableHeaderCell>
-                    <TableHeaderCell>Total Events</TableHeaderCell>
+                    <TableHeaderCell>{t('Customer')}</TableHeaderCell>
+                    <TableHeaderCell>{t('Spend')}</TableHeaderCell>
+                    <TableHeaderCell>{t('Total_Events')}</TableHeaderCell>
                   </TableRow>
                 </TableHead>
 
@@ -915,7 +917,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ accessToken, token, userRole, use
             <Grid numItems={2} className="gap-2 h-[75vh] w-full mb-4">
               <Col numColSpan={2}>
                 <Card>
-                  <Title>Spend Per Tag</Title>
+                  <Title>{t('Spend_Per_Tag')}</Title>
                   <Text>
                     Get Started by Tracking cost per tag{" "}
                     <a

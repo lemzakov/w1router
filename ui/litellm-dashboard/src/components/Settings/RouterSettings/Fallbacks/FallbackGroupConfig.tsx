@@ -6,6 +6,7 @@
 import { Select, Tooltip } from "antd";
 import { AlertCircle, ArrowDown, X } from "lucide-react";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 export interface FallbackGroup {
   id: string;
@@ -26,6 +27,7 @@ export function FallbackGroupConfig({
   availableModels,
   maxFallbacks,
 }: FallbackGroupConfigProps) {
+  const { t } = useTranslation();
   // Filter available options for fallbacks (exclude primary only, allow already selected to be shown for deselection)
   const availableFallbackOptions = availableModels.filter(
     (m) => m !== group.primaryModel,
@@ -87,7 +89,7 @@ export function FallbackGroupConfig({
         {!group.primaryModel && (
           <div className="mt-2 flex items-center gap-2 text-amber-600 text-xs bg-amber-50 p-2 rounded">
             <AlertCircle className="w-4 h-4" />
-            <span>Select a model to begin configuring fallbacks</span>
+            <span>{t('Select_a_model_to_begin_configuring_fall')}</span>
           </div>
         )}
       </div>
@@ -172,8 +174,8 @@ export function FallbackGroupConfig({
           <div className="space-y-2 min-h-[100px]">
             {group.fallbackModels.length === 0 ? (
               <div className="h-32 border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center text-gray-400">
-                <span className="text-sm">No fallback models selected</span>
-                <span className="text-xs mt-1">Add models from the dropdown above</span>
+                <span className="text-sm">{t('No_fallback_models_selected')}</span>
+                <span className="text-xs mt-1">{t('Add_models_from_the_dropdown_above')}</span>
               </div>
             ) : (
               group.fallbackModels.map((modelValue, index) => {
