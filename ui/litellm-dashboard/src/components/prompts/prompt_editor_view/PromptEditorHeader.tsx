@@ -3,6 +3,7 @@ import { Button as TremorButton } from "@tremor/react";
 import { Input, Select } from "antd";
 import { ArrowLeftIcon, SaveIcon, ClockIcon } from "lucide-react";
 import PromptCodeSnippets from "./PromptCodeSnippets";
+import { useTranslation } from "react-i18next";
 
 interface PromptEditorHeaderProps {
   promptName: string;
@@ -40,6 +41,7 @@ const PromptEditorHeader: React.FC<PromptEditorHeaderProps> = ({
   environment,
   onEnvironmentChange,
 }) => {
+  const { t } = useTranslation();
   return (
     <div className="bg-white border-b border-gray-200 px-6 py-3 flex items-center justify-between">
       <div className="flex items-center space-x-3">
@@ -68,8 +70,8 @@ const PromptEditorHeader: React.FC<PromptEditorHeaderProps> = ({
             { label: "Production", value: "production" },
           ]}
         />
-        <span className="px-2 py-0.5 text-xs bg-gray-100 text-gray-600 rounded">Draft</span>
-        <span className="text-xs text-gray-400">Unsaved changes</span>
+        <span className="px-2 py-0.5 text-xs bg-gray-100 text-gray-600 rounded">{t('Draft')}</span>
+        <span className="text-xs text-gray-400">{t('Unsaved_changes')}</span>
       </div>
       <div className="flex items-center space-x-2">
         <PromptCodeSnippets

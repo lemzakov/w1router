@@ -16,6 +16,7 @@ import {
   userCreateCall,
 } from "./networking";
 import OnboardingModal, { InvitationLink } from "./onboarding_link";
+import { useTranslation } from "react-i18next";
 const { Option } = Select;
 const { Text, Link, Title } = Typography;
 // Helper function to generate UUID compatible across all environments
@@ -56,7 +57,8 @@ export const CreateUserButton: React.FC<CreateuserProps> = ({
   onUserCreated,
   isEmbedded = false,
 }) => {
-  const queryClient = useQueryClient();
+    const { t } = useTranslation();
+const queryClient = useQueryClient();
   const [uiSettings, setUISettings] = useState<UISettings | null>(null);
   const [form] = Form.useForm();
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -162,7 +164,7 @@ export const CreateUserButton: React.FC<CreateuserProps> = ({
         setIsInvitationLinkModalVisible(true);
       }
 
-      NotificationsManager.success("Пользователь API создан");
+      NotificationsManager.success(t('Polzovatel_API_sozdan'));
       form.resetFields();
       localStorage.removeItem("userData" + userID);
     } catch (error: any) {
@@ -177,12 +179,12 @@ export const CreateUserButton: React.FC<CreateuserProps> = ({
     return (
       <Form form={form} onFinish={handleCreate} labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} labelAlign="left">
         <Alert
-          message="Приглашения по электронной почте"
+          message={t('Priglasheniya_po_elektronnoy_pochte')}
           description={
             <>
-              Новые пользователи получают приглашение по электронной почте только при настроенной интеграции (SMTP, Resend или SendGrid).{" "}
+              {t('Novye_polzovateli_poluchayut_priglasheni')}{" "}
               <Link href="https://docs.litellm.ai/docs/proxy/email" target="_blank">
-                Узнать, как настроить уведомления по электронной почте
+                {t('Uznat_kak_nastroit_uvedomleniya_po_ele')}
               </Link>
             </>
           }
@@ -190,10 +192,10 @@ export const CreateUserButton: React.FC<CreateuserProps> = ({
           showIcon
           className="mb-4"
         />
-        <Form.Item label="Email пользователя" name="user_email">
+        <Form.Item label={t('Email_polzovatelya')} name="user_email">
           <TextInput placeholder="" />
         </Form.Item>
-        <Form.Item label="Роль пользователя" name="user_role">
+        <Form.Item label={t('Rol_polzovatelya')} name="user_role">
           <Select2>
             {possibleUIRoles &&
               Object.entries(possibleUIRoles).map(([role, { ui_label, description }]) => (
@@ -208,16 +210,16 @@ export const CreateUserButton: React.FC<CreateuserProps> = ({
               ))}
           </Select2>
         </Form.Item>
-        <Form.Item label="Команда" name="team_id">
+        <Form.Item label={t('Komanda')} name="team_id">
           <TeamDropdown />
         </Form.Item>
 
-        <Form.Item label="Метаданные" name="metadata">
-          <Input.TextArea rows={4} placeholder="Введите метаданные в формате JSON" />
+        <Form.Item label={t('Metadannye')} name="metadata">
+          <Input.TextArea rows={4} placeholder={t('Vvedite_metadannye_v_formate_JSON')} />
         </Form.Item>
 
         <div style={{ textAlign: "right", marginTop: "10px" }}>
-          <Button htmlType="submit">Создать пользователя</Button>
+          <Button htmlType="submit">{t('Sozdat_polzovatelya')}</Button>
         </div>
       </Form>
     );
@@ -227,11 +229,11 @@ export const CreateUserButton: React.FC<CreateuserProps> = ({
   return (
     <div className="flex gap-2">
       <Button type="primary" className="mb-0" onClick={() => setIsModalVisible(true)}>
-        + Пригласить пользователя
+        {t('Priglasit_polzovatelya')}
       </Button>
       <BulkCreateUsers accessToken={accessToken} teams={teams} possibleUIRoles={possibleUIRoles} />
       <Modal
-        title="Пригласить пользователя"
+        title={t('Priglasit_polzovatelya_1')}
         open={isModalVisible}
         width={800}
         footer={null}
@@ -239,14 +241,14 @@ export const CreateUserButton: React.FC<CreateuserProps> = ({
         onCancel={handleCancel}
       >
         <Space direction="vertical" size="middle">
-          <Text className="mb-1">Создайте пользователя, который может владеть ключами</Text>
+          <Text className="mb-1">{t('Sozdayte_polzovatelya_kotoryy_mozhet_vla')}</Text>
           <Alert
-            message="Приглашения по электронной почте"
+            message={t('Priglasheniya_po_elektronnoy_pochte')}
             description={
               <>
-                Новые пользователи получают приглашение по электронной почте только при настроенной интеграции (SMTP, Resend или SendGrid).{" "}
+                {t('Novye_polzovateli_poluchayut_priglasheni')}{" "}
                 <Link href="https://docs.litellm.ai/docs/proxy/email" target="_blank">
-                  Узнать, как настроить уведомления по электронной почте
+                  {t('Uznat_kak_nastroit_uvedomleniya_po_ele')}
                 </Link>
               </>
             }
@@ -256,14 +258,14 @@ export const CreateUserButton: React.FC<CreateuserProps> = ({
           />
         </Space>
         <Form form={form} onFinish={handleCreate} labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} labelAlign="left">
-          <Form.Item label="Email пользователя" name="user_email">
+          <Form.Item label={t('Email_polzovatelya')} name="user_email">
             <Input />
           </Form.Item>
           <Form.Item
             label={
               <span>
-                Глобальная роль прокси{" "}
-                <Tooltip title="Эта роль не зависит от ролей в командах/организациях. Настройте администраторов команды/организации в настройках">
+                {t('Globalnaya_rol_proksi')}{" "}
+                <Tooltip title={t('Eta_rol_ne_zavisit_ot_roley_v_komandah')}>
                   <InfoCircleOutlined />
                 </Tooltip>
               </span>
@@ -285,20 +287,20 @@ export const CreateUserButton: React.FC<CreateuserProps> = ({
           </Form.Item>
 
           <Form.Item
-            label="Команда"
+            label={t('Komanda')}
             className="gap-2"
             name="team_id"
-            help="При выборе пользователь будет добавлен в команду с ролью 'user'."
+            help={t('Pri_vybore_polzovatel_budet_dobavlen_v')}
           >
             <TeamDropdown />
           </Form.Item>
 
           <Form.Item
-            label="Организация"
+            label={t('Organizatsiya')}
             name="organization_ids"
-            help="Пользователь будет добавлен в выбранные организации."
+            help={t('Polzovatel_budet_dobavlen_v_vybrannye')}
           >
-            <Select mode="multiple" placeholder="Выбрать организацию" style={{ width: "100%" }}>
+            <Select mode="multiple" placeholder={t('Vybrat_organizatsiyu')} style={{ width: "100%" }}>
               {organizations.map((org) => (
                 <Option key={org.organization_id} value={org.organization_id}>
                   {org.organization_alias} ({org.organization_id})
@@ -307,33 +309,33 @@ export const CreateUserButton: React.FC<CreateuserProps> = ({
             </Select>
           </Form.Item>
 
-          <Form.Item label="Метаданные" name="metadata">
-            <Input.TextArea rows={4} placeholder="Введите метаданные в формате JSON" />
+          <Form.Item label={t('Metadannye')} name="metadata">
+            <Input.TextArea rows={4} placeholder={t('Vvedite_metadannye_v_formate_JSON')} />
           </Form.Item>
           <Accordion>
             <AccordionHeader>
-              <Text strong>Создание личных ключей</Text>
+              <Text strong>{t('Sozdanie_lichnyh_klyuchey')}</Text>
             </AccordionHeader>
             <AccordionBody>
               <Form.Item
                 className="gap-2"
                 label={
                   <span>
-                    Модели{" "}
-                    <Tooltip title="Модели, доступные пользователю вне командного контекста.">
+                    {t('Modeli')}{" "}
+                    <Tooltip title={t('Modeli_dostupnye_polzovatelyu_vne_koman')}>
                       <InfoCircleOutlined style={{ marginLeft: "4px" }} />
                     </Tooltip>
                   </span>
                 }
                 name="models"
-                help="Модели, доступные пользователю вне командного контекста."
+                help={t('Modeli_dostupnye_polzovatelyu_vne_koman')}
               >
-                <Select2 mode="multiple" placeholder="Выбрать модели" style={{ width: "100%" }}>
+                <Select2 mode="multiple" placeholder={t('Vybrat_modeli')} style={{ width: "100%" }}>
                   <Select2.Option key="all-proxy-models" value="all-proxy-models">
-                    Все прокси-модели
+                    {t('Vse_proksi_modeli')}
                   </Select2.Option>
                   <Select2.Option key="no-default-models" value="no-default-models">
-                    Нет моделей по умолчанию
+                    {t('Net_modeley_po_umolchaniyu')}
                   </Select2.Option>
                   {userModels.map((model) => (
                     <Select2.Option key={model} value={model}>
@@ -346,7 +348,7 @@ export const CreateUserButton: React.FC<CreateuserProps> = ({
           </Accordion>
           <div style={{ textAlign: "right", marginTop: "10px" }}>
             <Button type="primary" icon={<UserAddOutlined />} htmlType="submit">
-              Пригласить пользователя
+              {t('Priglasit_polzovatelya_1')}
             </Button>
           </div>
         </Form>

@@ -27,6 +27,7 @@ import { CopyIcon, CheckIcon } from "lucide-react";
 import NotificationsManager from "../molecules/notifications_manager";
 import { getBudgetDurationLabel } from "../common_components/budget_duration_dropdown";
 import DeleteResourceModal from "../common_components/DeleteResourceModal";
+import { useTranslation } from "react-i18next";
 
 interface UserInfoViewProps {
   userId: string;
@@ -55,7 +56,8 @@ export default function UserInfoView({
   initialTab = 0,
   startInEditMode = false,
 }: UserInfoViewProps) {
-  const [userData, setUserData] = useState<UserInfoV2Response | null>(null);
+    const { t } = useTranslation();
+const [userData, setUserData] = useState<UserInfoV2Response | null>(null);
   const [teamDetails, setTeamDetails] = useState<TeamDisplayInfo[]>([]);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isDeletingUser, setIsDeletingUser] = useState(false);
@@ -306,9 +308,9 @@ export default function UserInfoView({
     return (
       <div className="p-4">
         <Button icon={ArrowLeftIcon} variant="light" onClick={onClose} className="mb-4">
-          Назад к пользователям
+          {t('Nazad_k_polzovatelyam')}
         </Button>
-        <Text>Загрузка данных пользователя...</Text>
+        <Text>{t('Zagruzka_dannyh_polzovatelya')}</Text>
       </div>
     );
   }
@@ -317,9 +319,9 @@ export default function UserInfoView({
     return (
       <div className="p-4">
         <Button icon={ArrowLeftIcon} variant="light" onClick={onClose} className="mb-4">
-          Назад к пользователям
+          {t('Nazad_k_polzovatelyam')}
         </Button>
-        <Text>Пользователь не найден</Text>
+        <Text>{t('Polzovatel_ne_nayden')}</Text>
       </div>
     );
   }
@@ -353,7 +355,7 @@ export default function UserInfoView({
       <div className="flex justify-between items-center mb-6">
         <div>
           <Button icon={ArrowLeftIcon} variant="light" onClick={onClose} className="mb-4">
-            Назад к пользователям
+            {t('Nazad_k_polzovatelyam')}
           </Button>
           <Title>{userData.user_email || "User"}</Title>
           <div className="flex items-center cursor-pointer">
@@ -374,7 +376,7 @@ export default function UserInfoView({
         {userRole && rolesWithWriteAccess.includes(userRole) && (
           <div className="flex items-center space-x-2">
             <Button icon={RefreshIcon} variant="secondary" onClick={handleResetPassword} className="flex items-center">
-              Сбросить пароль
+              {t('Sbrosit_parol')}
             </Button>
             <Button
               icon={TrashIcon}
@@ -382,7 +384,7 @@ export default function UserInfoView({
               onClick={() => setIsDeleteModalOpen(true)}
               className="flex items-center text-red-500 border-red-500 hover:text-red-600 hover:border-red-600"
             >
-              Удалить пользователя
+              {t('Udalit_polzovatelya')}
             </Button>
           </div>
         )}
@@ -390,21 +392,21 @@ export default function UserInfoView({
 
       <DeleteResourceModal
         isOpen={isDeleteModalOpen}
-        title="Удалить пользователя?"
-        message="Вы уверены, что хотите удалить этого пользователя? Это действие нельзя отменить."
-        resourceInformationTitle="Информация о пользователе"
+        title={t('Udalit_polzovatelya_1')}
+        message={t('Vy_uvereny_chto_hotite_udalit_etogo_pol_1')}
+        resourceInformationTitle={t('Informatsiya_o_polzovatele')}
         resourceInformation={[
-          { label: "Электронная почта", value: userData.user_email },
-          { label: "ID пользователя", value: userData.user_id, code: true },
+          { label: t('Elektronnaya_pochta'), value: userData.user_email },
+          { label: t('ID_polzovatelya'), value: userData.user_id, code: true },
           {
-            label: "Глобальная роль прокси",
+            label: t('Globalnaya_rol_proksi'),
             value:
               (userData.user_role && possibleUIRoles?.[userData.user_role]?.ui_label) ||
               userData.user_role ||
               "-",
           },
           {
-            label: "Общие расходы (USD)",
+            label: t('Obschie_rashody_USD'),
             value:
               userData.spend !== null && userData.spend !== undefined
                 ? userData.spend.toFixed(2)
@@ -418,8 +420,8 @@ export default function UserInfoView({
 
       <TabGroup defaultIndex={activeTab} onIndexChange={setActiveTab}>
         <TabList className="mb-4">
-          <Tab>Обзор</Tab>
-          <Tab>Детали</Tab>
+          <Tab>{t('Obzor')}</Tab>
+          <Tab>{t('Detali')}</Tab>
         </TabList>
 
         <TabPanels>
@@ -427,21 +429,21 @@ export default function UserInfoView({
           <TabPanel>
             <Grid numItems={1} numItemsSm={2} numItemsLg={3} className="gap-6">
               <Card>
-                <Text>Расходы</Text>
+                <Text>{t('Rashody')}</Text>
                 <div className="mt-2">
                   <Title>${formatNumberWithCommas(userData.spend || 0, 4)}</Title>
                   <Text>
-                    из{" "}
+                    {t('iz')}{" "}
                     {userData.max_budget !== null
                       ? `$${formatNumberWithCommas(userData.max_budget, 4)}`
-                      : "Без ограничений"}
+                      : t('Bez_ogranicheniy')}
                   </Text>
                 </div>
               </Card>
 
               <Card>
                 <div className="flex justify-between items-center mb-2">
-                  <Text>Команды</Text>
+                  <Text>{t('Komandy')}</Text>
                   {isProxyAdmin && (
                     <Button
                       icon={PlusIcon}
@@ -449,7 +451,7 @@ export default function UserInfoView({
                       size="xs"
                       onClick={handleOpenAddTeamModal}
                     >
-                      Добавить команду
+                      {t('Dobavit_komandu')}
                     </Button>
                   )}
                 </div>
@@ -459,8 +461,8 @@ export default function UserInfoView({
                     <Table>
                       <TableHead>
                         <TableRow>
-                          <TableHeaderCell>Название команды</TableHeaderCell>
-                          {isProxyAdmin && <TableHeaderCell className="text-right">Действия</TableHeaderCell>}
+                          <TableHeaderCell>{t('Nazvanie_komandy')}</TableHeaderCell>
+                          {isProxyAdmin && <TableHeaderCell className="text-right">{t('Deystviya')}</TableHeaderCell>}
                         </TableRow>
                       </TableHead>
                       <TableBody>
@@ -484,7 +486,7 @@ export default function UserInfoView({
                     </Table>
                     </div>
                   ) : (
-                    <Text>Нет команд</Text>
+                    <Text>{t('Net_komand')}</Text>
                   )}
                   {!isTeamsExpanded && teamDetails.length > 20 && (
                     <Button
@@ -493,7 +495,7 @@ export default function UserInfoView({
                       className="mt-2"
                       onClick={() => setIsTeamsExpanded(true)}
                     >
-                      Показать ещё {teamDetails.length - 20}
+                      ${t('Pokazat_eschyo')} {teamDetails.length - 20}
                     </Button>
                   )}
                   {isTeamsExpanded && teamDetails.length > 20 && (
@@ -503,19 +505,19 @@ export default function UserInfoView({
                       className="mt-2"
                       onClick={() => setIsTeamsExpanded(false)}
                     >
-                      Свернуть
+                      {t('Svernut')}
                     </Button>
                   )}
                 </div>
               </Card>
 
               <Card>
-                <Text>Личные модели</Text>
+                <Text>{t('Lichnye_modeli')}</Text>
                 <div className="mt-2">
                   {userData.models?.length && userData.models?.length > 0 ? (
                     userData.models?.map((model, index) => <Text key={index}>{model}</Text>)
                   ) : (
-                    <Text>Все прокси-модели</Text>
+                    <Text>{t('Vse_proksi_modeli')}</Text>
                   )}
                 </div>
               </Card>
@@ -526,9 +528,9 @@ export default function UserInfoView({
           <TabPanel>
             <Card>
               <div className="flex justify-between items-center mb-4">
-                <Title>Настройки пользователя</Title>
+                <Title>{t('Nastroyki_polzovatelya')}</Title>
                 {!isEditing && userRole && rolesWithWriteAccess.includes(userRole) && (
-                  <Button onClick={() => setIsEditing(true)}>Редактировать настройки</Button>
+                  <Button onClick={() => setIsEditing(true)}>{t('Redaktirovat_nastroyki')}</Button>
                 )}
               </div>
 
@@ -547,7 +549,7 @@ export default function UserInfoView({
               ) : (
                 <div className="space-y-4">
                   <div>
-                    <Text className="font-medium">ID пользователя</Text>
+                    <Text className="font-medium">{t('ID_polzovatelya')}</Text>
                     <div className="flex items-center cursor-pointer">
                       <Text className="font-mono">{userData.user_id}</Text>
                       <AntdButton
@@ -565,40 +567,40 @@ export default function UserInfoView({
                   </div>
 
                   <div>
-                    <Text className="font-medium">Электронная почта</Text>
-                    <Text>{userData.user_email || "Не задано"}</Text>
+                    <Text className="font-medium">{t('Elektronnaya_pochta')}</Text>
+                    <Text>{userData.user_email || t('Ne_zadano')}</Text>
                   </div>
 
                   <div>
-                    <Text className="font-medium">Псевдоним пользователя</Text>
-                    <Text>{userData.user_alias || "Не задано"}</Text>
+                    <Text className="font-medium">{t('Psevdonim_polzovatelya')}</Text>
+                    <Text>{userData.user_alias || t('Ne_zadano')}</Text>
                   </div>
 
                   <div>
-                    <Text className="font-medium">Глобальная роль прокси</Text>
-                    <Text>{userData.user_role || "Не задано"}</Text>
+                    <Text className="font-medium">{t('Globalnaya_rol_proksi')}</Text>
+                    <Text>{userData.user_role || t('Ne_zadano')}</Text>
                   </div>
 
                   <div>
-                    <Text className="font-medium">Создано</Text>
+                    <Text className="font-medium">{t('Sozdano')}</Text>
                     <Text>
                       {userData.created_at
                         ? new Date(userData.created_at).toLocaleString()
-                        : "Неизвестно"}
+                        : t('Neizvestno')}
                     </Text>
                   </div>
 
                   <div>
-                    <Text className="font-medium">Последнее обновление</Text>
+                    <Text className="font-medium">{t('Poslednee_obnovlenie')}</Text>
                     <Text>
                       {userData.updated_at
                         ? new Date(userData.updated_at).toLocaleString()
-                        : "Неизвестно"}
+                        : t('Neizvestno')}
                     </Text>
                   </div>
 
                   <div>
-                    <Text className="font-medium">Личные модели</Text>
+                    <Text className="font-medium">{t('Lichnye_modeli')}</Text>
                     <div className="flex flex-wrap gap-2 mt-1">
                       {userData.models?.length && userData.models?.length > 0 ? (
                         userData.models?.map((model, index) => (
@@ -607,27 +609,27 @@ export default function UserInfoView({
                           </span>
                         ))
                       ) : (
-                        <Text>Все прокси-модели</Text>
+                        <Text>{t('Vse_proksi_modeli')}</Text>
                       )}
                     </div>
                   </div>
 
                   <div>
-                    <Text className="font-medium">Максимальный бюджет</Text>
+                    <Text className="font-medium">{t('Maksimalnyy_byudzhet')}</Text>
                     <Text>
                       {userData.max_budget !== null && userData.max_budget !== undefined
                         ? `$${formatNumberWithCommas(userData.max_budget, 4)}`
-                        : "Без ограничений"}
+                        : t('Bez_ogranicheniy')}
                     </Text>
                   </div>
 
                   <div>
-                    <Text className="font-medium">Сброс бюджета</Text>
+                    <Text className="font-medium">{t('Sbros_byudzheta')}</Text>
                     <Text>{getBudgetDurationLabel(userData.budget_duration ?? null)}</Text>
                   </div>
 
                   <div>
-                    <Text className="font-medium">Метаданные</Text>
+                    <Text className="font-medium">{t('Metadannye')}</Text>
                     <pre className="bg-gray-100 p-2 rounded text-xs overflow-auto mt-1">
                       {JSON.stringify(userData.metadata || {}, null, 2)}
                     </pre>
@@ -649,14 +651,14 @@ export default function UserInfoView({
       {/* Delete Team Member Modal */}
       <DeleteResourceModal
         isOpen={isRemoveTeamModalOpen}
-        title="Удалить из команды"
-        alertMessage="Удаление этого пользователя из команды также удалит все ключи, созданные пользователем для этой команды."
-        message="Вы уверены, что хотите удалить этого пользователя из команды? Это действие нельзя отменить."
-        resourceInformationTitle="Членство в команде"
+        title={t('Udalit_iz_komandy')}
+        alertMessage={t('Udalenie_etogo_polzovatelya_iz_komandy_t')}
+        message={t('Vy_uvereny_chto_hotite_udalit_etogo_pol')}
+        resourceInformationTitle={t('Chlenstvo_v_komande')}
         resourceInformation={[
-          { label: "Команда", value: teamToRemove?.team_alias || teamToRemove?.team_id },
-          { label: "ID пользователя", value: userData?.user_id, code: true },
-          { label: "Электронная почта", value: userData?.user_email },
+          { label: t('Komanda'), value: teamToRemove?.team_alias || teamToRemove?.team_id },
+          { label: t('ID_polzovatelya'), value: userData?.user_id, code: true },
+          { label: t('Elektronnaya_pochta'), value: userData?.user_email },
         ]}
         onCancel={handleRemoveTeamCancel}
         onOk={handleRemoveTeamConfirm}
@@ -665,7 +667,7 @@ export default function UserInfoView({
 
       {/* Add to Team Modal */}
       <Modal
-        title="Добавить пользователя в команду"
+        title={t('Dobavit_polzovatelya_v_komandu')}
         open={isAddTeamModalOpen}
         onCancel={() => setIsAddTeamModalOpen(false)}
         footer={null}
@@ -676,12 +678,12 @@ export default function UserInfoView({
           layout="vertical"
           onFinish={handleAddTeamSubmit}
         >
-          <Form.Item label="Команда" required>
+          <Form.Item label={t('Komanda')} required>
             <AntdSelect
               showSearch
               value={selectedTeamId || undefined}
               onChange={setSelectedTeamId}
-              placeholder="Выбрать команду"
+              placeholder={t('Vybrat_komandu')}
               filterOption={(input, option) => {
                 const team = availableTeamsForAdd.find((t) => t.team_id === option?.value);
                 if (!team) return false;
@@ -697,18 +699,18 @@ export default function UserInfoView({
             </AntdSelect>
           </Form.Item>
 
-          <Form.Item label="Роль участника">
+          <Form.Item label={t('Rol_uchastnika')}>
             <AntdSelect value={selectedRole} onChange={setSelectedRole}>
               <AntdSelect.Option value="user">
-                <Tooltip title="Может просматривать информацию команды, но не управлять ей">
+                <Tooltip title={t('Mozhet_prosmatrivat_informatsiyu_komandy_1')}>
                   <span className="font-medium">user</span>
-                  <span className="ml-2 text-gray-500 text-sm">- Может просматривать информацию команды, но не управлять ей</span>
+                  <span className="ml-2 text-gray-500 text-sm">{t('Mozhet_prosmatrivat_informatsiyu_komandy')}</span>
                 </Tooltip>
               </AntdSelect.Option>
               <AntdSelect.Option value="admin">
-                <Tooltip title="Может создавать ключи команды, добавлять участников и управлять настройками">
+                <Tooltip title={t('Mozhet_sozdavat_klyuchi_komandy_dobavlya_1')}>
                   <span className="font-medium">admin</span>
-                  <span className="ml-2 text-gray-500 text-sm">- Может создавать ключи команды, добавлять участников и управлять настройками</span>
+                  <span className="ml-2 text-gray-500 text-sm">{t('Mozhet_sozdavat_klyuchi_komandy_dobavlya')}</span>
                 </Tooltip>
               </AntdSelect.Option>
             </AntdSelect>
@@ -721,7 +723,7 @@ export default function UserInfoView({
               loading={isAddingTeam}
               disabled={!selectedTeamId}
             >
-              {isAddingTeam ? "Добавление..." : "Добавить в команду"}
+              {isAddingTeam ? t('Dobavlenie') : t('Dobavit_v_komandu')}
             </AntdButton>
           </div>
         </Form>

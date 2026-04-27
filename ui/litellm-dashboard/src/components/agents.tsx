@@ -22,6 +22,7 @@ import { Agent, AgentKeyInfo } from "./agents/types";
 import { Team } from "./key_team_helpers/key_list";
 import { formatNumberWithCommas } from "@/utils/dataUtils";
 import TableIconActionButton from "./common_components/IconActionButton/TableIconActionButtons/TableIconActionButton";
+import { useTranslation } from "react-i18next";
 
 interface AgentsPanelProps {
   accessToken: string | null;
@@ -34,6 +35,7 @@ interface AgentsResponse {
 }
 
 const AgentsPanel: React.FC<AgentsPanelProps> = ({ accessToken, userRole, teams }) => {
+  const { t } = useTranslation();
   const [agentsList, setAgentsList] = useState<Agent[]>([]);
   const [keyInfoMap, setKeyInfoMap] = useState<Record<string, AgentKeyInfo>>({});
   const [isAddModalVisible, setIsAddModalVisible] = useState(false);
@@ -161,8 +163,8 @@ const AgentsPanel: React.FC<AgentsPanelProps> = ({ accessToken, userRole, teams 
   return (
     <div className="w-full mx-auto flex-auto overflow-y-auto m-8 p-2">
       <div className="flex flex-col gap-2 mb-4">
-        <h1 className="text-2xl font-bold">Agents</h1>
-        <p className="text-sm text-gray-600">List of A2A-spec agents that are available to be used in your organization. Go to AI Hub, to make agents public.</p>
+        <h1 className="text-2xl font-bold">{t('Agents')}</h1>
+        <p className="text-sm text-gray-600">{t('List_of_A2Aspec_agents_that_are_availabl')}</p>
         <Alert
           message="Why do agents need keys?"
           description="Keys scope access to an agent and allow it to call MCP tools. Assign a key when creating an agent or from the Virtual Keys page."
@@ -179,7 +181,7 @@ const AgentsPanel: React.FC<AgentsPanelProps> = ({ accessToken, userRole, teams 
           <Tooltip title="When enabled, only agents with reachable URLs are shown">
             <div className="flex items-center gap-2">
               <CheckCircleOutlined className={healthCheckEnabled ? "text-green-500" : "text-gray-400"} />
-              <span className="text-sm text-gray-600">Health Check</span>
+              <span className="text-sm text-gray-600">{t('Health_Check')}</span>
               <Switch
                 size="small"
                 checked={healthCheckEnabled}
@@ -206,20 +208,20 @@ const AgentsPanel: React.FC<AgentsPanelProps> = ({ accessToken, userRole, teams 
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableHeaderCell>Agent Name</TableHeaderCell>
-                  <TableHeaderCell>Agent ID</TableHeaderCell>
-                  <TableHeaderCell>Spend (USD)</TableHeaderCell>
-                  <TableHeaderCell>Model</TableHeaderCell>
-                  <TableHeaderCell>Created</TableHeaderCell>
-                  <TableHeaderCell>Status</TableHeaderCell>
-                  {isAdmin && <TableHeaderCell>Actions</TableHeaderCell>}
+                  <TableHeaderCell>{t('Agent_Name')}</TableHeaderCell>
+                  <TableHeaderCell>{t('Agent_ID')}</TableHeaderCell>
+                  <TableHeaderCell>{t('Spend_USD')}</TableHeaderCell>
+                  <TableHeaderCell>{t('Model_2')}</TableHeaderCell>
+                  <TableHeaderCell>{t('Created')}</TableHeaderCell>
+                  <TableHeaderCell>{t('Status_3')}</TableHeaderCell>
+                  {isAdmin && <TableHeaderCell>{t('Actions')}</TableHeaderCell>}
                 </TableRow>
               </TableHead>
               <TableBody>
                 {sortedAgents.length === 0 ? (
                   <TableRow>
                     <TableCell colSpan={columnCount}>
-                      <Text className="text-center">No agents found. Click &quot;+ Add New Agent&quot; to create one.</Text>
+                      <Text className="text-center">{t('No_agents_found_Click_quot_Add_New_Agent')}</Text>
                     </TableCell>
                   </TableRow>
                 ) : (
@@ -257,9 +259,9 @@ const AgentsPanel: React.FC<AgentsPanelProps> = ({ accessToken, userRole, teams 
                       </TableCell>
                       <TableCell>
                         {keyInfoMap[agent.agent_id]?.has_key ? (
-                          <Badge color="green">Active</Badge>
+                          <Badge color="green">{t('Active')}</Badge>
                         ) : (
-                          <Badge color="yellow">Needs Setup</Badge>
+                          <Badge color="yellow">{t('Needs_Setup')}</Badge>
                         )}
                       </TableCell>
                       {isAdmin && (
@@ -298,7 +300,7 @@ const AgentsPanel: React.FC<AgentsPanelProps> = ({ accessToken, userRole, teams 
           okButtonProps={{ danger: true }}
         >
           <p>Are you sure you want to delete agent: {agentToDelete.name}?</p>
-          <p>This action cannot be undone.</p>
+          <p>{t('This_action_cannot_be_undone')}</p>
         </Modal>
       )}
     </div>

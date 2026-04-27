@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react/no-unescaped-entities */
+import "@/i18n";
 import React from "react";
 import { Select, Tooltip, Divider } from "antd";
 import { InfoCircleOutlined } from "@ant-design/icons";
@@ -7,6 +8,8 @@ import { Button, Card, TextInput } from "@tremor/react";
 import { PlusIcon, TrashIcon, CogIcon, BanIcon } from "@heroicons/react/outline";
 import { callbackInfo, callback_map, mapDisplayToInternalNames } from "../callback_info_helpers";
 import NumericalInput from "../shared/numerical_input";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 const { Option } = Select;
 
@@ -104,13 +107,15 @@ const LoggingSettings: React.FC<LoggingSettingsProps> = ({
 
     if (Object.keys(dynamicParams).length === 0) return null;
 
+    const { t } = useTranslation();
+
     return (
       <div className="mt-6 pt-4 border-t border-gray-100">
         <div className="flex items-center space-x-2 mb-4">
           <div className="w-3 h-3 bg-blue-100 rounded-full flex items-center justify-center">
             <div className="w-1.5 h-1.5 bg-blue-500 rounded-full"></div>
           </div>
-          <span className="text-sm font-medium text-gray-700">Параметры интеграции</span>
+          <span className="text-sm font-medium text-gray-700">{t('Parametry_integratsii')}</span>
         </div>
         <div className="grid grid-cols-1 gap-4">
           {Object.entries(dynamicParams).map(([paramName, paramType]) => (
@@ -122,16 +127,16 @@ const LoggingSettings: React.FC<LoggingSettingsProps> = ({
                 </Tooltip>
                 {paramType === "password" && (
                   <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-yellow-100 text-yellow-800">
-                    Конфиденциально
+                    {t('Konfidentsialno')}
                   </span>
                 )}
                 {paramType === "number" && (
                   <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-yellow-100 text-yellow-800">
-                    Число
+                    {t('Chislo')}
                   </span>
                 )}
               </label>
-              {paramType === "number" && <span className="text-xs text-gray-500">Значение должно быть от 0 до 1</span>}
+              {paramType === "number" && <span className="text-xs text-gray-500">{t('Znachenie_dolzhno_byt_ot_0_do_1')}</span>}
               {paramType === "number" ? (
                 <NumericalInput
                   step={0.01}
@@ -161,17 +166,17 @@ const LoggingSettings: React.FC<LoggingSettingsProps> = ({
       <div className="space-y-4">
         <div className="flex items-center space-x-2">
           <BanIcon className="w-5 h-5 text-red-500" />
-          <span className="text-base font-semibold text-gray-800">Отключённые колбэки</span>
-          <Tooltip title="Выберите колбэки для отключения для этого ключа. Отключённые колбэки не будут получать никаких данных логирования.">
+          <span className="text-base font-semibold text-gray-800">{t('Otklyuchyonnye_kolbeki')}</span>
+          <Tooltip title={t('Vyberite_kolbeki_dlya_otklyucheniya_dlya')}>
             <InfoCircleOutlined className="text-gray-400 cursor-help" />
           </Tooltip>
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-700">Отключённые колбэки</label>
+          <label className="text-sm font-medium text-gray-700">{t('Otklyuchyonnye_kolbeki')}</label>
           <Select
             mode="multiple"
-            placeholder="Выбрать колбэки для отключения"
+            placeholder={t('Vybrat_kolbeki_dlya_otklyucheniya')}
             value={disabledCallbacks}
             onChange={handleDisabledCallbacksChange}
             style={{ width: "100%" }}
@@ -211,7 +216,7 @@ const LoggingSettings: React.FC<LoggingSettingsProps> = ({
             })}
           </Select>
           <div className="text-xs text-gray-500">
-            Выберите колбэки, которые должны быть отключены для этого ключа. Эти колбэки не будут получать никаких данных логирования.
+            {t('Vyberite_kolbeki_kotorye_dolzhny_byt_ot')}
           </div>
         </div>
       </div>
@@ -222,8 +227,8 @@ const LoggingSettings: React.FC<LoggingSettingsProps> = ({
       <div className="flex justify-between items-center">
         <div className="flex items-center space-x-2">
           <CogIcon className="w-5 h-5 text-blue-500" />
-          <span className="text-base font-semibold text-gray-800">Интеграции логирования</span>
-          <Tooltip title="Настройте интеграции логирования колбэков для этой команды.">
+          <span className="text-base font-semibold text-gray-800">{t('Integratsii_logirovaniya')}</span>
+          <Tooltip title={t('Nastroyte_integratsii_logirovaniya_kolbe')}>
             <InfoCircleOutlined className="text-gray-400 cursor-help" />
           </Tooltip>
         </div>
@@ -235,7 +240,7 @@ const LoggingSettings: React.FC<LoggingSettingsProps> = ({
           className="hover:border-blue-400 hover:text-blue-500"
           type="button"
         >
-          Добавить интеграцию
+          {t('Dobavit_integratsiyu')}
         </Button>
       </div>
 
@@ -256,7 +261,7 @@ const LoggingSettings: React.FC<LoggingSettingsProps> = ({
               <div className="flex justify-between items-start mb-4">
                 <div className="flex items-center space-x-2">
                   {logoUrl && <img src={logoUrl} alt={callbackDisplayName} className="w-5 h-5 object-contain" />}
-                  <span className="text-sm font-medium">{callbackDisplayName || "Новая интеграция"} — Конфигурация</span>
+                  <span className="text-sm font-medium">{callbackDisplayName || t('Novaya_integratsiya')} — {t('Konfiguratsiya')}</span>
                 </div>
                 <Button
                   variant="light"
@@ -267,16 +272,16 @@ const LoggingSettings: React.FC<LoggingSettingsProps> = ({
                   className="hover:bg-red-50"
                   type="button"
                 >
-                  Удалить
+                  {t('Udalit')}
                 </Button>
               </div>
               <div className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-gray-700">Тип интеграции</label>
+                    <label className="text-sm font-medium text-gray-700">{t('Tip_integratsii')}</label>
                     <Select
                       value={callbackDisplayName}
-                      placeholder="Выбрать интеграцию"
+                      placeholder={t('Vybrat_integratsiyu')}
                       onChange={(value) => updateLoggingConfig(index, "callback_name", value)}
                       className="w-full"
                       optionLabelProp="label"
@@ -317,7 +322,7 @@ const LoggingSettings: React.FC<LoggingSettingsProps> = ({
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-gray-700">Тип события</label>
+                    <label className="text-sm font-medium text-gray-700">{t('Tip_sobytiya')}</label>
                     <Select
                       value={config.callback_type}
                       onChange={(value) => updateLoggingConfig(index, "callback_type", value)}
@@ -326,19 +331,19 @@ const LoggingSettings: React.FC<LoggingSettingsProps> = ({
                       <Option value="success">
                         <div className="flex items-center space-x-2">
                           <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                          <span>Только успешные</span>
+                          <span>{t('Tolko_uspeshnye')}</span>
                         </div>
                       </Option>
                       <Option value="failure">
                         <div className="flex items-center space-x-2">
                           <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-                          <span>Только ошибки</span>
+                          <span>{t('Tolko_oshibki')}</span>
                         </div>
                       </Option>
                       <Option value="success_and_failure">
                         <div className="flex items-center space-x-2">
                           <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                          <span>Успешные и ошибки</span>
+                          <span>{t('Uspeshnye_i_oshibki')}</span>
                         </div>
                       </Option>
                     </Select>
@@ -355,8 +360,8 @@ const LoggingSettings: React.FC<LoggingSettingsProps> = ({
       {value.length === 0 && (
         <div className="text-center py-12 text-gray-500 border-2 border-dashed border-gray-200 rounded-lg bg-gray-50/50">
           <CogIcon className="w-12 h-12 text-gray-300 mb-3 mx-auto" />
-          <div className="text-base font-medium mb-1">Интеграции логирования не настроены</div>
-          <div className="text-sm text-gray-400">Нажмите «Добавить интеграцию», чтобы настроить логирование для этой команды</div>
+          <div className="text-base font-medium mb-1">{t('Integratsii_logirovaniya_ne_nastroeny')}</div>
+          <div className="text-sm text-gray-400">{t('Nazhmite_Dobavit_integratsiyu_chtoby_nas')}</div>
         </div>
       )}
     </div>

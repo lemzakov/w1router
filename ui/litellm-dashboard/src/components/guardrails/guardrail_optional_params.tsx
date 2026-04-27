@@ -1,6 +1,9 @@
+import "@/i18n";
 import React from "react";
 import { Form, Select, Typography, Input, Button } from "antd";
 import NumericalInput from "../shared/numerical_input";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 const { Title } = Typography;
 
@@ -30,6 +33,7 @@ interface DictFieldProps {
 }
 
 const DictField: React.FC<DictFieldProps> = ({ field, fieldKey, fullFieldKey, value }) => {
+  const { t } = useTranslation();
   const [selectedEntries, setSelectedEntries] = React.useState<Array<{ key: string; id: string }>>([]);
   const [availableKeys, setAvailableKeys] = React.useState<string[]>(field.dict_key_options || []);
 
@@ -90,8 +94,8 @@ const DictField: React.FC<DictFieldProps> = ({ field, fieldKey, fullFieldKey, va
                 <NumericalInput step={1} width={200} placeholder={`Enter ${entry.key} value`} />
               ) : field.dict_value_type === "boolean" ? (
                 <Select placeholder={`Select ${entry.key} value`}>
-                  <Select.Option value={true}>True</Select.Option>
-                  <Select.Option value={false}>False</Select.Option>
+                  <Select.Option value={true}>{t('True')}</Select.Option>
+                  <Select.Option value={false}>{t('False')}</Select.Option>
                 </Select>
               ) : (
                 <Input placeholder={`Enter ${entry.key} value`} />
@@ -124,7 +128,7 @@ const DictField: React.FC<DictFieldProps> = ({ field, fieldKey, fullFieldKey, va
               </Select.Option>
             ))}
           </Select>
-          <span className="text-sm text-gray-500">Select a category to add threshold configuration</span>
+          <span className="text-sm text-gray-500">{t('Select_a_category_to_add_threshold_confi')}</span>
         </div>
       )}
     </div>
@@ -192,8 +196,8 @@ const GuardrailOptionalParams: React.FC<GuardrailOptionalParamsProps> = ({
             </Select>
           ) : field.type === "bool" || field.type === "boolean" ? (
             <Select placeholder={field.description}>
-              <Select.Option value="true">True</Select.Option>
-              <Select.Option value="false">False</Select.Option>
+              <Select.Option value="true">{t('True')}</Select.Option>
+              <Select.Option value="false">{t('False')}</Select.Option>
             </Select>
           ) : field.type === "number" ? (
             <NumericalInput step={1} width={400} placeholder={field.description} />

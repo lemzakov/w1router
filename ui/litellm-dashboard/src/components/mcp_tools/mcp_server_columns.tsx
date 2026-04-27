@@ -1,3 +1,4 @@
+import "@/i18n";
 import { useState } from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import { MCPServer } from "./types";
@@ -6,6 +7,8 @@ import { PencilAltIcon, TrashIcon } from "@heroicons/react/outline";
 import { getMaskedAndFullUrl } from "./utils";
 import { Tooltip } from "antd";
 import { CheckOutlined } from "@ant-design/icons";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 const HealthStatusBadge: React.FC<{
   server: MCPServer;
@@ -57,12 +60,12 @@ const HealthStatusBadge: React.FC<{
       {lastCheck && <div className="text-xs mb-1">Last Check: {new Date(lastCheck).toLocaleString()}</div>}
       {error && (
         <div className="text-xs">
-          <div className="font-medium text-red-400 mb-1">Error:</div>
+          <div className="font-medium text-red-400 mb-1">{t('Error_1')}</div>
           <div className="break-words">{error}</div>
         </div>
       )}
-      {!lastCheck && !error && <div className="text-xs text-gray-400">No health check data available</div>}
-      {isClickable && <div className="text-xs text-gray-400 mt-1">Click to recheck</div>}
+      {!lastCheck && !error && <div className="text-xs text-gray-400">{t('No_health_check_data_available')}</div>}
+      {isClickable && <div className="text-xs text-gray-400 mt-1">{t('Click_to_recheck')}</div>}
     </div>
   );
 

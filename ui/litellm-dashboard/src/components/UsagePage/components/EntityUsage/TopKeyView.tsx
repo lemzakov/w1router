@@ -9,6 +9,7 @@ import { keyInfoV1Call } from "../../../networking";
 import KeyInfoView from "../../../templates/key_info_view";
 import { DataTable } from "../../../view_logs/table";
 import { TagUsage } from "../../types";
+import { useTranslation } from "react-i18next";
 
 interface TopKeyViewProps {
   topKeys: any[];
@@ -19,6 +20,7 @@ interface TopKeyViewProps {
 }
 
 const TopKeyView: React.FC<TopKeyViewProps> = ({ topKeys, teams, showTags = false, topKeysLimit, setTopKeysLimit }) => {
+  const { t } = useTranslation();
   const { accessToken, userRole, userId: userID, premiumUser } = useAuthorized();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [selectedKey, setSelectedKey] = useState<string | null>(null);
@@ -130,10 +132,10 @@ const TopKeyView: React.FC<TopKeyViewProps> = ({ topKeys, teams, showTags = fals
                 title={
                   <div>
                     <div>
-                      <span className="text-gray-300">Tag Name:</span> {tag.tag}
+                      <span className="text-gray-300">{t('Tag_Name')}</span> {tag.tag}
                     </div>
                     <div>
-                      <span className="text-gray-300">Spend:</span>{" "}
+                      <span className="text-gray-300">{t('Spend_1')}</span>{" "}
                       {tag.usage > 0 && tag.usage < 0.01 ? "<$0.01" : `$${formatNumberWithCommas(tag.usage, 2)}`}
                     </div>
                   </div>
@@ -228,15 +230,15 @@ const TopKeyView: React.FC<TopKeyViewProps> = ({ topKeys, teams, showTags = fals
                 <div className="relative z-50 p-3 bg-black/90 shadow-lg rounded-lg text-white max-w-xs">
                   <div className="space-y-1.5">
                     <div className="text-sm">
-                      <span className="text-gray-300">Key Alias: </span>
+                      <span className="text-gray-300">{t('Key_Alias_1')}</span>
                       <span className="font-mono text-gray-100 break-all">{item?.key_alias}</span>
                     </div>
                     <div className="text-sm">
-                      <span className="text-gray-300">Key ID: </span>
+                      <span className="text-gray-300">{t('Key_ID_1')}</span>
                       <span className="font-mono text-gray-100 break-all">{item?.api_key}</span>
                     </div>
                     <div className="text-sm">
-                      <span className="text-gray-300">Spend: </span>
+                      <span className="text-gray-300">{t('Spend_1')}</span>
                       <span className="text-white font-medium">${formatNumberWithCommas(item?.spend, 2)}</span>
                     </div>
                   </div>

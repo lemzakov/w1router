@@ -17,6 +17,7 @@ import {
   listMCPUserCredentials,
   MCPUserCredentialListItem,
 } from "../networking";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   accessToken: string;
@@ -58,6 +59,7 @@ function expiryLabel(isoString: string | null | undefined): string {
 }
 
 const MCPCredentialsTab: React.FC<Props> = ({ accessToken }) => {
+  const { t } = useTranslation();
   const [credentials, setCredentials] = useState<MCPUserCredentialListItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [revoking, setRevoking] = useState<Set<string>>(new Set());
@@ -91,7 +93,7 @@ const MCPCredentialsTab: React.FC<Props> = ({ accessToken }) => {
     <div className="w-full">
       {/* Header */}
       <div className="mb-4">
-        <h2 className="text-base font-semibold text-gray-900 mb-0.5">App Credentials</h2>
+        <h2 className="text-base font-semibold text-gray-900 mb-0.5">{t('App_Credentials')}</h2>
         <p className="text-sm text-gray-500 m-0">
           Your stored OAuth connections — used automatically in chat.
         </p>
@@ -106,7 +108,7 @@ const MCPCredentialsTab: React.FC<Props> = ({ accessToken }) => {
           <LinkOutlined className="text-2xl mb-3 block text-gray-300" />
           No connections yet.
           <br />
-          Go to <strong>Apps</strong> and click <strong>Connect</strong> to authorize an MCP server.
+          Go to <strong>{t('Apps')}</strong> and click <strong>{t('Connect')}</strong> to authorize an MCP server.
         </div>
       ) : (
         <div className="rounded-lg border border-gray-200 overflow-hidden">

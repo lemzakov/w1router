@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import ProviderSpecificFields from "../add_model/provider_specific_fields";
 import { CredentialItem } from "../networking";
 import { Providers, providerLogoMap } from "../provider_info_helpers";
+import { useTranslation } from "react-i18next";
 const { Link } = Typography;
 
 interface EditCredentialsModalProps {
@@ -22,6 +23,7 @@ export default function EditCredentialsModal({
   uploadProps,
   existingCredential,
 }: EditCredentialsModalProps) {
+  const { t } = useTranslation();
   const [form] = Form.useForm();
   const [selectedProvider, setSelectedProvider] = useState<Providers>(Providers.Anthropic);
 
@@ -127,7 +129,7 @@ export default function EditCredentialsModal({
         {/* Modal Footer */}
         <div className="flex justify-between items-center">
           <Tooltip title="Get help on our github">
-            <Link href="https://github.com/BerriAI/litellm/issues">Need Help?</Link>
+            <Link href="https://github.com/BerriAI/litellm/issues">{t('Need_Help')}</Link>
           </Tooltip>
 
           <div>

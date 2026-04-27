@@ -3,8 +3,10 @@ import { Form, Table } from "antd";
 import { TextInput } from "@tremor/react";
 import { Tooltip } from "../atoms/index";
 import { Providers } from "../provider_info_helpers";
+import { useTranslation } from "react-i18next";
 
 const ConditionalPublicModelName: React.FC = () => {
+  const { t } = useTranslation();
   const form = Form.useFormInstance();
   const [tableKey, setTableKey] = useState(0); // Add a key to force table re-render
 
@@ -95,24 +97,24 @@ const ConditionalPublicModelName: React.FC = () => {
 
   const publicNameTooltipContent = (
     <>
-      <div className="mb-2 font-normal">The name you specify in your API calls to LiteLLM Proxy</div>
+      <div className="mb-2 font-normal">{t('The_name_you_specify_in_your_API_calls_t')}</div>
       <div className="mb-2 font-normal">
-        <strong>Example:</strong> If you name your public model{" "}
+        <strong>{t('Example_1')}</strong> If you name your public model{" "}
         <code className="bg-gray-700 px-1 py-0.5 rounded text-xs">example-name</code>, and choose{" "}
         <code className="bg-gray-700 px-1 py-0.5 rounded text-xs">openai/qwen-plus-latest</code> as the LiteLLM model
       </div>
       <div className="mb-2 font-normal">
-        <strong>Usage:</strong> You make an API call to the LiteLLM proxy with{" "}
+        <strong>{t('Usage_1')}</strong> You make an API call to the LiteLLM proxy with{" "}
         <code className="bg-gray-700 px-1 py-0.5 rounded text-xs">model = &quot;example-name&quot;</code>
       </div>
       <div className="font-normal">
-        <strong>Result:</strong> LiteLLM sends{" "}
+        <strong>{t('Result_1')}</strong> LiteLLM sends{" "}
         <code className="bg-gray-700 px-1 py-0.5 rounded text-xs">qwen-plus-latest</code> to the provider
       </div>
     </>
   );
 
-  const liteLLMModelTooltipContent = <div>The model name LiteLLM will send to the LLM API</div>;
+  const liteLLMModelTooltipContent = <div>{t('The_model_name_LiteLLM_will_send_to_the')}</div>;
 
   const columns = [
     {

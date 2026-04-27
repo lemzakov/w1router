@@ -1,3 +1,4 @@
+import "@/i18n";
 import {
   Button,
   Card,
@@ -40,6 +41,8 @@ import {
 import { LoggingCallbacksTable } from "./Settings/LoggingAndAlerts/LoggingCallbacks/LoggingCallbacksTable";
 import { AlertingObject } from "./Settings/LoggingAndAlerts/LoggingCallbacks/types";
 import { parseErrorMessage } from "./shared/errorUtils";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 interface SettingsPageProps {
   accessToken: string | null;
   userRole: string | null;
@@ -62,6 +65,7 @@ interface DynamicParamsFieldsProps {
 }
 
 const DynamicParamsFields: React.FC<DynamicParamsFieldsProps> = ({ params, callbackConfigs, selectedCallback }) => {
+  const { t } = useTranslation();
   if (!params || params.length === 0) {
     return null;
   }
@@ -568,11 +572,11 @@ const Settings: React.FC<SettingsPageProps> = ({ accessToken, userRole, userID, 
       <Grid numItems={1} className="gap-2 p-8 w-full mt-2">
         <TabGroup>
           <TabList variant="line" defaultValue="1">
-            <Tab value="1">Logging Callbacks</Tab>
-            <Tab value="2">CloudZero Cost Tracking</Tab>
-            <Tab value="2">Alerting Types</Tab>
-            <Tab value="3">Alerting Settings</Tab>
-            <Tab value="4">Email Alerts</Tab>
+            <Tab value="1">{t('Logging_Callbacks')}</Tab>
+            <Tab value="2">{t('CloudZero_Cost_Tracking')}</Tab>
+            <Tab value="2">{t('Alerting_Types')}</Tab>
+            <Tab value="3">{t('Alerting_Settings')}</Tab>
+            <Tab value="4">{t('Email_Alerts')}</Tab>
           </TabList>
           <TabPanels>
             <TabPanel>
@@ -613,7 +617,7 @@ const Settings: React.FC<SettingsPageProps> = ({ accessToken, userRole, userID, 
                     <TableRow>
                       <TableHeaderCell></TableHeaderCell>
                       <TableHeaderCell></TableHeaderCell>
-                      <TableHeaderCell>Slack Webhook URL</TableHeaderCell>
+                      <TableHeaderCell>{t('Slack_Webhook_URL')}</TableHeaderCell>
                     </TableRow>
                   </TableHead>
 

@@ -1,3 +1,4 @@
+import "@/i18n";
 import { formatNumberWithCommas } from "@/utils/dataUtils";
 import { resolveTeamAliasFromTeamID } from "@/utils/teamUtils";
 import { AreaChart, BarChart, Card, Grid, Text, Title } from "@tremor/react";
@@ -8,6 +9,8 @@ import { Team } from "./key_team_helpers/key_list";
 import KeyModelUsageView from "./UsagePage/components/KeyModelUsageView";
 import { DailyData, KeyMetricWithMetadata, ModelActivityData, TopApiKeyData, TopModelData } from "./UsagePage/types";
 import { valueFormatter } from "./UsagePage/utils/value_formatters";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 interface ActivityMetricsProps {
   modelMetrics: Record<string, ModelActivityData>;
@@ -23,25 +26,26 @@ const ModelSection = ({
   metrics: ModelActivityData;
   hidePromptCachingMetrics?: boolean;
 }) => {
+  const { t } = useTranslation();
   return (
     <div className="space-y-2">
       {/* Summary Cards */}
       <Grid numItems={4} className="gap-4">
         <Card>
-          <Text>Total Requests</Text>
+          <Text>{t('Total_Requests')}</Text>
           <Title>{metrics.total_requests.toLocaleString()}</Title>
         </Card>
         <Card>
-          <Text>Total Successful Requests</Text>
+          <Text>{t('Total_Successful_Requests')}</Text>
           <Title>{metrics.total_successful_requests.toLocaleString()}</Title>
         </Card>
         <Card>
-          <Text>Total Tokens</Text>
+          <Text>{t('Total_Tokens')}</Text>
           <Title>{metrics.total_tokens.toLocaleString()}</Title>
           <Text>{Math.round(metrics.total_tokens / metrics.total_successful_requests)} avg per successful request</Text>
         </Card>
         <Card>
-          <Text>Total Spend</Text>
+          <Text>{t('Total_Spend')}</Text>
           <Title>${formatNumberWithCommas(metrics.total_spend, 2)}</Title>
           <Text>
             ${formatNumberWithCommas(metrics.total_spend / metrics.total_successful_requests, 3)} per successful request
@@ -51,7 +55,7 @@ const ModelSection = ({
 
       {metrics.top_api_keys && metrics.top_api_keys.length > 0 && (
         <Card className="mt-4">
-          <Title>Top Virtual Keys by Spend</Title>
+          <Title>{t('Top_Virtual_Keys_by_Spend')}</Title>
           <div className="mt-3">
             <div className="grid grid-cols-1 gap-2">
               {metrics.top_api_keys.map((keyData, index) => (
@@ -80,7 +84,7 @@ const ModelSection = ({
       {/* Spend per day - Full width card */}
       <Card className="mt-4">
         <div className="flex justify-between items-center">
-          <Title>Spend per day</Title>
+          <Title>{t('Spend_per_day')}</Title>
           <CustomLegend categories={["metrics.spend"]} colors={["green"]} />
         </div>
         <BarChart
@@ -98,7 +102,7 @@ const ModelSection = ({
       <Grid numItems={2} className="gap-4 mt-4">
         <Card>
           <div className="flex justify-between items-center">
-            <Title>Total Tokens</Title>
+            <Title>{t('Total_Tokens')}</Title>
             <CustomLegend
               categories={["metrics.prompt_tokens", "metrics.completion_tokens", "metrics.total_tokens"]}
               colors={["blue", "cyan", "indigo"]}
@@ -118,7 +122,7 @@ const ModelSection = ({
 
         <Card>
           <div className="flex justify-between items-center">
-            <Title>Requests per day</Title>
+            <Title>{t('Requests_per_day')}</Title>
             <CustomLegend categories={["metrics.api_requests"]} colors={["blue"]} />
           </div>
           <BarChart
@@ -135,7 +139,7 @@ const ModelSection = ({
 
         <Card>
           <div className="flex justify-between items-center">
-            <Title>Success vs Failed Requests</Title>
+            <Title>{t('Success_vs_Failed_Requests')}</Title>
             <CustomLegend
               categories={["metrics.successful_requests", "metrics.failed_requests"]}
               colors={["green", "red"]}
@@ -156,7 +160,7 @@ const ModelSection = ({
         {!hidePromptCachingMetrics && (
           <Card>
             <div className="flex justify-between items-center">
-              <Title>Prompt Caching Metrics</Title>
+              <Title>{t('Prompt_Caching_Metrics')}</Title>
               <CustomLegend
                 categories={["metrics.cache_read_input_tokens", "metrics.cache_creation_input_tokens"]}
                 colors={["cyan", "purple"]}
@@ -259,22 +263,22 @@ export const ActivityMetrics: React.FC<ActivityMetricsProps> = ({ modelMetrics, 
     <div className="space-y-8">
       {/* Global Summary */}
       <div className="border rounded-lg p-4">
-        <Title>Overall Usage</Title>
+        <Title>{t('Overall_Usage')}</Title>
         <Grid numItems={4} className="gap-4 mb-4">
           <Card>
-            <Text>Total Requests</Text>
+            <Text>{t('Total_Requests')}</Text>
             <Title>{totalMetrics.total_requests.toLocaleString()}</Title>
           </Card>
           <Card>
-            <Text>Total Successful Requests</Text>
+            <Text>{t('Total_Successful_Requests')}</Text>
             <Title>{totalMetrics.total_successful_requests.toLocaleString()}</Title>
           </Card>
           <Card>
-            <Text>Total Tokens</Text>
+            <Text>{t('Total_Tokens')}</Text>
             <Title>{totalMetrics.total_tokens.toLocaleString()}</Title>
           </Card>
           <Card>
-            <Text>Total Spend</Text>
+            <Text>{t('Total_Spend')}</Text>
             <Title>${formatNumberWithCommas(totalMetrics.total_spend, 2)}</Title>
           </Card>
         </Grid>
@@ -282,7 +286,7 @@ export const ActivityMetrics: React.FC<ActivityMetricsProps> = ({ modelMetrics, 
         <Grid numItems={2} className="gap-4">
           <Card>
             <div className="flex justify-between items-center">
-              <Title>Total Tokens Over Time</Title>
+              <Title>{t('Total_Tokens_Over_Time')}</Title>
               <CustomLegend
                 categories={["metrics.prompt_tokens", "metrics.completion_tokens", "metrics.total_tokens"]}
                 colors={["blue", "cyan", "indigo"]}
@@ -301,7 +305,7 @@ export const ActivityMetrics: React.FC<ActivityMetricsProps> = ({ modelMetrics, 
           </Card>
           <Card>
             <div className="flex justify-between items-center">
-              <Title>Total Requests Over Time</Title>
+              <Title>{t('Total_Requests_Over_Time')}</Title>
               <CustomLegend
                 categories={["metrics.successful_requests", "metrics.failed_requests"]}
                 colors={["emerald", "red"]}

@@ -17,6 +17,7 @@ import NotificationsManager from "@/components/molecules/notifications_manager";
 import { fetchMCPAccessGroups, getGuardrailsList, getPoliciesList, Organization, Team, teamCreateCall } from "@/components/networking";
 import useAuthorized from "@/app/(dashboard)/hooks/useAuthorized";
 import MCPToolPermissions from "@/components/mcp_server_management/MCPToolPermissions";
+import { useTranslation } from "react-i18next";
 
 interface ModelAliases {
   [key: string]: string;
@@ -72,7 +73,8 @@ const CreateTeamModal = ({
 }: CreateTeamModalProps) => {
   const { userId: userID, userRole, accessToken, premiumUser } = useAuthorized();
   const [form] = Form.useForm();
-  const [userModels, setUserModels] = useState<string[]>([]);
+    const { t } = useTranslation();
+const [userModels, setUserModels] = useState<string[]>([]);
   const [currentOrgForCreateTeam, setCurrentOrgForCreateTeam] = useState<Organization | null>(null);
   const [modelsToPick, setModelsToPick] = useState<string[]>([]);
   const [guardrailsList, setGuardrailsList] = useState<string[]>([]);
@@ -293,7 +295,7 @@ const CreateTeamModal = ({
 
   return (
     <Modal
-      title="Создать команду"
+      title={t('Sozdat_komandu_1')}
       open={isTeamModalVisible}
       width={1000}
       footer={null}
@@ -303,12 +305,12 @@ const CreateTeamModal = ({
       <Form form={form} onFinish={handleCreate} labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} labelAlign="left">
         <>
           <Form.Item
-            label="Название команды"
+            label={t('Nazvanie_komandy')}
             name="team_alias"
             rules={[
               {
                 required: true,
-                message: "Пожалуйста, введите название команды",
+                message: t('Pozhaluysta_vvedite_nazvanie_komandy'),
               },
             ]}
           >
@@ -317,11 +319,11 @@ const CreateTeamModal = ({
           <Form.Item
             label={
               <span>
-                Организация{" "}
+                {t('Organizatsiya')}{" "}
                 <Tooltip
                   title={
                     <span>
-                      Организации могут иметь несколько команд. Подробнее об{" "}
+                      {t('Organizatsii_mogut_imet_neskolko_komand_')}{" "}
                       <a
                         href="https://docs.litellm.ai/docs/proxy/user_management_heirarchy"
                         target="_blank"
@@ -332,7 +334,7 @@ const CreateTeamModal = ({
                         }}
                         onClick={(e) => e.stopPropagation()}
                       >
-                        иерархии управления пользователями
+                        {t('ierarhii_upravleniya_polzovatelyami')}
                       </a>
                     </span>
                   }
@@ -348,7 +350,7 @@ const CreateTeamModal = ({
             <Select2
               showSearch
               allowClear
-              placeholder="Поиск или выбор организации"
+              placeholder={t('Poisk_ili_vybor_organizatsii')}
               onChange={(value) => {
                 form.setFieldValue("organization_id", value);
                 setCurrentOrgForCreateTeam(organizations?.find((org) => org.organization_id === value) || null);
@@ -371,17 +373,17 @@ const CreateTeamModal = ({
           <Form.Item
             label={
               <span>
-                Модели{" "}
-                <Tooltip title="Это модели, к которым будет иметь доступ выбранная команда">
+                {t('Modeli')}{" "}
+                <Tooltip title={t('Eto_modeli_k_kotorym_budet_imet_dostup')}>
                   <InfoCircleOutlined style={{ marginLeft: "4px" }} />
                 </Tooltip>
               </span>
             }
             name="models"
           >
-            <Select2 mode="multiple" placeholder="Выбрать модели" style={{ width: "100%" }} data-testid="team-models-select">
+            <Select2 mode="multiple" placeholder={t('Vybrat_modeli')} style={{ width: "100%" }} data-testid="team-models-select">
               <Select2.Option key="all-proxy-models" value="all-proxy-models">
-                Все модели прокси
+                {t('Vse_modeli_proksi')}
               </Select2.Option>
               {modelsToPick.map((model) => (
                 <Select2.Option key={model} value={model}>
@@ -391,20 +393,20 @@ const CreateTeamModal = ({
             </Select2>
           </Form.Item>
 
-          <Form.Item label="Максимальный бюджет (USD)" name="max_budget">
+          <Form.Item label={t('Maksimalnyy_byudzhet_USD')} name="max_budget">
             <NumericalInput step={0.01} precision={2} width={200} />
           </Form.Item>
-          <Form.Item className="mt-8" label="Сбросить бюджет" name="budget_duration">
-            <Select2 defaultValue={null} placeholder="н/п">
-              <Select2.Option value="24h">ежедневно</Select2.Option>
-              <Select2.Option value="7d">еженедельно</Select2.Option>
-              <Select2.Option value="30d">ежемесячно</Select2.Option>
+          <Form.Item className="mt-8" label={t('Sbrosit_byudzhet')} name="budget_duration">
+            <Select2 defaultValue={null} placeholder={t('n_p')}>
+              <Select2.Option value="24h">{t('ezhednevno')}</Select2.Option>
+              <Select2.Option value="7d">{t('ezhenedelno')}</Select2.Option>
+              <Select2.Option value="30d">{t('ezhemesyachno')}</Select2.Option>
             </Select2>
           </Form.Item>
-          <Form.Item label="Лимит токенов в минуту (TPM)" name="tpm_limit">
+          <Form.Item label={t('Limit_tokenov_v_minutu_TPM')} name="tpm_limit">
             <NumericalInput step={1} width={400} />
           </Form.Item>
-          <Form.Item label="Лимит запросов в минуту (RPM)" name="rpm_limit">
+          <Form.Item label={t('Limit_zaprosov_v_minutu_RPM')} name="rpm_limit">
             <NumericalInput step={1} width={400} />
           </Form.Item>
 
@@ -418,13 +420,13 @@ const CreateTeamModal = ({
             }}
           >
             <AccordionHeader>
-              <b>Дополнительные настройки</b>
+              <b>{t('Dopolnitelnye_nastroyki')}</b>
             </AccordionHeader>
             <AccordionBody>
               <Form.Item
-                label="ID команды"
+                label={t('ID_komandy')}
                 name="team_id"
-                help="ID команды для создания. Если не указано, будет сгенерировано автоматически."
+                help={t('ID_komandy_dlya_sozdaniya_Esli_ne_ukazan')}
               >
                 <TextInput
                   onChange={(e) => {
@@ -433,48 +435,48 @@ const CreateTeamModal = ({
                 />
               </Form.Item>
               <Form.Item
-                label="Бюджет участника команды (USD)"
+                label={t('Byudzhet_uchastnika_komandy_USD')}
                 name="team_member_budget"
                 normalize={(value) => (value ? Number(value) : undefined)}
-                tooltip="Индивидуальный бюджет пользователя в команде."
+                tooltip={t('Individualnyy_byudzhet_polzovatelya_v_ko')}
               >
                 <NumericalInput step={0.01} precision={2} width={200} />
               </Form.Item>
               <Form.Item
-                label="Длительность ключа участника (напр.: 1d, 1mo)"
+                label={t('Dlitelnost_klyucha_uchastnika_napr_1d')}
                 name="team_member_key_duration"
-                tooltip="Ограничение на длительность ключа участника. Формат: 30s (секунды), 30m (минуты), 30h (часы), 30d (дни), 1mo (месяц)"
+                tooltip={t('Ogranichenie_na_dlitelnost_klyucha_uchas')}
               >
-                <TextInput placeholder="напр., 30d" />
+                <TextInput placeholder={t('napr_30d')} />
               </Form.Item>
               <Form.Item
-                label="Лимит RPM участника команды"
+                label={t('Limit_RPM_uchastnika_komandy')}
                 name="team_member_rpm_limit"
-                tooltip="Лимит запросов в минуту для отдельного участника команды"
+                tooltip={t('Limit_zaprosov_v_minutu_dlya_otdelnogo_u')}
               >
                 <NumericalInput step={1} width={400} />
               </Form.Item>
               <Form.Item
-                label="Лимит TPM участника команды"
+                label={t('Limit_TPM_uchastnika_komandy')}
                 name="team_member_tpm_limit"
-                tooltip="Лимит токенов в минуту для отдельного участника команды"
+                tooltip={t('Limit_tokenov_v_minutu_dlya_otdelnogo_uc')}
               >
                 <NumericalInput step={1} width={400} />
               </Form.Item>
               <Form.Item
-                label="Метаданные"
+                label={t('Metadannye')}
                 name="metadata"
-                help="Дополнительные метаданные команды. Введите метаданные в формате JSON."
+                help={t('Dopolnitelnye_metadannye_komandy_Vvedi')}
               >
                 <Input.TextArea rows={4} />
               </Form.Item>
               <Form.Item
-                label="Настройки менеджера секретов"
+                label={t('Nastroyki_menedzhera_sekretov')}
                 name="secret_manager_settings"
                 help={
                   premiumUser
-                    ? "Введите конфигурацию менеджера секретов в формате JSON."
-                    : "Премиум функция — Обновите план для управления настройками менеджера секретов."
+                    ? t('Vvedite_konfiguratsiyu_menedzhera_sekret')
+                    : t('Premium_funktsiya_Obnovite_plan_dlya_upr')
                 }
                 rules={[
                   {
@@ -486,7 +488,7 @@ const CreateTeamModal = ({
                         JSON.parse(value);
                         return Promise.resolve();
                       } catch (error) {
-                        return Promise.reject(new Error("Пожалуйста, введите корректный JSON"));
+                        return Promise.reject(new Error(t('Pozhaluysta_vvedite_korrektnyy_JSON')));
                       }
                     },
                   },
@@ -516,12 +518,12 @@ const CreateTeamModal = ({
                 }
                 name="guardrails"
                 className="mt-8"
-                help="Выберите существующие guardrails или введите новые"
+                help={t('Vyberite_suschestvuyuschie_guardrails_il')}
               >
                 <Select2
                   mode="tags"
                   style={{ width: "100%" }}
-                  placeholder="Выбрать или ввести guardrails"
+                  placeholder={t('Vybrat_ili_vvesti_guardrails')}
                   options={guardrailsList.map((name) => ({
                     value: name,
                     label: name,
@@ -531,8 +533,8 @@ const CreateTeamModal = ({
               <Form.Item
                 label={
                   <span>
-                    Отключить глобальные Guardrails{" "}
-                    <Tooltip title="Если включено, эта команда будет обходить все guardrails, настроенные для выполнения при каждом запросе (глобальные guardrails)">
+                    {t('Otklyuchit_globalnye_Guardrails')}{" "}
+                    <Tooltip title={t('Esli_vklyucheno_eta_komanda_budet_obhodi')}>
                       <InfoCircleOutlined style={{ marginLeft: "4px" }} />
                     </Tooltip>
                   </span>
@@ -540,11 +542,11 @@ const CreateTeamModal = ({
                 name="disable_global_guardrails"
                 className="mt-4"
                 valuePropName="checked"
-                help="Обходить глобальные guardrails для этой команды"
+                help={t('Obhodit_globalnye_guardrails_dlya_etoy')}
               >
                 <Switch
-                  checkedChildren="Да"
-                  unCheckedChildren="Нет"
+                  checkedChildren={t('Da')}
+                  unCheckedChildren={t('Net')}
                 />
               </Form.Item>
               <Form.Item
@@ -565,12 +567,12 @@ const CreateTeamModal = ({
                 }
                 name="policies"
                 className="mt-8"
-                help="Выберите существующие политики или введите новые"
+                help={t('Vyberite_suschestvuyuschie_politiki_ili_')}
               >
                 <Select2
                   mode="tags"
                   style={{ width: "100%" }}
-                  placeholder="Выбрать или ввести политики"
+                  placeholder={t('Vybrat_ili_vvesti_politiki')}
                   options={policiesList.map((name) => ({
                     value: name,
                     label: name,
@@ -580,21 +582,21 @@ const CreateTeamModal = ({
               <Form.Item
                 label={
                   <span>
-                    Разрешённые хранилища векторов{" "}
-                    <Tooltip title="Выберите хранилища векторов, к которым эта команда может получить доступ по умолчанию. Оставьте пустым для доступа ко всем хранилищам">
+                    {t('Razreshyonnye_hranilischa_vektorov')}{" "}
+                    <Tooltip title={t('Vyberite_hranilischa_vektorov_k_kotorym__1')}>
                       <InfoCircleOutlined style={{ marginLeft: "4px" }} />
                     </Tooltip>
                   </span>
                 }
                 name="allowed_vector_store_ids"
                 className="mt-8"
-                help="Выберите хранилища векторов, к которым команда может получить доступ. Оставьте пустым для доступа ко всем"
+                help={t('Vyberite_hranilischa_vektorov_k_kotorym_')}
               >
                 <VectorStoreSelector
                   onChange={(values: string[]) => form.setFieldValue("allowed_vector_store_ids", values)}
                   value={form.getFieldValue("allowed_vector_store_ids")}
                   accessToken={accessToken || ""}
-                  placeholder="Выбрать хранилища векторов (необязательно)"
+                  placeholder={t('Vybrat_hranilischa_vektorov_neobyazateln')}
                 />
               </Form.Item>
             </AccordionBody>
@@ -602,27 +604,27 @@ const CreateTeamModal = ({
 
           <Accordion className="mt-8 mb-8">
             <AccordionHeader>
-              <b>Настройки MCP</b>
+              <b>{t('Nastroyki_MCP')}</b>
             </AccordionHeader>
             <AccordionBody>
               <Form.Item
                 label={
                   <span>
-                    Разрешённые MCP серверы{" "}
-                    <Tooltip title="Выберите MCP серверы или группы доступа, к которым может обращаться эта команда">
+                    {t('Razreshyonnye_MCP_servery')}{" "}
+                    <Tooltip title={t('Vyberite_MCP_servery_ili_gruppy_dostupa_1')}>
                       <InfoCircleOutlined style={{ marginLeft: "4px" }} />
                     </Tooltip>
                   </span>
                 }
                 name="allowed_mcp_servers_and_groups"
                 className="mt-4"
-                help="Выберите MCP серверы или группы доступа для этой команды"
+                help={t('Vyberite_MCP_servery_ili_gruppy_dostupa')}
               >
                 <MCPServerSelector
                   onChange={(val: any) => form.setFieldValue("allowed_mcp_servers_and_groups", val)}
                   value={form.getFieldValue("allowed_mcp_servers_and_groups")}
                   accessToken={accessToken || ""}
-                  placeholder="Выбрать MCP серверы или группы доступа (необязательно)"
+                  placeholder={t('Vybrat_MCP_servery_ili_gruppy_dostupa')}
                 />
               </Form.Item>
 
@@ -654,27 +656,27 @@ const CreateTeamModal = ({
 
           <Accordion className="mt-8 mb-8">
             <AccordionHeader>
-              <b>Настройки агентов</b>
+              <b>{t('Nastroyki_agentov')}</b>
             </AccordionHeader>
             <AccordionBody>
               <Form.Item
                 label={
                   <span>
-                    Разрешённые агенты{" "}
-                    <Tooltip title="Выберите агентов или группы доступа, к которым может обращаться эта команда">
+                    {t('Razreshyonnye_agenty')}{" "}
+                    <Tooltip title={t('Vyberite_agentov_ili_gruppy_dostupa_k_k')}>
                       <InfoCircleOutlined style={{ marginLeft: "4px" }} />
                     </Tooltip>
                   </span>
                 }
                 name="allowed_agents_and_groups"
                 className="mt-4"
-                help="Выберите агентов или группы доступа для этой команды"
+                help={t('Vyberite_agentov_ili_gruppy_dostupa_dlya_2')}
               >
                 <AgentSelector
                   onChange={(val: any) => form.setFieldValue("allowed_agents_and_groups", val)}
                   value={form.getFieldValue("allowed_agents_and_groups")}
                   accessToken={accessToken || ""}
-                  placeholder="Выбрать агентов или группы доступа (необязательно)"
+                  placeholder={t('Vybrat_agentov_ili_gruppy_dostupa_neob')}
                 />
               </Form.Item>
             </AccordionBody>
@@ -682,7 +684,7 @@ const CreateTeamModal = ({
 
           <Accordion className="mt-8 mb-8">
             <AccordionHeader>
-              <b>Настройки логирования</b>
+              <b>{t('Nastroyki_logirovaniya')}</b>
             </AccordionHeader>
             <AccordionBody>
               <div className="mt-4">
@@ -697,12 +699,12 @@ const CreateTeamModal = ({
 
           <Accordion className="mt-8 mb-8">
             <AccordionHeader>
-              <b>Псевдонимы моделей</b>
+              <b>{t('Psevdonimy_modeley')}</b>
             </AccordionHeader>
             <AccordionBody>
               <div className="mt-4">
                 <Text className="text-sm text-gray-600 mb-4">
-                  Создайте пользовательские псевдонимы для моделей, которые могут использоваться участниками команды в API-запросах. Это позволяет создавать сокращения для конкретных моделей.
+                  {t('Sozdayte_polzovatelskie_psevdonimy_dlya_1')}
                 </Text>
                 <ModelAliasManager
                   accessToken={accessToken || ""}
@@ -715,7 +717,7 @@ const CreateTeamModal = ({
           </Accordion>
         </>
         <div style={{ textAlign: "right", marginTop: "10px" }}>
-          <Button2 htmlType="submit" data-testid="create-team-submit">Создать команду</Button2>
+          <Button2 htmlType="submit" data-testid="create-team-submit">{t('Sozdat_komandu_1')}</Button2>
         </div>
       </Form>
     </Modal>

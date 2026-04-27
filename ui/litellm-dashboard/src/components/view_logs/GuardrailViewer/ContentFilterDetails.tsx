@@ -1,4 +1,7 @@
+import "@/i18n";
 import React, { useState } from "react";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 export interface ContentFilterDetection {
   type: "pattern" | "blocked_word" | "category_keyword";
@@ -34,6 +37,7 @@ interface SectionProps {
 }
 
 const Section: React.FC<SectionProps> = ({ title, count, defaultOpen = true, children }) => {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(defaultOpen);
   return (
     <div className="border rounded-lg overflow-hidden">
@@ -80,7 +84,7 @@ const ContentFilterDetails: React.FC<ContentFilterDetailsProps> = ({ response })
       return (
         <div className="bg-white rounded-lg border border-red-200 p-4">
           <div className="text-red-800">
-            <h5 className="font-medium mb-2">Error</h5>
+            <h5 className="font-medium mb-2">{t('Error')}</h5>
             <p className="text-sm">{response}</p>
           </div>
         </div>
@@ -95,7 +99,7 @@ const ContentFilterDetails: React.FC<ContentFilterDetailsProps> = ({ response })
   if (detections.length === 0) {
     return (
       <div className="bg-white rounded-lg border border-gray-200 p-4">
-        <div className="text-gray-600 text-sm">No detections found</div>
+        <div className="text-gray-600 text-sm">{t('No_detections_found')}</div>
       </div>
     );
   }

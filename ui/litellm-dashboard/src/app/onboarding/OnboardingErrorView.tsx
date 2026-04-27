@@ -1,7 +1,9 @@
 import React from "react";
 import { Alert, Button } from "antd";
+import { useTranslation } from "react-i18next";
 
 export function OnboardingErrorView() {
+  const { t } = useTranslation();
   return (
     <div className="mx-auto w-full max-w-md mt-10">
       <Alert
@@ -11,7 +13,7 @@ export function OnboardingErrorView() {
         showIcon
       />
       <div className="mt-4">
-        <Button href="/ui/login">Back to Login</Button>
+        <Button href="/ui/login">{t('Back_to_Login')}</Button>
       </div>
     </div>
   );

@@ -6,8 +6,10 @@ import useAuthorized from "@/app/(dashboard)/hooks/useAuthorized";
 import NotificationManager from "@/components/molecules/notifications_manager";
 import PageVisibilitySettings from "./PageVisibilitySettings";
 import { Alert, Card, Divider, Skeleton, Space, Switch, Typography } from "antd";
+import { useTranslation } from "react-i18next";
 
 export default function UISettings() {
+  const { t } = useTranslation();
   const { accessToken } = useAuthorized();
   const { data, isLoading, isError, error } = useUISettings();
   const { mutate: updateSettings, isPending: isUpdating, error: updateError } = useUpdateUISettings(accessToken);
@@ -230,7 +232,7 @@ export default function UISettings() {
               aria-label={property?.description ?? "Disable model add for internal users"}
             />
             <Space direction="vertical" size={4}>
-              <Typography.Text strong>Disable model add for internal users</Typography.Text>
+              <Typography.Text strong>{t('Disable_model_add_for_internal_users')}</Typography.Text>
               {property?.description && <Typography.Text type="secondary">{property.description}</Typography.Text>}
             </Space>
           </Space>
@@ -244,7 +246,7 @@ export default function UISettings() {
               aria-label={disableTeamAdminDeleteProperty?.description ?? "Disable team admin delete team user"}
             />
             <Space direction="vertical" size={4}>
-              <Typography.Text strong>Disable team admin delete team user</Typography.Text>
+              <Typography.Text strong>{t('Disable_team_admin_delete_team_user')}</Typography.Text>
               {disableTeamAdminDeleteProperty?.description && (
                 <Typography.Text type="secondary">{disableTeamAdminDeleteProperty.description}</Typography.Text>
               )}
@@ -260,7 +262,7 @@ export default function UISettings() {
               aria-label={requireAuthForPublicAIHubProperty?.description ?? "Require authentication for public AI Hub"}
             />
             <Space direction="vertical" size={4}>
-              <Typography.Text strong>Require authentication for public AI Hub</Typography.Text>
+              <Typography.Text strong>{t('Require_authentication_for_public_AI_Hub')}</Typography.Text>
               {requireAuthForPublicAIHubProperty?.description && (
                 <Typography.Text type="secondary">{requireAuthForPublicAIHubProperty.description}</Typography.Text>
               )}
@@ -276,7 +278,7 @@ export default function UISettings() {
               aria-label={forwardClientHeadersProperty?.description ?? "Forward client headers to LLM API"}
             />
             <Space direction="vertical" size={4}>
-              <Typography.Text strong>Forward client headers to LLM API</Typography.Text>
+              <Typography.Text strong>{t('Forward_client_headers_to_LLM_API')}</Typography.Text>
               <Typography.Text type="secondary">
                 {forwardClientHeadersProperty?.description ??
                   "If enabled, forwards client headers (e.g. Authorization) to the LLM API. Required for Claude Code with Max subscription."}
@@ -313,7 +315,7 @@ export default function UISettings() {
               aria-label={disableAgentsProperty?.description ?? "Disable agents for internal users"}
             />
             <Space direction="vertical" size={4}>
-              <Typography.Text strong>Disable agents for internal users</Typography.Text>
+              <Typography.Text strong>{t('Disable_agents_for_internal_users')}</Typography.Text>
               {disableAgentsProperty?.description && (
                 <Typography.Text type="secondary">{disableAgentsProperty.description}</Typography.Text>
               )}
@@ -350,7 +352,7 @@ export default function UISettings() {
               aria-label={disableVectorStoresProperty?.description ?? "Disable vector stores for internal users"}
             />
             <Space direction="vertical" size={4}>
-              <Typography.Text strong>Disable vector stores for internal users</Typography.Text>
+              <Typography.Text strong>{t('Disable_vector_stores_for_internal_users')}</Typography.Text>
               {disableVectorStoresProperty?.description && (
                 <Typography.Text type="secondary">{disableVectorStoresProperty.description}</Typography.Text>
               )}
@@ -387,7 +389,7 @@ export default function UISettings() {
               aria-label={scopeUserSearchProperty?.description ?? "Scope user search to organization"}
             />
             <Space direction="vertical" size={4}>
-              <Typography.Text strong>Scope user search to organization</Typography.Text>
+              <Typography.Text strong>{t('Scope_user_search_to_organization')}</Typography.Text>
               <Typography.Text type="secondary">
                 {scopeUserSearchProperty?.description ??
                   "If enabled, the user search endpoint restricts results by organization. When off, any authenticated user can search all users."}
@@ -407,7 +409,7 @@ export default function UISettings() {
               aria-label={disableCustomApiKeysProperty?.description ?? "Disable custom Virtual key values"}
             />
             <Space direction="vertical" size={4}>
-              <Typography.Text strong>Disable custom Virtual key values</Typography.Text>
+              <Typography.Text strong>{t('Disable_custom_Virtual_key_values')}</Typography.Text>
               <Typography.Text type="secondary">
                 {disableCustomApiKeysProperty?.description ??
                   "If true, users cannot specify custom key values. All keys must be auto-generated."}

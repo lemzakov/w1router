@@ -9,6 +9,7 @@ import {
   getModelCostMapSource,
 } from "./networking";
 import NotificationsManager from "./molecules/notifications_manager";
+import { useTranslation } from "react-i18next";
 
 const { Text } = Typography;
 
@@ -46,6 +47,7 @@ const PriceDataReload: React.FC<PriceDataReloadProps> = ({
   type = "primary",
   className = "",
 }) => {
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [isScheduling, setIsScheduling] = useState(false);
   const [isCancelling, setIsCancelling] = useState(false);
@@ -384,7 +386,7 @@ const PriceDataReload: React.FC<PriceDataReloadProps> = ({
               <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 2 }}>
                 <InfoCircleOutlined style={{ color: "#fa8c16", fontSize: 12 }} />
                 <Text type="secondary" style={{ fontSize: "11px" }}>
-                  Local mode forced via <code>LITELLM_LOCAL_MODEL_COST_MAP=True</code>
+                  Local mode forced via <code>{t('LITELLMLOCALMODELCOSTMAPTrue')}</code>
                 </Text>
               </div>
             )}
@@ -431,7 +433,7 @@ const PriceDataReload: React.FC<PriceDataReloadProps> = ({
                 </Tag>
               </div>
             ) : (
-              <Text type="secondary">No periodic reload scheduled</Text>
+              <Text type="secondary">{t('No_periodic_reload_scheduled')}</Text>
             )}
 
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -481,7 +483,7 @@ const PriceDataReload: React.FC<PriceDataReloadProps> = ({
         }}
       >
         <div style={{ marginBottom: 16 }}>
-          <Text>Set up automatic reload of price data every:</Text>
+          <Text>{t('Set_up_automatic_reload_of_price_data_ev')}</Text>
         </div>
         <div style={{ marginBottom: 16 }}>
           <InputNumber

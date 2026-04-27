@@ -1,5 +1,6 @@
 "use client";
 
+import "@/i18n";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Spin, Input, Button, Skeleton } from "antd";
 import { SearchOutlined, ArrowLeftOutlined, RightOutlined, ToolOutlined, CheckCircleOutlined } from "@ant-design/icons";
@@ -7,6 +8,8 @@ import { deleteMCPOAuthUserCredential, fetchMCPServers, getMCPOAuthUserCredentia
 import { AUTH_TYPE, MCPServer, MCPTool, handleTransport } from "../mcp_tools/types";
 import MessageManager from "@/components/molecules/message_manager";
 import { useUserMcpOAuthFlow } from "@/hooks/useUserMcpOAuthFlow";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 // ── OAuth2 connect button ─────────────────────────────────────────────────────
 // Wraps useUserMcpOAuthFlow so each server card can hold its own hook instance.
@@ -24,6 +27,7 @@ const OAuth2ConnectButton: React.FC<OAuth2ConnectButtonProps> = ({
   onConnect,
   variant = "badge",
 }) => {
+  const { t } = useTranslation();
   const name = server.server_name ?? server.alias ?? server.server_id;
   const { startOAuthFlow, status } = useUserMcpOAuthFlow({
     accessToken,
@@ -348,7 +352,7 @@ const MCPAppsPanel: React.FC<Props> = ({ accessToken, selectedServers, onChange 
         </div>
 
         {/* Info table */}
-        <h3 style={{ margin: "0 0 12px", fontSize: 15, fontWeight: 600, color: "#111827" }}>Information</h3>
+        <h3 style={{ margin: "0 0 12px", fontSize: 15, fontWeight: 600, color: "#111827" }}>{t('Information')}</h3>
         <div style={{ border: "1px solid #e5e7eb", borderRadius: 10, overflow: "hidden", marginBottom: 28 }}>
           {[
             ["Server ID", detailServer.server_id],
@@ -369,7 +373,7 @@ const MCPAppsPanel: React.FC<Props> = ({ accessToken, selectedServers, onChange 
 
         {/* Tools section */}
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
-          <h3 style={{ margin: 0, fontSize: 15, fontWeight: 600, color: "#111827" }}>Available Tools</h3>
+          <h3 style={{ margin: 0, fontSize: 15, fontWeight: 600, color: "#111827" }}>{t('Available_Tools')}</h3>
           {!loadingTools && (
             <span style={{
               fontSize: 11, fontWeight: 600, color: "#6b7280",
@@ -415,12 +419,12 @@ const MCPAppsPanel: React.FC<Props> = ({ accessToken, selectedServers, onChange 
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20, gap: 16, flexWrap: "wrap" }}>
         <div>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
-            <h2 style={{ margin: 0, fontSize: 18, fontWeight: 600, color: "#111827" }}>MCP Servers</h2>
+            <h2 style={{ margin: 0, fontSize: 18, fontWeight: 600, color: "#111827" }}>{t('MCP_Servers')}</h2>
             <span style={{
               fontSize: 10, fontWeight: 600, color: "#1677ff",
               background: "#e8f4ff", borderRadius: 4, padding: "1px 6px",
               letterSpacing: "0.05em", textTransform: "uppercase",
-            }}>Beta</span>
+            }}>{t('Beta')}</span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
             <p style={{ margin: 0, fontSize: 13, color: "#6b7280" }}>

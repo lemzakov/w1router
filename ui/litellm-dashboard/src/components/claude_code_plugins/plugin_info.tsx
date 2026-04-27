@@ -24,6 +24,7 @@ import {
   getSourceLink
 } from "./helpers";
 import { Plugin } from "./types";
+import { useTranslation } from "react-i18next";
 
 interface PluginInfoViewProps {
   pluginId: string;
@@ -40,6 +41,7 @@ const PluginInfoView: React.FC<PluginInfoViewProps> = ({
   isAdmin,
   onPluginUpdated,
 }) => {
+  const { t } = useTranslation();
   const [plugin, setPlugin] = useState<Plugin | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isToggling, setIsToggling] = useState(false);
@@ -106,7 +108,7 @@ const PluginInfoView: React.FC<PluginInfoViewProps> = ({
   if (!plugin) {
     return (
       <div className="p-8 text-center text-gray-500">
-        <p>Plugin not found</p>
+        <p>{t('Plugin_not_found')}</p>
         <Button className="mt-4" onClick={onClose}>
           Go Back
         </Button>
@@ -146,7 +148,7 @@ const PluginInfoView: React.FC<PluginInfoViewProps> = ({
       <Card>
         <div className="flex items-center justify-between">
           <div className="flex-1">
-            <Text className="text-gray-600 text-xs mb-2">Install Command</Text>
+            <Text className="text-gray-600 text-xs mb-2">{t('Install_Command')}</Text>
             <div className="font-mono bg-gray-100 px-3 py-2 rounded text-sm">
               {installCommand}
             </div>
@@ -167,13 +169,13 @@ const PluginInfoView: React.FC<PluginInfoViewProps> = ({
 
       {/* Plugin Details */}
       <Card>
-        <Title>Plugin Details</Title>
+        <Title>{t('Plugin_Details')}</Title>
         <Grid
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4"
         >
           {/* Plugin ID */}
           <div>
-            <Text className="text-gray-600 text-xs">Plugin ID</Text>
+            <Text className="text-gray-600 text-xs">{t('Plugin_ID')}</Text>
             <div className="flex items-center gap-2 mt-1">
               <Text className="font-mono text-xs">{plugin.id}</Text>
               <CopyOutlined
@@ -185,13 +187,13 @@ const PluginInfoView: React.FC<PluginInfoViewProps> = ({
 
           {/* Name */}
           <div>
-            <Text className="text-gray-600 text-xs">Name</Text>
+            <Text className="text-gray-600 text-xs">{t('Name_1')}</Text>
             <Text className="font-semibold mt-1">{plugin.name}</Text>
           </div>
 
           {/* Version */}
           <div>
-            <Text className="text-gray-600 text-xs">Version</Text>
+            <Text className="text-gray-600 text-xs">{t('Version_1')}</Text>
             <Text className="font-semibold mt-1">
               {plugin.version || "N/A"}
             </Text>
@@ -199,7 +201,7 @@ const PluginInfoView: React.FC<PluginInfoViewProps> = ({
 
           {/* Source */}
           <div className="col-span-2">
-            <Text className="text-gray-600 text-xs">Source</Text>
+            <Text className="text-gray-600 text-xs">{t('Source')}</Text>
             <div className="flex items-center gap-2 mt-1">
               <Text className="font-semibold">
                 {getSourceDisplayText(plugin.source)}
@@ -219,14 +221,14 @@ const PluginInfoView: React.FC<PluginInfoViewProps> = ({
 
           {/* Category */}
           <div>
-            <Text className="text-gray-600 text-xs">Category</Text>
+            <Text className="text-gray-600 text-xs">{t('Category_1')}</Text>
             <div className="mt-1">
               {plugin.category ? (
                 <Badge color={categoryBadgeColor} size="xs">
                   {plugin.category}
                 </Badge>
               ) : (
-                <Text className="text-gray-400">Uncategorized</Text>
+                <Text className="text-gray-400">{t('Uncategorized')}</Text>
               )}
             </div>
           </div>
@@ -234,7 +236,7 @@ const PluginInfoView: React.FC<PluginInfoViewProps> = ({
           {/* Enabled Status */}
           {isAdmin && (
             <div className="col-span-3">
-              <Text className="text-gray-600 text-xs">Status</Text>
+              <Text className="text-gray-600 text-xs">{t('Status_3')}</Text>
               <div className="flex items-center gap-3 mt-2">
                 <Switch
                   checked={plugin.enabled}
@@ -255,7 +257,7 @@ const PluginInfoView: React.FC<PluginInfoViewProps> = ({
       {/* Description */}
       {plugin.description && (
         <Card>
-          <Title>Description</Title>
+          <Title>{t('Description_1')}</Title>
           <Text className="mt-2">{plugin.description}</Text>
         </Card>
       )}
@@ -263,7 +265,7 @@ const PluginInfoView: React.FC<PluginInfoViewProps> = ({
       {/* Keywords */}
       {plugin.keywords && plugin.keywords.length > 0 && (
         <Card>
-          <Title>Keywords</Title>
+          <Title>{t('Keywords')}</Title>
           <div className="flex flex-wrap gap-2 mt-2">
             {plugin.keywords.map((keyword, index) => (
               <Badge key={index} color="gray" size="xs">
@@ -277,11 +279,11 @@ const PluginInfoView: React.FC<PluginInfoViewProps> = ({
       {/* Author Information */}
       {plugin.author && (
         <Card>
-          <Title>Author Information</Title>
+          <Title>{t('Author_Information')}</Title>
           <Grid className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
             {plugin.author.name && (
               <div>
-                <Text className="text-gray-600 text-xs">Name</Text>
+                <Text className="text-gray-600 text-xs">{t('Name_1')}</Text>
                 <Text className="font-semibold mt-1">
                   {plugin.author.name}
                 </Text>
@@ -289,7 +291,7 @@ const PluginInfoView: React.FC<PluginInfoViewProps> = ({
             )}
             {plugin.author.email && (
               <div>
-                <Text className="text-gray-600 text-xs">Email</Text>
+                <Text className="text-gray-600 text-xs">{t('Email')}</Text>
                 <Text className="font-semibold mt-1">
                   <a
                     href={`mailto:${plugin.author.email}`}
@@ -307,7 +309,7 @@ const PluginInfoView: React.FC<PluginInfoViewProps> = ({
       {/* Additional Links */}
       {plugin.homepage && (
         <Card>
-          <Title>Homepage</Title>
+          <Title>{t('Homepage')}</Title>
           <a
             href={plugin.homepage}
             target="_blank"
@@ -322,23 +324,23 @@ const PluginInfoView: React.FC<PluginInfoViewProps> = ({
 
       {/* Timestamps */}
       <Card>
-        <Title>Metadata</Title>
+        <Title>{t('Metadata')}</Title>
         <Grid className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
           <div>
-            <Text className="text-gray-600 text-xs">Created At</Text>
+            <Text className="text-gray-600 text-xs">{t('Created_At')}</Text>
             <Text className="font-semibold mt-1">
               {formatDateString(plugin.created_at)}
             </Text>
           </div>
           <div>
-            <Text className="text-gray-600 text-xs">Updated At</Text>
+            <Text className="text-gray-600 text-xs">{t('Updated_At')}</Text>
             <Text className="font-semibold mt-1">
               {formatDateString(plugin.updated_at)}
             </Text>
           </div>
           {plugin.created_by && (
             <div className="col-span-2">
-              <Text className="text-gray-600 text-xs">Created By</Text>
+              <Text className="text-gray-600 text-xs">{t('Created_By')}</Text>
               <Text className="font-semibold mt-1">{plugin.created_by}</Text>
             </div>
           )}

@@ -4,6 +4,7 @@ import { ArrowLeftOutlined } from "@ant-design/icons";
 import AddGuardrailForm from "./add_guardrail_form";
 import { GUARDRAIL_PRESETS } from "./guardrail_garden_configs";
 import { GuardrailCardInfo } from "./guardrail_garden_data";
+import { useTranslation } from "react-i18next";
 
 interface GuardrailDetailViewProps {
   card: GuardrailCardInfo;
@@ -18,6 +19,7 @@ const GuardrailDetailView: React.FC<GuardrailDetailViewProps> = ({
   accessToken,
   onGuardrailCreated,
 }) => {
+  const { t } = useTranslation();
   const [isAddFormVisible, setIsAddFormVisible] = useState(false);
   const [activeTab, setActiveTab] = useState("overview");
 
@@ -128,18 +130,18 @@ const GuardrailDetailView: React.FC<GuardrailDetailViewProps> = ({
         <div style={{ display: "flex", gap: 64 }}>
           {/* Left column — overview + details table */}
           <div style={{ flex: 1, minWidth: 0 }}>
-            <h2 style={{ fontSize: 18, fontWeight: 400, color: "#202124", margin: "0 0 12px 0" }}>Overview</h2>
+            <h2 style={{ fontSize: 18, fontWeight: 400, color: "#202124", margin: "0 0 12px 0" }}>{t('Overview')}</h2>
             <p style={{ fontSize: 14, color: "#3c4043", lineHeight: 1.7, margin: "0 0 32px 0" }}>
               {card.description}
             </p>
 
-            <h2 style={{ fontSize: 18, fontWeight: 400, color: "#202124", margin: "0 0 4px 0" }}>Guardrail Details</h2>
-            <p style={{ fontSize: 13, color: "#5f6368", margin: "0 0 16px 0" }}>Details are as follows</p>
+            <h2 style={{ fontSize: 18, fontWeight: 400, color: "#202124", margin: "0 0 4px 0" }}>{t('Guardrail_Details')}</h2>
+            <p style={{ fontSize: 13, color: "#5f6368", margin: "0 0 16px 0" }}>{t('Details_are_as_follows')}</p>
 
             <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 14 }}>
               <thead>
                 <tr style={{ borderBottom: "1px solid #dadce0" }}>
-                  <th style={{ textAlign: "left", padding: "12px 0", color: "#5f6368", fontWeight: 500, width: 200 }}>Property</th>
+                  <th style={{ textAlign: "left", padding: "12px 0", color: "#5f6368", fontWeight: 500, width: 200 }}>{t('Property')}</th>
                   <th style={{ textAlign: "left", padding: "12px 0", color: "#5f6368", fontWeight: 500 }}>{card.name}</th>
                 </tr>
               </thead>
@@ -158,7 +160,7 @@ const GuardrailDetailView: React.FC<GuardrailDetailViewProps> = ({
           <div style={{ width: 240, flexShrink: 0 }}>
             {/* Guardrail ID */}
             <div style={{ marginBottom: 28 }}>
-              <div style={{ fontSize: 12, color: "#5f6368", marginBottom: 4 }}>Guardrail ID</div>
+              <div style={{ fontSize: 12, color: "#5f6368", marginBottom: 4 }}>{t('Guardrail_ID')}</div>
               <div style={{ fontSize: 13, color: "#202124", wordBreak: "break-all" }}>
                 litellm/{card.id}
               </div>
@@ -166,7 +168,7 @@ const GuardrailDetailView: React.FC<GuardrailDetailViewProps> = ({
 
             {/* Type */}
             <div style={{ marginBottom: 28 }}>
-              <div style={{ fontSize: 12, color: "#5f6368", marginBottom: 4 }}>Type</div>
+              <div style={{ fontSize: 12, color: "#5f6368", marginBottom: 4 }}>{t('Type_1')}</div>
               <div style={{ fontSize: 13, color: "#202124" }}>
                 {card.category === "litellm" ? "Content Filter" : "Partner"}
               </div>
@@ -175,7 +177,7 @@ const GuardrailDetailView: React.FC<GuardrailDetailViewProps> = ({
             {/* Tags — pill style like Vertex */}
             {card.tags.length > 0 && (
               <div style={{ marginBottom: 28 }}>
-                <div style={{ fontSize: 12, color: "#5f6368", marginBottom: 8 }}>Tags</div>
+                <div style={{ fontSize: 12, color: "#5f6368", marginBottom: 8 }}>{t('Tags')}</div>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
                   {card.tags.map((tag) => (
                     <span
@@ -201,12 +203,12 @@ const GuardrailDetailView: React.FC<GuardrailDetailViewProps> = ({
 
       {activeTab === "eval" && (
         <div>
-          <h2 style={{ fontSize: 18, fontWeight: 400, color: "#202124", margin: "0 0 16px 0" }}>Eval Results</h2>
+          <h2 style={{ fontSize: 18, fontWeight: 400, color: "#202124", margin: "0 0 16px 0" }}>{t('Eval_Results')}</h2>
           <table style={{ width: "100%", maxWidth: 560, borderCollapse: "collapse", fontSize: 14 }}>
             <thead>
               <tr style={{ backgroundColor: "#f8f9fa", borderBottom: "1px solid #dadce0" }}>
-                <th style={{ textAlign: "left", padding: "12px 16px", color: "#5f6368", fontWeight: 500 }}>Metric</th>
-                <th style={{ textAlign: "left", padding: "12px 16px", color: "#5f6368", fontWeight: 500 }}>Value</th>
+                <th style={{ textAlign: "left", padding: "12px 16px", color: "#5f6368", fontWeight: 500 }}>{t('Metric')}</th>
+                <th style={{ textAlign: "left", padding: "12px 16px", color: "#5f6368", fontWeight: 500 }}>{t('Value')}</th>
               </tr>
             </thead>
             <tbody>

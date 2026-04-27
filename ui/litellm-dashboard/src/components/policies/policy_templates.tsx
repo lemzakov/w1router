@@ -1,3 +1,4 @@
+import "@/i18n";
 import React, { useState, useEffect, useMemo } from "react";
 import { Card, Button, Spin, Checkbox } from "antd";
 import MessageManager from "@/components/molecules/message_manager";
@@ -9,6 +10,8 @@ import {
   CheckCircleIcon,
 } from "@heroicons/react/outline";
 import { getPolicyTemplates } from "../networking";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 interface PolicyTemplateCardProps {
   title: string;
@@ -35,6 +38,7 @@ const PolicyTemplateCard: React.FC<PolicyTemplateCardProps> = ({
   complexity,
   onUseTemplate,
 }) => {
+  const { t } = useTranslation();
   const getComplexityStyle = () => {
     switch (complexity) {
       case "Low":
@@ -80,7 +84,7 @@ const PolicyTemplateCard: React.FC<PolicyTemplateCardProps> = ({
 
       {inherits && (
         <div className="mb-4 text-xs">
-          <span className="text-gray-500">Inherits from: </span>
+          <span className="text-gray-500">{t('Inherits_from')}</span>
           <span className="font-medium text-gray-700 bg-gray-100 px-2 py-0.5 rounded">
             {inherits}
           </span>
@@ -298,7 +302,7 @@ const PolicyTemplates: React.FC<PolicyTemplatesProps> = ({ onUseTemplate, onOpen
 
           {filteredTemplates.length === 0 && (
             <div className="text-center py-12 text-gray-500">
-              <p>No templates match the selected filters.</p>
+              <p>{t('No_templates_match_the_selected_filters')}</p>
               <button
                 onClick={handleClearAll}
                 className="text-blue-600 hover:text-blue-800 mt-2 text-sm"

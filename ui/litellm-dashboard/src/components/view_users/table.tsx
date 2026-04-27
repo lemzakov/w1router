@@ -1,3 +1,4 @@
+import "@/i18n";
 import { ColumnDef, flexRender, getCoreRowModel, SortingState, useReactTable } from "@tanstack/react-table";
 import React from "react";
 import { Table, TableHead, TableHeaderCell, TableBody, TableRow, TableCell, Select, SelectItem } from "@tremor/react";
@@ -10,6 +11,8 @@ import { FilterInput } from "@/components/common_components/Filters/FilterInput"
 import { FiltersButton } from "@/components/common_components/Filters/FiltersButton";
 import { ResetFiltersButton } from "@/components/common_components/Filters/ResetFiltersButton";
 import { Search, User, CircleUserRound } from "lucide-react";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 interface FilterState {
   email: string;
@@ -198,6 +201,7 @@ export function UserDataTable({
   }, [currentSort]);
 
   if (selectedUserId) {
+    const { t } = useTranslation();
     return (
       <UserInfoView
         userId={selectedUserId}
@@ -220,7 +224,7 @@ export function UserDataTable({
           <div className="flex flex-wrap items-center gap-3">
             {/* Email Search */}
             <FilterInput
-              placeholder="Поиск по email..."
+              placeholder={t('Poisk_po_email')}
               value={filters.email}
               onChange={(value) => updateFilters({ email: value })}
               icon={Search}
@@ -246,14 +250,14 @@ export function UserDataTable({
             <div className="flex flex-wrap items-center gap-3 mt-3">
               {/* User ID Search */}
               <FilterInput
-                placeholder="Фильтр по ID пользователя"
+                placeholder={t('Filtr_po_ID_polzovatelya')}
                 value={filters.user_id}
                 onChange={(value) => updateFilters({ user_id: value })}
                 icon={User}
               />
 
               <FilterInput
-                placeholder="Фильтр по SSO ID"
+                placeholder={t('Filtr_po_SSO_ID')}
                 value={filters.sso_user_id}
                 onChange={(value) => updateFilters({ sso_user_id: value })}
                 icon={CircleUserRound}
@@ -264,7 +268,7 @@ export function UserDataTable({
                 <Select
                   value={filters.user_role}
                   onValueChange={(value) => updateFilters({ user_role: value })}
-                  placeholder="Выбрать роль"
+                  placeholder={t('Vybrat_rol')}
                 >
                   {possibleUIRoles &&
                     Object.entries(possibleUIRoles).map(([key, value]) => (
@@ -280,7 +284,7 @@ export function UserDataTable({
                 <Select
                   value={filters.team}
                   onValueChange={(value) => updateFilters({ team: value })}
-                  placeholder="Выбрать команду"
+                  placeholder={t('Vybrat_komandu')}
                 >
                   {teams?.map((team) => (
                     <SelectItem key={team.team_id} value={team.team_id}>
@@ -298,7 +302,7 @@ export function UserDataTable({
               <Skeleton.Input active style={{ width: 192, height: 20 }} />
             ) : (
               <span className="text-sm text-gray-700">
-                Показано{" "}
+                {t('Pokazano')}{" "}
                 {userListResponse && userListResponse.users && userListResponse.users.length > 0
                   ? (userListResponse.page - 1) * userListResponse.page_size + 1
                   : 0}{" "}
@@ -306,7 +310,7 @@ export function UserDataTable({
                 {userListResponse && userListResponse.users
                   ? Math.min(userListResponse.page * userListResponse.page_size, userListResponse.total)
                   : 0}{" "}
-                из {userListResponse ? userListResponse.total : 0} результатов
+                {t('iz')} {userListResponse ? userListResponse.total : 0} {t('rezultatov')}
               </span>
             )}
 
@@ -326,7 +330,7 @@ export function UserDataTable({
                       currentPage === 1 ? "bg-gray-100 text-gray-400 cursor-not-allowed" : "hover:bg-gray-50"
                     }`}
                   >
-                    Назад
+                    {t('Nazad')}
                   </button>
                   <button
                     onClick={() => handlePageChange(currentPage + 1)}
@@ -337,7 +341,7 @@ export function UserDataTable({
                         : "hover:bg-gray-50"
                     }`}
                   >
-                    Далее
+                    {t('Dalee')}
                   </button>
                 </>
               )}
@@ -393,7 +397,7 @@ export function UserDataTable({
                   <TableRow>
                     <TableCell colSpan={columns.length} className="h-8 text-center">
                       <div className="text-center text-gray-500">
-                        <p>🚅 Загрузка пользователей...</p>
+                        <p>{t('Zagruzka_polzovateley')}</p>
                       </div>
                     </TableCell>
                   </TableRow>
@@ -427,7 +431,7 @@ export function UserDataTable({
                   <TableRow>
                     <TableCell colSpan={columns.length} className="h-8 text-center">
                       <div className="text-center text-gray-500">
-                        <p>Пользователи не найдены</p>
+                        <p>{t('Polzovateli_ne_naydeny')}</p>
                       </div>
                     </TableCell>
                   </TableRow>

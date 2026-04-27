@@ -12,6 +12,7 @@ import {
 } from "@ant-design/icons";
 import { parseErrorMessage } from "./shared/errorUtils";
 import NotificationsManager from "./molecules/notifications_manager";
+import { useTranslation } from "react-i18next";
 
 interface SCIMConfigProps {
   accessToken: string | null;
@@ -20,6 +21,7 @@ interface SCIMConfigProps {
 }
 
 const SCIMConfig: React.FC<SCIMConfigProps> = ({ accessToken, userID, proxySettings }) => {
+  const { t } = useTranslation();
   const [form] = Form.useForm();
   const [isCreatingToken, setIsCreatingToken] = useState(false);
   const [tokenData, setTokenData] = useState<any>(null);
@@ -71,7 +73,7 @@ const SCIMConfig: React.FC<SCIMConfigProps> = ({ accessToken, userID, proxySetti
     <Grid numItems={1}>
       <Card>
         <div className="flex items-center mb-4">
-          <Title>SCIM Configuration</Title>
+          <Title>{t('SCIM_Configuration')}</Title>
         </div>
         <Text className="text-gray-600">
           System for Cross-domain Identity Management (SCIM) allows you to automatically provision and manage users and
@@ -153,7 +155,7 @@ const SCIMConfig: React.FC<SCIMConfigProps> = ({ accessToken, userID, proxySetti
               <Card className="border border-yellow-300 bg-yellow-50">
                 <div className="flex items-center mb-2 text-yellow-800">
                   <ExclamationCircleOutlined className="h-5 w-5 mr-2" />
-                  <Title className="text-lg text-yellow-800">Your SCIM Token</Title>
+                  <Title className="text-lg text-yellow-800">{t('Your_SCIM_Token')}</Title>
                 </div>
                 <Text className="text-yellow-800 mb-4 font-medium">
                   Make sure to copy this token now. You will not be able to see it again.

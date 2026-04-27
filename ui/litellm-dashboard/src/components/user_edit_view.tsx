@@ -6,6 +6,7 @@ import { all_admin_roles } from "../utils/roles";
 import BudgetDurationDropdown from "./common_components/budget_duration_dropdown";
 import { getModelDisplayName } from "./key_team_helpers/fetch_available_models_team_key";
 import NumericalInput from "./shared/numerical_input";
+import { useTranslation } from "react-i18next";
 
 interface UserEditViewProps {
   userData: any;
@@ -33,7 +34,8 @@ export function UserEditView({
   isBulkEdit = false,
 }: UserEditViewProps) {
   const [form] = Form.useForm();
-  const [unlimitedBudget, setUnlimitedBudget] = useState(false);
+    const { t } = useTranslation();
+const [unlimitedBudget, setUnlimitedBudget] = useState(false);
 
   // Set initial form values
   React.useEffect(() => {
@@ -82,26 +84,26 @@ export function UserEditView({
   return (
     <Form form={form} onFinish={handleSubmit} layout="vertical">
       {!isBulkEdit && (
-        <Form.Item label="ID пользователя" name="user_id">
+        <Form.Item label={t('ID_polzovatelya')} name="user_id">
           <TextInput disabled />
         </Form.Item>
       )}
 
       {!isBulkEdit && (
-        <Form.Item label="Электронная почта" name="user_email">
+        <Form.Item label={t('Elektronnaya_pochta')} name="user_email">
           <TextInput />
         </Form.Item>
       )}
 
-      <Form.Item label="Псевдоним пользователя" name="user_alias">
+      <Form.Item label={t('Psevdonim_polzovatelya')} name="user_alias">
         <TextInput />
       </Form.Item>
 
       <Form.Item
         label={
           <span>
-            Глобальная роль прокси{" "}
-            <Tooltip title="Это роль пользователя глобально на прокси. Данная роль не зависит от ролей в командах/организациях.">
+            {t('Globalnaya_rol_proksi')}{" "}
+            <Tooltip title={t('Eto_rol_polzovatelya_globalno_na_proks')}>
               <InfoCircleOutlined />
             </Tooltip>
           </span>
@@ -126,8 +128,8 @@ export function UserEditView({
       <Form.Item
         label={
           <span>
-            Личные модели{" "}
-            <Tooltip title="Выберите модели, доступные этому пользователю вне командного контекста. Выберите 'Все прокси-модели' для доступа ко всем моделям прокси.">
+            {t('Lichnye_modeli')}{" "}
+            <Tooltip title={t('Vyberite_modeli_dostupnye_etomu_polzov')}>
               <InfoCircleOutlined style={{ marginLeft: "4px" }} />
             </Tooltip>
           </span>
@@ -136,15 +138,15 @@ export function UserEditView({
       >
         <Select
           mode="multiple"
-          placeholder="Выбрать модели"
+          placeholder={t('Vybrat_modeli')}
           style={{ width: "100%" }}
           disabled={!all_admin_roles.includes(userRole || "")}
         >
           <Select.Option key="all-proxy-models" value="all-proxy-models">
-            Все прокси-модели
+            {t('Vse_proksi_modeli')}
           </Select.Option>
           <Select.Option key="no-default-models" value="no-default-models">
-            Нет моделей по умолчанию
+            {t('Net_modeley_po_umolchaniyu')}
           </Select.Option>
           {userModels.map((model) => (
             <Select.Option key={model} value={model}>
@@ -157,12 +159,12 @@ export function UserEditView({
       <Form.Item
         label={
           <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-            <span>Максимальный бюджет (USD)</span>
+            <span>{t('Maksimalnyy_byudzhet_USD')}</span>
             <Checkbox
               checked={unlimitedBudget}
               onChange={handleUnlimitedBudgetChange}
             >
-              Неограниченный бюджет
+              {t('Neogranichennyy_byudzhet')}
             </Checkbox>
           </div>
         }
@@ -171,7 +173,7 @@ export function UserEditView({
           {
             validator: (_, value) => {
               if (!unlimitedBudget && (value === "" || value === null || value === undefined)) {
-                return Promise.reject(new Error("Введите бюджет или выберите «Неограниченный бюджет»"));
+                return Promise.reject(new Error(t('Vvedite_byudzhet_ili_vyberite_Neogranich')));
               }
               return Promise.resolve();
             },
@@ -186,19 +188,19 @@ export function UserEditView({
         />
       </Form.Item>
 
-      <Form.Item label="Сброс бюджета" name="budget_duration">
+      <Form.Item label={t('Sbros_byudzheta')} name="budget_duration">
         <BudgetDurationDropdown />
       </Form.Item>
 
-      <Form.Item label="Метаданные" name="metadata">
-        <Textarea rows={4} placeholder="Введите метаданные в формате JSON" />
+      <Form.Item label={t('Metadannye')} name="metadata">
+        <Textarea rows={4} placeholder={t('Vvedite_metadannye_v_formate_JSON')} />
       </Form.Item>
 
       <div className="flex justify-end space-x-2">
         <Button variant="secondary" type="button" onClick={onCancel}>
-          Отмена
+          {t('Otmena')}
         </Button>
-        <Button type="submit">Сохранить</Button>
+        <Button type="submit">{t('Sohranit')}</Button>
       </div>
     </Form>
   );

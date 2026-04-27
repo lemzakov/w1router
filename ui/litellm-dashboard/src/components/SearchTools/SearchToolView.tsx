@@ -6,6 +6,7 @@ import { CheckIcon, CopyIcon } from "lucide-react";
 import React, { useState } from "react";
 import { SearchToolTester } from "./SearchToolTester";
 import { AvailableSearchProvider, SearchTool } from "./types";
+import { useTranslation } from "react-i18next";
 
 interface SearchToolViewProps {
   searchTool: SearchTool;
@@ -22,6 +23,7 @@ export const SearchToolView: React.FC<SearchToolViewProps> = ({
   accessToken,
   availableProviders,
 }) => {
+  const { t } = useTranslation();
   const [copiedStates, setCopiedStates] = useState<Record<string, boolean>>({});
 
   const copyToClipboard = async (text: string | null | undefined, key: string) => {
@@ -77,21 +79,21 @@ export const SearchToolView: React.FC<SearchToolViewProps> = ({
 
       <Grid numItems={1} numItemsSm={2} numItemsLg={3} className="gap-6">
         <Card>
-          <Text>Provider</Text>
+          <Text>{t('Provider')}</Text>
           <div className="mt-2">
             <Title>{getProviderDisplayName(searchTool.litellm_params.search_provider)}</Title>
           </div>
         </Card>
 
         <Card>
-          <Text>API Key</Text>
+          <Text>{t('API_Key')}</Text>
           <div className="mt-2">
             <Text>{searchTool.litellm_params.api_key ? "****" : "Not set"}</Text>
           </div>
         </Card>
 
         <Card>
-          <Text>Created At</Text>
+          <Text>{t('Created_At')}</Text>
           <div className="mt-2">
             <Text>
               {searchTool.created_at ? new Date(searchTool.created_at).toLocaleString() : "Unknown"}
@@ -102,7 +104,7 @@ export const SearchToolView: React.FC<SearchToolViewProps> = ({
 
       {searchTool.search_tool_info?.description && (
         <Card className="mt-6">
-          <Text>Description</Text>
+          <Text>{t('Description_1')}</Text>
           <div className="mt-2">
             <Text>{searchTool.search_tool_info.description}</Text>
           </div>

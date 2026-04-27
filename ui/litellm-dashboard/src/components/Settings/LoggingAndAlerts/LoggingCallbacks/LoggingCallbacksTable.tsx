@@ -1,3 +1,4 @@
+import "@/i18n";
 import { Button } from "@tremor/react";
 import type { TableProps } from "antd";
 import { Table } from "antd";
@@ -5,6 +6,8 @@ import Title from "antd/es/typography/Title";
 import React from "react";
 import TableIconActionButton from "../../../common_components/IconActionButton/TableIconActionButtons/TableIconActionButton";
 import { AlertingObject } from "./types";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 type LoggingCallbacksProps = {
   callbacks: AlertingObject[];
@@ -36,14 +39,15 @@ const CALLBACK_MODES: { value: string; label: string }[] = [
 export const LoggingCallbacksTable: React.FC<LoggingCallbacksProps> = ({
   callbacks,
   availableCallbacks = {},
-  onTest = () => {},
+  onTest = () => {
+  const { t } = useTranslation();},
   onEdit = () => {},
   onDelete = () => {},
   onAdd = () => {},
 }) => {
   const columns: TableProps<CallbackRow>["columns"] = [
     {
-      title: <span className="font-medium text-gray-700">Callback Name</span>,
+      title: <span className="font-medium text-gray-700">{t('Callback_Name')}</span>,
       dataIndex: "name",
       key: "name",
       render: (_: string, record: CallbackRow) => {
@@ -54,7 +58,7 @@ export const LoggingCallbacksTable: React.FC<LoggingCallbacksProps> = ({
       },
     },
     {
-      title: <span className="font-medium text-gray-700">Mode</span>,
+      title: <span className="font-medium text-gray-700">{t('Mode_1')}</span>,
       key: "mode",
       render: (_: unknown, record: CallbackRow) => {
         const mode = record.mode || "success";
@@ -74,7 +78,7 @@ export const LoggingCallbacksTable: React.FC<LoggingCallbacksProps> = ({
       width: 240,
     },
     {
-      title: <span className="font-medium text-gray-700 text-right w-full block">Actions</span>,
+      title: <span className="font-medium text-gray-700 text-right w-full block">{t('Actions')}</span>,
       key: "actions",
       align: "right",
       render: (_: unknown, record: CallbackRow) => (
@@ -94,14 +98,14 @@ export const LoggingCallbacksTable: React.FC<LoggingCallbacksProps> = ({
           + Add Callback
         </Button>
         <div className="flex justify-between items-center my-2">
-          <Title level={4}>Active Logging Callbacks</Title>
+          <Title level={4}>{t('Active_Logging_Callbacks')}</Title>
         </div>
         {/* Empty state */}
         {callbacks.length === 0 ? (
           <div className="flex flex-col items-center justify-center p-8 bg-gray-50 border border-gray-200 rounded-lg">
             <div className="text-center">
-              <h3 className="text-lg font-medium text-gray-700 mb-2">No callbacks configured</h3>
-              <p className="text-gray-500">Add your first callback to start logging data to external services.</p>
+              <h3 className="text-lg font-medium text-gray-700 mb-2">{t('No_callbacks_configured')}</h3>
+              <p className="text-gray-500">{t('Add_your_first_callback_to_start_logging')}</p>
             </div>
           </div>
         ) : (

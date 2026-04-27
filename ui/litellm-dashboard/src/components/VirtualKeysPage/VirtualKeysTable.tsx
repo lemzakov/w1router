@@ -1,4 +1,5 @@
 "use client";
+import { useTranslation } from "react-i18next";
 import { useKeys } from "@/app/(dashboard)/hooks/keys/useKeys";
 import { useOrganizations } from "@/app/(dashboard)/hooks/organizations/useOrganizations";
 import { formatNumberWithCommas } from "@/utils/dataUtils";
@@ -55,7 +56,8 @@ interface VirtualKeysTableProps {
 export function VirtualKeysTable({ teams, organizations, onSortChange, currentSort }: VirtualKeysTableProps) {
   const { data: fetchedOrganizations } = useOrganizations();
   const resolvedOrganizations = fetchedOrganizations ?? organizations ?? [];
-  const [selectedKey, setSelectedKey] = useState<KeyResponse | null>(null);
+    const { t } = useTranslation();
+const [selectedKey, setSelectedKey] = useState<KeyResponse | null>(null);
   const [sorting, setSorting] = React.useState<SortingState>(() => {
     if (currentSort) {
       return [
@@ -146,7 +148,7 @@ export function VirtualKeysTable({ teams, organizations, onSortChange, currentSo
     {
       id: "token",
       accessorKey: "token",
-      header: "ID ключа",
+      header: t('ID_klyucha'),
       size: 100,
       enableSorting: true,
       cell: (info) => {
@@ -170,7 +172,7 @@ export function VirtualKeysTable({ teams, organizations, onSortChange, currentSo
     {
       id: "key_alias",
       accessorKey: "key_alias",
-      header: "Псевдоним ключа",
+      header: t('Psevdonim_klyucha'),
       size: 150,
       enableSorting: true,
       cell: (info) => {
@@ -186,7 +188,7 @@ export function VirtualKeysTable({ teams, organizations, onSortChange, currentSo
     {
       id: "key_name",
       accessorKey: "key_name",
-      header: "Секретный ключ",
+      header: t('Sekretnyy_klyuch'),
       size: 120,
       enableSorting: false,
       cell: (info) => <span className="font-mono text-xs">{info.getValue() as string}</span>,
@@ -194,7 +196,7 @@ export function VirtualKeysTable({ teams, organizations, onSortChange, currentSo
     {
       id: "team_alias",
       accessorKey: "team_id",
-      header: "Команда",
+      header: t('Komanda'),
       size: 120,
       enableSorting: false,
       cell: (info) => {
@@ -213,7 +215,7 @@ export function VirtualKeysTable({ teams, organizations, onSortChange, currentSo
     {
       id: "organization_alias",
       accessorKey: "org_id",
-      header: "Организация",
+      header: t('Organizatsiya'),
       size: 140,
       enableSorting: false,
       cell: (info) => {
@@ -234,9 +236,9 @@ export function VirtualKeysTable({ teams, organizations, onSortChange, currentSo
       accessorKey: "user",
       header: () => (
         <span className="flex items-center gap-1">
-          Пользователь
+          {t('Polzovatel')}
           <Popover
-            content="Отображает первое доступное значение: псевдоним, email или ID пользователя."
+            content={t('Otobrazhaet_pervoe_dostupnoe_znachenie_p')}
             trigger="hover"
           >
             <InfoCircleOutlined className="text-gray-400 text-xs cursor-help" />
@@ -257,9 +259,9 @@ export function VirtualKeysTable({ teams, organizations, onSortChange, currentSo
         const popoverContent = (
           <div className="flex flex-col gap-2 text-xs min-w-[200px] max-w-[300px]">
             {[
-              { label: "Псевдоним", value: userAlias },
+              { label: t('Psevdonim'), value: userAlias },
               { label: "Email", value: userEmail },
-              { label: "ID пользователя", value: userId },
+              { label: t('ID_polzovatelya'), value: userId },
             ].map(({ label, value }) => (
               <div key={label} className="flex flex-col min-w-0">
                 <span className="text-gray-400">{label}</span>
@@ -304,7 +306,7 @@ export function VirtualKeysTable({ teams, organizations, onSortChange, currentSo
     {
       id: "created_at",
       accessorKey: "created_at",
-      header: "Дата создания",
+      header: t('Data_sozdaniya'),
       size: 120,
       enableSorting: true,
       cell: (info) => {
@@ -315,7 +317,7 @@ export function VirtualKeysTable({ teams, organizations, onSortChange, currentSo
     {
       id: "created_by",
       accessorKey: "created_by",
-      header: "Кем создан",
+      header: t('Kem_sozdan'),
       size: 160,
       enableSorting: false,
       cell: (info) => {
@@ -332,9 +334,9 @@ export function VirtualKeysTable({ teams, organizations, onSortChange, currentSo
         const popoverContent = (
           <div className="flex flex-col gap-2 text-xs min-w-[200px] max-w-[300px]">
             {[
-              { label: "Псевдоним", value: userAlias },
+              { label: t('Psevdonim'), value: userAlias },
               { label: "Email", value: userEmail },
-              { label: "ID пользователя", value: userId },
+              { label: t('ID_polzovatelya'), value: userId },
             ].map(({ label, value }) => (
               <div key={label} className="flex flex-col min-w-0">
                 <span className="text-gray-400">{label}</span>
@@ -379,12 +381,12 @@ export function VirtualKeysTable({ teams, organizations, onSortChange, currentSo
     {
       id: "updated_at",
       accessorKey: "updated_at",
-      header: "Дата обновления",
+      header: t('Data_obnovleniya'),
       size: 120,
       enableSorting: true,
       cell: (info) => {
         const value = info.getValue();
-        return value ? new Date(value as string).toLocaleDateString() : "Никогда";
+        return value ? new Date(value as string).toLocaleDateString() : t('Nikogda');
       },
     },
     {
@@ -392,9 +394,9 @@ export function VirtualKeysTable({ teams, organizations, onSortChange, currentSo
       accessorKey: "last_active",
       header: () => (
         <span className="flex items-center gap-1">
-          Последняя активность
+          {t('Poslednyaya_aktivnost')}
           <Popover
-            content="Это новое поле, данные не восстанавливаются. Только новое использование ключа обновит это значение."
+            content={t('Eto_novoe_pole_dannye_ne_vosstanavlivayu')}
             trigger="hover"
           >
             <InfoCircleOutlined className="text-gray-400 text-xs cursor-help" />
@@ -405,7 +407,7 @@ export function VirtualKeysTable({ teams, organizations, onSortChange, currentSo
       enableSorting: false,
       cell: (info) => {
         const value = info.getValue();
-        if (!value) return "Неизвестно";
+        if (!value) return t('Neizvestno');
         const date = new Date(value as string);
         return (
           <Tooltip title={date.toLocaleString(undefined, { dateStyle: "medium", timeStyle: "long" })}>
@@ -417,18 +419,18 @@ export function VirtualKeysTable({ teams, organizations, onSortChange, currentSo
     {
       id: "expires",
       accessorKey: "expires",
-      header: "Срок действия",
+      header: t('Srok_deystviya'),
       size: 120,
       enableSorting: false,
       cell: (info) => {
         const value = info.getValue();
-        return value ? new Date(value as string).toLocaleDateString() : "Никогда";
+        return value ? new Date(value as string).toLocaleDateString() : t('Nikogda');
       },
     },
     {
       id: "spend",
       accessorKey: "spend",
-      header: "Расходы (USD)",
+      header: t('Rashody_USD'),
       size: 100,
       enableSorting: true,
       cell: (info) => formatNumberWithCommas(info.getValue() as number, 4),
@@ -436,13 +438,13 @@ export function VirtualKeysTable({ teams, organizations, onSortChange, currentSo
     {
       id: "max_budget",
       accessorKey: "max_budget",
-      header: "Бюджет (USD)",
+      header: t('Byudzhet_USD'),
       size: 110,
       enableSorting: true,
       cell: (info) => {
         const maxBudget = info.getValue() as number | null;
         if (maxBudget === null) {
-          return "Безлимитно";
+          return t('Bezlimitno');
         }
         return `$${formatNumberWithCommas(maxBudget)}`;
       },
@@ -450,18 +452,18 @@ export function VirtualKeysTable({ teams, organizations, onSortChange, currentSo
     {
       id: "budget_reset_at",
       accessorKey: "budget_reset_at",
-      header: "Сброс бюджета",
+      header: t('Sbros_byudzheta'),
       size: 130,
       enableSorting: false,
       cell: (info) => {
         const value = info.getValue();
-        return value ? new Date(value as string).toLocaleString() : "Никогда";
+        return value ? new Date(value as string).toLocaleString() : t('Nikogda');
       },
     },
     {
       id: "models",
       accessorKey: "models",
-      header: "Модели",
+      header: t('Modeli'),
       size: 200,
       enableSorting: false,
       cell: (info) => {
@@ -472,7 +474,7 @@ export function VirtualKeysTable({ teams, organizations, onSortChange, currentSo
               <div className="flex flex-col">
                 {models.length === 0 ? (
                   <Badge size={"xs"} className="mb-1" color="red">
-                    <Text>Все модели прокси</Text>
+                    <Text>{t('Vse_modeli_proksi')}</Text>
                   </Badge>
                 ) : (
                   <>
@@ -496,7 +498,7 @@ export function VirtualKeysTable({ teams, organizations, onSortChange, currentSo
                         {models.slice(0, 3).map((model, index) =>
                           model === "all-proxy-models" ? (
                             <Badge key={index} size={"xs"} color="red">
-                              <Text>Все модели прокси</Text>
+                              <Text>{t('Vse_modeli_proksi')}</Text>
                             </Badge>
                           ) : (
                             <Badge key={index} size={"xs"} color="blue">
@@ -511,7 +513,7 @@ export function VirtualKeysTable({ teams, organizations, onSortChange, currentSo
                         {models.length > 3 && !expandedAccordions[info.row.id] && (
                           <Badge size={"xs"} color="gray" className="cursor-pointer">
                             <Text>
-                              +{models.length - 3} {models.length - 3 === 1 ? "модель" : "моделей"}
+                              +{models.length - 3} {models.length - 3 === 1 ? t('model') : t('modeley')}
                             </Text>
                           </Badge>
                         )}
@@ -520,7 +522,7 @@ export function VirtualKeysTable({ teams, organizations, onSortChange, currentSo
                             {models.slice(3).map((model, index) =>
                               model === "all-proxy-models" ? (
                                 <Badge key={index + 3} size={"xs"} color="red">
-                                  <Text>Все модели прокси</Text>
+                                  <Text>{t('Vse_modeli_proksi')}</Text>
                                 </Badge>
                               ) : (
                                 <Badge key={index + 3} size={"xs"} color="blue">
@@ -546,15 +548,15 @@ export function VirtualKeysTable({ teams, organizations, onSortChange, currentSo
     },
     {
       id: "rate_limits",
-      header: "Лимиты запросов",
+      header: t('Limity_zaprosov'),
       size: 140,
       enableSorting: false,
       cell: ({ row }) => {
         const key = row.original;
         return (
           <div>
-            <div>TPM: {key.tpm_limit !== null ? key.tpm_limit : "Безлимитно"}</div>
-            <div>RPM: {key.rpm_limit !== null ? key.rpm_limit : "Безлимитно"}</div>
+            <div>TPM: {key.tpm_limit !== null ? key.tpm_limit : t('Bezlimitno')}</div>
+            <div>RPM: {key.rpm_limit !== null ? key.rpm_limit : t('Bezlimitno')}</div>
           </div>
         );
       },
@@ -564,7 +566,7 @@ export function VirtualKeysTable({ teams, organizations, onSortChange, currentSo
   const filterOptions: FilterOption[] = [
     {
       name: "Team ID",
-      label: "ID команды",
+      label: t('ID_komandy'),
       isSearchable: true,
       searchFn: async (searchText: string) => {
         if (!allTeams || allTeams.length === 0) return [];
@@ -583,7 +585,7 @@ export function VirtualKeysTable({ teams, organizations, onSortChange, currentSo
     },
     {
       name: "Organization ID",
-      label: "ID организации",
+      label: t('ID_organizatsii'),
       isSearchable: true,
       searchFn: async (searchText: string) => {
         if (!allOrganizations || allOrganizations.length === 0) return [];
@@ -602,17 +604,17 @@ export function VirtualKeysTable({ teams, organizations, onSortChange, currentSo
     },
     {
       name: "Key Alias",
-      label: "Псевдоним ключа",
+      label: t('Psevdonim_klyucha'),
       customComponent: PaginatedKeyAliasSelect,
     },
     {
       name: "User ID",
-      label: "ID пользователя",
+      label: t('ID_polzovatelya'),
       isSearchable: false,
     },
     {
       name: "Key Hash",
-      label: "Хеш ключа",
+      label: t('Hesh_klyucha'),
       isSearchable: false,
     },
   ];
@@ -699,7 +701,7 @@ export function VirtualKeysTable({ teams, organizations, onSortChange, currentSo
                 <Skeleton.Node active style={{ width: 200, height: 20 }} />
               ) : (
                 <span className="inline-flex text-sm text-gray-700">
-                  Показано {rangeLabel} из {totalCount} записей
+                  {t('Pokazano')} {rangeLabel} {t('iz')} {totalCount} {t('zapisey')}
                 </span>
               )}
 
@@ -708,9 +710,9 @@ export function VirtualKeysTable({ teams, organizations, onSortChange, currentSo
                 icon={<SyncOutlined spin={isButtonLoading} />}
                 onClick={handleRefresh}
                 disabled={isButtonLoading}
-                title="Загрузить данные"
+                title={t('Zagruzit_dannye')}
               >
-                {isButtonLoading ? "Загрузка" : "Загрузить"}
+                {isButtonLoading ? t('Zagruzka') : t('Zagruzit')}
               </AntButton>
             </div>
 
@@ -719,7 +721,7 @@ export function VirtualKeysTable({ teams, organizations, onSortChange, currentSo
                 <Skeleton.Node active style={{ width: 74, height: 20 }} />
               ) : (
                 <span className="text-sm text-gray-700">
-                  Страница {pageIndex + 1} из {table.getPageCount()}
+                  {t('Stranitsa')} {pageIndex + 1} {t('iz')} {table.getPageCount()}
                 </span>
               )}
 
@@ -731,7 +733,7 @@ export function VirtualKeysTable({ teams, organizations, onSortChange, currentSo
                   disabled={isLoading || !table.getCanPreviousPage()}
                   className="px-3 py-1 text-sm border rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Назад
+                  {t('Nazad')}
                 </button>
               )}
 
@@ -743,7 +745,7 @@ export function VirtualKeysTable({ teams, organizations, onSortChange, currentSo
                   disabled={isLoading || !table.getCanNextPage()}
                   className="px-3 py-1 text-sm border rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Далее
+                  {t('Dalee')}
                 </button>
               )}
             </div>
@@ -829,7 +831,7 @@ export function VirtualKeysTable({ teams, organizations, onSortChange, currentSo
                       <TableRow>
                         <TableCell colSpan={columns.length} className="h-8 text-center">
                           <div className="text-center text-gray-500">
-                            <p>🚅 Загрузка ключей...</p>
+                            <p>{t('Zagruzka_klyuchey_1')}</p>
                           </div>
                         </TableCell>
                       </TableRow>
@@ -856,7 +858,7 @@ export function VirtualKeysTable({ teams, organizations, onSortChange, currentSo
                       <TableRow>
                         <TableCell colSpan={columns.length} className="h-8 text-center">
                           <div className="text-center text-gray-500">
-                            <p>Ключи не найдены</p>
+                            <p>{t('Klyuchi_ne_naydeny')}</p>
                           </div>
                         </TableCell>
                       </TableRow>

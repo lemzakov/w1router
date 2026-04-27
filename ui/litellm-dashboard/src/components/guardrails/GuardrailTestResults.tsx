@@ -3,6 +3,7 @@ import { Button, Card } from "@tremor/react";
 import { Typography } from "antd";
 import { CopyOutlined, CheckCircleOutlined, ClockCircleOutlined, DownOutlined, RightOutlined } from "@ant-design/icons";
 import NotificationsManager from "../molecules/notifications_manager";
+import { useTranslation } from "react-i18next";
 
 const { Text } = Typography;
 
@@ -24,6 +25,7 @@ interface GuardrailTestResultsProps {
 }
 
 export function GuardrailTestResults({ results, errors }: GuardrailTestResultsProps) {
+  const { t } = useTranslation();
   const [collapsedResults, setCollapsedResults] = useState<Set<string>>(new Set());
 
   const toggleResultCollapse = (guardrailName: string) => {
@@ -70,7 +72,7 @@ export function GuardrailTestResults({ results, errors }: GuardrailTestResultsPr
 
   return (
     <div className="space-y-3 pt-4 border-t border-gray-200">
-      <h3 className="text-sm font-semibold text-gray-900">Results</h3>
+      <h3 className="text-sm font-semibold text-gray-900">{t('Results')}</h3>
 
       {/* Success Results */}
       {results &&
@@ -129,7 +131,7 @@ export function GuardrailTestResults({ results, errors }: GuardrailTestResultsPr
                       </div>
                     </div>
                     <div className="text-xs text-gray-600">
-                      <span className="font-medium">Characters:</span> {result.response_text.length}
+                      <span className="font-medium">{t('Characters')}</span> {result.response_text.length}
                     </div>
                   </>
                 )}

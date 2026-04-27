@@ -4,6 +4,7 @@ import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 import { PricingCalculatorProps, ModelEntry } from "./types";
 import MultiCostResults from "./multi_cost_results";
 import { useMultiCostEstimate } from "./use_multi_cost_estimate";
+import { useTranslation } from "react-i18next";
 
 type TimePeriod = "day" | "month";
 
@@ -22,6 +23,7 @@ const PricingCalculator: React.FC<PricingCalculatorProps> = ({
   accessToken,
   models,
 }) => {
+  const { t } = useTranslation();
   const [entries, setEntries] = useState<ModelEntry[]>([createDefaultEntry()]);
   const [timePeriod, setTimePeriod] = useState<TimePeriod>("month");
   const { debouncedFetchForEntry, removeEntry, getMultiModelResult } =
@@ -176,8 +178,8 @@ const PricingCalculator: React.FC<PricingCalculatorProps> = ({
           optionType="button"
           buttonStyle="solid"
         >
-          <Radio.Button value="day">Per Day</Radio.Button>
-          <Radio.Button value="month">Per Month</Radio.Button>
+          <Radio.Button value="day">{t('Per_Day')}</Radio.Button>
+          <Radio.Button value="month">{t('Per_Month')}</Radio.Button>
         </Radio.Group>
       </div>
 

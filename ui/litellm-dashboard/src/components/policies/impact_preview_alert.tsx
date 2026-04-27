@@ -1,5 +1,6 @@
 import React from "react";
 import { Alert, Tag, Typography } from "antd";
+import { useTranslation } from "react-i18next";
 
 const { Text } = Typography;
 
@@ -15,6 +16,7 @@ interface ImpactPreviewAlertProps {
 }
 
 const ImpactPreviewAlert: React.FC<ImpactPreviewAlertProps> = ({ impactResult }) => {
+  const { t } = useTranslation();
   return (
     <Alert
       type={impactResult.affected_keys_count === -1 ? "warning" : "info"}
@@ -23,7 +25,7 @@ const ImpactPreviewAlert: React.FC<ImpactPreviewAlertProps> = ({ impactResult })
       message="Impact Preview"
       description={
         impactResult.affected_keys_count === -1 ? (
-          <Text>Global scope — this will affect <strong>all keys and teams</strong>.</Text>
+          <Text>{t('Global_scope_this_will_affect')}<strong>all keys and teams</strong>.</Text>
         ) : (
           <div>
             <Text>
@@ -31,7 +33,7 @@ const ImpactPreviewAlert: React.FC<ImpactPreviewAlertProps> = ({ impactResult })
             </Text>
             {impactResult.sample_keys.length > 0 && (
               <div className="mt-1">
-                <Text type="secondary" style={{ fontSize: 12 }}>Keys: </Text>
+                <Text type="secondary" style={{ fontSize: 12 }}>{t('Keys_1')}</Text>
                 {impactResult.sample_keys.slice(0, 5).map((k: string) => (
                   <Tag key={k} style={{ fontSize: 11 }}>{k}</Tag>
                 ))}
@@ -42,7 +44,7 @@ const ImpactPreviewAlert: React.FC<ImpactPreviewAlertProps> = ({ impactResult })
             )}
             {impactResult.sample_teams.length > 0 && (
               <div className="mt-1">
-                <Text type="secondary" style={{ fontSize: 12 }}>Teams: </Text>
+                <Text type="secondary" style={{ fontSize: 12 }}>{t('Teams_1')}</Text>
                 {impactResult.sample_teams.slice(0, 5).map((t: string) => (
                   <Tag key={t} style={{ fontSize: 11 }}>{t}</Tag>
                 ))}

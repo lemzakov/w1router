@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Button } from "antd";
 import MessageManager from "@/components/molecules/message_manager";
+import { useTranslation } from "react-i18next";
 
 interface CreatedKeyDisplayProps {
   apiKey: string;
@@ -12,6 +13,7 @@ interface CreatedKeyDisplayProps {
  * Used on the Virtual Keys page and in the Add Agent wizard.
  */
 const CreatedKeyDisplay: React.FC<CreatedKeyDisplayProps> = ({ apiKey }) => {
+  const { t } = useTranslation();
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
@@ -28,7 +30,7 @@ const CreatedKeyDisplay: React.FC<CreatedKeyDisplayProps> = ({ apiKey }) => {
         lose this secret key, you will need to generate a new one.
       </p>
 
-      <p className="text-sm text-gray-600 mt-3 mb-1">Virtual Key:</p>
+      <p className="text-sm text-gray-600 mt-3 mb-1">{t('Virtual_Key')}</p>
       <div
         style={{
           background: "#f8f8f8",

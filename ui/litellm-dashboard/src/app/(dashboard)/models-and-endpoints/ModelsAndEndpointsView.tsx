@@ -28,6 +28,7 @@ import NotificationsManager from "../../../components/molecules/notifications_ma
 import PassThroughSettings from "../../../components/pass_through_settings";
 import TeamInfoView from "../../../components/team/TeamInfo";
 import useAuthorized from "../hooks/useAuthorized";
+import { useTranslation } from "react-i18next";
 
 interface ModelDashboardProps {
   token: string | null;
@@ -49,7 +50,8 @@ interface GlobalRetryPolicyObject {
 const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, teams }) => {
   const { accessToken, token, userRole, userId: userID } = useAuthorized();
   const [addModelForm] = Form.useForm();
-  const [lastRefreshed, setLastRefreshed] = useState("");
+    const { t } = useTranslation();
+const [lastRefreshed, setLastRefreshed] = useState("");
   const [providerModels, setProviderModels] = useState<Array<string>>([]);
   const [selectedProvider, setSelectedProvider] = useState<Providers>(Providers.Anthropic);
   const [selectedModelGroup, setSelectedModelGroup] = useState<string | null>(null);
@@ -157,9 +159,9 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
     },
     onChange(info) {
       if (info.file.status === "done") {
-        NotificationsManager.success(`${info.file.name} файл успешно загружен`);
+        NotificationsManager.success(`${info.file.name} ${t('fayl_uspeshno_zagruzhen')}`);
       } else if (info.file.status === "error") {
-        NotificationsManager.fromBackend(`${info.file.name} ошибка загрузки файла.`);
+        NotificationsManager.fromBackend(`${info.file.name} ${t('oshibka_zagruzki_fayla')}`);
       }
     },
   };
@@ -185,17 +187,17 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
         if (globalRetryPolicy) {
           payload.router_settings.retry_policy = globalRetryPolicy;
         }
-        NotificationsManager.success("Глобальные настройки повторных попыток успешно сохранены");
+        NotificationsManager.success(t('Globalnye_nastroyki_povtornyh_popytok_u'));
       } else {
         if (modelGroupRetryPolicy) {
           payload.router_settings.model_group_retry_policy = modelGroupRetryPolicy;
         }
-        NotificationsManager.success(`Настройки повторных попыток успешно сохранены для ${selectedModelGroup}`);
+        NotificationsManager.success(`${t('Nastroyki_povtornyh_popytok')} ${t('uspeshno_sohraneny_dlya')} ${selectedModelGroup}`);
       }
 
       await setCallbacksCall(accessToken, payload);
     } catch (error) {
-      NotificationsManager.fromBackend("Не удалось сохранить настройки повторных попыток");
+      NotificationsManager.fromBackend(t('Ne_udalos_sohranit_nastroyki_povtornyh'));
     }
   };
 
@@ -233,8 +235,8 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
     const { Title, Paragraph } = Typography;
     return (
       <div>
-        <Title level={1}>Доступ запрещён</Title>
-        <Paragraph>Обратитесь к администратору прокси для просмотра всех моделей</Paragraph>
+        <Title level={1}>{t('Dostup_zapreschyon')}</Title>
+        <Paragraph>{t('Obratites_k_administratoru_proksi_dlya_p_1')}</Paragraph>
       </div>
     );
   }
@@ -249,7 +251,7 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
           ?.map((field: any) => {
             return `${field.name.join(".")}: ${field.errors.join(", ")}`;
           })
-          .join(" | ") || "Неизвестная ошибка валидации";
+          .join(" | ") || t('Neizvestnaya_oshibka_validatsii');
       NotificationsManager.fromBackend(`Please fill in the following required fields: ${errorMessages}`);
     }
   };
@@ -281,11 +283,11 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
           {/* Model Management Header */}
           <div className="flex justify-between items-center mb-4">
             <div>
-              <h2 className="text-lg font-semibold">Управление моделями</h2>
+              <h2 className="text-lg font-semibold">{t('Upravlenie_modelyami')}</h2>
               {!all_admin_roles.includes(userRole) ? (
-                <p className="text-sm text-gray-600">Добавьте модели для команд, где вы являетесь администратором.</p>
+                <p className="text-sm text-gray-600">{t('Dobavte_modeli_dlya_komand_gde_vy_yavlya')}</p>
               ) : (
-                <p className="text-sm text-gray-600">Добавляйте и управляйте моделями для прокси</p>
+                <p className="text-sm text-gray-600">{t('Dobavlyayte_i_upravlyayte_modelyami_dlya')}</p>
               )}
             </div>
             {!showMissingProviderBanner && (
@@ -296,7 +298,7 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#6366f1] hover:text-[#5558e3] border border-[#6366f1] hover:border-[#5558e3] rounded-lg transition-colors"
               >
                 <PlusCircleOutlined style={{ fontSize: "12px" }} />
-                Запросить провайдера
+                {t('Zaprosit_provaydera')}
               </a>
             )}
           </div>
@@ -308,10 +310,9 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
                 <PlusCircleOutlined style={{ fontSize: "18px", color: "#6366f1" }} />
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="text-gray-900 font-semibold text-sm m-0">Не хватает провайдера?</h4>
+                <h4 className="text-gray-900 font-semibold text-sm m-0">{t('Ne_hvataet_provaydera')}</h4>
                 <p className="text-gray-500 text-xs m-0 mt-0.5">
-                  Мы постоянно добавляем поддержку новых моделей, провайдеров и эндпоинтов. Если вы не нашли нужное,
-                  дайте нам знать — мы расставим приоритеты.
+                  {t('My_postoyanno_dobavlyaem_podderzhku_novy')}
                 </p>
               </div>
               <a
@@ -320,7 +321,7 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
                 rel="noopener noreferrer"
                 className="flex-shrink-0 inline-flex items-center gap-2 px-4 py-2 bg-[#6366f1] hover:bg-[#5558e3] text-white text-sm font-medium rounded-lg transition-colors"
               >
-                Запросить провайдера
+                {t('Zaprosit_provaydera')}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-4 w-4"
@@ -342,7 +343,7 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
                   localStorage.setItem("hideMissingProviderBanner", "true");
                 }}
                 className="flex-shrink-0 p-1 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-colors"
-                aria-label="Закрыть баннер"
+                aria-label={t('Zakryt_banner')}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -376,18 +377,18 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
             <TabGroup index={selectedTabIndex} onIndexChange={setSelectedTabIndex} className="gap-2 h-[75vh] w-full ">
               <TabList className="flex justify-between mt-2 w-full items-center">
                 <div className="flex">
-                  {all_admin_roles.includes(userRole) ? <Tab>Все модели</Tab> : <Tab>Ваши модели</Tab>}
-                  {!shouldHideAddModelTab && <Tab>Добавить модель</Tab>}
-                  {all_admin_roles.includes(userRole) && <Tab>Учётные данные LLM</Tab>}
-                  {all_admin_roles.includes(userRole) && <Tab>Транзитные эндпоинты</Tab>}
-                  {all_admin_roles.includes(userRole) && <Tab>Состояние здоровья</Tab>}
-                  {all_admin_roles.includes(userRole) && <Tab>Настройки повторных попыток</Tab>}
-                  {all_admin_roles.includes(userRole) && <Tab>Псевдоним группы моделей</Tab>}
-                  {all_admin_roles.includes(userRole) && <Tab>Перезагрузка ценовых данных</Tab>}
+                  {all_admin_roles.includes(userRole) ? <Tab>{t('Vse_modeli')}</Tab> : <Tab>{t('Vashi_modeli')}</Tab>}
+                  {!shouldHideAddModelTab && <Tab>{t('Dobavit_model')}</Tab>}
+                  {all_admin_roles.includes(userRole) && <Tab>{t('Uchyotnye_dannye_LLM')}</Tab>}
+                  {all_admin_roles.includes(userRole) && <Tab>{t('Tranzitnye_endpointy')}</Tab>}
+                  {all_admin_roles.includes(userRole) && <Tab>{t('Sostoyanie_zdorovya')}</Tab>}
+                  {all_admin_roles.includes(userRole) && <Tab>{t('Nastroyki_povtornyh_popytok')}</Tab>}
+                  {all_admin_roles.includes(userRole) && <Tab>{t('Psevdonim_gruppy_modeley')}</Tab>}
+                  {all_admin_roles.includes(userRole) && <Tab>{t('Perezagruzka_tsenovyh_dannyh')}</Tab>}
                 </div>
 
                 <div className="flex items-center space-x-2 self-center">
-                  {lastRefreshed && <span className="text-xs text-gray-500">Последнее обновление: {lastRefreshed}</span>}
+                  {lastRefreshed && <span className="text-xs text-gray-500">{t('Poslednee_obnovlenie_1')} {lastRefreshed}</span>}
                   <Icon
                     icon={RefreshIcon}
                     variant="shadow"

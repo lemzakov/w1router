@@ -1,6 +1,7 @@
 import React from "react";
 import { Typography, Select, Table, Tag, Button } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
+import { useTranslation } from "react-i18next";
 
 const { Text } = Typography;
 const { Option } = Select;
@@ -28,6 +29,7 @@ const CategoryTable: React.FC<CategoryTableProps> = ({
   onRemove,
   readOnly = false,
 }) => {
+  const { t } = useTranslation();
   const columns = [
     {
       title: "Category",
@@ -71,8 +73,8 @@ const CategoryTable: React.FC<CategoryTableProps> = ({
             style={{ width: 150 }}
             size="small"
           >
-            <Option value="high">High</Option>
-            <Option value="medium">Medium</Option>
+            <Option value="high">{t('High')}</Option>
+            <Option value="medium">{t('Medium')}</Option>
             <Option value="low">Low</Option>
           </Select>
         );
@@ -98,8 +100,8 @@ const CategoryTable: React.FC<CategoryTableProps> = ({
             style={{ width: 120 }}
             size="small"
           >
-            <Option value="BLOCK">Block</Option>
-            <Option value="MASK">Mask</Option>
+            <Option value="BLOCK">{t('Block')}</Option>
+            <Option value="MASK">{t('Mask')}</Option>
           </Select>
         );
       },

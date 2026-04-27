@@ -12,6 +12,7 @@ import {
 } from "@tanstack/react-table";
 import { PolicyAttachment } from "./types";
 import ImpactPopover from "./impact_popover";
+import { useTranslation } from "react-i18next";
 
 interface AttachmentTableProps {
   attachments: PolicyAttachment[];
@@ -28,6 +29,7 @@ const AttachmentTable: React.FC<AttachmentTableProps> = ({
   isAdmin,
   accessToken,
 }) => {
+  const { t } = useTranslation();
   const [sorting, setSorting] = useState<SortingState>([{ id: "created_at", desc: true }]);
 
   // Format date helper function
@@ -270,7 +272,7 @@ const AttachmentTable: React.FC<AttachmentTableProps> = ({
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-8 text-center">
                   <div className="text-center text-gray-500">
-                    <p>Loading...</p>
+                    <p>{t('Loading')}</p>
                   </div>
                 </TableCell>
               </TableRow>
@@ -295,7 +297,7 @@ const AttachmentTable: React.FC<AttachmentTableProps> = ({
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-8 text-center">
                   <div className="text-center text-gray-500">
-                    <p>No attachments found</p>
+                    <p>{t('No_attachments_found')}</p>
                   </div>
                 </TableCell>
               </TableRow>

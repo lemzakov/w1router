@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { X, MessageSquare, ArrowRight, ArrowLeft } from "lucide-react";
 import { Button, Input, Radio, Space, Progress, Checkbox } from "antd";
+import { useTranslation } from "react-i18next";
 
 interface SurveyModalProps {
   isOpen: boolean;
@@ -46,6 +47,7 @@ type SurveyData = {
 };
 
 export function SurveyModal({ isOpen, onClose, onComplete }: SurveyModalProps) {
+  const { t } = useTranslation();
   const [step, setStep] = useState(1);
   const [data, setData] = useState<SurveyData>({
     usingAtCompany: null,
@@ -172,8 +174,8 @@ export function SurveyModal({ isOpen, onClose, onComplete }: SurveyModalProps) {
     if (step === 1) {
       return (
         <div className="space-y-6">
-          <h2 className="text-2xl font-bold text-gray-900">Are you using LiteLLM at your company?</h2>
-          <p className="text-gray-500">Help us understand how our product is being used in professional environments.</p>
+          <h2 className="text-2xl font-bold text-gray-900">{t('Are_you_using_LiteLLM_at_your_company')}</h2>
+          <p className="text-gray-500">{t('Help_us_understand_how_our_product_is_be')}</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
             <button
               onClick={() => updateData("usingAtCompany", true)}
@@ -184,7 +186,7 @@ export function SurveyModal({ isOpen, onClose, onComplete }: SurveyModalProps) {
               }`}
             >
               <span className="block text-lg font-semibold text-gray-900 mb-1">Yes</span>
-              <span className="text-sm text-gray-500">We use it for work</span>
+              <span className="text-sm text-gray-500">{t('We_use_it_for_work')}</span>
             </button>
             <button
               onClick={() => updateData("usingAtCompany", false)}
@@ -195,7 +197,7 @@ export function SurveyModal({ isOpen, onClose, onComplete }: SurveyModalProps) {
               }`}
             >
               <span className="block text-lg font-semibold text-gray-900 mb-1">No</span>
-              <span className="text-sm text-gray-500">Personal project / Hobby</span>
+              <span className="text-sm text-gray-500">{t('Personal_project_Hobby')}</span>
             </button>
           </div>
         </div>
@@ -206,8 +208,8 @@ export function SurveyModal({ isOpen, onClose, onComplete }: SurveyModalProps) {
     if (step === 2 && data.usingAtCompany === true) {
       return (
         <div className="space-y-6">
-          <h2 className="text-2xl font-bold text-gray-900">What company are you using LiteLLM at?</h2>
-          <p className="text-gray-500">This helps us understand our user base better.</p>
+          <h2 className="text-2xl font-bold text-gray-900">{t('What_company_are_you_using_LiteLLM_at')}</h2>
+          <p className="text-gray-500">{t('This_helps_us_understand_our_user_base_b')}</p>
           <Input
             size="large"
             placeholder="Enter your company name"
@@ -223,7 +225,7 @@ export function SurveyModal({ isOpen, onClose, onComplete }: SurveyModalProps) {
     if (step === 3) {
       return (
         <div className="space-y-6">
-          <h2 className="text-2xl font-bold text-gray-900">When did you start using LiteLLM?</h2>
+          <h2 className="text-2xl font-bold text-gray-900">{t('When_did_you_start_using_LiteLLM')}</h2>
           <Radio.Group
             value={data.startDate}
             onChange={(e) => updateData("startDate", e.target.value)}
@@ -252,8 +254,8 @@ export function SurveyModal({ isOpen, onClose, onComplete }: SurveyModalProps) {
     if (step === 4) {
       return (
         <div className="space-y-6">
-          <h2 className="text-2xl font-bold text-gray-900">Why did you pick LiteLLM over other AI Gateways?</h2>
-          <p className="text-gray-500">Select all that apply.</p>
+          <h2 className="text-2xl font-bold text-gray-900">{t('Why_did_you_pick_LiteLLM_over_other_AI_G')}</h2>
+          <p className="text-gray-500">{t('Select_all_that_apply')}</p>
           <div className="space-y-3">
             {REASONS_OPTIONS.map((option) => {
               const isSelected = data.reasons.includes(option.id);
@@ -304,7 +306,7 @@ export function SurveyModal({ isOpen, onClose, onComplete }: SurveyModalProps) {
     if (step === 5) {
       return (
         <div className="space-y-6">
-          <h2 className="text-2xl font-bold text-gray-900">Want to share more?</h2>
+          <h2 className="text-2xl font-bold text-gray-900">{t('Want_to_share_more')}</h2>
           <p className="text-gray-500">
             Leave your email and we may reach out to learn more about your experience. This is completely optional.
           </p>
@@ -339,7 +341,7 @@ export function SurveyModal({ isOpen, onClose, onComplete }: SurveyModalProps) {
         <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between bg-gray-50/50">
           <div className="flex items-center gap-2 text-blue-600">
             <MessageSquare className="h-5 w-5" />
-            <span className="font-semibold text-sm tracking-wide uppercase">Quick Feedback</span>
+            <span className="font-semibold text-sm tracking-wide uppercase">{t('Quick_Feedback')}</span>
           </div>
           <button
             onClick={onClose}

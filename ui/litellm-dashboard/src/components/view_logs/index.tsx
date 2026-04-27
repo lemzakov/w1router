@@ -1,3 +1,4 @@
+import "@/i18n";
 import { keepPreviousData, useQuery, useQueryClient } from "@tanstack/react-query";
 import moment from "moment";
 import { useCallback, useDeferredValue, useEffect, useRef, useState } from "react";
@@ -30,6 +31,8 @@ import { RequestResponsePanel } from "./RequestResponsePanel";
 import SpendLogsSettingsModal from "./SpendLogsSettingsModal/SpendLogsSettingsModal";
 import { DataTable } from "./table";
 import { VectorStoreViewer } from "./VectorStoreViewer";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 interface SpendLogsTableProps {
   accessToken: string | null;
@@ -56,7 +59,8 @@ export default function SpendLogsTable({
   allTeams,
   premiumUser,
 }: SpendLogsTableProps) {
-  const [searchTerm, setSearchTerm] = useState("");
+    const { t } = useTranslation();
+const [searchTerm, setSearchTerm] = useState("");
   const [showFilters, setShowFilters] = useState(false);
   const [showColumnDropdown, setShowColumnDropdown] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -156,7 +160,7 @@ export default function SpendLogsTable({
   const LiveTailControls = () => {
     return (
       <div className="flex items-center gap-2">
-        <span className="text-sm font-medium text-gray-900">Живая лента</span>
+        <span className="text-sm font-medium text-gray-900">{t('Zhivaya_lenta')}</span>
         <Switch color="green" checked={isLiveTail} defaultChecked={true} onChange={setIsLiveTail} />
       </div>
     );
@@ -393,7 +397,7 @@ export default function SpendLogsTable({
   const logFilterOptions: FilterOption[] = [
     {
       name: "Team ID",
-      label: "ID команды",
+      label: t('ID_komandy'),
       isSearchable: true,
       searchFn: async (searchText: string) => {
         if (!allTeams || allTeams.length === 0) return [];
@@ -411,26 +415,26 @@ export default function SpendLogsTable({
     },
     {
       name: "Status",
-      label: "Статус",
+      label: t('Status'),
       isSearchable: false,
       options: [
-        { label: "Успешно", value: "success" },
-        { label: "Ошибка", value: "failure" },
+        { label: t('Uspeshno'), value: "success" },
+        { label: t('Oshibka'), value: "failure" },
       ],
     },
     {
       name: "Model",
-      label: "Модель",
+      label: t('Model'),
       customComponent: PaginatedModelSelect,
     },
     {
       name: "Key Alias",
-      label: "Псевдоним ключа",
+      label: t('Psevdonim_klyucha'),
       customComponent: PaginatedKeyAliasSelect,
     },
     {
       name: "End User",
-      label: "Конечный пользователь",
+      label: t('Konechnyy_polzovatel'),
       isSearchable: true,
       searchFn: async (searchText: string) => {
         if (!accessToken) return [];
@@ -443,7 +447,7 @@ export default function SpendLogsTable({
     },
     {
       name: "Error Code",
-      label: "Код ошибки",
+      label: t('Kod_oshibki'),
       isSearchable: true,
       searchFn: async (searchText: string) => {
         if (!searchText) return ERROR_CODE_OPTIONS;
@@ -458,12 +462,12 @@ export default function SpendLogsTable({
     },
     {
       name: "Key Hash",
-      label: "Хэш ключа",
+      label: t('Hesh_klyucha_1'),
       isSearchable: false,
     },
     {
       name: "Error Message",
-      label: "Сообщение об ошибке",
+      label: t('Soobschenie_ob_oshibke'),
       isSearchable: false,
     },
   ];
@@ -487,19 +491,19 @@ export default function SpendLogsTable({
     <div className="w-full max-w-screen p-6 overflow-x-hidden box-border">
       <TabGroup defaultIndex={0} onIndexChange={(index) => setActiveTab(index === 0 ? "request logs" : "audit logs")}>
         <TabList>
-          <Tab>Журнал запросов</Tab>
-          <Tab>Журнал аудита</Tab>
-          <Tab>Удалённые ключи</Tab>
-          <Tab>Удалённые команды</Tab>
+          <Tab>{t('Zhurnal_zaprosov')}</Tab>
+          <Tab>{t('Zhurnal_audita')}</Tab>
+          <Tab>{t('Udalyonnye_klyuchi')}</Tab>
+          <Tab>{t('Udalyonnye_komandy')}</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
             <div className="flex items-center justify-between mb-4">
-              <h1 className="text-xl font-semibold">Журнал запросов</h1>
+              <h1 className="text-xl font-semibold">{t('Zhurnal_zaprosov')}</h1>
               <Button
                 icon={<SettingOutlined />}
                 onClick={() => setIsSpendLogsSettingsModalVisible(true)}
-                title="Настройки логов расходов"
+                title={t('Nastroyki_logov_rashodov')}
               />
             </div>
             {selectedKeyInfo && selectedKeyIdInfoView && selectedKeyInfo.api_key === selectedKeyIdInfoView ? (
@@ -508,7 +512,7 @@ export default function SpendLogsTable({
                 keyData={selectedKeyInfo}
                 teams={allTeams}
                 onClose={() => setSelectedKeyIdInfoView(null)}
-                backButtonText="Назад к логам"
+                backButtonText={t('Nazad_k_logam')}
               />
             ) : (
               <>
@@ -529,7 +533,7 @@ export default function SpendLogsTable({
                         <div className="relative w-64 min-w-0 flex-shrink-0">
                           <input
                             type="text"
-                            placeholder="Поиск по ID запроса"
+                            placeholder={t('Poisk_po_ID_zaprosa')}
                             className="w-full px-3 py-2 pl-8 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
@@ -596,7 +600,7 @@ export default function SpendLogsTable({
                                       }`}
                                     onClick={() => setIsCustomDate(!isCustomDate)}
                                   >
-                                    Произвольный диапазон
+                                    {t('Proizvolnyy_diapazon')}
                                   </button>
                                 </div>
                               </div>
@@ -610,9 +614,9 @@ export default function SpendLogsTable({
                             icon={<SyncOutlined spin={isButtonLoading} />}
                             onClick={handleRefresh}
                             disabled={isButtonLoading}
-                            title="Получить данные"
+                            title={t('Poluchit_dannye')}
                           >
-                            {isButtonLoading ? "Загрузка..." : "Получить"}
+                            {isButtonLoading ? t('Zagruzka_1') : t('Poluchit')}
                           </Button>
                         </div>
 
@@ -629,7 +633,7 @@ export default function SpendLogsTable({
                                 className="px-3 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                               />
                             </div>
-                            <span className="text-gray-500">до</span>
+                            <span className="text-gray-500">{t('do')}</span>
                             <div>
                               <input
                                 type="datetime-local"
@@ -647,17 +651,17 @@ export default function SpendLogsTable({
 
                       <div className="flex items-center space-x-4">
                         <span className="text-sm text-gray-700 whitespace-nowrap">
-                          Показано {logs.isLoading ? "..." : filteredLogs ? (currentPage - 1) * pageSize + 1 : 0} -{" "}
+                          ${t('Pokazano')} {logs.isLoading ? "..." : filteredLogs ? (currentPage - 1) * pageSize + 1 : 0} -{" "}
                           {logs.isLoading
                             ? "..."
                             : filteredLogs
                               ? Math.min(currentPage * pageSize, filteredLogs.total)
                               : 0}{" "}
-                          из {logs.isLoading ? "..." : filteredLogs ? filteredLogs.total : 0} результатов
+                          ${t('iz')} {logs.isLoading ? "..." : filteredLogs ? filteredLogs.total : 0} ${t('rezultatov')}
                         </span>
                         <div className="flex items-center space-x-2">
                           <span className="text-sm text-gray-700 min-w-[90px]">
-                            Страница {logs.isLoading ? "..." : currentPage} из{" "}
+                            ${t('Stranitsa')} {logs.isLoading ? "..." : currentPage} {t('iz')}{" "}
                             {logs.isLoading ? "..." : filteredLogs ? filteredLogs.total_pages : 1}
                           </span>
                           <button
@@ -665,14 +669,14 @@ export default function SpendLogsTable({
                             disabled={logs.isLoading || currentPage === 1}
                             className="px-3 py-1 text-sm border rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                           >
-                            Назад
+                            {t('Nazad')}
                           </button>
                           <button
                             onClick={() => setCurrentPage((p) => Math.min(filteredLogs.total_pages || 1, p + 1))}
                             disabled={logs.isLoading || currentPage === (filteredLogs.total_pages || 1)}
                             className="px-3 py-1 text-sm border rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                           >
-                            Далее
+                            {t('Dalee')}
                           </button>
                         </div>
                       </div>
@@ -681,13 +685,13 @@ export default function SpendLogsTable({
                   {isLiveTail && currentPage === 1 && isMainQueryEnabled && (
                     <div className="mb-4 px-4 py-2 bg-green-50 border border-greem-200 rounded-md flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <span className="text-sm text-green-700">Автообновление каждые 15 секунд</span>
+                        <span className="text-sm text-green-700">{t('Avtoobnovlenie_kazhdye_15_sekund')}</span>
                       </div>
                       <button
                         onClick={() => setIsLiveTail(false)}
                         className="text-sm text-green-600 hover:text-green-800"
                       >
-                        Стоп
+                        {t('Stop')}
                       </button>
                     </div>
                   )}
@@ -829,12 +833,12 @@ export function RequestViewer({ row, onOpenSettings }: { row: Row<LogEntry>; onO
       {/* Combined Info Card */}
       <div className="bg-white rounded-lg shadow w-full max-w-full overflow-hidden">
         <div className="p-4 border-b">
-          <h3 className="text-lg font-medium">Детали запроса</h3>
+          <h3 className="text-lg font-medium">{t('Detali_zaprosa')}</h3>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 w-full max-w-full overflow-hidden">
           <div className="space-y-2">
             <div className="flex">
-              <span className="font-medium w-1/3">ID запроса:</span>
+              <span className="font-medium w-1/3">{t('ID_zaprosa_1')}</span>
               {row.original.request_id.length > 64 ? (
                 <Tooltip title={row.original.request_id}>
                   <span className="font-mono text-sm">{truncatedRequestId}</span>
@@ -844,36 +848,36 @@ export function RequestViewer({ row, onOpenSettings }: { row: Row<LogEntry>; onO
               )}
             </div>
             <div className="flex">
-              <span className="font-medium w-1/3">Модель:</span>
+              <span className="font-medium w-1/3">{t('Model_1')}</span>
               <span>{row.original.model}</span>
             </div>
             <div className="flex">
-              <span className="font-medium w-1/3">ID модели:</span>
+              <span className="font-medium w-1/3">{t('ID_modeli_1')}</span>
               <span>{row.original.model_id}</span>
             </div>
             <div className="flex">
-              <span className="font-medium w-1/3">Тип вызова:</span>
+              <span className="font-medium w-1/3">{t('Tip_vyzova_1')}</span>
               <span>{row.original.call_type}</span>
             </div>
             <div className="flex">
-              <span className="font-medium w-1/3">Провайдер:</span>
+              <span className="font-medium w-1/3">{t('Provayder_1')}</span>
               <span>{row.original.custom_llm_provider || "-"}</span>
             </div>
             <div className="flex">
-              <span className="font-medium w-1/3">API Base:</span>
+              <span className="font-medium w-1/3">{t('API_Base_1')}</span>
               <Tooltip title={row.original.api_base || "-"}>
                 <span className="max-w-[15ch] truncate block">{row.original.api_base || "-"}</span>
               </Tooltip>
             </div>
             {row?.original?.requester_ip_address && (
               <div className="flex">
-                <span className="font-medium w-1/3">IP-адрес:</span>
+                <span className="font-medium w-1/3">{t('IP_adres_1')}</span>
                 <span>{row?.original?.requester_ip_address}</span>
               </div>
             )}
             {hasGuardrailData && (
               <div className="flex">
-                <span className="font-medium w-1/3">Защита:</span>
+                <span className="font-medium w-1/3">{t('Zaschita_1')}</span>
                 <div>
                   <span className="font-mono">{primaryGuardrailLabel}</span>
                   {totalMaskedEntities > 0 && (
@@ -887,69 +891,69 @@ export function RequestViewer({ row, onOpenSettings }: { row: Row<LogEntry>; onO
           </div>
           <div className="space-y-2">
             <div className="flex">
-              <span className="font-medium w-1/3">Токены:</span>
+              <span className="font-medium w-1/3">{t('Tokeny_1')}</span>
               <span>
                 {row.original.total_tokens} ({row.original.prompt_tokens} prompt tokens +{" "}
                 {row.original.completion_tokens} completion tokens)
               </span>
             </div>
             <div className="flex">
-              <span className="font-medium w-1/3">Токены кеш-чтения:</span>
+              <span className="font-medium w-1/3">{t('Tokeny_kesh_chteniya_1')}</span>
               <span>
                 {formatNumberWithCommas(row.original.metadata?.additional_usage_values?.cache_read_input_tokens || 0)}
               </span>
             </div>
             <div className="flex">
-              <span className="font-medium w-1/3">Токены создания кеша:</span>
+              <span className="font-medium w-1/3">{t('Tokeny_sozdaniya_kesha_1')}</span>
               <span>
                 {formatNumberWithCommas(row.original.metadata?.additional_usage_values.cache_creation_input_tokens)}
               </span>
             </div>
             <div className="flex">
-              <span className="font-medium w-1/3">Стоимость:</span>
+              <span className="font-medium w-1/3">{t('Stoimost_1')}</span>
               <span>${formatNumberWithCommas(row.original.spend || 0, 6)}</span>
             </div>
             <div className="flex">
-              <span className="font-medium w-1/3">Кеш-попадание:</span>
+              <span className="font-medium w-1/3">{t('Kesh_popadanie_1')}</span>
               <span>{row.original.cache_hit}</span>
             </div>
 
             <div className="flex">
-              <span className="font-medium w-1/3">Статус:</span>
+              <span className="font-medium w-1/3">{t('Status_1')}</span>
               <span
                 className={`px-2 py-1 rounded-md text-xs font-medium inline-block text-center w-16 ${(row.original.metadata?.status || "Success").toLowerCase() !== "failure"
                   ? "bg-green-100 text-green-800"
                   : "bg-red-100 text-red-800"
                   }`}
               >
-                {(row.original.metadata?.status || "Success").toLowerCase() !== "failure" ? "Успешно" : "Ошибка"}
+                {(row.original.metadata?.status || "Success").toLowerCase() !== "failure" ? t('Uspeshno') : t('Oshibka')}
               </span>
             </div>
             <div className="flex">
-              <span className="font-medium w-1/3">Время начала:</span>
+              <span className="font-medium w-1/3">{t('Vremya_nachala_1')}</span>
               <span>{row.original.startTime}</span>
             </div>
             <div className="flex">
-              <span className="font-medium w-1/3">Время окончания:</span>
+              <span className="font-medium w-1/3">{t('Vremya_okonchaniya_1')}</span>
               <span>{row.original.endTime}</span>
             </div>
             <div className="flex">
-              <span className="font-medium w-1/3">Длительность:</span>
+              <span className="font-medium w-1/3">{t('Dlitelnost_1')}</span>
               <span>{row.original.request_duration_ms != null ? (row.original.request_duration_ms / 1000).toFixed(3) : "-"} s.</span>
             </div>
             {row.original.metadata?.litellm_overhead_time_ms !== undefined && (
               <div className="flex">
-                <span className="font-medium w-1/3">Накладные расходы LiteLLM:</span>
+                <span className="font-medium w-1/3">{t('Nakladnye_rashody_LiteLLM_1')}</span>
                 <span>{row.original.metadata.litellm_overhead_time_ms} ms</span>
               </div>
             )}
             <div className="flex">
-              <span className="font-medium w-1/3">Повторы:</span>
+              <span className="font-medium w-1/3">{t('Povtory_1')}</span>
               <span>
                 {row.original.metadata?.attempted_retries !== undefined && row.original.metadata?.attempted_retries !== null
                   ? row.original.metadata.attempted_retries > 0
                     ? `${row.original.metadata.attempted_retries}${row.original.metadata.max_retries !== undefined && row.original.metadata.max_retries !== null ? ` / ${row.original.metadata.max_retries}` : ''}`
-                    : <Tag color="green">Нет</Tag>
+                    : <Tag color="green">{t('Net')}</Tag>
                   : '-'}
               </span>
             </div>
@@ -995,7 +999,7 @@ export function RequestViewer({ row, onOpenSettings }: { row: Row<LogEntry>; onO
       {row.original.request_tags && Object.keys(row.original.request_tags).length > 0 && (
         <div className="bg-white rounded-lg shadow">
           <div className="flex justify-between items-center p-4 border-b">
-            <h3 className="text-lg font-medium">Теги запроса</h3>
+            <h3 className="text-lg font-medium">{t('Tegi_zaprosa')}</h3>
           </div>
           <div className="p-4">
             <div className="flex flex-wrap gap-2">
@@ -1013,13 +1017,13 @@ export function RequestViewer({ row, onOpenSettings }: { row: Row<LogEntry>; onO
       {row.original.metadata && Object.keys(row.original.metadata).length > 0 && (
         <div className="bg-white rounded-lg shadow">
           <div className="flex justify-between items-center p-4 border-b">
-            <h3 className="text-lg font-medium">Метаданные</h3>
+            <h3 className="text-lg font-medium">{t('Metadannye')}</h3>
             <button
               onClick={() => {
                 navigator.clipboard.writeText(JSON.stringify(row.original.metadata, null, 2));
               }}
               className="p-1 hover:bg-gray-200 rounded"
-              title="Копировать метаданные"
+              title={t('Kopirovat_metadannye')}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

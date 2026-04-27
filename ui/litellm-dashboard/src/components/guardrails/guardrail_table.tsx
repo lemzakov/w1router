@@ -14,6 +14,7 @@ import {
 import { getGuardrailLogoAndName, guardrail_provider_map } from "./guardrail_info_helpers";
 import EditGuardrailForm from "./edit_guardrail_form";
 import { Guardrail, GuardrailDefinitionLocation } from "./types";
+import { useTranslation } from "react-i18next";
 
 interface GuardrailTableProps {
   guardrailsList: Guardrail[];
@@ -34,6 +35,7 @@ const GuardrailTable: React.FC<GuardrailTableProps> = ({
   isAdmin = false,
   onGuardrailClick,
 }) => {
+  const { t } = useTranslation();
   const [sorting, setSorting] = useState<SortingState>([{ id: "created_at", desc: true }]);
   const [editModalVisible, setEditModalVisible] = useState(false);
   const [selectedGuardrail, setSelectedGuardrail] = useState<Guardrail | null>(null);
@@ -249,7 +251,7 @@ const GuardrailTable: React.FC<GuardrailTableProps> = ({
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-8 text-center">
                   <div className="text-center text-gray-500">
-                    <p>Loading...</p>
+                    <p>{t('Loading')}</p>
                   </div>
                 </TableCell>
               </TableRow>
@@ -274,7 +276,7 @@ const GuardrailTable: React.FC<GuardrailTableProps> = ({
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-8 text-center">
                   <div className="text-center text-gray-500">
-                    <p>No guardrails found</p>
+                    <p>{t('No_guardrails_found')}</p>
                   </div>
                 </TableCell>
               </TableRow>

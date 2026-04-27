@@ -6,6 +6,7 @@ import {
   useAccessGroups,
   AccessGroupResponse,
 } from "@/app/(dashboard)/hooks/accessGroups/useAccessGroups";
+import { useTranslation } from "react-i18next";
 
 export interface AccessGroupSelectorProps {
   value?: string[];
@@ -39,6 +40,7 @@ const AccessGroupSelector: React.FC<AccessGroupSelectorProps> = ({
   labelText = "Access Group",
   allowClear = true,
 }) => {
+  const { t } = useTranslation();
   const { data: accessGroups, isLoading, isError } = useAccessGroups();
 
   // ── Loading skeleton ─────────────────────────────────────────────────────
@@ -88,7 +90,7 @@ const AccessGroupSelector: React.FC<AccessGroupSelectorProps> = ({
         className={`rounded-md ${className ?? ""}`}
         notFoundContent={
           isError ? (
-            <span className="text-red-500">Failed to load access groups</span>
+            <span className="text-red-500">{t('Failed_to_load_access_groups')}</span>
           ) : (
             "No access groups found"
           )

@@ -25,6 +25,7 @@ import { adminGlobalCacheActivity, cachingHealthCheckCall } from "./networking";
 // Import the new component
 import { CacheHealthTab } from "./cache_health";
 import CacheSettings from "./cache_settings";
+import { useTranslation } from "react-i18next";
 
 const formatDateWithoutTZ = (date: Date | undefined) => {
   if (!date) return undefined;
@@ -97,6 +98,7 @@ const deepParse = (input: any) => {
 };
 
 const CacheDashboard: React.FC<CachePageProps> = ({ accessToken, token, userRole, userID, premiumUser }) => {
+  const { t } = useTranslation();
   const [filteredData, setFilteredData] = useState<uiData[]>([]);
   const [selectedApiKeys, setSelectedApiKeys] = useState<string[]>([]);
   const [selectedModels, setSelectedModels] = useState<string[]>([]);
@@ -270,9 +272,9 @@ const CacheDashboard: React.FC<CachePageProps> = ({ accessToken, token, userRole
     <TabGroup className="gap-2 p-8 h-full w-full mt-2 mb-8">
       <TabList className="flex justify-between mt-2 w-full items-center">
         <div className="flex">
-          <Tab>Cache Analytics</Tab>
-          <Tab>Cache Health</Tab>
-          <Tab>Cache Settings</Tab>
+          <Tab>{t('Cache_Analytics')}</Tab>
+          <Tab>{t('Cache_Health')}</Tab>
+          <Tab>{t('Cache_Settings')}</Tab>
         </div>
 
         <div className="flex items-center space-x-2">
@@ -357,7 +359,7 @@ const CacheDashboard: React.FC<CachePageProps> = ({ accessToken, token, userRole
               </Card>
             </div>
 
-            <Subtitle className="mt-4">Cache Hits vs API Requests</Subtitle>
+            <Subtitle className="mt-4">{t('Cache_Hits_vs_API_Requests')}</Subtitle>
             <BarChart
               title="Cache Hits vs API Requests"
               data={filteredData}
@@ -369,7 +371,7 @@ const CacheDashboard: React.FC<CachePageProps> = ({ accessToken, token, userRole
               yAxisWidth={48}
             />
 
-            <Subtitle className="mt-4">Cached Completion Tokens vs Generated Completion Tokens</Subtitle>
+            <Subtitle className="mt-4">{t('Cached_Completion_Tokens_vs_Generated_Co')}</Subtitle>
             <BarChart
               className="mt-6"
               data={filteredData}

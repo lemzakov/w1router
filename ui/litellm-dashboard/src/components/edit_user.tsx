@@ -5,6 +5,7 @@ import { Button as Button2, Modal, Form, Select as Select2, InputNumber } from "
 
 import NumericalInput from "./shared/numerical_input";
 import BudgetDurationDropdown from "./common_components/budget_duration_dropdown";
+import { useTranslation } from "react-i18next";
 
 interface EditUserModalProps {
   visible: boolean;
@@ -15,6 +16,7 @@ interface EditUserModalProps {
 }
 
 const EditUserModal: React.FC<EditUserModalProps> = ({ visible, possibleUIRoles, onCancel, user, onSubmit }) => {
+  const { t } = useTranslation();
   const [editedUser, setEditedUser] = useState(user);
   const [form] = Form.useForm();
 
@@ -96,11 +98,11 @@ const EditUserModal: React.FC<EditUserModalProps> = ({ visible, possibleUIRoles,
           </Form.Item>
 
           <div style={{ textAlign: "right", marginTop: "10px" }}>
-            <Button2 htmlType="submit">Save</Button2>
+            <Button2 htmlType="submit">{t('Save')}</Button2>
           </div>
 
           <div style={{ textAlign: "right", marginTop: "10px" }}>
-            <Button2 htmlType="submit">Save</Button2>
+            <Button2 htmlType="submit">{t('Save')}</Button2>
           </div>
         </>
       </Form>

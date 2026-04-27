@@ -1,6 +1,7 @@
 import { Button, Select, SelectItem, TabPanel, Text, Title } from "@tremor/react";
 import { InputNumber } from "antd";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 interface GlobalRetryPolicyObject {
   [retryPolicyKey: string]: number;
@@ -42,20 +43,20 @@ const ModelRetrySettingsTab = ({
   setModelGroupRetryPolicy,
   handleSaveRetrySettings,
 }: ModelRetrySettingsTabProps) => {
-  //  const [modelGroupRetryPolicy, setModelGroupRetryPolicy] = useState<RetryPolicyObject | null>(null);
+  const { t } = useTranslation();
 
   return (
     <TabPanel>
       <div className="flex items-center gap-4 mb-6">
         <div className="flex items-center">
-          <Text>Область политики повторов:</Text>
+          <Text>{t('Oblast_politiki_povtorov')}</Text>
           <Select
             className="ml-2 w-48"
             defaultValue="global"
             value={selectedModelGroup === "global" ? "global" : selectedModelGroup || availableModelGroups[0]}
             onValueChange={(value) => setSelectedModelGroup(value)}
           >
-            <SelectItem value="global">Глобальный по умолчанию</SelectItem>
+            <SelectItem value="global">{t('Globalnyy_po_umolchaniyu')}</SelectItem>
             {availableModelGroups.map((group, idx) => (
               <SelectItem key={idx} value={group} onClick={() => setSelectedModelGroup(group)}>
                 {group}
@@ -67,13 +68,13 @@ const ModelRetrySettingsTab = ({
 
       {selectedModelGroup === "global" ? (
         <>
-          <Title>Глобальная политика повторов</Title>
-          <Text className="mb-6">Настройки повторных попыток по умолчанию, применяемые ко всем группам моделей, если не переопределены</Text>
+          <Title>{t('Globalnaya_politika_povtorov')}</Title>
+          <Text className="mb-6">{t('Nastroyki_povtornyh_popytok_po_umolchani')}</Text>
         </>
       ) : (
         <>
-          <Title>Политика повторов для {selectedModelGroup}</Title>
-          <Text className="mb-6">Настройки повторных попыток для конкретной модели. Используются глобальные настройки по умолчанию, если не заданы.</Text>
+          <Title>{t('Politika_povtorov_dlya')} {selectedModelGroup}</Title>
+          <Text className="mb-6">{t('Nastroyki_povtornyh_popytok_dlya_konkret')}</Text>
         </>
       )}
       {retryPolicyMap && (
@@ -102,7 +103,7 @@ const ModelRetrySettingsTab = ({
                     <Text>{exceptionType}</Text>
                     {selectedModelGroup !== "global" && (
                       <Text className="text-xs text-gray-500 ml-2">
-                        (Глобальный: {globalRetryPolicy?.[retryPolicyKey] ?? defaultRetry})
+                        ({t('Globalnyy')} {globalRetryPolicy?.[retryPolicyKey] ?? defaultRetry})
                       </Text>
                     )}
                   </td>
@@ -145,7 +146,7 @@ const ModelRetrySettingsTab = ({
         </table>
       )}
       <Button className="mt-6 mr-8" onClick={handleSaveRetrySettings}>
-        Сохранить
+        {t('Sohranit')}
       </Button>
     </TabPanel>
   );

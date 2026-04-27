@@ -13,6 +13,7 @@ import {
   LinkOutlined,
 } from "@ant-design/icons";
 import { MCPServer } from "./types";
+import { useTranslation } from "react-i18next";
 
 interface ByokCredentialModalProps {
   server: MCPServer;
@@ -29,6 +30,7 @@ export const ByokCredentialModal: React.FC<ByokCredentialModalProps> = ({
   onSuccess,
   accessToken,
 }) => {
+  const { t } = useTranslation();
   const [step, setStep] = useState<1 | 2>(1);
   const [apiKey, setApiKey] = useState("");
   const [saveKey, setSaveKey] = useState(true);
@@ -133,7 +135,7 @@ export const ByokCredentialModal: React.FC<ByokCredentialModalProps> = ({
                   </svg>
                 </div>
                 <div>
-                  <p className="font-semibold text-gray-800 mb-1">How it works</p>
+                  <p className="font-semibold text-gray-800 mb-1">{t('How_it_works')}</p>
                   <p className="text-gray-500 text-sm">
                     LiteLLM acts as a secure bridge. Your requests are routed through our MCP client directly to{" "}
                     {serverDisplayName}&apos;s API.
@@ -188,7 +190,7 @@ export const ByokCredentialModal: React.FC<ByokCredentialModalProps> = ({
               <KeyOutlined className="text-blue-400 text-xl" />
             </div>
 
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Provide API Key</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">{t('Provide_API_Key')}</h2>
             <p className="text-gray-500 mb-6">
               Enter your {serverDisplayName} API key to authorize this connection.
             </p>
@@ -225,7 +227,7 @@ export const ByokCredentialModal: React.FC<ByokCredentialModalProps> = ({
                     fill="currentColor"
                   />
                 </svg>
-                <span className="text-sm font-medium text-gray-800">Save key for future use</span>
+                <span className="text-sm font-medium text-gray-800">{t('Save_key_for_future_use')}</span>
               </div>
               <Switch checked={saveKey} onChange={setSaveKey} />
             </div>

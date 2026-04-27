@@ -2,6 +2,7 @@ import { CloseOutlined, PlayCircleOutlined } from "@ant-design/icons";
 import { Button, Modal, Select, Input } from "antd";
 import React, { useEffect, useState } from "react";
 import { fetchAvailableModels, type ModelGroup } from "@/components/playground/llm_calls/fetch_models";
+import { useTranslation } from "react-i18next";
 
 const DEFAULT_PROMPT = `Evaluate whether this guardrail's decision was correct.
 Analyze the user input, the guardrail action taken, and determine if it was appropriate.
@@ -37,6 +38,7 @@ export function EvaluationSettingsModal({
   accessToken,
   onRunEvaluation,
 }: EvaluationSettingsModalProps) {
+  const { t } = useTranslation();
   const [prompt, setPrompt] = useState(DEFAULT_PROMPT);
   const [schema, setSchema] = useState(DEFAULT_SCHEMA);
   const [model, setModel] = useState<string | null>(null);
@@ -97,7 +99,7 @@ export function EvaluationSettingsModal({
       <div className="space-y-4">
         <div>
           <div className="flex items-center justify-between mb-1.5">
-            <label className="text-sm font-medium text-gray-700">Evaluation Prompt</label>
+            <label className="text-sm font-medium text-gray-700">{t('Evaluation_Prompt')}</label>
             <button
               type="button"
               onClick={handleResetPrompt}
@@ -131,7 +133,7 @@ export function EvaluationSettingsModal({
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1.5">Model</label>
+          <label className="block text-sm font-medium text-gray-700 mb-1.5">{t('Model_2')}</label>
           <Select
             placeholder={loadingModels ? "Loading models…" : "Select a model"}
             value={model ?? undefined}
@@ -147,7 +149,7 @@ export function EvaluationSettingsModal({
       </div>
 
       <div className="flex items-center justify-end gap-2 mt-6 pt-4 border-t border-gray-100">
-        <Button onClick={onClose}>Cancel</Button>
+        <Button onClick={onClose}>{t('Cancel')}</Button>
         <Button type="primary" icon={<PlayCircleOutlined />} onClick={handleRun} disabled={!model}>
           Run Evaluation
         </Button>

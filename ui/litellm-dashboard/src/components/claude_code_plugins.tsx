@@ -11,6 +11,7 @@ import { isAdminRole } from "@/utils/roles";
 import PluginInfoView from "./claude_code_plugins/plugin_info";
 import NotificationsManager from "./molecules/notifications_manager";
 import { Plugin, ListPluginsResponse } from "./claude_code_plugins/types";
+import { useTranslation } from "react-i18next";
 
 interface ClaudeCodePluginsPanelProps {
   accessToken: string | null;
@@ -21,6 +22,7 @@ const ClaudeCodePluginsPanel: React.FC<ClaudeCodePluginsPanelProps> = ({
   accessToken,
   userRole,
 }) => {
+  const { t } = useTranslation();
   const [pluginsList, setPluginsList] = useState<Plugin[]>([]);
   const [isAddModalVisible, setIsAddModalVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -104,7 +106,7 @@ const ClaudeCodePluginsPanel: React.FC<ClaudeCodePluginsPanelProps> = ({
   return (
     <div className="w-full mx-auto flex-auto overflow-y-auto m-8 p-2">
       <div className="flex flex-col gap-2 mb-4">
-        <h1 className="text-2xl font-bold">Claude Code Plugins</h1>
+        <h1 className="text-2xl font-bold">{t('Claude_Code_Plugins')}</h1>
         <p className="text-sm text-gray-600">
           Manage Claude Code marketplace plugins. Add, enable, disable, or
           delete plugins that will be available in your marketplace catalog.
@@ -159,7 +161,7 @@ const ClaudeCodePluginsPanel: React.FC<ClaudeCodePluginsPanelProps> = ({
             Are you sure you want to delete plugin:{" "}
             <strong>{pluginToDelete.displayName}</strong>?
           </p>
-          <p>This action cannot be undone.</p>
+          <p>{t('This_action_cannot_be_undone')}</p>
         </Modal>
       )}
     </div>

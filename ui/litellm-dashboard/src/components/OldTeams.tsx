@@ -91,6 +91,7 @@ import { updateExistingKeys } from "@/utils/dataUtils";
 import DeleteResourceModal from "./common_components/DeleteResourceModal";
 import { Member, teamCreateCall } from "./networking";
 import { ModelSelect } from "./ModelSelect/ModelSelect";
+import { useTranslation } from "react-i18next";
 
 interface TeamInfo {
   members_with_roles: Member[];
@@ -183,6 +184,7 @@ const Teams: React.FC<TeamProps> = ({
   organizations,
   premiumUser = false,
 }) => {
+  const { t } = useTranslation();
   console.log(`organizations: ${JSON.stringify(organizations)}`);
   const { data: organizationsData } = useOrganizations();
   const [isLoading, setIsLoading] = useState(true);
@@ -886,7 +888,7 @@ const Teams: React.FC<TeamProps> = ({
             <div style={{ padding: "64px 0", textAlign: "center" }}>
               <TeamOutlined style={{ fontSize: 40, color: "#d9d9d9", marginBottom: 12 }} />
               <div>
-                <Text style={{ fontSize: 15, color: "#595959" }}>No teams yet</Text>
+                <Text style={{ fontSize: 15, color: "#595959" }}>{t('No_teams_yet')}</Text>
               </div>
               <div style={{ marginTop: 4 }}>
                 <Text type="secondary" style={{ fontSize: 13 }}>
@@ -1234,7 +1236,7 @@ const Teams: React.FC<TeamProps> = ({
                     }}
                   >
                     <AccordionHeader>
-                      <b>Additional Settings</b>
+                      <b>{t('Additional_Settings')}</b>
                     </AccordionHeader>
                     <AccordionBody>
                       <Form.Item
@@ -1438,7 +1440,7 @@ const Teams: React.FC<TeamProps> = ({
 
                   <Accordion className="mt-8 mb-8">
                     <AccordionHeader>
-                      <b>MCP Settings</b>
+                      <b>{t('MCP_Settings')}</b>
                     </AccordionHeader>
                     <AccordionBody>
                       <Form.Item
@@ -1490,7 +1492,7 @@ const Teams: React.FC<TeamProps> = ({
 
                   <Accordion className="mt-8 mb-8">
                     <AccordionHeader>
-                      <b>Agent Settings</b>
+                      <b>{t('Agent_Settings')}</b>
                     </AccordionHeader>
                     <AccordionBody>
                       <Form.Item
@@ -1518,7 +1520,7 @@ const Teams: React.FC<TeamProps> = ({
 
                   <Accordion className="mt-8 mb-8">
                     <AccordionHeader>
-                      <b>Logging Settings</b>
+                      <b>{t('Logging_Settings')}</b>
                     </AccordionHeader>
                     <AccordionBody>
                       <div className="mt-4">
@@ -1533,7 +1535,7 @@ const Teams: React.FC<TeamProps> = ({
 
                   <Accordion key={`router-settings-accordion-${routerSettingsKey}`} className="mt-8 mb-8">
                     <AccordionHeader>
-                      <b>Router Settings</b>
+                      <b>{t('Router_Settings')}</b>
                     </AccordionHeader>
                     <AccordionBody>
                       <div className="mt-4 w-full">
@@ -1550,7 +1552,7 @@ const Teams: React.FC<TeamProps> = ({
 
                   <Accordion className="mt-8 mb-8">
                     <AccordionHeader>
-                      <b>Model Aliases</b>
+                      <b>{t('Model_Aliases')}</b>
                     </AccordionHeader>
                     <AccordionBody>
                       <div className="mt-4">
@@ -1569,7 +1571,7 @@ const Teams: React.FC<TeamProps> = ({
                   </Accordion>
                 </>
                 <div style={{ textAlign: "right", marginTop: "10px" }}>
-                  <Button htmlType="submit" data-testid="create-team-submit">Create Team</Button>
+                  <Button htmlType="submit" data-testid="create-team-submit">{t('Create_Team')}</Button>
                 </div>
               </Form>
             </Modal>

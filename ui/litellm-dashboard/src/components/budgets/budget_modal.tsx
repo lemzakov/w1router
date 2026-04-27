@@ -3,12 +3,14 @@ import { TextInput, Accordion, AccordionHeader, AccordionBody } from "@tremor/re
 import { Button as Button2, Modal, Form, InputNumber, Select } from "antd";
 import { useCreateBudget } from "@/app/(dashboard)/hooks/budgets/useBudgets";
 import NotificationsManager from "../molecules/notifications_manager";
+import { useTranslation } from "react-i18next";
 
 interface BudgetModalProps {
   isModalVisible: boolean;
   setIsModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const BudgetModal: React.FC<BudgetModalProps> = ({ isModalVisible, setIsModalVisible }) => {
+  const { t } = useTranslation();
   const [form] = Form.useForm();
   const createBudget = useCreateBudget();
 
@@ -68,7 +70,7 @@ const BudgetModal: React.FC<BudgetModalProps> = ({ isModalVisible, setIsModalVis
 
           <Accordion className="mt-20 mb-8">
             <AccordionHeader>
-              <b>Optional Settings</b>
+              <b>{t('Optional_Settings')}</b>
             </AccordionHeader>
             <AccordionBody>
               <Form.Item label="Max Budget (USD)" name="max_budget">
@@ -86,7 +88,7 @@ const BudgetModal: React.FC<BudgetModalProps> = ({ isModalVisible, setIsModalVis
         </>
 
         <div style={{ textAlign: "right", marginTop: "10px" }}>
-          <Button2 htmlType="submit">Create Budget</Button2>
+          <Button2 htmlType="submit">{t('Create_Budget')}</Button2>
         </div>
       </Form>
     </Modal>

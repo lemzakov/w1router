@@ -5,6 +5,7 @@ import { useCurrentUser } from "@/app/(dashboard)/hooks/users/useCurrentUser";
 import { Select, Skeleton, Tooltip, type SelectProps } from "antd";
 import { Organization, Team } from "../networking";
 import { splitWildcardModels } from "./modelUtils";
+import { useTranslation } from "react-i18next";
 
 const MODEL_SELECT_ALL_PROXY_MODELS_SPECIAL_VALUE = {
   label: "All Proxy Models",
@@ -89,6 +90,7 @@ const filterModels = (
 };
 
 export const ModelSelect = (props: ModelSelectProps) => {
+  const { t } = useTranslation();
   const { teamID, organizationID, options, context, dataTestId, value = [], onChange, style } = props;
   const { includeUserModels, showAllTeamModelsOption, showAllProxyModelsOverride, includeSpecialOptions } =
     options || {};
@@ -143,13 +145,13 @@ export const ModelSelect = (props: ModelSelectProps) => {
       options={[
         includeSpecialOptions
           ? {
-            label: <span>Special Options</span>,
+            label: <span>{t('Special_Options')}</span>,
             title: "Special Options",
             options: [
               ...(shouldShowAllProxyModels
                 ? [
                   {
-                    label: <span>All Proxy Models</span>,
+                    label: <span>{t('All_Proxy_Models')}</span>,
                     value: MODEL_SELECT_ALL_PROXY_MODELS_SPECIAL_VALUE.value,
                     disabled:
                       value.length > 0 &&
@@ -161,7 +163,7 @@ export const ModelSelect = (props: ModelSelectProps) => {
                 ]
                 : []),
               {
-                label: <span>No Default Models</span>,
+                label: <span>{t('No_Default_Models')}</span>,
                 value: MODEL_SELECT_NO_DEFAULT_MODELS_SPECIAL_VALUE.value,
                 disabled:
                   value.length > 0 &&
@@ -174,7 +176,7 @@ export const ModelSelect = (props: ModelSelectProps) => {
         ...(wildcard.length > 0
           ? [
             {
-              label: <span>Wildcard Options</span>,
+              label: <span>{t('Wildcard_Options')}</span>,
               title: "Wildcard Options",
               options: wildcard.map((model) => {
                 const provider = model.replace("/*", "");
@@ -190,7 +192,7 @@ export const ModelSelect = (props: ModelSelectProps) => {
           ]
           : []),
         {
-          label: <span>Models</span>,
+          label: <span>{t('Models')}</span>,
           title: "Models",
           options: regular.map((model) => ({
             label: <span>{model}</span>,

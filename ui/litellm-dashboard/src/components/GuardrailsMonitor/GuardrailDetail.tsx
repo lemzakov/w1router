@@ -16,6 +16,7 @@ import { EvaluationSettingsModal } from "./EvaluationSettingsModal";
 import { LogViewer } from "./LogViewer";
 import { MetricCard } from "./MetricCard";
 import type { LogEntry } from "./mockData";
+import { useTranslation } from "react-i18next";
 
 interface GuardrailDetailProps {
   guardrailId: string;
@@ -41,6 +42,7 @@ export function GuardrailDetail({
   startDate,
   endDate,
 }: GuardrailDetailProps) {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState("overview");
   const [evaluationModalOpen, setEvaluationModalOpen] = useState(false);
   const [logsPage, setLogsPage] = useState(1);
@@ -116,7 +118,7 @@ export function GuardrailDetail({
         <Button type="link" icon={<ArrowLeftOutlined />} onClick={onBack} className="pl-0 mb-4">
           Back to Overview
         </Button>
-        <p className="text-red-600">Failed to load guardrail details.</p>
+        <p className="text-red-600">{t('Failed_to_load_guardrail_details')}</p>
       </div>
     );
   }

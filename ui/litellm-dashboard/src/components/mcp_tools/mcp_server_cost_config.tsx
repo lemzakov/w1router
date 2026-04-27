@@ -3,6 +3,7 @@ import { Tooltip, InputNumber, Collapse, Badge } from "antd";
 import { InfoCircleOutlined, DollarOutlined, ToolOutlined } from "@ant-design/icons";
 import { Card, Title, Text } from "@tremor/react";
 import { MCPServerCostInfo } from "./types";
+import { useTranslation } from "react-i18next";
 
 interface MCPServerCostConfigProps {
   value?: MCPServerCostInfo;
@@ -17,6 +18,7 @@ const MCPServerCostConfig: React.FC<MCPServerCostConfigProps> = ({
   tools = [],
   disabled = false,
 }) => {
+  const { t } = useTranslation();
   const handleDefaultCostChange = (defaultCost: number | null) => {
     const updated = {
       ...value,
@@ -41,7 +43,7 @@ const MCPServerCostConfig: React.FC<MCPServerCostConfigProps> = ({
       <div className="space-y-6">
         <div className="flex items-center gap-2 mb-4">
           <DollarOutlined className="text-green-600" />
-          <Title>Cost Configuration</Title>
+          <Title>{t('Cost_Configuration')}</Title>
           <Tooltip title="Configure costs for this MCP server's tool calls. Set a default rate and per-tool overrides.">
             <InfoCircleOutlined className="text-gray-400" />
           </Tooltip>
@@ -86,7 +88,7 @@ const MCPServerCostConfig: React.FC<MCPServerCostConfigProps> = ({
                     label: (
                       <div className="flex items-center">
                         <ToolOutlined className="mr-2 text-blue-500" />
-                        <span className="font-medium">Available Tools</span>
+                        <span className="font-medium">{t('Available_Tools')}</span>
                         <Badge
                           count={tools.length}
                           style={{
@@ -133,7 +135,7 @@ const MCPServerCostConfig: React.FC<MCPServerCostConfigProps> = ({
         {(value.default_cost_per_query ||
           (value.tool_name_to_cost_per_query && Object.keys(value.tool_name_to_cost_per_query).length > 0)) && (
           <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-            <Text className="text-blue-800 font-medium">Cost Summary:</Text>
+            <Text className="text-blue-800 font-medium">{t('Cost_Summary')}</Text>
             <div className="mt-2 space-y-1">
               {value.default_cost_per_query && (
                 <Text className="text-blue-700">

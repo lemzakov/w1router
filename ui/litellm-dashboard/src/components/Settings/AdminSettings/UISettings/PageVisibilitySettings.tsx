@@ -3,6 +3,7 @@
 import { getAvailablePages } from "@/components/page_utils";
 import { Button, Checkbox, Collapse, Space, Tag, Typography } from "antd";
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 interface PageVisibilitySettingsProps {
   enabledPagesInternalUsers: string[] | null | undefined;
@@ -17,6 +18,7 @@ export default function PageVisibilitySettings({
   isUpdating,
   onUpdate,
 }: PageVisibilitySettingsProps) {
+  const { t } = useTranslation();
   // Check if page visibility is set (null/undefined means "not set" = all pages visible)
   const isPageVisibilitySet = enabledPagesInternalUsers !== null && enabledPagesInternalUsers !== undefined;
 
@@ -60,7 +62,7 @@ export default function PageVisibilitySettings({
     <Space direction="vertical" size="middle" style={{ width: "100%" }}>
       <Space direction="vertical" size={4}>
         <Space align="center">
-          <Typography.Text strong>Internal User Page Visibility</Typography.Text>
+          <Typography.Text strong>{t('Internal_User_Page_Visibility')}</Typography.Text>
           {!isPageVisibilitySet && (
             <Tag color="default" style={{ marginLeft: "8px" }}>
               Not set (all pages visible)

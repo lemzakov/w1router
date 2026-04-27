@@ -17,6 +17,7 @@ import useFetchTeams from "@/app/(dashboard)/teams/hooks/useFetchTeams";
 import TeamsTable from "@/app/(dashboard)/teams/components/TeamsTable/TeamsTable";
 import DeleteTeamModal from "@/app/(dashboard)/teams/components/modals/DeleteTeamModal";
 import CreateTeamModal from "@/app/(dashboard)/teams/components/modals/CreateTeamModal";
+import { useTranslation } from "react-i18next";
 
 interface TeamProps {
   teams: Team[] | null;
@@ -54,7 +55,8 @@ const TeamsView: React.FC<TeamProps> = ({
   organizations,
   premiumUser = false,
 }) => {
-  const [currentOrg, setCurrentOrg] = useState<Organization | null>(null);
+    const { t } = useTranslation();
+const [currentOrg, setCurrentOrg] = useState<Organization | null>(null);
   const [showFilters, setShowFilters] = useState(false);
   const [filters, setFilters] = useState<FilterState>({
     team_id: "",
@@ -247,7 +249,7 @@ const TeamsView: React.FC<TeamProps> = ({
         <Col numColSpan={1} className="flex flex-col gap-2">
           {(userRole == "Admin" || userRole == "Org Admin") && (
             <Button className="w-fit" onClick={() => setIsTeamModalVisible(true)}>
-              + Создать команду
+              {t('Sozdat_komandu')}
             </Button>
           )}
           {selectedTeamId ? (
@@ -292,7 +294,7 @@ const TeamsView: React.FC<TeamProps> = ({
             <TeamsHeaderTabs lastRefreshed={lastRefreshed} onRefresh={handleRefreshClick} userRole={userRole}>
               <TabPanel>
                 <Text>
-                  Нажмите на &laquo;ID команды&raquo;, чтобы просмотреть детали <b>и</b> управлять участниками.
+                  {t('Nazhmite_na_laquo_ID_komandy_raquo_chto')} <b>{t('i')}</b> {t('upravlyat_uchastnikami')}
                 </Text>
                 <Grid numItems={1} className="gap-2 pt-2 pb-2 h-[75vh] w-full mt-2">
                   <Col numColSpan={1}>

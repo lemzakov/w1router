@@ -2,6 +2,7 @@ import { DeleteOutlined, InfoCircleOutlined, PlusOutlined } from "@ant-design/ic
 import { Select as AntdSelect, Button, Card, Collapse, Divider, Empty, Flex, Input, InputNumber, Space, Tooltip, Typography } from "antd";
 import React, { useEffect, useState } from "react";
 import { ModelGroup } from "../playground/llm_calls/fetch_models";
+import { useTranslation } from "react-i18next";
 
 const { Text } = Typography;
 
@@ -35,6 +36,7 @@ interface RouterConfigBuilderProps {
 }
 
 const RouterConfigBuilder: React.FC<RouterConfigBuilderProps> = ({ modelInfo, value, onChange }) => {
+  const { t } = useTranslation();
   const [routes, setRoutes] = useState<Route[]>([]);
   const [showJsonPreview, setShowJsonPreview] = useState<boolean>(false);
   const [expandedRoutes, setExpandedRoutes] = useState<string[]>([]);
@@ -142,7 +144,7 @@ const RouterConfigBuilder: React.FC<RouterConfigBuilderProps> = ({ modelInfo, va
     <div className="w-full max-w-none">
       <Flex justify="space-between" align="center" gap="middle" style={{ width: "100%", marginBottom: 24 }}>
         <Space align="center">
-          <Typography.Title level={4} style={{ margin: 0 }}>Routes Configuration</Typography.Title>
+          <Typography.Title level={4} style={{ margin: 0 }}>{t('Routes_Configuration')}</Typography.Title>
           <Tooltip title="Configure routing logic to automatically select the best model based on user input patterns">
             <InfoCircleOutlined className="text-gray-400" />
           </Tooltip>
@@ -185,7 +187,7 @@ const RouterConfigBuilder: React.FC<RouterConfigBuilderProps> = ({ modelInfo, va
               <Card key={route.id}>
                 {/* Model Selection */}
                 <div className="mb-4 w-full">
-                  <Text className="text-sm font-medium mb-2 block">Model</Text>
+                  <Text className="text-sm font-medium mb-2 block">{t('Model_2')}</Text>
                   <AntdSelect
                     value={route.model}
                     onChange={(value) => updateRoute(route.id, "model", value)}
@@ -198,7 +200,7 @@ const RouterConfigBuilder: React.FC<RouterConfigBuilderProps> = ({ modelInfo, va
 
                 {/* Description */}
                 <div className="mb-4 w-full">
-                  <Text className="text-sm font-medium mb-2 block">Description</Text>
+                  <Text className="text-sm font-medium mb-2 block">{t('Description_1')}</Text>
                   <TextArea
                     value={route.description}
                     onChange={(e) => updateRoute(route.id, "description", e.target.value)}
@@ -211,7 +213,7 @@ const RouterConfigBuilder: React.FC<RouterConfigBuilderProps> = ({ modelInfo, va
                 {/* Score Threshold */}
                 <div className="mb-4 w-full">
                   <div className="flex items-center gap-2 mb-2">
-                    <Text className="text-sm font-medium">Score Threshold</Text>
+                    <Text className="text-sm font-medium">{t('Score_Threshold')}</Text>
                     <Tooltip title="Minimum similarity score to route to this model (0-1)">
                       <InfoCircleOutlined className="text-gray-400" />
                     </Tooltip>
@@ -230,7 +232,7 @@ const RouterConfigBuilder: React.FC<RouterConfigBuilderProps> = ({ modelInfo, va
                 {/* Example Utterances */}
                 <div className="w-full">
                   <div className="flex items-center gap-2 mb-2">
-                    <Text className="text-sm font-medium">Example Utterances</Text>
+                    <Text className="text-sm font-medium">{t('Example_Utterances')}</Text>
                     <Tooltip title="Training examples for this route. Type an utterance and press Enter to add it.">
                       <InfoCircleOutlined className="text-gray-400" />
                     </Tooltip>
@@ -258,7 +260,7 @@ const RouterConfigBuilder: React.FC<RouterConfigBuilderProps> = ({ modelInfo, va
       {/* JSON Preview */}
       <Divider />
       <div className="flex justify-between items-center mb-4 w-full">
-        <Text className="text-lg font-semibold">JSON Preview</Text>
+        <Text className="text-lg font-semibold">{t('JSON_Preview')}</Text>
         <Button type="link" onClick={() => setShowJsonPreview(!showJsonPreview)} className="text-blue-600 p-0">
           {showJsonPreview ? "Hide" : "Show"}
         </Button>

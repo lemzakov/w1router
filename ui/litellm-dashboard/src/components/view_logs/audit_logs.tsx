@@ -1,3 +1,4 @@
+import "@/i18n";
 import { useState } from "react";
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { Table, Tag, Input, Select, Button, Pagination, Spin } from "antd";
@@ -8,6 +9,8 @@ import { uiAuditLogsCall } from "../networking";
 import { AuditLogEntry } from "./columns";
 import { AuditLogDrawer } from "./AuditLogDrawer/AuditLogDrawer";
 import DefaultProxyAdminTag from "../common_components/DefaultProxyAdminTag";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 const { Search } = Input;
 
@@ -24,11 +27,11 @@ const asset_logos_folder = "../ui/assets/";
 export const auditLogsPreviewImg = `${asset_logos_folder}audit-logs-preview.png`;
 
 const TABLE_NAME_DISPLAY: Record<string, string> = {
-  LiteLLM_VerificationToken: "Ключи",
-  LiteLLM_TeamTable: "Команды",
-  LiteLLM_UserTable: "Пользователи",
-  LiteLLM_OrganizationTable: "Организации",
-  LiteLLM_ProxyModelTable: "Модели",
+  LiteLLM_VerificationToken: t('Klyuchi'),
+  LiteLLM_TeamTable: t('Komandy'),
+  LiteLLM_UserTable: t('Polzovateli'),
+  LiteLLM_OrganizationTable: t('Organizatsii'),
+  LiteLLM_ProxyModelTable: t('Modeli'),
 };
 
 const ACTION_COLOR: Record<string, string> = {
@@ -48,7 +51,8 @@ export default function AuditLogs({
   isActive,
   premiumUser,
 }: AuditLogsProps) {
-  const [page, setPage] = useState(1);
+    const { t } = useTranslation();
+const [page, setPage] = useState(1);
 
   // Filter state
   const [objectId, setObjectId] = useState("");
@@ -107,7 +111,7 @@ export default function AuditLogs({
 
   const columns: ColumnsType<AuditLogEntry> = [
     {
-      title: "Метка времени",
+      title: t('Metka_vremeni'),
       dataIndex: "updated_at",
       key: "updated_at",
       width: 200,
@@ -118,7 +122,7 @@ export default function AuditLogs({
       ),
     },
     {
-      title: "Действие",
+      title: t('Deystvie'),
       dataIndex: "action",
       key: "action",
       width: 100,
@@ -129,14 +133,14 @@ export default function AuditLogs({
       ),
     },
     {
-      title: "Таблица",
+      title: t('Tablitsa'),
       dataIndex: "table_name",
       key: "table_name",
       width: 130,
       render: (val: string) => TABLE_NAME_DISPLAY[val] ?? val,
     },
     {
-      title: "ID объекта",
+      title: t('ID_obekta'),
       dataIndex: "object_id",
       key: "object_id",
       render: (val: string) => (
@@ -144,14 +148,14 @@ export default function AuditLogs({
       ),
     },
     {
-      title: "Изменено кем",
+      title: t('Izmeneno_kem'),
       dataIndex: "changed_by",
       key: "changed_by",
       width: 200,
       render: (val: string) => <DefaultProxyAdminTag userId={val} />,
     },
     {
-      title: "API-ключ (хэш)",
+      title: t('API_klyuch_hesh'),
       dataIndex: "changed_by_api_key",
       key: "changed_by_api_key",
       width: 140,
@@ -167,16 +171,16 @@ export default function AuditLogs({
   if (!premiumUser) {
     return (
       <div style={{ textAlign: "center", marginTop: "20px" }}>
-        <h1 style={{ display: "block", marginBottom: "10px" }}>✨ Функция уровня Enterprise.</h1>
+        <h1 style={{ display: "block", marginBottom: "10px" }}>{t('Funktsiya_urovnya_Enterprise')}</h1>
         <p style={{ display: "block", marginBottom: "10px" }}>
-          Это функция LiteLLM Enterprise, для использования требуется действующий ключ.
+          {t('Eto_funktsiya_LiteLLM_Enterprise_dlya_is')}
         </p>
         <p style={{ display: "block", marginBottom: "20px", fontStyle: "italic" }}>
-          Вот предварительный просмотр возможностей журнала аудита:
+          {t('Vot_predvaritelnyy_prosmotr_vozmozhnoste')}
         </p>
         <img
           src={auditLogsPreviewImg}
-          alt="Предварительный просмотр журнала аудита"
+          alt={t('Predvaritelnyy_prosmotr_zhurnala_audita')}
           style={{
             maxWidth: "100%",
             maxHeight: "700px",
@@ -201,61 +205,61 @@ export default function AuditLogs({
         {/* Header */}
         <div className="border-b px-6 py-4">
           <div className="flex items-center justify-between mb-4">
-            <h1 className="text-xl font-semibold">Журнал аудита</h1>
+            <h1 className="text-xl font-semibold">{t('Zhurnal_audita')}</h1>
           </div>
 
           {/* Filters + pagination on same row */}
           <div className="flex flex-wrap items-center gap-3">
             <Search
-              placeholder="ID объекта"
+              placeholder={t('ID_obekta')}
               allowClear
               style={{ width: 200 }}
               onSearch={(val) => { setObjectId(val); resetPage(); }}
               onChange={(e) => { if (!e.target.value) { setObjectId(""); resetPage(); } }}
             />
             <Search
-              placeholder="Изменено кем"
+              placeholder={t('Izmeneno_kem')}
               allowClear
               style={{ width: 180 }}
               onSearch={(val) => { setChangedBy(val); resetPage(); }}
               onChange={(e) => { if (!e.target.value) { setChangedBy(""); resetPage(); } }}
             />
             <Search
-              placeholder="ID команды"
+              placeholder={t('ID_komandy')}
               allowClear
               style={{ width: 180 }}
               onSearch={(val) => { setTeamId(val); resetPage(); }}
               onChange={(e) => { if (!e.target.value) { setTeamId(""); resetPage(); } }}
             />
             <Search
-              placeholder="Хэш ключа"
+              placeholder={t('Hesh_klyucha_1')}
               allowClear
               style={{ width: 180 }}
               onSearch={(val) => { setKeyHash(val); resetPage(); }}
               onChange={(e) => { if (!e.target.value) { setKeyHash(""); resetPage(); } }}
             />
             <Select
-              placeholder="Все действия"
+              placeholder={t('Vse_deystviya')}
               allowClear
               style={{ width: 140 }}
               options={[
-                { label: "Создано", value: "created" },
-                { label: "Обновлено", value: "updated" },
-                { label: "Удалено", value: "deleted" },
-                { label: "Ротировано", value: "rotated" },
+                { label: t('Sozdano'), value: "created" },
+                { label: t('Obnovleno'), value: "updated" },
+                { label: t('Udaleno'), value: "deleted" },
+                { label: t('Rotirovano'), value: "rotated" },
               ]}
               onChange={(val) => { setAction(val); resetPage(); }}
             />
             <Select
-              placeholder="Все таблицы"
+              placeholder={t('Vse_tablitsy')}
               allowClear
               style={{ width: 150 }}
               options={[
-                { label: "Ключи", value: "LiteLLM_VerificationToken" },
-                { label: "Команды", value: "LiteLLM_TeamTable" },
-                { label: "Пользователи", value: "LiteLLM_UserTable" },
-                { label: "Организации", value: "LiteLLM_OrganizationTable" },
-                { label: "Модели", value: "LiteLLM_ProxyModelTable" },
+                { label: t('Klyuchi'), value: "LiteLLM_VerificationToken" },
+                { label: t('Komandy'), value: "LiteLLM_TeamTable" },
+                { label: t('Polzovateli'), value: "LiteLLM_UserTable" },
+                { label: t('Organizatsii'), value: "LiteLLM_OrganizationTable" },
+                { label: t('Modeli'), value: "LiteLLM_ProxyModelTable" },
               ]}
               onChange={(val) => { setTableName(val); resetPage(); }}
             />
@@ -271,7 +275,7 @@ export default function AuditLogs({
                 current={page}
                 pageSize={PAGE_SIZE}
                 total={total}
-                showTotal={(t) => `${t} всего`}
+                showTotal={(total) => `${total} ${t('vsego')}`}
                 showSizeChanger={false}
                 size="small"
                 onChange={(p) => setPage(p)}

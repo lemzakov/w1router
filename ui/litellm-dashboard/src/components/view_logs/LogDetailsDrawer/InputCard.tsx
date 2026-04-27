@@ -10,6 +10,7 @@ import { SectionHeader } from './SectionHeader';
 import { CollapsibleMessage } from './CollapsibleMessage';
 import { HistoryTree } from './HistoryTree';
 import { SimpleMessageBlock } from './SimpleMessageBlock';
+import { useTranslation } from "react-i18next";
 
 interface InputCardProps {
   messages: ParsedMessage[];
@@ -18,7 +19,8 @@ interface InputCardProps {
 }
 
 export function InputCard({ messages, promptTokens, inputCost }: InputCardProps) {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+    const { t } = useTranslation();
+const [isCollapsed, setIsCollapsed] = useState(false);
 
   if (messages.length === 0) {
     return null;
@@ -33,7 +35,7 @@ export function InputCard({ messages, promptTokens, inputCost }: InputCardProps)
   const handleCopy = () => {
     const content = lastMessage?.content || '';
     navigator.clipboard.writeText(content);
-    MessageManager.success('Входные данные скопированы');
+    MessageManager.success(t('Vhodnye_dannye_skopirovany'));
   };
 
   return (
@@ -68,7 +70,7 @@ export function InputCard({ messages, promptTokens, inputCost }: InputCardProps)
           {/* System Message - Collapsible with arrow */}
           {systemMessage && (
             <CollapsibleMessage
-              label="СИСТЕМА"
+              label={t('SISTEMA')}
               content={systemMessage.content}
               defaultExpanded={!!(systemMessage.content && systemMessage.content.length < 200)}
             />

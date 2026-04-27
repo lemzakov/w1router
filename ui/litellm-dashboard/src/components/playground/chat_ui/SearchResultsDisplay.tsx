@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { Button } from "antd";
 import { VectorStoreSearchResponse } from "./types";
 import { DatabaseOutlined, FileTextOutlined, DownOutlined, RightOutlined } from "@ant-design/icons";
+import { useTranslation } from "react-i18next";
 
 interface SearchResultsDisplayProps {
   searchResults: VectorStoreSearchResponse[];
 }
 
 export function SearchResultsDisplay({ searchResults }: SearchResultsDisplayProps) {
+  const { t } = useTranslation();
   const [isExpanded, setIsExpanded] = useState(true);
   const [expandedResults, setExpandedResults] = useState<Record<string, boolean>>({});
 
@@ -43,7 +45,7 @@ export function SearchResultsDisplay({ searchResults }: SearchResultsDisplayProp
             {searchResults.map((resultPage, pageIndex) => (
               <div key={pageIndex}>
                 <div className="text-xs text-gray-600 mb-2 flex items-center gap-2">
-                  <span className="font-medium">Query:</span>
+                  <span className="font-medium">{t('Query')}</span>
                   <span className="italic">&quot;{resultPage.search_query}&quot;</span>
                   <span className="text-gray-400">•</span>
                   <span className="text-gray-500">{resultPage.data.length} result{resultPage.data.length !== 1 ? 's' : ''}</span>
@@ -91,7 +93,7 @@ export function SearchResultsDisplay({ searchResults }: SearchResultsDisplayProp
 
                               {result.attributes && Object.keys(result.attributes).length > 0 && (
                                 <div className="mt-2 pt-2 border-t border-gray-100">
-                                  <div className="text-xs text-gray-500 mb-1 font-medium">Metadata:</div>
+                                  <div className="text-xs text-gray-500 mb-1 font-medium">{t('Metadata_1')}</div>
                                   <div className="space-y-1">
                                     {Object.entries(result.attributes).map(([key, value]) => (
                                       <div key={key} className="text-xs flex gap-2">

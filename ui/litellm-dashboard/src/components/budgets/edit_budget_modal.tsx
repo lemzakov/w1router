@@ -4,6 +4,7 @@ import { Button as Button2, Modal, Form, InputNumber, Select } from "antd";
 import { useUpdateBudget } from "@/app/(dashboard)/hooks/budgets/useBudgets";
 import { budgetItem } from "./budget_panel";
 import NotificationsManager from "../molecules/notifications_manager";
+import { useTranslation } from "react-i18next";
 
 interface EditBudgetModalProps {
   isModalVisible: boolean;
@@ -15,6 +16,7 @@ const EditBudgetModal: React.FC<EditBudgetModalProps> = ({
   setIsModalVisible,
   existingBudget,
 }) => {
+  const { t } = useTranslation();
   const [form] = Form.useForm();
   const updateBudget = useUpdateBudget();
 
@@ -79,7 +81,7 @@ const EditBudgetModal: React.FC<EditBudgetModalProps> = ({
 
           <Accordion className="mt-20 mb-8">
             <AccordionHeader>
-              <b>Optional Settings</b>
+              <b>{t('Optional_Settings')}</b>
             </AccordionHeader>
             <AccordionBody>
               <Form.Item label="Max Budget (USD)" name="max_budget">
@@ -97,7 +99,7 @@ const EditBudgetModal: React.FC<EditBudgetModalProps> = ({
         </>
 
         <div style={{ textAlign: "right", marginTop: "10px" }}>
-          <Button2 htmlType="submit">Save</Button2>
+          <Button2 htmlType="submit">{t('Save')}</Button2>
         </div>
       </Form>
     </Modal>

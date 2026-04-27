@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import { Card, Text } from "@tremor/react";
+import { useTranslation } from "react-i18next";
 
 interface ModelGroupInfo {
   model_group: string;
@@ -32,6 +33,7 @@ const ModelFilters: React.FC<ModelFiltersProps> = ({
   showFiltersCard = true,
   className = "",
 }) => {
+  const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [selectedProvider, setSelectedProvider] = useState<string>("");
   const [selectedMode, setSelectedMode] = useState<string>("");
@@ -132,7 +134,7 @@ const ModelFilters: React.FC<ModelFiltersProps> = ({
   const filtersContent = (
     <div className="flex flex-wrap gap-4 items-center">
       <div>
-        <Text className="text-sm font-medium mb-2">Search Models:</Text>
+        <Text className="text-sm font-medium mb-2">{t('Search_Models')}</Text>
         <input
           type="text"
           placeholder="Search model names..."
@@ -142,7 +144,7 @@ const ModelFilters: React.FC<ModelFiltersProps> = ({
         />
       </div>
       <div>
-        <Text className="text-sm font-medium mb-2">Provider:</Text>
+        <Text className="text-sm font-medium mb-2">{t('Provider_1')}</Text>
         <select
           value={selectedProvider}
           onChange={(e) => setSelectedProvider(e.target.value)}
@@ -160,7 +162,7 @@ const ModelFilters: React.FC<ModelFiltersProps> = ({
         </select>
       </div>
       <div>
-        <Text className="text-sm font-medium mb-2">Mode:</Text>
+        <Text className="text-sm font-medium mb-2">{t('Mode')}</Text>
         <select
           value={selectedMode}
           onChange={(e) => setSelectedMode(e.target.value)}
@@ -178,7 +180,7 @@ const ModelFilters: React.FC<ModelFiltersProps> = ({
         </select>
       </div>
       <div>
-        <Text className="text-sm font-medium mb-2">Features:</Text>
+        <Text className="text-sm font-medium mb-2">{t('Features')}</Text>
         <select
           value={selectedFeature}
           onChange={(e) => setSelectedFeature(e.target.value)}

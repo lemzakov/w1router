@@ -1,3 +1,4 @@
+import "@/i18n";
 import { Button, Space, Tag, Tooltip, Typography } from "antd";
 import { CloseOutlined, UpOutlined, DownOutlined } from "@ant-design/icons";
 import moment from "moment";
@@ -14,6 +15,8 @@ import {
   FONT_FAMILY_MONO,
   SPACING_SMALL,
 } from "./constants";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 const { Text } = Typography;
 
@@ -42,6 +45,8 @@ export function DrawerHeader({
 }: DrawerHeaderProps) {
   const provider = log.custom_llm_provider || "";
   const providerInfo = provider ? getProviderLogoAndName(provider) : null;
+
+  const { t } = useTranslation();
 
   return (
     <div
@@ -117,7 +122,7 @@ function RequestIdSection({ requestId }: { requestId: string }) {
       <Tooltip title={requestId}>
         <Text
           strong
-          copyable={{ text: requestId, tooltips: ["Копировать ID запроса", "Скопировано!"] }}
+          copyable={{ text: requestId, tooltips: [t('Kopirovat_ID_zaprosa'), t('Skopirovano')] }}
           style={{
             fontSize: FONT_SIZE_HEADER,
             fontFamily: FONT_FAMILY_MONO,
@@ -167,7 +172,7 @@ function NavigationSection({
         <DownOutlined />
         <span style={keyboardShortcutStyle}>J</span>
       </Button>
-      <Tooltip title="ESC для закрытия">
+      <Tooltip title={t('ESC_dlya_zakrytiya')}>
         <Button type="text" icon={<CloseOutlined />} onClick={onClose} />
       </Tooltip>
     </Space>
@@ -191,7 +196,7 @@ function StatusBar({
   return (
     <Space size={SPACING_LARGE}>
       <Tag color={statusColor}>{statusLabel}</Tag>
-      <Tag>Окружение: {environment}</Tag>
+      <Tag>{t('Okruzhenie')} {environment}</Tag>
       <Space size={SPACING_MEDIUM}>
         <Text type="secondary" style={{ fontSize: FONT_SIZE_MEDIUM }}>
           {moment(log.startTime).format("MMM D, YYYY h:mm:ss A")}

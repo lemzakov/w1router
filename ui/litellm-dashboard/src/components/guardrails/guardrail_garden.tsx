@@ -4,6 +4,7 @@ import { SearchOutlined, ArrowRightOutlined } from "@ant-design/icons";
 import { GuardrailCardInfo, ALL_CARDS } from "./guardrail_garden_data";
 import GuardrailCard from "./guardrail_garden_card";
 import GuardrailDetailView from "./guardrail_garden_detail";
+import { useTranslation } from "react-i18next";
 
 interface GuardrailGardenProps {
   accessToken: string | null;
@@ -11,6 +12,7 @@ interface GuardrailGardenProps {
 }
 
 const GuardrailGarden: React.FC<GuardrailGardenProps> = ({ accessToken, onGuardrailCreated }) => {
+  const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCard, setSelectedCard] = useState<GuardrailCardInfo | null>(null);
   const [showAllLitellm, setShowAllLitellm] = useState(false);
@@ -58,13 +60,13 @@ const GuardrailGarden: React.FC<GuardrailGardenProps> = ({ accessToken, onGuardr
       {/* LiteLLM Content Filter Section */}
       <div style={{ marginBottom: 40 }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 4 }}>
-          <h2 style={{ fontSize: 20, fontWeight: 600, color: "#111827", margin: 0 }}>LiteLLM Content Filter</h2>
+          <h2 style={{ fontSize: 20, fontWeight: 600, color: "#111827", margin: 0 }}>{t('LiteLLM_Content_Filter')}</h2>
           <span
             style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 14, color: "#1a73e8", cursor: "pointer" }}
             onClick={() => setShowAllLitellm(!showAllLitellm)}
           >
             {showAllLitellm ? (
-              <>Show less</>
+              <>{t('Show_less')}</>
             ) : (
               <>
                 <ArrowRightOutlined style={{ fontSize: 12 }} />
@@ -89,7 +91,7 @@ const GuardrailGarden: React.FC<GuardrailGardenProps> = ({ accessToken, onGuardr
 
       {/* Partner Guardrails Section */}
       <div style={{ marginBottom: 40 }}>
-        <h2 style={{ fontSize: 20, fontWeight: 600, color: "#111827", margin: "0 0 4px 0" }}>Partner Guardrails</h2>
+        <h2 style={{ fontSize: 20, fontWeight: 600, color: "#111827", margin: "0 0 4px 0" }}>{t('Partner_Guardrails')}</h2>
         <p style={{ fontSize: 13, color: "#6b7280", margin: "4px 0 20px 0" }}>
           Third-party guardrail integrations from leading AI security providers.
         </p>

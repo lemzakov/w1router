@@ -11,6 +11,7 @@ import CreateVectorStore from "./CreateVectorStore";
 import TestVectorStoreTab from "./TestVectorStoreTab";
 import { isAdminRole } from "@/utils/roles";
 import NotificationsManager from "../molecules/notifications_manager";
+import { useTranslation } from "react-i18next";
 
 interface VectorStoreProps {
   accessToken: string | null;
@@ -19,6 +20,7 @@ interface VectorStoreProps {
 }
 
 const VectorStoreManagement: React.FC<VectorStoreProps> = ({ accessToken, userID, userRole }) => {
+  const { t } = useTranslation();
   const [vectorStores, setVectorStores] = useState<VectorStore[]>([]);
   const [isCreateModalVisible, setIsCreateModalVisible] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -128,7 +130,7 @@ const VectorStoreManagement: React.FC<VectorStoreProps> = ({ accessToken, userID
     <div className="w-full mx-4 h-[75vh]">
       <div className="gap-2 p-8 h-[75vh] w-full mt-2">
         <div className="flex justify-between mt-2 w-full items-center mb-4">
-          <h1>Vector Store Management</h1>
+          <h1>{t('Vector_Store_Management')}</h1>
           <div className="flex items-center space-x-2">
             {lastRefreshed && <Text>Last Refreshed: {lastRefreshed}</Text>}
             <Icon
@@ -142,14 +144,14 @@ const VectorStoreManagement: React.FC<VectorStoreProps> = ({ accessToken, userID
         </div>
 
         <Text className="mb-4">
-          <p>You can use vector stores to store and retrieve LLM embeddings.</p>
+          <p>{t('You_can_use_vector_stores_to_store_and_r')}</p>
         </Text>
 
         <TabGroup>
           <TabList className="mb-6">
-            <Tab>Create Vector Store</Tab>
-            <Tab>Manage Vector Stores</Tab>
-            <Tab>Test Vector Store</Tab>
+            <Tab>{t('Create_Vector_Store')}</Tab>
+            <Tab>{t('Manage_Vector_Stores')}</Tab>
+            <Tab>{t('Test_Vector_Store')}</Tab>
           </TabList>
 
           <TabPanels>

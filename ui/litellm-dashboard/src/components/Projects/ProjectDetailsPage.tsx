@@ -21,6 +21,7 @@ import { ArrowLeftIcon, DollarSignIcon, EditIcon, KeyIcon, UsersIcon } from "luc
 import { useMemo, useState } from "react";
 import DefaultProxyAdminTag from "../common_components/DefaultProxyAdminTag";
 import { EditProjectModal } from "./ProjectModals/EditProjectModal";
+import { useTranslation } from "react-i18next";
 
 const { Title, Text } = Typography;
 const { Content } = Layout;
@@ -41,6 +42,7 @@ interface ProjectDetailProps {
 }
 
 export function ProjectDetail({ projectId, onBack }: ProjectDetailProps) {
+  const { t } = useTranslation();
   const { data: project, isLoading } = useProjectDetails(projectId);
   const { data: teamData } = useTeam(project?.team_id ?? undefined);
   // teamInfoCall returns { team_id, team_info: {...}, keys, team_memberships }
@@ -263,7 +265,7 @@ export function ProjectDetail({ projectId, onBack }: ProjectDetailProps) {
                           ))}
                         </Flex>
                       ) : (
-                        <Text type="secondary">All models</Text>
+                        <Text type="secondary">{t('All_models')}</Text>
                       )}
                     </div>
 

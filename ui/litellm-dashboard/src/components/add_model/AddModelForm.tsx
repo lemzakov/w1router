@@ -19,6 +19,7 @@ import ConnectionErrorDisplay from "./model_connection_test";
 import ProviderSpecificFields from "./provider_specific_fields";
 import { TEST_MODES } from "./add_model_modes";
 import useAuthorized from "@/app/(dashboard)/hooks/useAuthorized";
+import { useTranslation } from "react-i18next";
 
 interface AddModelFormProps {
   form: FormInstance; // For the Add Model tab
@@ -51,6 +52,7 @@ const AddModelForm: React.FC<AddModelFormProps> = ({
   teams,
   credentials,
 }) => {
+  const { t } = useTranslation();
   const [testMode, setTestMode] = useState<string>("chat");
   const [isResultModalVisible, setIsResultModalVisible] = useState<boolean>(false);
   const [isTestingConnection, setIsTestingConnection] = useState<boolean>(false);
@@ -103,7 +105,7 @@ const AddModelForm: React.FC<AddModelFormProps> = ({
 
   return (
     <>
-      <Title level={2}>Add Model</Title>
+      <Title level={2}>{t('Add_Model')}</Title>
 
       <Card>
         <Form
@@ -218,7 +220,7 @@ const AddModelForm: React.FC<AddModelFormProps> = ({
                   <Col span={10}></Col>
                   <Col span={10}>
                     <Text className="mb-5 mt-1">
-                      <strong>Optional</strong> - LiteLLM endpoint to use when health checking this model{" "}
+                      <strong>{t('Optional')}</strong> - LiteLLM endpoint to use when health checking this model{" "}
                       <Link href="https://docs.litellm.ai/docs/proxy/health#health" target="_blank">
                         Learn more
                       </Link>
@@ -278,7 +280,7 @@ const AddModelForm: React.FC<AddModelFormProps> = ({
                 </Form.Item>
                 <div className="flex items-center my-4">
                   <div className="flex-grow border-t border-gray-200"></div>
-                  <span className="px-4 text-gray-500 text-sm">Additional Model Info Settings</span>
+                  <span className="px-4 text-gray-500 text-sm">{t('Additional_Model_Info_Settings')}</span>
                   <div className="flex-grow border-t border-gray-200"></div>
                 </div>
                 {/* Team-only Model Switch - Only show for proxy admins, not team admins */}
@@ -363,13 +365,13 @@ const AddModelForm: React.FC<AddModelFormProps> = ({
             )}
             <div className="flex justify-between items-center mb-4">
               <Tooltip title="Get help on our github">
-                <Typography.Link href="https://github.com/BerriAI/litellm/issues">Need Help?</Typography.Link>
+                <Typography.Link href="https://github.com/BerriAI/litellm/issues">{t('Need_Help')}</Typography.Link>
               </Tooltip>
               <div className="space-x-2">
                 <Button onClick={handleTestConnection} loading={isTestingConnection}>
                   Test Connect
                 </Button>
-                <Button htmlType="submit">Add Model</Button>
+                <Button htmlType="submit">{t('Add_Model')}</Button>
               </div>
             </div>
           </>

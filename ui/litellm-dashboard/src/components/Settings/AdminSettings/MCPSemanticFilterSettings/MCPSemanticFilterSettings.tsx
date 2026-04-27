@@ -24,12 +24,14 @@ import { useEffect, useState } from "react";
 import { fetchAvailableModels, ModelGroup } from "@/components/playground/llm_calls/fetch_models";
 import MCPSemanticFilterTestPanel from "./MCPSemanticFilterTestPanel";
 import { getCurlCommand, runSemanticFilterTest, TestResult } from "./semanticFilterTestUtils";
+import { useTranslation } from "react-i18next";
 
 interface MCPSemanticFilterSettingsProps {
   accessToken: string | null;
 }
 
 export default function MCPSemanticFilterSettings({ accessToken }: MCPSemanticFilterSettingsProps) {
+  const { t } = useTranslation();
   const { data, isLoading, isError, error } = useMCPSemanticFilterSettings();
   const {
     mutate: updateSettings,
@@ -183,7 +185,7 @@ export default function MCPSemanticFilterSettings({ accessToken }: MCPSemanticFi
                     name="enabled"
                     label={
                       <Space>
-                        <Typography.Text strong>Enable Semantic Filtering</Typography.Text>
+                        <Typography.Text strong>{t('Enable_Semantic_Filtering')}</Typography.Text>
                         <Tooltip title="When enabled, only the most relevant MCP tools will be included in requests based on semantic similarity">
                           <QuestionCircleOutlined style={{ color: "#8c8c8c" }} />
                         </Tooltip>
@@ -204,7 +206,7 @@ export default function MCPSemanticFilterSettings({ accessToken }: MCPSemanticFi
                     name="embedding_model"
                     label={
                       <Space>
-                        <Typography.Text strong>Embedding Model</Typography.Text>
+                        <Typography.Text strong>{t('Embedding_Model')}</Typography.Text>
                         <Tooltip title="The model used to generate embeddings for semantic matching">
                           <QuestionCircleOutlined style={{ color: "#8c8c8c" }} />
                         </Tooltip>
@@ -230,7 +232,7 @@ export default function MCPSemanticFilterSettings({ accessToken }: MCPSemanticFi
                     name="top_k"
                     label={
                       <Space>
-                        <Typography.Text strong>Top K Results</Typography.Text>
+                        <Typography.Text strong>{t('Top_K_Results')}</Typography.Text>
                         <Tooltip title="Maximum number of tools to return after filtering">
                           <QuestionCircleOutlined style={{ color: "#8c8c8c" }} />
                         </Tooltip>
@@ -249,7 +251,7 @@ export default function MCPSemanticFilterSettings({ accessToken }: MCPSemanticFi
                     name="similarity_threshold"
                     label={
                       <Space>
-                        <Typography.Text strong>Similarity Threshold</Typography.Text>
+                        <Typography.Text strong>{t('Similarity_Threshold')}</Typography.Text>
                         <Tooltip title="Minimum similarity score (0-1) for a tool to be included">
                           <QuestionCircleOutlined style={{ color: "#8c8c8c" }} />
                         </Tooltip>

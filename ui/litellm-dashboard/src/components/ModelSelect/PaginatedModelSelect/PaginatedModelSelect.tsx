@@ -3,6 +3,7 @@ import { LoadingOutlined } from "@ant-design/icons";
 import { useDebouncedState } from "@tanstack/react-pacer/debouncer";
 import { Select, Space, Typography } from "antd";
 import { useMemo, useState, type UIEvent } from "react";
+import { useTranslation } from "react-i18next";
 
 const { Text } = Typography;
 
@@ -28,6 +29,7 @@ export const PaginatedModelSelect = ({
   allowClear = true,
   disabled = false,
 }: PaginatedModelSelectProps) => {
+  const { t } = useTranslation();
   const [searchInput, setSearchInput] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useDebouncedState("", {
     wait: DEBOUNCE_MS,
@@ -76,7 +78,7 @@ export const PaginatedModelSelect = ({
         {modelName ? (
           <Space direction="vertical">
             <Space direction="horizontal">
-              <Text strong>Model name:</Text>
+              <Text strong>{t('Model_name')}</Text>
               <Text ellipsis>{modelName}</Text>
             </Space>
             <Text ellipsis type="secondary" >

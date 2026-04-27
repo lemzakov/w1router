@@ -33,6 +33,7 @@ import ObjectPermissionsView from "../object_permissions_view";
 import NumericalInput from "../shared/numerical_input";
 import MemberModal from "../team/EditMembership";
 import VectorStoreSelector from "../vector_store_management/VectorStoreSelector";
+import { useTranslation } from "react-i18next";
 
 interface OrganizationInfoProps {
   organizationId: string;
@@ -53,6 +54,7 @@ const OrganizationInfoView: React.FC<OrganizationInfoProps> = ({
   userModels,
   editOrg,
 }) => {
+  const { t } = useTranslation();
   const [orgData, setOrgData] = useState<Organization | null>(null);
   const [loading, setLoading] = useState(true);
   const [form] = Form.useForm();
@@ -197,11 +199,11 @@ const OrganizationInfoView: React.FC<OrganizationInfoProps> = ({
   };
 
   if (loading) {
-    return <div className="p-4">Loading...</div>;
+    return <div className="p-4">{t('Loading')}</div>;
   }
 
   if (!orgData) {
-    return <div className="p-4">Organization not found</div>;
+    return <div className="p-4">{t('Organization_not_found')}</div>;
   }
 
   const copyToClipboard = async (text: string | null | undefined, key: string) => {
@@ -283,7 +285,7 @@ const OrganizationInfoView: React.FC<OrganizationInfoProps> = ({
             children: (
               <Grid numItems={1} numItemsSm={2} numItemsLg={3} className="gap-6">
                 <Card>
-                  <Text>Organization Details</Text>
+                  <Text>{t('Organization_Details')}</Text>
                   <div className="mt-2">
                     <Text>Created: {new Date(orgData.created_at).toLocaleDateString()}</Text>
                     <Text>Updated: {new Date(orgData.updated_at).toLocaleDateString()}</Text>
@@ -292,7 +294,7 @@ const OrganizationInfoView: React.FC<OrganizationInfoProps> = ({
                 </Card>
 
                 <Card>
-                  <Text>Budget Status</Text>
+                  <Text>{t('Budget_Status')}</Text>
                   <div className="mt-2">
                     <Title>${formatNumberWithCommas(orgData.spend, 4)}</Title>
                     <Text>
@@ -308,7 +310,7 @@ const OrganizationInfoView: React.FC<OrganizationInfoProps> = ({
                 </Card>
 
                 <Card>
-                  <Text>Rate Limits</Text>
+                  <Text>{t('Rate_Limits')}</Text>
                   <div className="mt-2">
                     <Text>TPM: {orgData.litellm_budget_table.tpm_limit || "Unlimited"}</Text>
                     <Text>RPM: {orgData.litellm_budget_table.rpm_limit || "Unlimited"}</Text>
@@ -319,10 +321,10 @@ const OrganizationInfoView: React.FC<OrganizationInfoProps> = ({
                 </Card>
 
                 <Card>
-                  <Text>Models</Text>
+                  <Text>{t('Models')}</Text>
                   <div className="mt-2 flex flex-wrap gap-2">
                     {orgData.models.length === 0 ? (
-                      <Badge color="red">All proxy models</Badge>
+                      <Badge color="red">{t('All_proxy_models')}</Badge>
                     ) : (
                       orgData.models.map((model, index) => (
                         <Badge key={index} color="red">
@@ -333,7 +335,7 @@ const OrganizationInfoView: React.FC<OrganizationInfoProps> = ({
                   </div>
                 </Card>
                 <Card>
-                  <Text>Teams</Text>
+                  <Text>{t('Teams')}</Text>
                   <div className="mt-2 flex flex-wrap gap-2">
                     {orgData.teams?.map((team, index) => (
                       <Badge key={index} color="red">
@@ -382,9 +384,9 @@ const OrganizationInfoView: React.FC<OrganizationInfoProps> = ({
             children: (
               <Card className="overflow-y-auto max-h-[65vh]">
                 <div className="flex justify-between items-center mb-4">
-                  <Title>Organization Settings</Title>
+                  <Title>{t('Organization_Settings')}</Title>
                   {canEditOrg && !isEditing && (
-                    <TremorButton onClick={() => setIsEditing(true)}>Edit Settings</TremorButton>
+                    <TremorButton onClick={() => setIsEditing(true)}>{t('Edit_Settings')}</TremorButton>
                   )}
                 </div>
 
@@ -489,19 +491,19 @@ const OrganizationInfoView: React.FC<OrganizationInfoProps> = ({
                 ) : (
                   <div className="space-y-4">
                     <div>
-                      <Text className="font-medium">Organization Name</Text>
+                      <Text className="font-medium">{t('Organization_Name')}</Text>
                       <div>{orgData.organization_alias}</div>
                     </div>
                     <div>
-                      <Text className="font-medium">Organization ID</Text>
+                      <Text className="font-medium">{t('Organization_ID')}</Text>
                       <div className="font-mono">{orgData.organization_id}</div>
                     </div>
                     <div>
-                      <Text className="font-medium">Created At</Text>
+                      <Text className="font-medium">{t('Created_At')}</Text>
                       <div>{new Date(orgData.created_at).toLocaleString()}</div>
                     </div>
                     <div>
-                      <Text className="font-medium">Models</Text>
+                      <Text className="font-medium">{t('Models')}</Text>
                       <div className="flex flex-wrap gap-2 mt-1">
                         {orgData.models.map((model, index) => (
                           <Badge key={index} color="red">
@@ -511,12 +513,12 @@ const OrganizationInfoView: React.FC<OrganizationInfoProps> = ({
                       </div>
                     </div>
                     <div>
-                      <Text className="font-medium">Rate Limits</Text>
+                      <Text className="font-medium">{t('Rate_Limits')}</Text>
                       <div>TPM: {orgData.litellm_budget_table.tpm_limit || "Unlimited"}</div>
                       <div>RPM: {orgData.litellm_budget_table.rpm_limit || "Unlimited"}</div>
                     </div>
                     <div>
-                      <Text className="font-medium">Budget</Text>
+                      <Text className="font-medium">{t('Budget')}</Text>
                       <div>
                         Max:{" "}
                         {orgData.litellm_budget_table.max_budget !== null

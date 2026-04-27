@@ -7,6 +7,7 @@ import BudgetDurationDropdown, { getBudgetDurationLabel } from "./common_compone
 import { getModelDisplayName } from "./key_team_helpers/fetch_available_models_team_key";
 import { formatNumberWithCommas } from "@/utils/dataUtils";
 import NotificationManager from "./molecules/notifications_manager";
+import { useTranslation } from "react-i18next";
 
 interface DefaultUserSettingsProps {
   accessToken: string | null;
@@ -27,6 +28,7 @@ const DefaultUserSettings: React.FC<DefaultUserSettingsProps> = ({
   userID,
   userRole,
 }) => {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState<boolean>(true);
   const [settings, setSettings] = useState<any>(null);
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -171,7 +173,7 @@ const DefaultUserSettings: React.FC<DefaultUserSettingsProps> = ({
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               <div>
-                <Text className="text-sm font-medium mb-1">Team ID</Text>
+                <Text className="text-sm font-medium mb-1">{t('Team_ID')}</Text>
                 <TextInput
                   value={team.team_id}
                   onChange={(e) => updateTeam(index, "team_id", e.target.value)}
@@ -180,7 +182,7 @@ const DefaultUserSettings: React.FC<DefaultUserSettingsProps> = ({
               </div>
 
               <div>
-                <Text className="text-sm font-medium mb-1">Max Budget in Team</Text>
+                <Text className="text-sm font-medium mb-1">{t('Max_Budget_in_Team')}</Text>
                 <InputNumber
                   style={{ width: "100%" }}
                   value={team.max_budget_in_team}
@@ -193,14 +195,14 @@ const DefaultUserSettings: React.FC<DefaultUserSettingsProps> = ({
               </div>
 
               <div>
-                <Text className="text-sm font-medium mb-1">User Role</Text>
+                <Text className="text-sm font-medium mb-1">{t('User_Role')}</Text>
                 <Select
                   style={{ width: "100%" }}
                   value={team.user_role}
                   onChange={(value) => updateTeam(index, "user_role", value)}
                 >
-                  <Option value="user">User</Option>
-                  <Option value="admin">Admin</Option>
+                  <Option value="user">{t('User')}</Option>
+                  <Option value="admin">{t('Admin')}</Option>
                 </Select>
               </div>
             </div>
@@ -319,10 +321,10 @@ const DefaultUserSettings: React.FC<DefaultUserSettingsProps> = ({
   };
 
   const renderValue = (key: string, value: any): JSX.Element => {
-    if (value === null || value === undefined) return <span className="text-gray-400">Not set</span>;
+    if (value === null || value === undefined) return <span className="text-gray-400">{t('Not_set')}</span>;
 
     if (key === "teams" && Array.isArray(value)) {
-      if (value.length === 0) return <span className="text-gray-400">No teams assigned</span>;
+      if (value.length === 0) return <span className="text-gray-400">{t('No_teams_assigned')}</span>;
 
       const normalizedTeams = normalizeTeams(value);
 
@@ -332,11 +334,11 @@ const DefaultUserSettings: React.FC<DefaultUserSettingsProps> = ({
             <div key={index} className="border rounded-lg p-3 bg-white">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-2 text-sm">
                 <div>
-                  <span className="font-medium text-gray-600">Team ID:</span>
+                  <span className="font-medium text-gray-600">{t('Team_ID_1')}</span>
                   <p className="text-gray-900">{team.team_id || "Not specified"}</p>
                 </div>
                 <div>
-                  <span className="font-medium text-gray-600">Max Budget:</span>
+                  <span className="font-medium text-gray-600">{t('Max_Budget')}</span>
                   <p className="text-gray-900">
                     {team.max_budget_in_team !== undefined
                       ? `$${formatNumberWithCommas(team.max_budget_in_team, 4)}`
@@ -344,7 +346,7 @@ const DefaultUserSettings: React.FC<DefaultUserSettingsProps> = ({
                   </p>
                 </div>
                 <div>
-                  <span className="font-medium text-gray-600">Role:</span>
+                  <span className="font-medium text-gray-600">{t('Role')}</span>
                   <p className="text-gray-900 capitalize">{team.user_role}</p>
                 </div>
               </div>
@@ -373,7 +375,7 @@ const DefaultUserSettings: React.FC<DefaultUserSettingsProps> = ({
     }
 
     if (key === "models" && Array.isArray(value)) {
-      if (value.length === 0) return <span className="text-gray-400">None</span>;
+      if (value.length === 0) return <span className="text-gray-400">{t('None')}</span>;
 
       return (
         <div className="flex flex-wrap gap-2 mt-1">
@@ -388,7 +390,7 @@ const DefaultUserSettings: React.FC<DefaultUserSettingsProps> = ({
 
     if (typeof value === "object") {
       if (Array.isArray(value)) {
-        if (value.length === 0) return <span className="text-gray-400">None</span>;
+        if (value.length === 0) return <span className="text-gray-400">{t('None')}</span>;
 
         return (
           <div className="flex flex-wrap gap-2 mt-1">
@@ -418,7 +420,7 @@ const DefaultUserSettings: React.FC<DefaultUserSettingsProps> = ({
   if (!settings) {
     return (
       <Card>
-        <Text>No settings available or you do not have permission to view them.</Text>
+        <Text>{t('No_settings_available_or_you_do_not_have')}</Text>
       </Card>
     );
   }
@@ -428,7 +430,7 @@ const DefaultUserSettings: React.FC<DefaultUserSettingsProps> = ({
     const { values, field_schema } = settings;
 
     if (!field_schema || !field_schema.properties) {
-      return <Text>No schema information available</Text>;
+      return <Text>{t('No_schema_information_available')}</Text>;
     }
 
     return Object.entries(field_schema.properties).map(([key, property]: [string, any]) => {
@@ -455,7 +457,7 @@ const DefaultUserSettings: React.FC<DefaultUserSettingsProps> = ({
   return (
     <Card>
       <div className="flex justify-between items-center mb-4">
-        <Title>Default User Settings</Title>
+        <Title>{t('Default_User_Settings')}</Title>
         {!loading &&
           settings &&
           (isEditing ? (
@@ -474,7 +476,7 @@ const DefaultUserSettings: React.FC<DefaultUserSettingsProps> = ({
               </Button>
             </div>
           ) : (
-            <Button type="primary" onClick={() => setIsEditing(true)}>Edit Settings</Button>
+            <Button type="primary" onClick={() => setIsEditing(true)}>{t('Edit_Settings')}</Button>
           ))}
       </div>
 

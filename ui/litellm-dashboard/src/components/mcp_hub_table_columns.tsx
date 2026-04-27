@@ -1,7 +1,10 @@
+import "@/i18n";
 import { ColumnDef } from "@tanstack/react-table";
 import { Button, Badge, Text } from "@tremor/react";
 import { Tooltip, Tag } from "antd";
 import { CopyOutlined, InfoCircleOutlined } from "@ant-design/icons";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 export interface MCPServerData {
   server_id: string;
@@ -254,8 +257,8 @@ export const mcpHubColumns = (
 
         return (
           <Button size="xs" variant="secondary" onClick={() => showModal(server)} icon={InfoCircleOutlined}>
-            <span className="hidden lg:inline">Details</span>
-            <span className="lg:hidden">Info</span>
+            <span className="hidden lg:inline">{t('Details')}</span>
+            <span className="lg:hidden">{t('Info')}</span>
           </Button>
         );
       },

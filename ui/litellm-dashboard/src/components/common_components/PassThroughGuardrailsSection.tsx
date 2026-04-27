@@ -3,6 +3,7 @@ import { Card, Title, Subtitle } from "@tremor/react";
 import { Form, Select, Tooltip, Alert } from "antd";
 import { InfoCircleOutlined } from "@ant-design/icons";
 import GuardrailSelector from "../guardrails/GuardrailSelector";
+import { useTranslation } from "react-i18next";
 
 interface PassThroughGuardrailsSectionProps {
   accessToken: string;
@@ -17,6 +18,7 @@ const PassThroughGuardrailsSection: React.FC<PassThroughGuardrailsSectionProps> 
   onChange,
   disabled = false,
 }) => {
+  const { t } = useTranslation();
   const [selectedGuardrails, setSelectedGuardrails] = useState<string[]>(Object.keys(value));
   const [guardrailSettings, setGuardrailSettings] = useState<
     Record<string, { request_fields?: string[]; response_fields?: string[] } | null>
@@ -71,7 +73,7 @@ const PassThroughGuardrailsSection: React.FC<PassThroughGuardrailsSectionProps> 
 
   return (
     <Card className="p-6">
-      <Title className="text-lg font-semibold text-gray-900 mb-2">Guardrails</Title>
+      <Title className="text-lg font-semibold text-gray-900 mb-2">{t('Guardrails')}</Title>
       <Subtitle className="text-gray-600 mb-6">
         Configure guardrails to enforce policies on requests and responses. Guardrails are opt-in for passthrough
         endpoints.
@@ -97,7 +99,7 @@ const PassThroughGuardrailsSection: React.FC<PassThroughGuardrailsSectionProps> 
               Optionally specify which fields to check. If left empty, the entire request/response is sent to the guardrail.
             </div>
             <div className="text-xs space-y-1 mt-2">
-              <div className="font-medium">Common Examples:</div>
+              <div className="font-medium">{t('Common_Examples')}</div>
               <div>• <code className="bg-gray-100 px-1 rounded">query</code> - Single field</div>
               <div>• <code className="bg-gray-100 px-1 rounded">documents[*].text</code> - All text in documents array</div>
               <div>• <code className="bg-gray-100 px-1 rounded">messages[*].content</code> - All message contents</div>
@@ -130,7 +132,7 @@ const PassThroughGuardrailsSection: React.FC<PassThroughGuardrailsSectionProps> 
       {selectedGuardrails.length > 0 && (
         <div className="mt-6 space-y-4">
           <div className="flex items-center justify-between mb-3">
-            <div className="text-sm font-medium text-gray-700">Field Targeting (Optional)</div>
+            <div className="text-sm font-medium text-gray-700">{t('Field_Targeting_Optional')}</div>
             <div className="text-xs text-gray-500">
               💡 Tip: Leave empty to check entire payload
             </div>
@@ -145,9 +147,9 @@ const PassThroughGuardrailsSection: React.FC<PassThroughGuardrailsSectionProps> 
                       Request Fields (pre_call)
                       <Tooltip title={
                         <div>
-                          <div className="font-medium mb-1">Specify which request fields to check</div>
+                          <div className="font-medium mb-1">{t('Specify_which_request_fields_to_check')}</div>
                           <div className="text-xs space-y-1">
-                            <div>Examples:</div>
+                            <div>{t('Examples')}</div>
                             <div>• query</div>
                             <div>• documents[*].text</div>
                             <div>• messages[*].content</div>
@@ -198,9 +200,9 @@ const PassThroughGuardrailsSection: React.FC<PassThroughGuardrailsSectionProps> 
                       Response Fields (post_call)
                       <Tooltip title={
                         <div>
-                          <div className="font-medium mb-1">Specify which response fields to check</div>
+                          <div className="font-medium mb-1">{t('Specify_which_response_fields_to_check')}</div>
                           <div className="text-xs space-y-1">
-                            <div>Examples:</div>
+                            <div>{t('Examples')}</div>
                             <div>• results[*].text</div>
                             <div>• choices[*].message.content</div>
                           </div>

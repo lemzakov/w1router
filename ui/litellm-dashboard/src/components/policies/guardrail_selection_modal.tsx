@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Checkbox, Button, Divider, Tag } from "antd";
 import { CheckCircleOutlined, InfoCircleOutlined } from "@ant-design/icons";
+import { useTranslation } from "react-i18next";
 
 interface GuardrailInfo {
   guardrail_name: string;
@@ -28,6 +29,7 @@ const GuardrailSelectionModal: React.FC<GuardrailSelectionModalProps> = ({
   isLoading = false,
   progressInfo,
 }) => {
+  const { t } = useTranslation();
   const [selectedGuardrails, setSelectedGuardrails] = useState<Set<string>>(
     new Set()
   );
@@ -224,7 +226,7 @@ const GuardrailSelectionModal: React.FC<GuardrailSelectionModalProps> = ({
 
         {guardrailsInfo.length === 0 && (
           <div className="text-center py-8 text-gray-500">
-            <p>No guardrails defined for this template.</p>
+            <p>{t('No_guardrails_defined_for_this_template')}</p>
             <p className="text-sm mt-2">
               This template will use existing guardrails in your system.
             </p>

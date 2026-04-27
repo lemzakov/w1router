@@ -1,8 +1,10 @@
 import React, { useState, useMemo } from "react";
 import { Text, TextInput } from "@tremor/react";
 import CodeBlock from "@/app/(dashboard)/api-reference/components/CodeBlock";
+import { useTranslation } from "react-i18next";
 
 const HowItWorks: React.FC = () => {
+  const { t } = useTranslation();
   const [responseCost, setResponseCost] = useState("");
   const [discountAmount, setDiscountAmount] = useState("");
 
@@ -28,26 +30,26 @@ const HowItWorks: React.FC = () => {
   return (
     <div className="space-y-4 pt-2">
           <div>
-            <Text className="font-medium text-gray-900 text-sm mb-1">Cost Calculation</Text>
+            <Text className="font-medium text-gray-900 text-sm mb-1">{t('Cost_Calculation')}</Text>
             <Text className="text-xs text-gray-600">
               Discounts are applied to provider costs: <code className="bg-gray-100 px-1.5 py-0.5 rounded text-xs">final_cost = base_cost × (1 - discount%/100)</code>
             </Text>
           </div>
           <div>
-            <Text className="font-medium text-gray-900 text-sm mb-1">Example</Text>
+            <Text className="font-medium text-gray-900 text-sm mb-1">{t('Example')}</Text>
             <Text className="text-xs text-gray-600">
               A 5% discount on a $10.00 request results in: $10.00 × (1 - 0.05) = $9.50
             </Text>
           </div>
           <div>
-            <Text className="font-medium text-gray-900 text-sm mb-1">Valid Range</Text>
+            <Text className="font-medium text-gray-900 text-sm mb-1">{t('Valid_Range')}</Text>
             <Text className="text-xs text-gray-600">
               Discount percentages must be between 0% and 100%
             </Text>
           </div>
 
           <div className="pt-4 border-t border-gray-200">
-            <Text className="font-medium text-gray-900 text-sm mb-2">Validating Discounts</Text>
+            <Text className="font-medium text-gray-900 text-sm mb-2">{t('Validating_Discounts')}</Text>
             <Text className="text-xs text-gray-600 mb-3">
               Make a test request and check the response headers to verify discounts are applied:
             </Text>
@@ -69,25 +71,25 @@ const HowItWorks: React.FC = () => {
                 <code className="bg-gray-100 px-2 py-1 rounded text-xs font-mono text-gray-800 whitespace-nowrap">
                   x-litellm-response-cost
                 </code>
-                <Text className="text-xs text-gray-600">Final cost after discount</Text>
+                <Text className="text-xs text-gray-600">{t('Final_cost_after_discount')}</Text>
               </div>
               <div className="flex items-start gap-3">
                 <code className="bg-gray-100 px-2 py-1 rounded text-xs font-mono text-gray-800 whitespace-nowrap">
                   x-litellm-response-cost-original
                 </code>
-                <Text className="text-xs text-gray-600">Original cost before discount</Text>
+                <Text className="text-xs text-gray-600">{t('Original_cost_before_discount')}</Text>
               </div>
               <div className="flex items-start gap-3">
                 <code className="bg-gray-100 px-2 py-1 rounded text-xs font-mono text-gray-800 whitespace-nowrap">
                   x-litellm-response-cost-discount-amount
                 </code>
-                <Text className="text-xs text-gray-600">Amount discounted</Text>
+                <Text className="text-xs text-gray-600">{t('Amount_discounted')}</Text>
               </div>
             </div>
           </div>
 
           <div className="pt-4 border-t border-gray-200">
-            <Text className="font-medium text-gray-900 text-sm mb-3">Discount Calculator</Text>
+            <Text className="font-medium text-gray-900 text-sm mb-3">{t('Discount_Calculator')}</Text>
             <Text className="text-xs text-gray-600 mb-3">
               Enter values from your response headers to verify the discount:
             </Text>
@@ -118,22 +120,22 @@ const HowItWorks: React.FC = () => {
 
             {calculatedDiscount && (
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                <Text className="text-sm font-medium text-blue-900 mb-2">Calculated Results</Text>
+                <Text className="text-sm font-medium text-blue-900 mb-2">{t('Calculated_Results')}</Text>
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <Text className="text-xs text-blue-800">Original Cost:</Text>
+                    <Text className="text-xs text-blue-800">{t('Original_Cost')}</Text>
                     <code className="text-xs font-mono text-blue-900">${calculatedDiscount.originalCost}</code>
                   </div>
                   <div className="flex items-center justify-between">
-                    <Text className="text-xs text-blue-800">Final Cost:</Text>
+                    <Text className="text-xs text-blue-800">{t('Final_Cost')}</Text>
                     <code className="text-xs font-mono text-blue-900">${calculatedDiscount.finalCost}</code>
                   </div>
                   <div className="flex items-center justify-between">
-                    <Text className="text-xs text-blue-800">Discount Amount:</Text>
+                    <Text className="text-xs text-blue-800">{t('Discount_Amount')}</Text>
                     <code className="text-xs font-mono text-blue-900">${calculatedDiscount.discountAmount}</code>
                   </div>
                   <div className="flex items-center justify-between pt-2 border-t border-blue-300">
-                    <Text className="text-xs font-semibold text-blue-900">Discount Applied:</Text>
+                    <Text className="text-xs font-semibold text-blue-900">{t('Discount_Applied')}</Text>
                     <Text className="text-sm font-bold text-blue-900">{calculatedDiscount.discountPercentage}%</Text>
                   </div>
                 </div>

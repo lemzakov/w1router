@@ -16,6 +16,7 @@ import CreateSearchTool from "./CreateSearchTools";
 import { searchToolColumns } from "./SearchToolColumn";
 import { SearchToolView } from "./SearchToolView";
 import { AvailableSearchProvider, SearchTool } from "./types";
+import { useTranslation } from "react-i18next";
 
 interface SearchToolsProps {
   accessToken: string | null;
@@ -25,6 +26,7 @@ interface SearchToolsProps {
 
 
 const SearchTools: React.FC<SearchToolsProps> = ({ accessToken, userRole, userID }) => {
+  const { t } = useTranslation();
   const {
     data: searchTools,
     isLoading: isLoadingTools,
@@ -197,7 +199,7 @@ const SearchTools: React.FC<SearchToolsProps> = ({ accessToken, userRole, userID
 
   if (!accessToken || !userRole || !userID) {
     console.log("Missing required authentication parameters", { accessToken, userRole, userID });
-    return <div className="p-6 text-center text-gray-500">Missing required authentication parameters.</div>;
+    return <div className="p-6 text-center text-gray-500">{t('Missing_required_authentication_paramete')}</div>;
   }
 
   const ToolsTab = () =>
@@ -288,8 +290,8 @@ const SearchTools: React.FC<SearchToolsProps> = ({ accessToken, userRole, userID
         {renderEditForm()}
       </Modal>
 
-      <Title>Search Tools</Title>
-      <Text className="text-tremor-content mt-2">Configure and manage your search providers</Text>
+      <Title>{t('Search_Tools')}</Title>
+      <Text className="text-tremor-content mt-2">{t('Configure_and_manage_your_search_provide')}</Text>
       {isAdminRole(userRole) && (
         <Button className="mt-4 mb-4" onClick={() => setCreateModalVisible(true)}>
           + Add New Search Tool

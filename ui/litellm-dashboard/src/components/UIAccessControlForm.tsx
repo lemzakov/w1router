@@ -3,6 +3,7 @@ import { Form, Button as Button2, Select } from "antd";
 import { Text, TextInput } from "@tremor/react";
 import { getSSOSettings, updateSSOSettings } from "./networking";
 import NotificationManager from "./molecules/notifications_manager";
+import { useTranslation } from "react-i18next";
 
 interface UIAccessControlFormProps {
   accessToken: string | null;
@@ -11,6 +12,7 @@ interface UIAccessControlFormProps {
 
 // Separate UI Access Control Form Component
 const UIAccessControlForm: React.FC<UIAccessControlFormProps> = ({ accessToken, onSuccess }) => {
+  const { t } = useTranslation();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
 
@@ -98,8 +100,8 @@ const UIAccessControlForm: React.FC<UIAccessControlFormProps> = ({ accessToken, 
       <Form form={form} onFinish={handleUIAccessSubmit} layout="vertical">
         <Form.Item label="UI Access Mode" name="ui_access_mode_type" tooltip="Controls who can access the UI interface">
           <Select placeholder="Select access mode">
-            <Select.Option value="all_authenticated_users">All Authenticated Users</Select.Option>
-            <Select.Option value="restricted_sso_group">Restricted SSO Group</Select.Option>
+            <Select.Option value="all_authenticated_users">{t('All_Authenticated_Users')}</Select.Option>
+            <Select.Option value="restricted_sso_group">{t('Restricted_SSO_Group')}</Select.Option>
           </Select>
         </Form.Item>
 

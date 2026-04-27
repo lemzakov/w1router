@@ -3,6 +3,7 @@ import { Form, Input, InputNumber, Select, Tooltip } from "antd";
 import { InfoCircleOutlined } from "@ant-design/icons";
 import { Button, TextInput } from "@tremor/react";
 import { OAUTH_FLOW } from "./types";
+import { useTranslation } from "react-i18next";
 
 interface OAuthFlowStatus {
   startOAuthFlow: () => void;
@@ -38,6 +39,7 @@ const OAuthFormFields: React.FC<OAuthFormFieldsProps> = ({
   initialFlowType,
   docsUrl,
 }) => {
+  const { t } = useTranslation();
   const placeholderSuffix = isEditing ? " (leave blank to keep existing)" : "";
 
   return (
@@ -55,13 +57,13 @@ const OAuthFormFields: React.FC<OAuthFormFieldsProps> = ({
         <Select className="rounded-lg" size="large">
           <Select.Option value={OAUTH_FLOW.M2M}>
             <div>
-              <span className="font-medium">Machine-to-Machine (M2M)</span>
+              <span className="font-medium">{t('MachinetoMachine_M2M')}</span>
               <span className="text-gray-400 text-xs ml-2">server-to-server, no user interaction</span>
             </div>
           </Select.Option>
           <Select.Option value={OAUTH_FLOW.INTERACTIVE}>
             <div>
-              <span className="font-medium">Interactive (PKCE)</span>
+              <span className="font-medium">{t('Interactive_PKCE')}</span>
               <span className="text-gray-400 text-xs ml-2">browser-based user authorization</span>
             </div>
           </Select.Option>

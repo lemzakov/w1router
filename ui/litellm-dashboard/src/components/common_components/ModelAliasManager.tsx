@@ -3,6 +3,7 @@ import { PlusCircleIcon, PencilIcon, TrashIcon } from "@heroicons/react/outline"
 import { Card, Title, Text, Table, TableHead, TableHeaderCell, TableBody, TableRow, TableCell } from "@tremor/react";
 import ModelSelector from "./ModelSelector";
 import NotificationsManager from "../molecules/notifications_manager";
+import { useTranslation } from "react-i18next";
 
 interface ModelAliasManagerProps {
   accessToken: string;
@@ -23,6 +24,7 @@ const ModelAliasManager: React.FC<ModelAliasManagerProps> = ({
   onAliasUpdate,
   showExampleConfig = true,
 }) => {
+  const { t } = useTranslation();
   const [aliases, setAliases] = useState<AliasItem[]>([]);
   const [newAlias, setNewAlias] = useState({ aliasName: "", targetModel: "" });
   const [editingAlias, setEditingAlias] = useState<AliasItem | null>(null);
@@ -141,10 +143,10 @@ const ModelAliasManager: React.FC<ModelAliasManagerProps> = ({
   return (
     <div className="mt-4">
       <div className="mb-6">
-        <Text className="text-sm font-medium text-gray-700 mb-2">Add New Alias</Text>
+        <Text className="text-sm font-medium text-gray-700 mb-2">{t('Add_New_Alias')}</Text>
         <div className="grid grid-cols-3 gap-4">
           <div>
-            <label className="block text-xs text-gray-500 mb-1">Alias Name</label>
+            <label className="block text-xs text-gray-500 mb-1">{t('Alias_Name')}</label>
             <input
               type="text"
               value={newAlias.aliasName}
@@ -159,7 +161,7 @@ const ModelAliasManager: React.FC<ModelAliasManagerProps> = ({
             />
           </div>
           <div>
-            <label className="block text-xs text-gray-500 mb-1">Target Model</label>
+            <label className="block text-xs text-gray-500 mb-1">{t('Target_Model')}</label>
             <ModelSelector
               accessToken={accessToken}
               value={newAlias.targetModel}
@@ -186,15 +188,15 @@ const ModelAliasManager: React.FC<ModelAliasManagerProps> = ({
         </div>
       </div>
 
-      <Text className="text-sm font-medium text-gray-700 mb-2">Manage Existing Aliases</Text>
+      <Text className="text-sm font-medium text-gray-700 mb-2">{t('Manage_Existing_Aliases')}</Text>
       <div className="rounded-lg custom-border relative mb-6">
         <div className="overflow-x-auto">
           <Table className="[&_td]:py-0.5 [&_th]:py-1">
             <TableHead>
               <TableRow>
-                <TableHeaderCell className="py-1 h-8">Alias Name</TableHeaderCell>
-                <TableHeaderCell className="py-1 h-8">Target Model</TableHeaderCell>
-                <TableHeaderCell className="py-1 h-8">Actions</TableHeaderCell>
+                <TableHeaderCell className="py-1 h-8">{t('Alias_Name')}</TableHeaderCell>
+                <TableHeaderCell className="py-1 h-8">{t('Target_Model')}</TableHeaderCell>
+                <TableHeaderCell className="py-1 h-8">{t('Actions')}</TableHeaderCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -285,8 +287,8 @@ const ModelAliasManager: React.FC<ModelAliasManagerProps> = ({
       {/* Configuration Example */}
       {showExampleConfig && (
         <Card>
-          <Title className="mb-4">Configuration Example</Title>
-          <Text className="text-gray-600 mb-4">Here&apos;s how your current aliases would look in the config:</Text>
+          <Title className="mb-4">{t('Configuration_Example')}</Title>
+          <Text className="text-gray-600 mb-4">{t('Hereaposs_how_your_current_aliases_would')}</Text>
           <div className="bg-gray-100 rounded-lg p-4 font-mono text-sm">
             <div className="text-gray-700">
               model_aliases:

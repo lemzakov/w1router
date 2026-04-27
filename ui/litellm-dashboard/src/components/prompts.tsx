@@ -9,6 +9,7 @@ import AddPromptForm from "./prompts/add_prompt_form";
 import PromptEditorView from "./prompts/prompt_editor_view";
 import NotificationsManager from "./molecules/notifications_manager";
 import { isAdminRole } from "@/utils/roles";
+import { useTranslation } from "react-i18next";
 
 interface PromptsProps {
   accessToken: string | null;
@@ -16,6 +17,7 @@ interface PromptsProps {
 }
 
 const PromptsPanel: React.FC<PromptsProps> = ({ accessToken, userRole }) => {
+  const { t } = useTranslation();
   const [promptsList, setPromptsList] = useState<PromptSpec[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedEnvironment, setSelectedEnvironment] = useState<string | undefined>(undefined);
@@ -186,7 +188,7 @@ const PromptsPanel: React.FC<PromptsProps> = ({ accessToken, userRole }) => {
           okButtonProps={{ danger: true }}
         >
           <p>Are you sure you want to delete prompt: {promptToDelete.name} ?</p>
-          <p>This action cannot be undone.</p>
+          <p>{t('This_action_cannot_be_undone')}</p>
         </Modal>
       )}
     </div>

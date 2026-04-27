@@ -5,6 +5,7 @@ import { Button as Button2, Col, Form, Input, Row, Select, Typography, Upload, U
 import React from "react";
 import { CredentialItem, ProviderCredentialFieldMetadata } from "../networking";
 import { provider_map, Providers } from "../provider_info_helpers";
+import { useTranslation } from "react-i18next";
 const { Link } = Typography;
 
 interface ProviderSpecificFieldsProps {
@@ -93,6 +94,7 @@ export const createCredentialFromModel = (provider: string, modelData: any): Cre
 };
 
 const ProviderSpecificFields: React.FC<ProviderSpecificFieldsProps> = ({ selectedProvider, uploadProps }) => {
+  const { t } = useTranslation();
   const selectedProviderEnum = Providers[selectedProvider as keyof typeof Providers] as Providers;
   const form = Form.useFormInstance(); // Get form instance from context
 
@@ -201,7 +203,7 @@ const ProviderSpecificFields: React.FC<ProviderSpecificFieldsProps> = ({ selecte
       {isLoading && allFields.length === 0 && (
         <Row>
           <Col span={24}>
-            <Text className="mb-2">Loading provider fields...</Text>
+            <Text className="mb-2">{t('Loading_provider_fields')}</Text>
           </Col>
         </Row>
       )}
@@ -247,7 +249,7 @@ const ProviderSpecificFields: React.FC<ProviderSpecificFieldsProps> = ({ selecte
                   }, 500);
                 }}
               >
-                <Button2 icon={<UploadOutlined />}>Click to Upload</Button2>
+                <Button2 icon={<UploadOutlined />}>{t('Click_to_Upload')}</Button2>
               </Upload>
             ) : field.type === "textarea" ? (
               <Input.TextArea
@@ -269,7 +271,7 @@ const ProviderSpecificFields: React.FC<ProviderSpecificFieldsProps> = ({ selecte
           {field.key === "vertex_credentials" && (
             <Row>
               <Col>
-                <Text className="mb-3 mt-1">Give a gcp service account(.json file)</Text>
+                <Text className="mb-3 mt-1">{t('Give_a_gcp_service_accountjson_file')}</Text>
               </Col>
             </Row>
           )}

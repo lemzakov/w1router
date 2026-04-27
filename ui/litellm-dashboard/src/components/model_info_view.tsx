@@ -43,6 +43,7 @@ import { getProviderLogoAndName } from "./provider_info_helpers";
 import NumericalInput from "./shared/numerical_input";
 import { Tag } from "./tag_management/types";
 import { getDisplayModelName } from "./view_model/model_name_display";
+import { useTranslation } from "react-i18next";
 
 interface ModelInfoViewProps {
   modelId: string;
@@ -63,6 +64,7 @@ export default function ModelInfoView({
   onModelUpdate,
   modelAccessGroups,
 }: ModelInfoViewProps) {
+  const { t } = useTranslation();
   const [form] = Form.useForm();
   const [localModelData, setLocalModelData] = useState<any>(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -344,7 +346,7 @@ export default function ModelInfoView({
         <TremorButton icon={ArrowLeftIcon} variant="light" onClick={onClose} className="mb-4">
           Back to Models
         </TremorButton>
-        <Text>Loading...</Text>
+        <Text>{t('Loading')}</Text>
       </div>
     );
   }
@@ -356,7 +358,7 @@ export default function ModelInfoView({
         <TremorButton icon={ArrowLeftIcon} variant="light" onClick={onClose} className="mb-4">
           Back to Models
         </TremorButton>
-        <Text>Model not found</Text>
+        <Text>{t('Model_not_found')}</Text>
       </div>
     );
   }
@@ -492,8 +494,8 @@ export default function ModelInfoView({
 
       <TabGroup>
         <TabList className="mb-6">
-          <Tab>Overview</Tab>
-          <Tab>Raw JSON</Tab>
+          <Tab>{t('Overview')}</Tab>
+          <Tab>{t('Raw_JSON')}</Tab>
         </TabList>
 
         <TabPanels>
@@ -501,7 +503,7 @@ export default function ModelInfoView({
             {/* Overview Grid */}
             <Grid numItems={1} numItemsSm={2} numItemsLg={3} className="gap-6 mb-6">
               <Card>
-                <Text>Provider</Text>
+                <Text>{t('Provider')}</Text>
                 <div className="mt-2 flex items-center space-x-2">
                   {modelData.provider && (
                     <img
@@ -531,7 +533,7 @@ export default function ModelInfoView({
                 </div>
               </Card>
               <Card>
-                <Text>LiteLLM Model</Text>
+                <Text>{t('LiteLLM_Model')}</Text>
                 <div className="mt-2 overflow-hidden">
                   <Tooltip title={modelData.litellm_model_name || "Not Set"}>
                     <div className="break-all text-sm font-medium leading-relaxed cursor-pointer">
@@ -541,7 +543,7 @@ export default function ModelInfoView({
                 </div>
               </Card>
               <Card>
-                <Text>Pricing</Text>
+                <Text>{t('Pricing')}</Text>
                 <div className="mt-2">
                   <Text>Input: ${modelData.input_cost}/1M tokens</Text>
                   <Text>Output: ${modelData.output_cost}/1M tokens</Text>
@@ -585,7 +587,7 @@ export default function ModelInfoView({
             {/* Settings Card */}
             <Card>
               <div className="flex justify-between items-center mb-4">
-                <Title>Model Settings</Title>
+                <Title>{t('Model_Settings')}</Title>
                 <div className="flex gap-2">
                   {isAutoRouter && canEditModel && !isEditing && (
                     <TremorButton onClick={() => setIsAutoRouterModalOpen(true)} className="flex items-center">
@@ -658,7 +660,7 @@ export default function ModelInfoView({
                   <div className="space-y-4">
                     <div className="space-y-4">
                       <div>
-                        <Text className="font-medium">Model Name</Text>
+                        <Text className="font-medium">{t('Model_Name')}</Text>
                         {isEditing ? (
                           <Form.Item name="model_name" className="mb-0">
                             <TextInput placeholder="Enter model name" />
@@ -669,7 +671,7 @@ export default function ModelInfoView({
                       </div>
 
                       <div>
-                        <Text className="font-medium">LiteLLM Model Name</Text>
+                        <Text className="font-medium">{t('LiteLLM_Model_Name')}</Text>
                         {isEditing ? (
                           <Form.Item name="litellm_model_name" className="mb-0">
                             <TextInput placeholder="Enter LiteLLM model name" />
@@ -680,7 +682,7 @@ export default function ModelInfoView({
                       </div>
 
                       <div>
-                        <Text className="font-medium">Input Cost (per 1M tokens)</Text>
+                        <Text className="font-medium">{t('Input_Cost_per_1M_tokens')}</Text>
                         {isEditing ? (
                           <Form.Item name="input_cost" className="mb-0">
                             <NumericalInput placeholder="Enter input cost" />
@@ -697,7 +699,7 @@ export default function ModelInfoView({
                       </div>
 
                       <div>
-                        <Text className="font-medium">Output Cost (per 1M tokens)</Text>
+                        <Text className="font-medium">{t('Output_Cost_per_1M_tokens')}</Text>
                         {isEditing ? (
                           <Form.Item name="output_cost" className="mb-0">
                             <NumericalInput placeholder="Enter output cost" />
@@ -714,7 +716,7 @@ export default function ModelInfoView({
                       </div>
 
                       <div>
-                        <Text className="font-medium">API Base</Text>
+                        <Text className="font-medium">{t('API_Base')}</Text>
                         {isEditing ? (
                           <Form.Item name="api_base" className="mb-0">
                             <TextInput placeholder="Enter API base" />
@@ -727,7 +729,7 @@ export default function ModelInfoView({
                       </div>
 
                       <div>
-                        <Text className="font-medium">Custom LLM Provider</Text>
+                        <Text className="font-medium">{t('Custom_LLM_Provider')}</Text>
                         {isEditing ? (
                           <Form.Item name="custom_llm_provider" className="mb-0">
                             <TextInput placeholder="Enter custom LLM provider" />
@@ -740,7 +742,7 @@ export default function ModelInfoView({
                       </div>
 
                       <div>
-                        <Text className="font-medium">Organization</Text>
+                        <Text className="font-medium">{t('Organization')}</Text>
                         {isEditing ? (
                           <Form.Item name="organization" className="mb-0">
                             <TextInput placeholder="Enter organization" />
@@ -753,7 +755,7 @@ export default function ModelInfoView({
                       </div>
 
                       <div>
-                        <Text className="font-medium">TPM (Tokens per Minute)</Text>
+                        <Text className="font-medium">{t('TPM_Tokens_per_Minute')}</Text>
                         {isEditing ? (
                           <Form.Item name="tpm" className="mb-0">
                             <NumericalInput placeholder="Enter TPM" />
@@ -766,7 +768,7 @@ export default function ModelInfoView({
                       </div>
 
                       <div>
-                        <Text className="font-medium">RPM (Requests per Minute)</Text>
+                        <Text className="font-medium">{t('RPM_Requests_per_Minute')}</Text>
                         {isEditing ? (
                           <Form.Item name="rpm" className="mb-0">
                             <NumericalInput placeholder="Enter RPM" />
@@ -779,7 +781,7 @@ export default function ModelInfoView({
                       </div>
 
                       <div>
-                        <Text className="font-medium">Max Retries</Text>
+                        <Text className="font-medium">{t('Max_Retries')}</Text>
                         {isEditing ? (
                           <Form.Item name="max_retries" className="mb-0">
                             <NumericalInput placeholder="Enter max retries" />
@@ -792,7 +794,7 @@ export default function ModelInfoView({
                       </div>
 
                       <div>
-                        <Text className="font-medium">Timeout (seconds)</Text>
+                        <Text className="font-medium">{t('Timeout_seconds')}</Text>
                         {isEditing ? (
                           <Form.Item name="timeout" className="mb-0">
                             <NumericalInput placeholder="Enter timeout" />
@@ -805,7 +807,7 @@ export default function ModelInfoView({
                       </div>
 
                       <div>
-                        <Text className="font-medium">Stream Timeout (seconds)</Text>
+                        <Text className="font-medium">{t('Stream_Timeout_seconds')}</Text>
                         {isEditing ? (
                           <Form.Item name="stream_timeout" className="mb-0">
                             <NumericalInput placeholder="Enter stream timeout" />
@@ -818,7 +820,7 @@ export default function ModelInfoView({
                       </div>
 
                       <div>
-                        <Text className="font-medium">Model Access Groups</Text>
+                        <Text className="font-medium">{t('Model_Access_Groups')}</Text>
                         {isEditing ? (
                           <Form.Item name="model_access_group" className="mb-0">
                             <Select
@@ -978,7 +980,7 @@ export default function ModelInfoView({
                       </div>
 
                       <div>
-                        <Text className="font-medium">Tags</Text>
+                        <Text className="font-medium">{t('Tags')}</Text>
                         {isEditing ? (
                           <Form.Item name="tags" className="mb-0">
                             <Select
@@ -1025,7 +1027,7 @@ export default function ModelInfoView({
                         )}
                       </div>
                       <div>
-                        <Text className="font-medium">Existing Credentials</Text>
+                        <Text className="font-medium">{t('Existing_Credentials')}</Text>
                         {isEditing ? (
                           <Form.Item name="litellm_credential_name" className="mb-0">
                             <Select
@@ -1054,7 +1056,7 @@ export default function ModelInfoView({
 
                       {isWildcardModel && (
                         <div>
-                          <Text className="font-medium">Health Check Model</Text>
+                          <Text className="font-medium">{t('Health_Check_Model')}</Text>
                           {isEditing ? (
                             <Form.Item name="health_check_model" className="mb-0">
                               <Select
@@ -1096,11 +1098,11 @@ export default function ModelInfoView({
                         />
                       ) : (
                         <div>
-                          <Text className="font-medium">Cache Control</Text>
+                          <Text className="font-medium">{t('Cache_Control')}</Text>
                           <div className="mt-1 p-2 bg-gray-50 rounded">
                             {localModelData.litellm_params?.cache_control_injection_points ? (
                               <div>
-                                <p>Enabled</p>
+                                <p>{t('Enabled')}</p>
                                 <div className="mt-2">
                                   {localModelData.litellm_params.cache_control_injection_points.map(
                                     (point: any, i: number) => (
@@ -1120,7 +1122,7 @@ export default function ModelInfoView({
                       )}
 
                       <div>
-                        <Text className="font-medium">Model Info</Text>
+                        <Text className="font-medium">{t('Model_Info')}</Text>
                         {isEditing ? (
                           <Form.Item name="model_info" className="mb-0">
                             <Input.TextArea
@@ -1171,7 +1173,7 @@ export default function ModelInfoView({
                         )}
                       </div>
                       <div>
-                        <Text className="font-medium">Team ID</Text>
+                        <Text className="font-medium">{t('Team_ID')}</Text>
                         <div className="mt-1 p-2 bg-gray-50 rounded">{modelData.model_info.team_id || "Not Set"}</div>
                       </div>
                     </div>
@@ -1197,7 +1199,7 @@ export default function ModelInfoView({
                   </div>
                 </Form>
               ) : (
-                <Text>Loading...</Text>
+                <Text>{t('Loading')}</Text>
               )}
             </Card>
           </TabPanel>

@@ -32,6 +32,7 @@ import PiiConfiguration from "./pii_configuration";
 import ToolPermissionRulesEditor, {
   ToolPermissionConfig,
 } from "./tool_permission/ToolPermissionRulesEditor";
+import { useTranslation } from "react-i18next";
 
 export interface GuardrailInfoProps {
   guardrailId: string;
@@ -57,6 +58,7 @@ interface ProviderParamsResponse {
 }
 
 const GuardrailInfoView: React.FC<GuardrailInfoProps> = ({ guardrailId, onClose, accessToken, isAdmin }) => {
+  const { t } = useTranslation();
   const [guardrailData, setGuardrailData] = useState<any>(null);
   const [guardrailProviderSpecificParams, setGuardrailProviderSpecificParams] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -435,11 +437,11 @@ const GuardrailInfoView: React.FC<GuardrailInfoProps> = ({ guardrailId, onClose,
   };
 
   if (loading) {
-    return <div className="p-4">Loading...</div>;
+    return <div className="p-4">{t('Loading')}</div>;
   }
 
   if (!guardrailData) {
-    return <div className="p-4">Guardrail not found</div>;
+    return <div className="p-4">{t('Guardrail_not_found')}</div>;
   }
 
   // Format date helper function
@@ -489,8 +491,8 @@ const GuardrailInfoView: React.FC<GuardrailInfoProps> = ({ guardrailId, onClose,
 
       <TabGroup>
         <TabList className="mb-4">
-          <Tab key="overview">Overview</Tab>
-          {isAdmin ? <Tab key="settings">Settings</Tab> : <></>}
+          <Tab key="overview">{t('Overview')}</Tab>
+          {isAdmin ? <Tab key="settings">{t('Settings')}</Tab> : <></>}
         </TabList>
 
         <TabPanels>
@@ -498,7 +500,7 @@ const GuardrailInfoView: React.FC<GuardrailInfoProps> = ({ guardrailId, onClose,
           <TabPanel>
             <Grid numItems={1} numItemsSm={2} numItemsLg={3} className="gap-6">
               <Card>
-                <Text>Provider</Text>
+                <Text>{t('Provider')}</Text>
                 <div className="mt-2 flex items-center space-x-2">
                   {logo && (
                     <img
@@ -516,7 +518,7 @@ const GuardrailInfoView: React.FC<GuardrailInfoProps> = ({ guardrailId, onClose,
               </Card>
 
               <Card>
-                <Text>Mode</Text>
+                <Text>{t('Mode_1')}</Text>
                 <div className="mt-2">
                   <Title>{guardrailData.litellm_params?.mode || "-"}</Title>
                   <Badge color={guardrailData.litellm_params?.default_on ? "green" : "gray"}>
@@ -526,7 +528,7 @@ const GuardrailInfoView: React.FC<GuardrailInfoProps> = ({ guardrailId, onClose,
               </Card>
 
               <Card>
-                <Text>Created At</Text>
+                <Text>{t('Created_At')}</Text>
                 <div className="mt-2">
                   <Title>{formatDate(guardrailData.created_at)}</Title>
                   <Text>Last Updated: {formatDate(guardrailData.updated_at)}</Text>
@@ -538,7 +540,7 @@ const GuardrailInfoView: React.FC<GuardrailInfoProps> = ({ guardrailId, onClose,
               Object.keys(guardrailData.litellm_params.pii_entities_config).length > 0 && (
                 <Card className="mt-6">
                   <div className="flex justify-between items-center">
-                    <Text className="font-medium">PII Protection</Text>
+                    <Text className="font-medium">{t('PII_Protection')}</Text>
                     <Badge color="blue">
                       {Object.keys(guardrailData.litellm_params.pii_entities_config).length} PII entities configured
                     </Badge>
@@ -549,11 +551,11 @@ const GuardrailInfoView: React.FC<GuardrailInfoProps> = ({ guardrailId, onClose,
             {guardrailData.litellm_params?.pii_entities_config &&
               Object.keys(guardrailData.litellm_params.pii_entities_config).length > 0 && (
                 <Card className="mt-6">
-                  <Text className="mb-4 text-lg font-semibold">PII Entity Configuration</Text>
+                  <Text className="mb-4 text-lg font-semibold">{t('PII_Entity_Configuration')}</Text>
                   <div className="border rounded-lg overflow-hidden shadow-sm">
                     <div className="bg-gray-50 px-5 py-3 border-b flex">
-                      <Text className="flex-1 font-semibold text-gray-700">Entity Type</Text>
-                      <Text className="flex-1 font-semibold text-gray-700">Configuration</Text>
+                      <Text className="flex-1 font-semibold text-gray-700">{t('Entity_Type_1')}</Text>
+                      <Text className="flex-1 font-semibold text-gray-700">{t('Configuration')}</Text>
                     </div>
                     <div className="max-h-[400px] overflow-y-auto">
                       {Object.entries(guardrailData.litellm_params?.pii_entities_config).map(([key, value]) => (
@@ -587,7 +589,7 @@ const GuardrailInfoView: React.FC<GuardrailInfoProps> = ({ guardrailId, onClose,
                 <div className="flex justify-between items-center mb-4">
                   <div className="flex items-center gap-2">
                     <CodeOutlined className="text-blue-500" />
-                    <Text className="font-medium text-lg">Custom Code</Text>
+                    <Text className="font-medium text-lg">{t('Custom_Code')}</Text>
                   </div>
                   {isAdmin && !isConfigGuardrail && (
                     <Button
@@ -621,7 +623,7 @@ const GuardrailInfoView: React.FC<GuardrailInfoProps> = ({ guardrailId, onClose,
             <TabPanel>
               <Card>
                 <div className="flex justify-between items-center mb-4">
-                  <Title>Guardrail Settings</Title>
+                  <Title>{t('Guardrail_Settings')}</Title>
                   {isConfigGuardrail && (
                     <Tooltip title="Guardrail is defined in the config file and cannot be edited.">
                       <InfoCircleOutlined />
@@ -636,7 +638,7 @@ const GuardrailInfoView: React.FC<GuardrailInfoProps> = ({ guardrailId, onClose,
                         Edit Code
                       </Button>
                     ) : (
-                      <Button onClick={() => setIsEditing(true)}>Edit Settings</Button>
+                      <Button onClick={() => setIsEditing(true)}>{t('Edit_Settings')}</Button>
                     )
                   )}
                 </div>
@@ -675,7 +677,7 @@ const GuardrailInfoView: React.FC<GuardrailInfoProps> = ({ guardrailId, onClose,
 
                     {guardrailData.litellm_params?.guardrail === "presidio" && (
                       <>
-                        <Divider orientation="left">PII Protection</Divider>
+                        <Divider orientation="left">{t('PII_Protection')}</Divider>
                         <div className="mb-6">
                           {guardrailSettings && (
                             <PiiConfiguration
@@ -701,7 +703,7 @@ const GuardrailInfoView: React.FC<GuardrailInfoProps> = ({ guardrailId, onClose,
                       onUnsavedChanges={setHasUnsavedContentFilterChanges}
                     />
 
-                    {(guardrailData.litellm_params?.guardrail === "tool_permission" || guardrailProviderSpecificParams) && <Divider orientation="left">Provider Settings</Divider>}
+                    {(guardrailData.litellm_params?.guardrail === "tool_permission" || guardrailProviderSpecificParams) && <Divider orientation="left">{t('Provider_Settings')}</Divider>}
 
                     {guardrailData.litellm_params?.guardrail === "tool_permission" ? (
                       <ToolPermissionRulesEditor
@@ -746,7 +748,7 @@ const GuardrailInfoView: React.FC<GuardrailInfoProps> = ({ guardrailId, onClose,
                       </>
                     )}
 
-                    <Divider orientation="left">Advanced Settings</Divider>
+                    <Divider orientation="left">{t('Advanced_Settings')}</Divider>
                     <Form.Item label="Guardrail Information" name="guardrail_info">
                       <Input.TextArea rows={5} />
                     </Form.Item>
@@ -761,29 +763,29 @@ const GuardrailInfoView: React.FC<GuardrailInfoProps> = ({ guardrailId, onClose,
                       >
                         Cancel
                       </Button>
-                      <Button type="primary" htmlType="submit">Save Changes</Button>
+                      <Button type="primary" htmlType="submit">{t('Save_Changes')}</Button>
                     </div>
                   </Form>
                 ) : (
                   <div className="space-y-4">
                     <div>
-                      <Text className="font-medium">Guardrail ID</Text>
+                      <Text className="font-medium">{t('Guardrail_ID')}</Text>
                       <div className="font-mono">{guardrailData.guardrail_id}</div>
                     </div>
                     <div>
-                      <Text className="font-medium">Guardrail Name</Text>
+                      <Text className="font-medium">{t('Guardrail_Name')}</Text>
                       <div>{guardrailData.guardrail_name || "Unnamed Guardrail"}</div>
                     </div>
                     <div>
-                      <Text className="font-medium">Provider</Text>
+                      <Text className="font-medium">{t('Provider')}</Text>
                       <div>{displayName}</div>
                     </div>
                     <div>
-                      <Text className="font-medium">Mode</Text>
+                      <Text className="font-medium">{t('Mode_1')}</Text>
                       <div>{guardrailData.litellm_params?.mode || "-"}</div>
                     </div>
                     <div>
-                      <Text className="font-medium">Default On</Text>
+                      <Text className="font-medium">{t('Default_On')}</Text>
                       <Badge color={guardrailData.litellm_params?.default_on ? "green" : "gray"}>
                         {guardrailData.litellm_params?.default_on ? "Yes" : "No"}
                       </Badge>
@@ -792,7 +794,7 @@ const GuardrailInfoView: React.FC<GuardrailInfoProps> = ({ guardrailId, onClose,
                     {guardrailData.litellm_params?.pii_entities_config &&
                       Object.keys(guardrailData.litellm_params.pii_entities_config).length > 0 && (
                         <div>
-                          <Text className="font-medium">PII Protection</Text>
+                          <Text className="font-medium">{t('PII_Protection')}</Text>
                           <div className="mt-2">
                             <Badge color="blue">
                               {Object.keys(guardrailData.litellm_params.pii_entities_config).length} PII entities
@@ -803,11 +805,11 @@ const GuardrailInfoView: React.FC<GuardrailInfoProps> = ({ guardrailId, onClose,
                       )}
 
                     <div>
-                      <Text className="font-medium">Created At</Text>
+                      <Text className="font-medium">{t('Created_At')}</Text>
                       <div>{formatDate(guardrailData.created_at)}</div>
                     </div>
                     <div>
-                      <Text className="font-medium">Last Updated</Text>
+                      <Text className="font-medium">{t('Last_Updated')}</Text>
                       <div>{formatDate(guardrailData.updated_at)}</div>
                     </div>
 

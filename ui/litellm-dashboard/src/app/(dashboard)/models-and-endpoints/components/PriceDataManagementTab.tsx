@@ -3,18 +3,20 @@ import PriceDataReload from "@/components/price_data_reload";
 import React from "react";
 import useAuthorized from "@/app/(dashboard)/hooks/useAuthorized";
 import { useModelCostMap } from "../../hooks/models/useModelCostMap";
+import { useTranslation } from "react-i18next";
 
 const PriceDataManagementTab = () => {
-  const { accessToken } = useAuthorized();
+    const { t } = useTranslation();
+const { accessToken } = useAuthorized();
   const { refetch: refetchModelCostMap } = useModelCostMap();
 
   return (
     <TabPanel>
       <div className="p-6">
         <div className="mb-6">
-          <Title>Управление ценовыми данными</Title>
+          <Title>{t('Upravlenie_tsenovymi_dannymi')}</Title>
           <Text className="text-tremor-content">
-            Управляйте данными о ценах на модели и настраивайте расписание автоматической перезагрузки
+            {t('Upravlyayte_dannymi_o_tsenah_na_modeli_i')}
           </Text>
         </div>
         <PriceDataReload
@@ -22,7 +24,7 @@ const PriceDataManagementTab = () => {
           onReloadSuccess={() => {
             refetchModelCostMap();
           }}
-          buttonText="Перезагрузить ценовые данные"
+          buttonText={t('Perezagruzit_tsenovye_dannye')}
           size="middle"
           type="primary"
           className="w-full"

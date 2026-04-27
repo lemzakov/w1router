@@ -1,3 +1,4 @@
+import "@/i18n";
 import { EditOutlined, InfoCircleOutlined, SyncOutlined } from "@ant-design/icons";
 import { TrashIcon } from "@heroicons/react/outline";
 import { ColumnDef } from "@tanstack/react-table";
@@ -5,6 +6,8 @@ import { Badge, Button, Icon } from "@tremor/react";
 import { Divider, Flex, Popover, Space, Tooltip, Typography } from "antd";
 import { ModelData } from "../../model_dashboard/types";
 import { ProviderLogo } from "./ProviderLogo";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 const { Text, Title } = Typography;
 
@@ -18,7 +21,7 @@ const credentialsInfoPopoverContent = (
         <Space direction="vertical">
           <Flex align="center" gap={8}>
             <SyncOutlined style={{ color: "#1890ff" }} />
-            <Title level={5} style={{ margin: 0, color: "#1890ff" }}>Reusable</Title>
+            <Title level={5} style={{ margin: 0, color: "#1890ff" }}>{t('Reusable')}</Title>
           </Flex>
           <Text type="secondary">
             Credentials saved in LiteLLM that can be added to models repeatedly.
@@ -30,7 +33,7 @@ const credentialsInfoPopoverContent = (
         <Space direction="vertical" size={8}>
           <Flex align="center" gap={8}>
             <EditOutlined style={{ color: "#8c8c8c", fontSize: 14, flexShrink: 0 }} />
-            <Title level={5} style={{ margin: 0 }}>Manual</Title>
+            <Title level={5} style={{ margin: 0 }}>{t('Manual')}</Title>
           </Flex>
           <Text type="secondary">
             Credentials added directly during model creation or defined in the config file.
@@ -55,7 +58,7 @@ export const columns = (
   onDeleteClick?: (modelId: string) => void,
 ): ColumnDef<ModelData>[] => [
     {
-      header: () => <span className="text-sm font-semibold">Model ID</span>,
+      header: () => <span className="text-sm font-semibold">{t('Model_ID')}</span>,
       accessorKey: "model_info.id",
       enableSorting: false,
       size: 130,
@@ -80,7 +83,7 @@ export const columns = (
       },
     },
     {
-      header: () => <span className="text-sm font-semibold">Model Information</span>,
+      header: () => <span className="text-sm font-semibold">{t('Model_Information')}</span>,
       accessorKey: "model_name",
       size: 250,
       minSize: 120,
@@ -167,7 +170,7 @@ export const columns = (
     {
       header: () => (
         <span className="flex items-center gap-1">
-          <span className="text-sm font-semibold">Credentials</span>
+          <span className="text-sm font-semibold">{t('Credentials')}</span>
           <Popover
             content={credentialsInfoPopoverContent}
             placement="bottom"
@@ -201,7 +204,7 @@ export const columns = (
             ) : (
               <>
                 <EditOutlined className="flex-shrink-0" style={{ color: "#8c8c8c", fontSize: 14 }} />
-                <span className="text-xs text-gray-500">Manual</span>
+                <span className="text-xs text-gray-500">{t('Manual')}</span>
               </>
             )}
           </div>
@@ -209,7 +212,7 @@ export const columns = (
       },
     },
     {
-      header: () => <span className="text-sm font-semibold">Created By</span>,
+      header: () => <span className="text-sm font-semibold">{t('Created_By')}</span>,
       accessorKey: "model_info.created_by",
       sortingFn: "datetime",
       size: 160,
@@ -241,7 +244,7 @@ export const columns = (
       },
     },
     {
-      header: () => <span className="text-sm font-semibold">Updated At</span>,
+      header: () => <span className="text-sm font-semibold">{t('Updated_At')}</span>,
       accessorKey: "model_info.updated_at",
       sortingFn: "datetime",
       size: 120,
@@ -256,7 +259,7 @@ export const columns = (
       },
     },
     {
-      header: () => <span className="text-sm font-semibold">Costs</span>,
+      header: () => <span className="text-sm font-semibold">{t('Costs')}</span>,
       accessorKey: "input_cost",
       size: 120,
       minSize: 80,
@@ -287,7 +290,7 @@ export const columns = (
       },
     },
     {
-      header: () => <span className="text-sm font-semibold">Team ID</span>,
+      header: () => <span className="text-sm font-semibold">{t('Team_ID')}</span>,
       accessorKey: "model_info.team_id",
       enableSorting: false,
       size: 130,
@@ -316,7 +319,7 @@ export const columns = (
       },
     },
     {
-      header: () => <span className="text-sm font-semibold">Model Access Group</span>,
+      header: () => <span className="text-sm font-semibold">{t('Model_Access_Group')}</span>,
       accessorKey: "model_info.model_access_group",
       enableSorting: false,
       size: 180,
@@ -377,7 +380,7 @@ export const columns = (
       },
     },
     {
-      header: () => <span className="text-sm font-semibold">Status</span>,
+      header: () => <span className="text-sm font-semibold">{t('Status_3')}</span>,
       accessorKey: "model_info.db_model",
       size: 120,
       minSize: 80,
@@ -397,7 +400,7 @@ export const columns = (
     },
     {
       id: "actions",
-      header: () => <span className="text-sm font-semibold">Actions</span>,
+      header: () => <span className="text-sm font-semibold">{t('Actions')}</span>,
       size: 60,
       minSize: 40,
       enableResizing: false,

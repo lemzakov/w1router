@@ -20,6 +20,7 @@ import {
   type ToolPolicyOverrideRow,
 } from "@/components/networking";
 import type { Team } from "@/components/key_team_helpers/key_list";
+import { useTranslation } from "react-i18next";
 
 interface ToolDetailProps {
   toolName: string;
@@ -46,6 +47,7 @@ function getDefaultLogsDateRange(): { start: string; end: string } {
 }
 
 export function ToolDetail({ toolName, onBack, accessToken }: ToolDetailProps) {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const [overrideSaving, setOverrideSaving] = useState(false);
   const [inputPolicySaving, setInputPolicySaving] = useState(false);
@@ -221,7 +223,7 @@ export function ToolDetail({ toolName, onBack, accessToken }: ToolDetailProps) {
         <Button type="link" icon={<ArrowLeftOutlined />} onClick={onBack} className="pl-0 mb-4">
           Back to Tool Policies
         </Button>
-        <p className="text-red-600">Failed to load tool details.</p>
+        <p className="text-red-600">{t('Failed_to_load_tool_details')}</p>
       </div>
     );
   }
@@ -266,19 +268,19 @@ export function ToolDetail({ toolName, onBack, accessToken }: ToolDetailProps) {
             <dl className="mt-3 flex flex-wrap gap-x-6 gap-y-1 text-sm text-gray-600">
               {tool.user_agent && (
                 <div className="flex items-center gap-1.5">
-                  <dt className="font-medium text-gray-500 whitespace-nowrap">User Agent:</dt>
+                  <dt className="font-medium text-gray-500 whitespace-nowrap">{t('User_Agent')}</dt>
                   <dd className="font-mono truncate max-w-[40ch]" title={tool.user_agent}>{tool.user_agent}</dd>
                 </div>
               )}
               {tool.created_at && (
                 <div className="flex items-center gap-1.5">
-                  <dt className="font-medium text-gray-500 whitespace-nowrap">First Discovered:</dt>
+                  <dt className="font-medium text-gray-500 whitespace-nowrap">{t('First_Discovered')}</dt>
                   <dd>{new Date(tool.created_at).toLocaleString()}</dd>
                 </div>
               )}
               {tool.last_used_at && (
                 <div className="flex items-center gap-1.5">
-                  <dt className="font-medium text-gray-500 whitespace-nowrap">Last Used:</dt>
+                  <dt className="font-medium text-gray-500 whitespace-nowrap">{t('Last_Used')}</dt>
                   <dd>{new Date(tool.last_used_at).toLocaleString()}</dd>
                 </div>
               )}
@@ -291,7 +293,7 @@ export function ToolDetail({ toolName, onBack, accessToken }: ToolDetailProps) {
         {/* Two-panel policy layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <section className="bg-white rounded-lg border border-gray-200 p-5 shadow-sm">
-            <h2 className="text-sm font-semibold text-gray-700 mb-1">Input Policy</h2>
+            <h2 className="text-sm font-semibold text-gray-700 mb-1">{t('Input_Policy')}</h2>
             <p className="text-xs text-gray-500 mb-3">
               {inputDesc ?? "Controls what data this tool is allowed to accept."}
             </p>
@@ -308,7 +310,7 @@ export function ToolDetail({ toolName, onBack, accessToken }: ToolDetailProps) {
           </section>
 
           <section className="bg-white rounded-lg border border-gray-200 p-5 shadow-sm">
-            <h2 className="text-sm font-semibold text-gray-700 mb-1">Output Policy</h2>
+            <h2 className="text-sm font-semibold text-gray-700 mb-1">{t('Output_Policy')}</h2>
             <p className="text-xs text-gray-500 mb-3">
               {outputDesc ?? "Controls how this tool's output is trusted by downstream tools."}
             </p>
@@ -327,7 +329,7 @@ export function ToolDetail({ toolName, onBack, accessToken }: ToolDetailProps) {
 
         {overrides.length > 0 && (
           <section className="bg-white rounded-lg border border-gray-200 p-5 shadow-sm">
-            <h2 className="text-sm font-semibold text-gray-700 mb-3">Blocked for team or key</h2>
+            <h2 className="text-sm font-semibold text-gray-700 mb-3">{t('Blocked_for_team_or_key')}</h2>
             <ul className="border rounded-md divide-y divide-gray-100 bg-red-50/30">
               {overrides.map((ov) => (
                 <li
@@ -356,10 +358,10 @@ export function ToolDetail({ toolName, onBack, accessToken }: ToolDetailProps) {
         )}
 
         <section className="bg-white rounded-lg border border-gray-200 p-5 shadow-sm">
-          <h2 className="text-sm font-semibold text-gray-700 mb-3">Block for team or key</h2>
+          <h2 className="text-sm font-semibold text-gray-700 mb-3">{t('Block_for_team_or_key')}</h2>
           <div className="flex flex-col gap-4 max-w-md">
             <div>
-              <span className="text-sm font-medium text-gray-700 block mb-2">Scope</span>
+              <span className="text-sm font-medium text-gray-700 block mb-2">{t('Scope')}</span>
               <div className="flex items-center gap-6">
                 <label className="flex items-center gap-2 cursor-pointer text-sm text-gray-700">
                   <input

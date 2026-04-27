@@ -12,6 +12,7 @@ import {
   FileTextOutlined,
   RobotOutlined,
 } from "@ant-design/icons";
+import { useTranslation } from "react-i18next";
 
 export interface A2ATaskMetadata {
   taskId?: string;
@@ -80,6 +81,7 @@ const copyToClipboard = (text: string) => {
 };
 
 const A2AMetrics: React.FC<A2AMetricsProps> = ({ a2aMetadata, timeToFirstToken, totalLatency }) => {
+  const { t } = useTranslation();
   const [showDetails, setShowDetails] = useState(false);
 
   if (!a2aMetadata && !timeToFirstToken && !totalLatency) return null;
@@ -174,7 +176,7 @@ const A2AMetrics: React.FC<A2AMetricsProps> = ({ a2aMetadata, timeToFirstToken, 
             onClick={() => setShowDetails(!showDetails)}
           >
             {showDetails ? <DownOutlined /> : <RightOutlined />}
-            <span className="ml-1">Details</span>
+            <span className="ml-1">{t('Details')}</span>
           </Button>
         )}
       </div>
@@ -185,7 +187,7 @@ const A2AMetrics: React.FC<A2AMetricsProps> = ({ a2aMetadata, timeToFirstToken, 
           {/* Status message */}
           {status?.message && (
             <div className="mb-2">
-              <span className="font-medium text-gray-700">Status Message:</span>
+              <span className="font-medium text-gray-700">{t('Status_Message')}</span>
               <span className="ml-2">{status.message}</span>
             </div>
           )}
@@ -193,7 +195,7 @@ const A2AMetrics: React.FC<A2AMetricsProps> = ({ a2aMetadata, timeToFirstToken, 
           {/* Full IDs */}
           {taskId && (
             <div className="mb-1.5 flex items-center">
-              <span className="font-medium text-gray-700 w-24">Task ID:</span>
+              <span className="font-medium text-gray-700 w-24">{t('Task_ID')}</span>
               <code className="ml-2 px-2 py-1 bg-white border border-gray-200 rounded text-xs font-mono">{taskId}</code>
               <CopyOutlined
                 className="ml-2 cursor-pointer text-gray-400 hover:text-blue-500"
@@ -204,7 +206,7 @@ const A2AMetrics: React.FC<A2AMetricsProps> = ({ a2aMetadata, timeToFirstToken, 
 
           {contextId && (
             <div className="mb-1.5 flex items-center">
-              <span className="font-medium text-gray-700 w-24">Session ID:</span>
+              <span className="font-medium text-gray-700 w-24">{t('Session_ID')}</span>
               <code className="ml-2 px-2 py-1 bg-white border border-gray-200 rounded text-xs font-mono">{contextId}</code>
               <CopyOutlined
                 className="ml-2 cursor-pointer text-gray-400 hover:text-blue-500"
@@ -216,7 +218,7 @@ const A2AMetrics: React.FC<A2AMetricsProps> = ({ a2aMetadata, timeToFirstToken, 
           {/* Metadata fields */}
           {metadata && Object.keys(metadata).length > 0 && (
             <div className="mt-3">
-              <span className="font-medium text-gray-700">Custom Metadata:</span>
+              <span className="font-medium text-gray-700">{t('Custom_Metadata')}</span>
               <pre className="mt-1.5 p-2 bg-white border border-gray-200 rounded text-xs font-mono overflow-x-auto whitespace-pre-wrap">
                 {JSON.stringify(metadata, null, 2)}
               </pre>

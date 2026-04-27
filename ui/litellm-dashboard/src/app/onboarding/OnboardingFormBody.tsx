@@ -1,5 +1,6 @@
 import React from "react";
 import { Alert, Button, Card, Form, Input, Typography } from "antd";
+import { useTranslation } from "react-i18next";
 
 type OnboardingFormBodyProps = {
   variant: "signup" | "reset_password";
@@ -16,6 +17,7 @@ export function OnboardingFormBody({
   claimError,
   onSubmit,
 }: OnboardingFormBodyProps) {
+  const { t } = useTranslation();
   const [form] = Form.useForm();
 
   React.useEffect(() => {
@@ -44,7 +46,7 @@ export function OnboardingFormBody({
             message="SSO"
             description={
               <div className="flex justify-between items-center">
-                <span>SSO is under the Enterprise Tier.</span>
+                <span>{t('SSO_is_under_the_Enterprise_Tier')}</span>
                 <Button
                   type="primary"
                   size="small"

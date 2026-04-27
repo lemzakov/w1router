@@ -1,3 +1,4 @@
+import "@/i18n";
 import { ColumnDef } from "@tanstack/react-table";
 import { Badge, Grid, Icon } from "@tremor/react";
 import { Tooltip, Checkbox } from "antd";
@@ -5,6 +6,8 @@ import { UserInfo } from "./types";
 import { PencilAltIcon, TrashIcon, InformationCircleIcon, RefreshIcon } from "@heroicons/react/outline";
 import { CopyOutlined } from "@ant-design/icons";
 import { formatNumberWithCommas, copyToClipboard } from "@/utils/dataUtils";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 interface SelectionOptions {
   selectedUsers: UserInfo[];
@@ -26,7 +29,7 @@ export const columns = (
   // Backend sortable columns: user_id, user_email, created_at, spend, user_alias, user_role
   const baseColumns: ColumnDef<UserInfo>[] = [
     {
-      header: "ID пользователя",
+      header: t('ID_polzovatelya'),
       accessorKey: "user_id",
       enableSorting: true,
       cell: ({ row }) => (
@@ -35,11 +38,11 @@ export const columns = (
             <span className="text-xs">{row.original.user_id ? `${row.original.user_id.slice(0, 7)}...` : "-"}</span>
           </Tooltip>
           {row.original.user_id && (
-            <Tooltip title="Скопировать ID пользователя">
+            <Tooltip title={t('Skopirovat_ID_polzovatelya')}>
               <CopyOutlined
                 onClick={(e) => {
                   e.stopPropagation();
-                  copyToClipboard(row.original.user_id, "ID пользователя скопирован в буфер обмена");
+                  copyToClipboard(row.original.user_id, t('ID_polzovatelya_skopirovan_v_bufer_obmen'));
                 }}
                 className="cursor-pointer text-gray-500 hover:text-blue-500 text-xs"
               />
@@ -49,25 +52,25 @@ export const columns = (
       ),
     },
     {
-      header: "Электронная почта",
+      header: t('Elektronnaya_pochta'),
       accessorKey: "user_email",
       enableSorting: true,
       cell: ({ row }) => <span className="text-xs">{row.original.user_email || "-"}</span>,
     },
     {
-      header: "Глобальная роль прокси",
+      header: t('Globalnaya_rol_proksi'),
       accessorKey: "user_role",
       enableSorting: true,
       cell: ({ row }) => <span className="text-xs">{possibleUIRoles?.[row.original.user_role]?.ui_label || "-"}</span>,
     },
     {
-      header: "Псевдоним пользователя",
+      header: t('Psevdonim_polzovatelya'),
       accessorKey: "user_alias",
       enableSorting: false,
       cell: ({ row }) => <span className="text-xs">{row.original.user_alias || "-"}</span>,
     },
     {
-      header: "Расходы (USD)",
+      header: t('Rashody_USD'),
       accessorKey: "spend",
       enableSorting: true,
       cell: ({ row }) => (
@@ -75,18 +78,18 @@ export const columns = (
       ),
     },
     {
-      header: "Бюджет (USD)",
+      header: t('Byudzhet_USD'),
       accessorKey: "max_budget",
       enableSorting: false,
       cell: ({ row }) => (
-        <span className="text-xs">{row.original.max_budget !== null ? row.original.max_budget : "Без ограничений"}</span>
+        <span className="text-xs">{row.original.max_budget !== null ? row.original.max_budget : t('Bez_ogranicheniy')}</span>
       ),
     },
     {
       header: () => (
         <div className="flex items-center gap-2">
-          <span>SSO ID</span>
-          <Tooltip title="SSO ID — это идентификатор пользователя в провайдере SSO. Если пользователь не использует SSO, это значение будет null.">
+          <span>{t('SSO_ID')}</span>
+          <Tooltip title={t('SSO_ID_eto_identifikator_polzovatelya')}>
             <InformationCircleIcon className="w-4 h-4" />
           </Tooltip>
         </div>
@@ -98,25 +101,25 @@ export const columns = (
       ),
     },
     {
-      header: "Виртуальные ключи",
+      header: t('Virtualnye_klyuchi'),
       accessorKey: "key_count",
       enableSorting: false,
       cell: ({ row }) => (
         <Grid numItems={2}>
           {row.original.key_count > 0 ? (
             <Badge size="xs" color="indigo">
-              {row.original.key_count} {row.original.key_count === 1 ? "Ключ" : "Ключей"}
+              {row.original.key_count} {row.original.key_count === 1 ? t('Klyuch') : t('Klyuchey')}
             </Badge>
           ) : (
             <Badge size="xs" color="gray">
-              Нет ключей
+              {t('Net_klyuchey')}
             </Badge>
           )}
         </Grid>
       ),
     },
     {
-      header: "Дата создания",
+      header: t('Data_sozdaniya'),
       accessorKey: "created_at",
       enableSorting: true,
       cell: ({ row }) => (
@@ -126,7 +129,7 @@ export const columns = (
       ),
     },
     {
-      header: "Дата обновления",
+      header: t('Data_obnovleniya'),
       accessorKey: "updated_at",
       enableSorting: false,
       cell: ({ row }) => (
@@ -137,11 +140,11 @@ export const columns = (
     },
     {
       id: "actions",
-      header: "Действия",
+      header: t('Deystviya'),
       enableSorting: false,
       cell: ({ row }) => (
         <div className="flex gap-2">
-          <Tooltip title="Редактировать данные пользователя">
+          <Tooltip title={t('Redaktirovat_dannye_polzovatelya')}>
             <Icon
               icon={PencilAltIcon}
               size="sm"
@@ -149,7 +152,7 @@ export const columns = (
               className="cursor-pointer hover:text-blue-600"
             />
           </Tooltip>
-          <Tooltip title="Удалить пользователя">
+          <Tooltip title={t('Udalit_polzovatelya')}>
             <Icon
               icon={TrashIcon}
               size="sm"
@@ -157,7 +160,7 @@ export const columns = (
               className="cursor-pointer hover:text-red-600"
             />
           </Tooltip>
-          <Tooltip title="Сбросить пароль">
+          <Tooltip title={t('Sbrosit_parol')}>
             <Icon
               icon={RefreshIcon}
               size="sm"

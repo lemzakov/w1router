@@ -1,11 +1,14 @@
 /* eslint-disable react/no-unescaped-entities */
 
+import "@/i18n";
 import React, { useState } from "react";
 import { Card, Typography, Space, Alert, Button, Switch, Form, Collapse } from "antd";
 import { TabPanel, TabPanels, TabGroup, TabList, Tab, Title as TremorTitle, Text as TremorText } from "@tremor/react";
 import { CopyIcon, Code, Terminal, Globe, CheckIcon, ExternalLinkIcon, KeyIcon, ServerIcon, Zap } from "lucide-react";
 import { getProxyBaseUrl } from "../networking";
 import { copyToClipboard as utilCopyToClipboard } from "../../utils/dataUtils";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 const { Title, Text } = Typography;
 const { Panel } = Collapse;
@@ -34,6 +37,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
   serverName,
   accessGroups = ["dev-group"],
 }) => {
+  const { t } = useTranslation();
   const [useServerHeader, setUseServerHeader] = useState(false);
 
   const getHeadersConfig = () => {
@@ -77,10 +81,10 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
               description={
                 <div>
                   <p>
-                    <strong>Option 1:</strong> Get a specific server: <code>"{serverName.replace(/\s+/g, "_")}"</code>
+                    <strong>{t('Option_1')}</strong> Get a specific server: <code>"{serverName.replace(/\s+/g, "_")}"</code>
                   </p>
                   <p>
-                    <strong>Option 2:</strong> Get a group of MCPs: <code>"dev-group"</code>
+                    <strong>{t('Option_2')}</strong> Get a group of MCPs: <code>"dev-group"</code>
                   </p>
                   <p className="mt-2 text-sm text-gray-600">
                     You can also mix both: <code>"Server1,dev-group"</code>
@@ -225,7 +229,7 @@ const MCPConnect: React.FC<MCPConnectProps> = ({ currentServerAccessGroups = [] 
         >
           <Space direction="vertical" size="middle" className="w-full">
             <div>
-              <Text>Get your Virtual Key from your LiteLLM Proxy dashboard or contact your administrator</Text>
+              <Text>{t('Get_your_Virtual_Key_from_your_LiteLLM_P')}</Text>
             </div>
             <CodeBlock title="Environment Variable" code='export LITELLM_API_KEY="sk-..."' copyKey="litellm-env" />
           </Space>
@@ -381,19 +385,19 @@ const MCPConnect: React.FC<MCPConnectProps> = ({ currentServerAccessGroups = [] 
           <StepCard step={1} title="Open Cursor Settings">
             <Text className="text-gray-600">
               Use the keyboard shortcut <code className="bg-gray-100 px-2 py-1 rounded">⇧+⌘+J</code> (Mac) or{" "}
-              <code className="bg-gray-100 px-2 py-1 rounded">Ctrl+Shift+J</code> (Windows/Linux)
+              <code className="bg-gray-100 px-2 py-1 rounded">{t('CtrlShiftJ')}</code> (Windows/Linux)
             </Text>
           </StepCard>
 
           <StepCard step={2} title="Navigate to MCP Tools">
-            <Text className="text-gray-600">Go to the "MCP Tools" tab and click "New MCP Server"</Text>
+            <Text className="text-gray-600">{t('Go_to_the_MCP_Tools_tab_and_click_New_MC')}</Text>
           </StepCard>
 
           <StepCard step={3} title="Add Configuration">
             <Text className="text-gray-600 mb-3">
               Copy the JSON configuration below and paste it into Cursor, then save with{" "}
-              <code className="bg-gray-100 px-2 py-1 rounded">Cmd+S</code> or{" "}
-              <code className="bg-gray-100 px-2 py-1 rounded">Ctrl+S</code>
+              <code className="bg-gray-100 px-2 py-1 rounded">{t('CmdS')}</code> or{" "}
+              <code className="bg-gray-100 px-2 py-1 rounded">{t('CtrlS')}</code>
             </Text>
             <FeatureCard
               icon={<Code className="text-purple-600" size={16} />}
@@ -481,7 +485,7 @@ const MCPConnect: React.FC<MCPConnectProps> = ({ currentServerAccessGroups = [] 
     <div>
       <Space direction="vertical" size="large" className="w-full">
         <div>
-          <TremorTitle className="text-3xl font-bold text-gray-900 mb-3">Connect to your MCP client</TremorTitle>
+          <TremorTitle className="text-3xl font-bold text-gray-900 mb-3">{t('Connect_to_your_MCP_client')}</TremorTitle>
           <TremorText className="text-lg text-gray-600">
             Use tools directly from any MCP client with LiteLLM MCP. Enable your AI assistant to perform real-world
             tasks through a simple, secure connection.

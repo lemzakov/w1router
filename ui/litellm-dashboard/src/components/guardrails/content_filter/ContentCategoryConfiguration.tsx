@@ -2,6 +2,7 @@ import React from "react";
 import { Card, Typography, Select, Table, Tag, Collapse, Button } from "antd";
 import { DeleteOutlined, PlusOutlined, FileTextOutlined } from "@ant-design/icons";
 import { getCategoryYaml } from "../../networking";
+import { useTranslation } from "react-i18next";
 
 const { Title, Text } = Typography;
 const { Option } = Select;
@@ -42,6 +43,7 @@ const ContentCategoryConfiguration: React.FC<ContentCategoryConfigurationProps> 
   pendingSelection,
   onPendingSelectionChange,
 }) => {
+  const { t } = useTranslation();
   // Use controlled state if parent provides it, otherwise use local state
   const [localSelectedCategoryName, setLocalSelectedCategoryName] = React.useState<string>("");
   const selectedCategoryName = pendingSelection !== undefined ? pendingSelection : localSelectedCategoryName;
@@ -213,8 +215,8 @@ const ContentCategoryConfiguration: React.FC<ContentCategoryConfigurationProps> 
           style={{ width: "100%" }}
         >
           <Option value="low">Low</Option>
-          <Option value="medium">Medium</Option>
-          <Option value="high">High</Option>
+          <Option value="medium">{t('Medium')}</Option>
+          <Option value="high">{t('High')}</Option>
         </Select>
       ),
     },

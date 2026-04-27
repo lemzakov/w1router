@@ -13,6 +13,7 @@ import {
 } from "@tremor/react";
 import { availableTeamListCall, teamMemberAddCall } from "../networking";
 import NotificationsManager from "../molecules/notifications_manager";
+import { useTranslation } from "react-i18next";
 
 interface AvailableTeam {
   team_id: string;
@@ -28,7 +29,8 @@ interface AvailableTeamsProps {
 }
 
 const AvailableTeamsPanel: React.FC<AvailableTeamsProps> = ({ accessToken, userID }) => {
-  const [availableTeams, setAvailableTeams] = useState<AvailableTeam[]>([]);
+    const { t } = useTranslation();
+const [availableTeams, setAvailableTeams] = useState<AvailableTeam[]>([]);
 
   useEffect(() => {
     const fetchAvailableTeams = async () => {
@@ -55,12 +57,12 @@ const AvailableTeamsPanel: React.FC<AvailableTeamsProps> = ({ accessToken, userI
         role: "user",
       });
 
-      NotificationsManager.success("Вы успешно вступили в команду");
+      NotificationsManager.success(t('Vy_uspeshno_vstupili_v_komandu'));
       // Update available teams list
       setAvailableTeams((teams) => teams.filter((team) => team.team_id !== teamId));
     } catch (error) {
       console.error("Error joining team:", error);
-      NotificationsManager.fromBackend("Не удалось присоединиться к команде");
+      NotificationsManager.fromBackend(t('Ne_udalos_prisoedinitsya_k_komande'));
     }
   };
 
@@ -69,11 +71,11 @@ const AvailableTeamsPanel: React.FC<AvailableTeamsProps> = ({ accessToken, userI
       <Table>
         <TableHead>
           <TableRow>
-            <TableHeaderCell>Название команды</TableHeaderCell>
-            <TableHeaderCell>Описание</TableHeaderCell>
-            <TableHeaderCell>Участники</TableHeaderCell>
-            <TableHeaderCell>Модели</TableHeaderCell>
-            <TableHeaderCell>Действия</TableHeaderCell>
+            <TableHeaderCell>{t('Nazvanie_komandy')}</TableHeaderCell>
+            <TableHeaderCell>{t('Opisanie')}</TableHeaderCell>
+            <TableHeaderCell>{t('Uchastniki')}</TableHeaderCell>
+            <TableHeaderCell>{t('Modeli')}</TableHeaderCell>
+            <TableHeaderCell>{t('Deystviya')}</TableHeaderCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -83,16 +85,16 @@ const AvailableTeamsPanel: React.FC<AvailableTeamsProps> = ({ accessToken, userI
                 <Text>{team.team_alias}</Text>
               </TableCell>
               <TableCell>
-                <Text>{team.description || "Описание отсутствует"}</Text>
+                <Text>{team.description || t('Opisanie_otsutstvuet')}</Text>
               </TableCell>
               <TableCell>
-                <Text>{team.members_with_roles.length} участников</Text>
+                <Text>{team.members_with_roles.length} {t('uchastnikov')}</Text>
               </TableCell>
               <TableCell>
                 <div className="flex flex-col">
                   {!team.models || team.models.length === 0 ? (
                     <Badge size="xs" color="red">
-                      <Text>All Proxy Models</Text>
+                      <Text>{t('All_Proxy_Models')}</Text>
                     </Badge>
                   ) : (
                     team.models.map((model, index) => (
@@ -105,7 +107,7 @@ const AvailableTeamsPanel: React.FC<AvailableTeamsProps> = ({ accessToken, userI
               </TableCell>
               <TableCell>
                 <Button size="xs" variant="secondary" onClick={() => handleJoinTeam(team.team_id)}>
-                  Присоединиться к команде
+                  {t('Prisoedinitsya_k_komande')}
                 </Button>
               </TableCell>
             </TableRow>
@@ -113,14 +115,14 @@ const AvailableTeamsPanel: React.FC<AvailableTeamsProps> = ({ accessToken, userI
           {availableTeams.length === 0 && (
             <TableRow>
               <TableCell colSpan={5} className="text-center">
-                <Text>Нет доступных команд для вступления. Смотрите как настроить доступные команды{" "}
+                <Text>{t('Net_dostupnyh_komand_dlya_vstupleniya_Sm')}{" "}
                   <a
                     href="https://docs.litellm.ai/docs/proxy/self_serve#all-settings-for-self-serve--sso-flow"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-500 hover:text-blue-700 underline"
                   >
-                    здесь
+                    {t('zdes')}
                   </a>.
                 </Text>
               </TableCell>

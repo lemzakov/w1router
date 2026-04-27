@@ -1,4 +1,5 @@
 "use client";
+import { useTranslation } from "react-i18next";
 
 import React, { useCallback, useEffect, useRef, useState, useLayoutEffect } from "react";
 import { Tooltip, Skeleton, Popover } from "antd";
@@ -124,7 +125,8 @@ async function streamToModel(
 }
 
 const ChatPage: React.FC<ChatPageProps> = ({ accessToken, userRole, userId, userEmail }) => {
-  const router = useRouter();
+    const { t } = useTranslation();
+const router = useRouter();
   const searchParams = useSearchParams();
   const activeConversationId = searchParams.get("id");
   const { data: uiConfig } = useUIConfig();
@@ -665,7 +667,7 @@ const ChatPage: React.FC<ChatPageProps> = ({ accessToken, userRole, userId, user
         onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "transparent"; }}
       >
         {selectedModels.length === 0 ? (
-          <span style={{ color: "#9ca3af" }}>Select model</span>
+          <span style={{ color: "#9ca3af" }}>{t('Select_model')}</span>
         ) : selectedModels.length === 1 ? (
           <>
             {(() => {
@@ -848,7 +850,7 @@ const ChatPage: React.FC<ChatPageProps> = ({ accessToken, userRole, userId, user
               </span>
             </div>
           )}
-          <Tooltip title={sidebarCollapsed ? "Развернуть меню" : "Свернуть меню"} placement="right">
+          <Tooltip title={sidebarCollapsed ? t('Razvernut_menyu') : t('Svernut_menyu')} placement="right">
             <button
               onClick={() => setSidebarCollapsed((v) => !v)}
               style={{
@@ -900,7 +902,7 @@ const ChatPage: React.FC<ChatPageProps> = ({ accessToken, userRole, userId, user
             >
               <ArrowLeftOutlined style={{ fontSize: 16, flexShrink: 0 }} />
               {!sidebarCollapsed && (
-                <span>Back to Developer Console UI</span>
+                <span>{t('Back_to_Developer_Console_UI')}</span>
               )}
             </a>
           </Tooltip>
@@ -964,7 +966,7 @@ const ChatPage: React.FC<ChatPageProps> = ({ accessToken, userRole, userId, user
             padding: "6px 20px", fontSize: 13, color: "#874d00",
             display: "flex", justifyContent: "space-between", alignItems: "center",
           }}>
-            <span>Chat history won&apos;t be saved in this browser session.</span>
+            <span>{t('Chat_history_wonapost_be_saved_in_this_b')}</span>
             <button onClick={() => setStorageBannerDismissed(true)}
               style={{ background: "none", border: "none", cursor: "pointer", fontSize: 16, color: "#874d00" }}>
               ×
@@ -1173,7 +1175,7 @@ const ChatPage: React.FC<ChatPageProps> = ({ accessToken, userRole, userId, user
                                         {responseText}
                                       </ReactMarkdown>
                                     ) : isModelStreaming ? (
-                                      <span style={{ color: "#9ca3af", fontSize: 14 }}>Generating…</span>
+                                      <span style={{ color: "#9ca3af", fontSize: 14 }}>{t('Generating')}</span>
                                     ) : (
                                       <span style={{ color: "#9ca3af", fontSize: 14 }}>—</span>
                                     )}

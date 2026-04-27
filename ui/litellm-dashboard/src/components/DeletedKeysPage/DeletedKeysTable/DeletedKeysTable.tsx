@@ -22,6 +22,7 @@ import {
 import { Tooltip } from "antd";
 import React, { useState } from "react";
 import { KeyResponse } from "../../key_team_helpers/key_list";
+import { useTranslation } from "react-i18next";
 
 interface DeletedKeysTableProps {
   keys: KeyResponse[];
@@ -42,6 +43,7 @@ export function DeletedKeysTable({
   pageSize,
   onPageChange,
 }: DeletedKeysTableProps) {
+  const { t } = useTranslation();
   const [sorting, setSorting] = useState<SortingState>([
     {
       id: "deleted_at",
@@ -270,7 +272,7 @@ export function DeletedKeysTable({
       <div className="border-b py-4 flex-1 overflow-hidden">
         <div className="flex items-center justify-between w-full mb-4">
           {isLoading || isFetching ? (
-            <span className="inline-flex text-sm text-gray-700">Loading...</span>
+            <span className="inline-flex text-sm text-gray-700">{t('Loading')}</span>
           ) : (
             <span className="inline-flex text-sm text-gray-700">
               Showing {rangeLabel} of {totalCount} results
@@ -279,7 +281,7 @@ export function DeletedKeysTable({
 
           <div className="inline-flex items-center gap-2">
             {isLoading || isFetching ? (
-              <span className="text-sm text-gray-700">Loading...</span>
+              <span className="text-sm text-gray-700">{t('Loading')}</span>
             ) : (
               <span className="text-sm text-gray-700">
                 Page {currentPageIndex + 1} of {table.getPageCount()}
@@ -406,7 +408,7 @@ export function DeletedKeysTable({
                     <TableRow>
                       <TableCell colSpan={columns.length} className="h-8 text-center">
                         <div className="text-center text-gray-500">
-                          <p>No deleted keys found</p>
+                          <p>{t('No_deleted_keys_found')}</p>
                         </div>
                       </TableCell>
                     </TableRow>

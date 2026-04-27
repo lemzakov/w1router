@@ -1,6 +1,7 @@
 import React from "react";
 import { Typography, Collapse } from "antd";
 import type { MCPEvent } from "../../mcp_tools/types";
+import { useTranslation } from "react-i18next";
 
 const { Text } = Typography;
 const { Panel } = Collapse;
@@ -11,6 +12,7 @@ interface MCPEventsDisplayProps {
 }
 
 const MCPEventsDisplay: React.FC<MCPEventsDisplayProps> = ({ events, className }) => {
+  const { t } = useTranslation();
   console.log("MCPEventsDisplay: Received events:", events);
 
   if (!events || events.length === 0) {
@@ -190,7 +192,7 @@ const MCPEventsDisplay: React.FC<MCPEventsDisplayProps> = ({ events, className }
               <div>
                 {/* Request section */}
                 <div className="mcp-section">
-                  <div className="mcp-section-header">Request</div>
+                  <div className="mcp-section-header">{t('Request')}</div>
                   <div className="mcp-code-block">
                     {callEvent.item?.arguments && (
                       <pre className="mcp-json">
@@ -216,7 +218,7 @@ const MCPEventsDisplay: React.FC<MCPEventsDisplayProps> = ({ events, className }
                 {/* Response section */}
                 {callEvent.item?.output && (
                   <div className="mcp-section">
-                    <div className="mcp-section-header">Response</div>
+                    <div className="mcp-section-header">{t('Response')}</div>
                     <div className="mcp-response-content">{callEvent.item.output}</div>
                   </div>
                 )}

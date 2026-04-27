@@ -13,6 +13,7 @@ import { Edit, KeyRound, PlugZap, Trash2 } from "lucide-react";
 import { SENSITIVE_FIELDS, FIELD_LABELS } from "./constants";
 import EditHashicorpVaultModal from "./EditHashicorpVaultModal";
 import HashicorpVaultEmptyPlaceholder from "./HashicorpVaultEmptyPlaceholder";
+import { useTranslation } from "react-i18next";
 
 const { Title, Text } = Typography;
 
@@ -28,6 +29,7 @@ const descriptionsConfig = {
 };
 
 export default function HashicorpVault() {
+  const { t } = useTranslation();
   const { accessToken } = useAuthorized();
   const { data, isLoading, isError, error } = useHashicorpVaultConfig();
   const { mutate: deleteConfig, isPending: isDeleting } = useDeleteHashicorpVaultConfig(accessToken);
@@ -82,7 +84,7 @@ export default function HashicorpVault() {
   const renderValue = (key: string) => {
     const value = rawValues[key];
     if (!value) {
-      return <span className="text-gray-400 italic">Not configured</span>;
+      return <span className="text-gray-400 italic">{t('Not_configured')}</span>;
     }
     if (SENSITIVE_FIELDS.has(key)) {
       return (
@@ -145,8 +147,8 @@ export default function HashicorpVault() {
               <Flex align="center" gap={12}>
                 <KeyRound className="w-6 h-6 text-gray-400" />
                 <div>
-                  <Title level={3} style={{ marginBottom: 0 }}>Hashicorp Vault</Title>
-                  <Text type="secondary">Manage secret manager configuration</Text>
+                  <Title level={3} style={{ marginBottom: 0 }}>{t('Hashicorp_Vault')}</Title>
+                  <Text type="secondary">{t('Manage_secret_manager_configuration')}</Text>
                 </div>
               </Flex>
 

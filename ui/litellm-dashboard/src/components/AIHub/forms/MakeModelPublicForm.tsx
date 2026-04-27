@@ -4,6 +4,7 @@ import { Text, Title, Badge } from "@tremor/react";
 import { makeModelGroupPublic } from "../../networking";
 import ModelFilters from "../../model_filters";
 import NotificationsManager from "../../molecules/notifications_manager";
+import { useTranslation } from "react-i18next";
 
 const { Step } = Steps;
 
@@ -40,6 +41,7 @@ const MakeModelPublicForm: React.FC<MakeModelPublicFormProps> = ({
   modelHubData,
   onSuccess,
 }) => {
+  const { t } = useTranslation();
   const [currentStep, setCurrentStep] = useState(0);
   const [selectedModels, setSelectedModels] = useState<Set<string>>(new Set());
   const [filteredData, setFilteredData] = useState<ModelGroupInfo[]>([]);
@@ -138,7 +140,7 @@ const MakeModelPublicForm: React.FC<MakeModelPublicFormProps> = ({
     return (
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <Title>Select Models to Make Public</Title>
+          <Title>{t('Select_Models_to_Make_Public')}</Title>
           <div className="flex items-center space-x-2">
             <Checkbox
               checked={allModelsSelected}
@@ -168,7 +170,7 @@ const MakeModelPublicForm: React.FC<MakeModelPublicFormProps> = ({
           <div className="space-y-3">
             {filteredData.length === 0 ? (
               <div className="text-center py-8 text-gray-500">
-                <Text>No models match the current filters.</Text>
+                <Text>{t('No_models_match_the_current_filters')}</Text>
               </div>
             ) : (
               filteredData.map((model) => (
@@ -217,17 +219,17 @@ const MakeModelPublicForm: React.FC<MakeModelPublicFormProps> = ({
   const renderStep2Content = () => {
     return (
       <div className="space-y-4">
-        <Title>Confirm Making Models Public</Title>
+        <Title>{t('Confirm_Making_Models_Public')}</Title>
 
         <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
           <Text className="text-sm text-yellow-800">
-            <strong>Warning:</strong> Once you make these models public, anyone who can go to the{" "}
+            <strong>{t('Warning')}</strong> Once you make these models public, anyone who can go to the{" "}
             <code>/ui/model_hub_table</code> will be able to know they exist on the proxy.
           </Text>
         </div>
 
         <div className="space-y-3">
-          <Text className="font-medium">Models to be made public:</Text>
+          <Text className="font-medium">{t('Models_to_be_made_public')}</Text>
           <div className="max-h-48 overflow-y-auto border rounded-lg p-3">
             <div className="space-y-2">
               {Array.from(selectedModels).map((modelGroup) => {

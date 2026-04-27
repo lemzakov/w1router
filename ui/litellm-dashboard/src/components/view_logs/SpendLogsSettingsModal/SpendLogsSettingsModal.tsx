@@ -1,4 +1,5 @@
 "use client";
+import { useTranslation } from "react-i18next";
 
 import { ConfigType, GeneralSettingsFieldName, useDeleteProxyConfigField, useProxyConfig } from "@/app/(dashboard)/hooks/proxyConfig/useProxyConfig";
 import { StoreRequestInSpendLogsParams, useStoreRequestInSpendLogs } from "@/app/(dashboard)/hooks/storeRequestInSpendLogs/useStoreRequestInSpendLogs";
@@ -16,7 +17,8 @@ interface SpendLogsSettingsModalProps {
 
 const SpendLogsSettingsModal: React.FC<SpendLogsSettingsModalProps> = ({ isVisible, onCancel, onSuccess }) => {
   const [form] = Form.useForm();
-  const { mutateAsync, isPending } = useStoreRequestInSpendLogs();
+    const { t } = useTranslation();
+const { mutateAsync, isPending } = useStoreRequestInSpendLogs();
   const { mutateAsync: deleteField, isPending: isDeletingField } = useDeleteProxyConfigField();
   const { data: proxyConfigData, isLoading: isLoadingConfig, refetch } = useProxyConfig(ConfigType.GENERAL_SETTINGS);
   const storePromptsValue = Form.useWatch('store_prompts_in_spend_logs', form);
@@ -78,16 +80,16 @@ const SpendLogsSettingsModal: React.FC<SpendLogsSettingsModalProps> = ({ isVisib
 
       await mutateAsync(updateParams, {
         onSuccess: () => {
-          NotificationsManager.success("Настройки логов расходов успешно обновлены");
+          NotificationsManager.success(t('Nastroyki_logov_rashodov_uspeshno_obnovl'));
           refetch(); // Refetch config to get updated values
           onSuccess?.();
         },
         onError: (error) => {
-          NotificationsManager.fromBackend("Не удалось сохранить настройки логов расходов: " + parseErrorMessage(error));
+          NotificationsManager.fromBackend(t('Ne_udalos_sohranit_nastroyki_logov_ras') + parseErrorMessage(error));
         },
       });
     } catch (error) {
-      NotificationsManager.fromBackend("Не удалось сохранить настройки логов расходов: " + parseErrorMessage(error));
+      NotificationsManager.fromBackend(t('Ne_udalos_sohranit_nastroyki_logov_ras') + parseErrorMessage(error));
     }
   };
 
@@ -98,15 +100,15 @@ const SpendLogsSettingsModal: React.FC<SpendLogsSettingsModalProps> = ({ isVisib
 
   return (
     <Modal
-      title={<Typography.Title level={5}>Настройки логов расходов</Typography.Title>}
+      title={<Typography.Title level={5}>{t('Nastroyki_logov_rashodov')}</Typography.Title>}
       open={isVisible}
       footer={
         <Space>
           <Button onClick={handleCancel} disabled={isPending || isDeletingField || isLoadingConfig}>
-            Отмена
+            {t('Otmena')}
           </Button>
           <Button type="primary" loading={isPending || isDeletingField} disabled={isLoadingConfig} onClick={() => form.submit()}>
-            {isPending || isDeletingField ? "Сохранение..." : "Сохранить настройки"}
+            {isPending || isDeletingField ? t('Sohranenie') : t('Sohranit_nastroyki')}
           </Button>
         </Space>
       }
@@ -121,11 +123,11 @@ const SpendLogsSettingsModal: React.FC<SpendLogsSettingsModalProps> = ({ isVisib
         initialValues={initialValues}
       >
         <Form.Item
-          label="Сохранять запросы в логах расходов"
+          label={t('Sohranyat_zaprosy_v_logah_rashodov')}
           name="store_prompts_in_spend_logs"
           tooltip={
             proxyConfigData?.find(f => f.field_name === 'store_prompts_in_spend_logs')?.field_description ||
-            "Если включено, запросы будут сохраняться в логах расходов для отслеживания и анализа."
+            t('Esli_vklyucheno_zaprosy_budut_sohranyats')
           }
           valuePropName="checked"
         >
@@ -136,11 +138,11 @@ const SpendLogsSettingsModal: React.FC<SpendLogsSettingsModalProps> = ({ isVisib
         </Form.Item>
 
         <Form.Item
-          label="Максимальный период хранения логов расходов (опционально)"
+          label={t('Maksimalnyy_period_hraneniya_logov_rasho')}
           name="maximum_spend_logs_retention_period"
           tooltip={
             proxyConfigData?.find(f => f.field_name === 'maximum_spend_logs_retention_period')?.field_description ||
-            "Установите максимальный период хранения логов расходов (например, '7d' — 7 дней, '30d' — 30 дней). Оставьте пустым для хранения без ограничений."
+            t('Ustanovite_maksimalnyy_period_hraneniya')
           }
         >
           {isLoadingConfig ? <Skeleton.Input active block /> : <Input

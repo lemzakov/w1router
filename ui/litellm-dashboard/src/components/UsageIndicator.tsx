@@ -1,8 +1,11 @@
+import "@/i18n";
 import { useDisableUsageIndicator } from "@/app/(dashboard)/hooks/useDisableUsageIndicator";
 import { Badge } from "@tremor/react";
 import { AlertTriangle, Calendar, ChevronDown, ChevronUp, Loader2, Minus, TrendingUp, UserCheck, Users } from "lucide-react";
 import { useEffect, useState } from "react";
 import { getRemainingUsers, getLicenseInfo, LicenseInfo } from "./networking";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 // Simple utility function to combine class names
 const cn = (...classes: (string | boolean | undefined)[]) => {
@@ -160,6 +163,7 @@ export default function UsageIndicator({ accessToken, width = 220 }: UsageIndica
 
   // Minimized view - just a small restore button
   const MinimizedView = () => {
+  const { t } = useTranslation();
     return (
       <div className="px-3 py-1" style={{ maxWidth: `${width}px` }}>
         <button
@@ -194,7 +198,7 @@ export default function UsageIndicator({ accessToken, width = 220 }: UsageIndica
               </span>
             )}
             {!data ||
-              (data.total_users === null && data.total_teams === null && !licenseInfo && <span className="truncate">Usage</span>)}
+              (data.total_users === null && data.total_teams === null && !licenseInfo && <span className="truncate">{t('Usage')}</span>)}
           </div>
         </button>
       </div>
@@ -211,7 +215,7 @@ export default function UsageIndicator({ accessToken, width = 220 }: UsageIndica
       return (
         <div className="flex items-center gap-3 px-3 py-2 text-gray-500" style={{ maxWidth: `${width}px` }}>
           <Loader2 className="h-4 w-4 animate-spin flex-shrink-0" />
-          <span className="text-sm truncate">Loading...</span>
+          <span className="text-sm truncate">{t('Loading')}</span>
         </div>
       );
     }
@@ -250,7 +254,7 @@ export default function UsageIndicator({ accessToken, width = 220 }: UsageIndica
             )}
           >
             <Users className="h-4 w-4 flex-shrink-0" />
-            <span className="text-sm font-medium truncate">Usage Status</span>
+            <span className="text-sm font-medium truncate">{t('Usage_Status')}</span>
             {hasAnyIssue && (
               <Badge color={getStatusColor()} className="text-xs px-1.5 py-0.5 flex-shrink-0">
                 {getStatusIcon()}
@@ -281,7 +285,7 @@ export default function UsageIndicator({ accessToken, width = 220 }: UsageIndica
               <div>
                 <div className="mb-1 flex items-center gap-1">
                   <Calendar className="h-3 w-3" />
-                  <span className="font-medium">License</span>
+                  <span className="font-medium">{t('License')}</span>
                 </div>
                 <div className={cn(
                   "flex items-center gap-1 text-xs",
@@ -441,7 +445,7 @@ export default function UsageIndicator({ accessToken, width = 220 }: UsageIndica
                 </span>
               )}
               {!data ||
-                (data.total_users === null && data.total_teams === null && !licenseInfo && <span className="truncate">Usage</span>)}
+                (data.total_users === null && data.total_teams === null && !licenseInfo && <span className="truncate">{t('Usage')}</span>)}
             </div>
           </div>
         </button>
@@ -453,7 +457,7 @@ export default function UsageIndicator({ accessToken, width = 220 }: UsageIndica
         <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-4 w-full">
           <div className="flex items-center justify-center gap-2 py-2">
             <Loader2 className="h-4 w-4 animate-spin" />
-            <span className="text-sm text-gray-500 truncate">Loading...</span>
+            <span className="text-sm text-gray-500 truncate">{t('Loading')}</span>
           </div>
         </div>
       );
@@ -483,7 +487,7 @@ export default function UsageIndicator({ accessToken, width = 220 }: UsageIndica
         <div className="flex items-center justify-between gap-2 mb-3">
           <div className="flex items-center gap-2 min-w-0 flex-1">
             <Users className="h-4 w-4 flex-shrink-0" />
-            <span className="font-medium text-sm truncate">Usage</span>
+            <span className="font-medium text-sm truncate">{t('Usage')}</span>
           </div>
           <button
             onClick={() => setIsMinimized(true)}
@@ -507,7 +511,7 @@ export default function UsageIndicator({ accessToken, width = 220 }: UsageIndica
             >
               <div className="flex items-center gap-2 text-xs text-gray-600 mb-1">
                 <Calendar className="h-3 w-3" />
-                <span className="font-medium">License</span>
+                <span className="font-medium">{t('License')}</span>
                 <span
                   className={cn(
                     "ml-1 px-1.5 py-0.5 rounded border",
@@ -520,7 +524,7 @@ export default function UsageIndicator({ accessToken, width = 220 }: UsageIndica
                 </span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-gray-600 text-xs">Status:</span>
+                <span className="text-gray-600 text-xs">{t('Status_2')}</span>
                 <span
                   className={cn(
                     "font-medium text-right",
@@ -533,7 +537,7 @@ export default function UsageIndicator({ accessToken, width = 220 }: UsageIndica
               </div>
               {licenseInfo.license_type && (
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-600 text-xs">Type:</span>
+                  <span className="text-gray-600 text-xs">{t('Type')}</span>
                   <span className="font-medium text-right capitalize">{licenseInfo.license_type}</span>
                 </div>
               )}
@@ -551,7 +555,7 @@ export default function UsageIndicator({ accessToken, width = 220 }: UsageIndica
             >
               <div className="flex items-center gap-2 text-xs text-gray-600 mb-1">
                 <Users className="h-3 w-3" />
-                <span className="font-medium">Users</span>
+                <span className="font-medium">{t('Users')}</span>
                 <span
                   className={cn(
                     "ml-1 px-1.5 py-0.5 rounded border",
@@ -564,13 +568,13 @@ export default function UsageIndicator({ accessToken, width = 220 }: UsageIndica
                 </span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-gray-600 text-xs">Used:</span>
+                <span className="text-gray-600 text-xs">{t('Used')}</span>
                 <span className="font-medium text-right">
                   {data.total_users_used}/{data.total_users}
                 </span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-gray-600 text-xs">Remaining:</span>
+                <span className="text-gray-600 text-xs">{t('Remaining')}</span>
                 <span
                   className={cn(
                     "font-medium text-right",
@@ -582,7 +586,7 @@ export default function UsageIndicator({ accessToken, width = 220 }: UsageIndica
                 </span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-gray-600 text-xs">Usage:</span>
+                <span className="text-gray-600 text-xs">{t('Usage_1')}</span>
                 <span className="font-medium text-right">{Math.round(userMetrics.usagePercentage)}%</span>
               </div>
 
@@ -612,7 +616,7 @@ export default function UsageIndicator({ accessToken, width = 220 }: UsageIndica
             >
               <div className="flex items-center gap-2 text-xs text-gray-600 mb-1">
                 <UserCheck className="h-3 w-3" />
-                <span className="font-medium">Teams</span>
+                <span className="font-medium">{t('Teams')}</span>
                 <span
                   className={cn(
                     "ml-1 px-1.5 py-0.5 rounded border",
@@ -625,13 +629,13 @@ export default function UsageIndicator({ accessToken, width = 220 }: UsageIndica
                 </span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-gray-600 text-xs">Used:</span>
+                <span className="text-gray-600 text-xs">{t('Used')}</span>
                 <span className="font-medium text-right">
                   {data.total_teams_used}/{data.total_teams}
                 </span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-gray-600 text-xs">Remaining:</span>
+                <span className="text-gray-600 text-xs">{t('Remaining')}</span>
                 <span
                   className={cn(
                     "font-medium text-right",
@@ -643,7 +647,7 @@ export default function UsageIndicator({ accessToken, width = 220 }: UsageIndica
                 </span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-gray-600 text-xs">Usage:</span>
+                <span className="text-gray-600 text-xs">{t('Usage_1')}</span>
                 <span className="font-medium text-right">{Math.round(teamMetrics.usagePercentage)}%</span>
               </div>
 

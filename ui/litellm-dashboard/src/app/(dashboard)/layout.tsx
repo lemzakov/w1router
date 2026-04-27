@@ -1,4 +1,6 @@
 "use client";
+import "@/i18n";
+import { useTranslation } from "react-i18next";
 
 import React, { Suspense, useEffect, useState } from "react";
 import Navbar from "@/components/navbar";
@@ -35,7 +37,8 @@ const MIGRATED_PAGES: Record<string, string> = {
 };
 
 function LayoutContent({ children }: { children: React.ReactNode }) {
-  const router = useRouter();
+    const { t } = useTranslation();
+const router = useRouter();
   const searchParams = useSearchParams();
   const { accessToken, userRole, userId, userEmail, premiumUser } = useAuthorized();
   const [sidebarCollapsed, setSidebarCollapsed] = React.useState(false);
@@ -97,8 +100,9 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
 }
 
 export default function Layout({ children }: { children: React.ReactNode }) {
+  const { t } = useTranslation();
   return (
-    <Suspense fallback={<div className="flex items-center justify-center min-h-screen">Загрузка...</div>}>
+    <Suspense fallback={<div className="flex items-center justify-center min-h-screen">{t('Zagruzka_1')}</div>}>
       <LayoutContent>{children}</LayoutContent>
     </Suspense>
   );

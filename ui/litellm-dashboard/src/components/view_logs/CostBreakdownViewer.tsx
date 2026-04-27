@@ -1,6 +1,7 @@
 import React from "react";
 import { Collapse } from "antd";
 import { formatNumberWithCommas } from "@/utils/dataUtils";
+import { useTranslation } from "react-i18next";
 
 export interface CostBreakdown {
   input_cost?: number;
@@ -41,6 +42,7 @@ export const CostBreakdownViewer: React.FC<CostBreakdownViewerProps> = ({
   completionTokens,
   cacheHit,
 }) => {
+  const { t } = useTranslation();
   const isCached = cacheHit?.toLowerCase() === "true";
   const hasTokenCounts = promptTokens !== undefined || completionTokens !== undefined;
 
@@ -91,9 +93,9 @@ export const CostBreakdownViewer: React.FC<CostBreakdownViewerProps> = ({
             key: "1",
             label: (
               <div className="flex items-center justify-between w-full">
-                <h3 className="text-lg font-medium text-gray-900">Cost Breakdown</h3>
+                <h3 className="text-lg font-medium text-gray-900">{t('Cost_Breakdown')}</h3>
                 <div className="flex items-center space-x-2 mr-4">
-                  <span className="text-sm text-gray-500">Total:</span>
+                  <span className="text-sm text-gray-500">{t('Total')}</span>
                   <span className="text-sm font-semibold text-gray-900">
                     {formatCost(totalSpend)}
                     {isCached && " (Cached)"}
@@ -106,7 +108,7 @@ export const CostBreakdownViewer: React.FC<CostBreakdownViewerProps> = ({
             {/* Step 1: Base Token Costs */}
             <div className="space-y-2 max-w-2xl">
               <div className="flex text-sm">
-                <span className="text-gray-600 font-medium w-1/3">Input Cost:</span>
+                <span className="text-gray-600 font-medium w-1/3">{t('Input_Cost')}</span>
                 <span className="text-gray-900">
                   {formatCost(inputCost)}
                   {promptTokens !== undefined && (
@@ -117,7 +119,7 @@ export const CostBreakdownViewer: React.FC<CostBreakdownViewerProps> = ({
                 </span>
               </div>
               <div className="flex text-sm">
-                <span className="text-gray-600 font-medium w-1/3">Output Cost:</span>
+                <span className="text-gray-600 font-medium w-1/3">{t('Output_Cost')}</span>
                 <span className="text-gray-900">
                   {formatCost(outputCost)}
                   {completionTokens !== undefined && (
@@ -129,7 +131,7 @@ export const CostBreakdownViewer: React.FC<CostBreakdownViewerProps> = ({
               </div>
               {costBreakdown?.tool_usage_cost !== undefined && costBreakdown.tool_usage_cost > 0 && (
                 <div className="flex text-sm">
-                  <span className="text-gray-600 font-medium w-1/3">Tool Usage Cost:</span>
+                  <span className="text-gray-600 font-medium w-1/3">{t('Tool_Usage_Cost')}</span>
                   <span className="text-gray-900">{formatCost(costBreakdown.tool_usage_cost)}</span>
                 </div>
               )}
@@ -148,7 +150,7 @@ export const CostBreakdownViewer: React.FC<CostBreakdownViewerProps> = ({
             {!isCached && (
               <div className="pt-2 border-t border-gray-100 max-w-2xl">
                 <div className="flex text-sm font-semibold">
-                  <span className="text-gray-900 w-1/3">Original LLM Cost:</span>
+                  <span className="text-gray-900 w-1/3">{t('Original_LLM_Cost')}</span>
                   <span className="text-gray-900">{formatCost(originalCost)}</span>
                 </div>
               </div>
@@ -168,7 +170,7 @@ export const CostBreakdownViewer: React.FC<CostBreakdownViewerProps> = ({
                     )}
                     {costBreakdown.discount_amount !== undefined && costBreakdown.discount_percent === undefined && (
                       <div className="flex text-sm text-gray-600">
-                        <span className="font-medium w-1/3">Discount Amount:</span>
+                        <span className="font-medium w-1/3">{t('Discount_Amount')}</span>
                         <span className="text-gray-900">-{formatCost(costBreakdown.discount_amount)}</span>
                       </div>
                     )}
@@ -186,7 +188,7 @@ export const CostBreakdownViewer: React.FC<CostBreakdownViewerProps> = ({
                     )}
                     {costBreakdown.margin_fixed_amount !== undefined && costBreakdown.margin_fixed_amount !== 0 && (
                       <div className="flex text-sm text-gray-600">
-                        <span className="font-medium w-1/3">Margin:</span>
+                        <span className="font-medium w-1/3">{t('Margin')}</span>
                         <span className="text-gray-900">+{formatCost(costBreakdown.margin_fixed_amount)}</span>
                       </div>
                     )}
@@ -198,7 +200,7 @@ export const CostBreakdownViewer: React.FC<CostBreakdownViewerProps> = ({
             {/* Final Summary */}
             <div className="mt-4 pt-4 border-t border-gray-200 max-w-2xl">
               <div className="flex items-center">
-                <span className="font-bold text-sm text-gray-900 w-1/3">Final Calculated Cost:</span>
+                <span className="font-bold text-sm text-gray-900 w-1/3">{t('Final_Calculated_Cost')}</span>
                 <span className="text-sm font-bold text-gray-900">
                   {formatCost(totalCost)}
                   {isCached && " (Cached)"}

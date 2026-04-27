@@ -10,6 +10,7 @@ import {
   isValidUrl,
   parseKeywords,
 } from "./helpers";
+import { useTranslation } from "react-i18next";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -38,6 +39,7 @@ const AddPluginForm: React.FC<AddPluginFormProps> = ({
   accessToken,
   onSuccess,
 }) => {
+  const { t } = useTranslation();
   const [form] = Form.useForm();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [sourceType, setSourceType] = useState<"github" | "url" | "git-subdir">("github");
@@ -197,9 +199,9 @@ const AddPluginForm: React.FC<AddPluginFormProps> = ({
           rules={[{ required: true, message: "Please select source type" }]}
         >
           <Select onChange={handleSourceTypeChange} className="rounded-lg">
-            <Option value="github">GitHub</Option>
-            <Option value="url">Git URL</Option>
-            <Option value="git-subdir">Git Subdir</Option>
+            <Option value="github">{t('GitHub')}</Option>
+            <Option value="url">{t('Git_URL')}</Option>
+            <Option value="git-subdir">{t('Git_Subdir')}</Option>
           </Select>
         </Form.Item>
 

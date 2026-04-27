@@ -3,6 +3,7 @@ import { Button, Modal, Typography } from "antd";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Text } from "@tremor/react";
 import NotificationsManager from "./molecules/notifications_manager";
+import { useTranslation } from "react-i18next";
 
 export interface InvitationLink {
   id: string;
@@ -32,6 +33,7 @@ export default function OnboardingModal({
   invitationLinkData,
   modalType = "invitation",
 }: OnboardingProps) {
+  const { t } = useTranslation();
   const { Title, Paragraph } = Typography;
   const handleInvitationOk = () => {
     setIsInvitationLinkModalVisible(false);
@@ -75,7 +77,7 @@ export default function OnboardingModal({
           : "Copy and send the generated link to the user to reset their password."}
       </Paragraph>
       <div className="flex justify-between pt-5 pb-2">
-        <Text className="text-base">User ID</Text>
+        <Text className="text-base">{t('User_ID')}</Text>
         <Text>{invitationLinkData?.user_id}</Text>
       </div>
       <div className="flex justify-between pt-5 pb-2">

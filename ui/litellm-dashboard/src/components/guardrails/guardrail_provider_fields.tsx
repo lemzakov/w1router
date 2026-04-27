@@ -8,6 +8,7 @@ import {
 } from "./guardrail_info_helpers";
 import { getGuardrailProviderSpecificParams } from "../networking";
 import NumericalInput from "../shared/numerical_input";
+import { useTranslation } from "react-i18next";
 
 interface GuardrailProviderFieldsProps {
   selectedProvider: string | null;
@@ -41,6 +42,7 @@ const GuardrailProviderFields: React.FC<GuardrailProviderFieldsProps> = ({
   providerParams: providerParamsProp = null,
   value = null,
 }) => {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [providerParams, setProviderParams] = useState<ProviderParamsResponse | null>(providerParamsProp);
   const [error, setError] = useState<string | null>(null);
@@ -106,7 +108,7 @@ const GuardrailProviderFields: React.FC<GuardrailProviderFieldsProps> = ({
   console.log("Provider fields:", providerFields);
 
   if (!providerFields || Object.keys(providerFields).length === 0) {
-    return <div>No configuration fields available for this provider.</div>;
+    return <div>{t('No_configuration_fields_available_for_th')}</div>;
   }
 
   console.log("Value:", value);
@@ -192,8 +194,8 @@ const GuardrailProviderFields: React.FC<GuardrailProviderFieldsProps> = ({
               placeholder={field.description}
               defaultValue={fieldValue !== undefined ? String(fieldValue) : field.default_value}
             >
-              <Select.Option value="true">True</Select.Option>
-              <Select.Option value="false">False</Select.Option>
+              <Select.Option value="true">{t('True')}</Select.Option>
+              <Select.Option value="false">{t('False')}</Select.Option>
             </Select>
           ) : field.type === "percentage" && field.min != null && field.max != null ? (
             <Slider

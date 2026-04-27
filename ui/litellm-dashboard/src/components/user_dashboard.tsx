@@ -18,6 +18,7 @@ import {
 } from "./networking";
 import CreateKey, { CreateKeyPrefillData } from "./organisms/create_key_button";
 import { VirtualKeysTable } from "./VirtualKeysPage/VirtualKeysTable";
+import { useTranslation } from "react-i18next";
 
 export interface ProxySettings {
   PROXY_BASE_URL: string | null;
@@ -82,6 +83,7 @@ const UserDashboard: React.FC<UserDashboardProps> = ({
   autoOpenCreate,
   prefillData,
 }) => {
+  const { t } = useTranslation();
   const [userSpendData, setUserSpendData] = useState<UserInfo | null>(null);
   const [currentOrg, setCurrentOrg] = useState<Organization | null>(null);
 
@@ -312,7 +314,7 @@ const UserDashboard: React.FC<UserDashboardProps> = ({
   }
 
   if (userID == null) {
-    return <h1>User ID is not set</h1>;
+    return <h1>{t('User_ID_is_not_set')}</h1>;
   }
 
   if (userRole == null) {
@@ -323,8 +325,8 @@ const UserDashboard: React.FC<UserDashboardProps> = ({
     const { Title, Paragraph } = Typography;
     return (
       <div>
-        <Title level={1}>Access Denied</Title>
-        <Paragraph>Ask your proxy admin for access to create keys</Paragraph>
+        <Title level={1}>{t('Access_Denied')}</Title>
+        <Paragraph>{t('Ask_your_proxy_admin_for_access_to_creat')}</Paragraph>
       </div>
     );
   }

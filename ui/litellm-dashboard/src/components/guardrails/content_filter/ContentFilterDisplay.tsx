@@ -3,6 +3,7 @@ import { Card, Text, Badge } from "@tremor/react";
 import PatternTable from "./PatternTable";
 import KeywordTable from "./KeywordTable";
 import CategoryTable from "./CategoryTable";
+import { useTranslation } from "react-i18next";
 
 interface Pattern {
   id: string;
@@ -55,6 +56,7 @@ const ContentFilterDisplay: React.FC<ContentFilterDisplayProps> = ({
   onCategorySeverityChange,
   onCategoryRemove,
 }) => {
+  const { t } = useTranslation();
   if (patterns.length === 0 && blockedWords.length === 0 && categories.length === 0) {
     return null;
   }
@@ -67,7 +69,7 @@ const ContentFilterDisplay: React.FC<ContentFilterDisplayProps> = ({
       {categories.length > 0 && (
         <Card className="mt-6">
           <div className="flex justify-between items-center mb-4">
-            <Text className="text-lg font-semibold">Content Categories</Text>
+            <Text className="text-lg font-semibold">{t('Content_Categories')}</Text>
             <Badge color="blue">{categories.length} categories configured</Badge>
           </div>
           <CategoryTable
@@ -83,7 +85,7 @@ const ContentFilterDisplay: React.FC<ContentFilterDisplayProps> = ({
       {patterns.length > 0 && (
         <Card className="mt-6">
           <div className="flex justify-between items-center mb-4">
-            <Text className="text-lg font-semibold">Pattern Detection</Text>
+            <Text className="text-lg font-semibold">{t('Pattern_Detection')}</Text>
             <Badge color="blue">{patterns.length} patterns configured</Badge>
           </div>
           <PatternTable
@@ -97,7 +99,7 @@ const ContentFilterDisplay: React.FC<ContentFilterDisplayProps> = ({
       {blockedWords.length > 0 && (
         <Card className="mt-6">
           <div className="flex justify-between items-center mb-4">
-            <Text className="text-lg font-semibold">Blocked Keywords</Text>
+            <Text className="text-lg font-semibold">{t('Blocked_Keywords')}</Text>
             <Badge color="blue">{blockedWords.length} keywords configured</Badge>
           </div>
           <KeywordTable

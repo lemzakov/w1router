@@ -1,6 +1,7 @@
 import { CostEstimateResponse } from "../types";
 import { formatNumberWithCommas } from "@/utils/dataUtils";
 import { MultiModelResult } from "./types";
+import { useTranslation } from "react-i18next";
 
 const formatCostForExport = (value: number | null | undefined): string => {
   if (value === null || value === undefined) return "-";
@@ -21,39 +22,39 @@ const generateModelSection = (result: CostEstimateResponse): string => {
       <h3>${result.model} ${result.provider ? `<span class="provider">(${result.provider})</span>` : ""}</h3>
       
       <div class="meta">
-        <p><strong>Input Tokens per Request:</strong> ${formatRequestsForExport(result.input_tokens)}</p>
-        <p><strong>Output Tokens per Request:</strong> ${formatRequestsForExport(result.output_tokens)}</p>
-        ${result.num_requests_per_day ? `<p><strong>Requests per Day:</strong> ${formatRequestsForExport(result.num_requests_per_day)}</p>` : ""}
-        ${result.num_requests_per_month ? `<p><strong>Requests per Month:</strong> ${formatRequestsForExport(result.num_requests_per_month)}</p>` : ""}
+        <p><strong>{t('Input_Tokens_per_Request')}</strong> ${formatRequestsForExport(result.input_tokens)}</p>
+        <p><strong>{t('Output_Tokens_per_Request')}</strong> ${formatRequestsForExport(result.output_tokens)}</p>
+        ${result.num_requests_per_day ? `<p><strong>{t('Requests_per_Day')}</strong> ${formatRequestsForExport(result.num_requests_per_day)}</p>` : ""}
+        ${result.num_requests_per_month ? `<p><strong>{t('Requests_per_Month')}</strong> ${formatRequestsForExport(result.num_requests_per_month)}</p>` : ""}
       </div>
 
       <table>
         <tr>
-          <th>Cost Type</th>
-          <th>Per Request</th>
-          ${result.daily_cost !== null ? "<th>Daily</th>" : ""}
-          ${result.monthly_cost !== null ? "<th>Monthly</th>" : ""}
+          <th>{t('Cost_Type')}</th>
+          <th>{t('Per_Request')}</th>
+          ${result.daily_cost !== null ? "<th>{t('Daily')}</th>" : ""}
+          ${result.monthly_cost !== null ? "<th>{t('Monthly')}</th>" : ""}
         </tr>
         <tr>
-          <td>Input Cost</td>
+          <td>{t('Input_Cost_1')}</td>
           <td class="cost-value">${formatCostForExport(result.input_cost_per_request)}</td>
           ${result.daily_cost !== null ? `<td class="cost-value">${formatCostForExport(result.daily_input_cost)}</td>` : ""}
           ${result.monthly_cost !== null ? `<td class="cost-value">${formatCostForExport(result.monthly_input_cost)}</td>` : ""}
         </tr>
         <tr>
-          <td>Output Cost</td>
+          <td>{t('Output_Cost_1')}</td>
           <td class="cost-value">${formatCostForExport(result.output_cost_per_request)}</td>
           ${result.daily_cost !== null ? `<td class="cost-value">${formatCostForExport(result.daily_output_cost)}</td>` : ""}
           ${result.monthly_cost !== null ? `<td class="cost-value">${formatCostForExport(result.monthly_output_cost)}</td>` : ""}
         </tr>
         <tr>
-          <td>Margin/Fee</td>
+          <td>{t('MarginFee')}</td>
           <td class="cost-value">${formatCostForExport(result.margin_cost_per_request)}</td>
           ${result.daily_cost !== null ? `<td class="cost-value">${formatCostForExport(result.daily_margin_cost)}</td>` : ""}
           ${result.monthly_cost !== null ? `<td class="cost-value">${formatCostForExport(result.monthly_margin_cost)}</td>` : ""}
         </tr>
         <tr class="total-row">
-          <td>Total</td>
+          <td>{t('Total_1')}</td>
           <td class="cost-value">${formatCostForExport(result.cost_per_request)}</td>
           ${result.daily_cost !== null ? `<td class="cost-value">${formatCostForExport(result.daily_cost)}</td>` : ""}
           ${result.monthly_cost !== null ? `<td class="cost-value">${formatCostForExport(result.monthly_cost)}</td>` : ""}
@@ -77,7 +78,7 @@ export const exportMultiToPDF = (multiResult: MultiModelResult): void => {
     <!DOCTYPE html>
     <html>
     <head>
-      <title>Multi-Model Cost Estimate Report</title>
+      <title>{t('MultiModel_Cost_Estimate_Report')}</title>
       <style>
         body {
           font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -193,44 +194,44 @@ export const exportMultiToPDF = (multiResult: MultiModelResult): void => {
       </style>
     </head>
     <body>
-      <h1>LLM Cost Estimate Report</h1>
+      <h1>{t('LLM_Cost_Estimate_Report')}</h1>
       <p style="color: #666; margin-top: -20px; margin-bottom: 30px;">${modelCount} model${modelCount !== 1 ? "s" : ""} configured</p>
       
       <div class="summary-box">
-        <h2>Combined Totals</h2>
+        <h2>{t('Combined_Totals')}</h2>
         <div class="summary-grid">
           <div class="summary-item">
-            <div class="label">Total Per Request</div>
+            <div class="label">{t('Total_Per_Request')}</div>
             <div class="value blue">${formatCostForExport(multiResult.totals.cost_per_request)}</div>
           </div>
           <div class="summary-item">
-            <div class="label">Total Daily</div>
+            <div class="label">{t('Total_Daily')}</div>
             <div class="value green">${formatCostForExport(multiResult.totals.daily_cost)}</div>
           </div>
           <div class="summary-item">
-            <div class="label">Total Monthly</div>
+            <div class="label">{t('Total_Monthly')}</div>
             <div class="value purple">${formatCostForExport(multiResult.totals.monthly_cost)}</div>
           </div>
         </div>
         ${multiResult.totals.margin_per_request > 0 ? `
         <div class="summary-grid" style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #ddd;">
           <div class="summary-item">
-            <div class="label">Margin/Request</div>
+            <div class="label">{t('MarginRequest')}</div>
             <div class="value" style="color: #faad14;">${formatCostForExport(multiResult.totals.margin_per_request)}</div>
           </div>
           <div class="summary-item">
-            <div class="label">Daily Margin</div>
+            <div class="label">{t('Daily_Margin')}</div>
             <div class="value" style="color: #faad14;">${formatCostForExport(multiResult.totals.daily_margin)}</div>
           </div>
           <div class="summary-item">
-            <div class="label">Monthly Margin</div>
+            <div class="label">{t('Monthly_Margin')}</div>
             <div class="value" style="color: #faad14;">${formatCostForExport(multiResult.totals.monthly_margin)}</div>
           </div>
         </div>
         ` : ""}
       </div>
 
-      <h2>Model Breakdown</h2>
+      <h2>{t('Model_Breakdown')}</h2>
       ${validEntries.map((e) => generateModelSection(e.result!)).join("")}
 
       <div class="footer">

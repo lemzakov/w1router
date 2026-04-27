@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Input, Popover, Tag } from "antd";
 import { EditOutlined } from "@ant-design/icons";
+import { useTranslation } from "react-i18next";
 
 const { TextArea } = Input;
 
@@ -19,6 +20,7 @@ const VariableTextArea: React.FC<VariableTextAreaProps> = ({
   rows = 4,
   className,
 }) => {
+  const { t } = useTranslation();
   const [editingVariable, setEditingVariable] = useState<{
     oldName: string;
     start: number;
@@ -94,13 +96,13 @@ const VariableTextArea: React.FC<VariableTextAreaProps> = ({
       {/* Variable Management - Clear and Functional */}
       {variables.length > 0 && (
         <div className="mt-2 flex flex-wrap gap-2 items-center">
-          <span className="text-xs text-gray-500 mr-1">Detected variables:</span>
+          <span className="text-xs text-gray-500 mr-1">{t('Detected_variables')}</span>
           {variables.map((variable, index) => (
             <Popover
               key={`${variable.start}-${index}`}
               content={
                 <div className="p-2" style={{ minWidth: "200px" }}>
-                  <div className="text-xs text-gray-500 mb-2">Edit variable name</div>
+                  <div className="text-xs text-gray-500 mb-2">{t('Edit_variable_name')}</div>
                   <Input
                     size="small"
                     value={newVariableName}

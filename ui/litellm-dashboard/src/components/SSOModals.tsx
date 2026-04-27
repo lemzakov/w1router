@@ -4,6 +4,7 @@ import { Text, TextInput } from "@tremor/react";
 import { getSSOSettings, updateSSOSettings } from "./networking";
 import NotificationsManager from "./molecules/notifications_manager";
 import { parseErrorMessage } from "./shared/errorUtils";
+import { useTranslation } from "react-i18next";
 
 interface SSOModalsProps {
   isAddSSOModalVisible: boolean;
@@ -113,6 +114,7 @@ const SSOModals: React.FC<SSOModalsProps> = ({
   accessToken,
   ssoConfigured = false, // Default to false if not provided
 }) => {
+  const { t } = useTranslation();
   const [isClearConfirmModalVisible, setIsClearConfirmModalVisible] = useState(false);
 
   // Load existing SSO settings when modal opens
@@ -452,10 +454,10 @@ const SSOModals: React.FC<SSOModalsProps> = ({
                   <>
                     <Form.Item label="Default Role" name="default_role" initialValue="Internal User">
                       <Select>
-                        <Select.Option value="internal_user_viewer">Internal Viewer</Select.Option>
-                        <Select.Option value="internal_user">Internal User</Select.Option>
-                        <Select.Option value="proxy_admin_viewer">Admin Viewer</Select.Option>
-                        <Select.Option value="proxy_admin">Proxy Admin</Select.Option>
+                        <Select.Option value="internal_user_viewer">{t('Internal_Viewer')}</Select.Option>
+                        <Select.Option value="internal_user">{t('Internal_User')}</Select.Option>
+                        <Select.Option value="proxy_admin_viewer">{t('Admin_Viewer')}</Select.Option>
+                        <Select.Option value="proxy_admin">{t('Proxy_Admin')}</Select.Option>
                       </Select>
                     </Form.Item>
 
@@ -509,7 +511,7 @@ const SSOModals: React.FC<SSOModalsProps> = ({
                 Clear
               </Button2>
             )}
-            <Button2 htmlType="submit">Save</Button2>
+            <Button2 htmlType="submit">{t('Save')}</Button2>
           </div>
         </Form>
       </Modal>
@@ -530,8 +532,8 @@ const SSOModals: React.FC<SSOModalsProps> = ({
           },
         }}
       >
-        <p>Are you sure you want to clear all SSO settings? This action cannot be undone.</p>
-        <p>Users will no longer be able to login using SSO after this change.</p>
+        <p>{t('Are_you_sure_you_want_to_clear_all_SSO_s')}</p>
+        <p>{t('Users_will_no_longer_be_able_to_login_us')}</p>
       </Modal>
 
       <Modal
@@ -542,13 +544,13 @@ const SSOModals: React.FC<SSOModalsProps> = ({
         onOk={handleInstructionsOk}
         onCancel={handleInstructionsCancel}
       >
-        <p>Follow these steps to complete the SSO setup:</p>
+        <p>{t('Follow_these_steps_to_complete_the_SSO_s')}</p>
         <Text className="mt-2">1. DO NOT Exit this TAB</Text>
         <Text className="mt-2">2. Open a new tab, visit your proxy base url</Text>
         <Text className="mt-2">3. Confirm your SSO is configured correctly and you can login on the new Tab</Text>
         <Text className="mt-2">4. If Step 3 is successful, you can close this tab</Text>
         <div style={{ textAlign: "right", marginTop: "10px" }}>
-          <Button2 onClick={handleInstructionsOk}>Done</Button2>
+          <Button2 onClick={handleInstructionsOk}>{t('Done')}</Button2>
         </div>
       </Modal>
     </>

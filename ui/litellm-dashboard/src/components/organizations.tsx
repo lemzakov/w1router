@@ -35,6 +35,7 @@ import { Organization, organizationCreateCall, organizationDeleteCall, organizat
 import OrganizationInfoView from "./organization/organization_view";
 import NumericalInput from "./shared/numerical_input";
 import VectorStoreSelector from "./vector_store_management/VectorStoreSelector";
+import { useTranslation } from "react-i18next";
 
 interface OrganizationsTableProps {
   organizations: Organization[];
@@ -71,7 +72,8 @@ const OrganizationsTable: React.FC<OrganizationsTableProps> = ({
   setOrganizations,
   premiumUser,
 }) => {
-  const [selectedOrgId, setSelectedOrgId] = useState<string | null>(null);
+    const { t } = useTranslation();
+const [selectedOrgId, setSelectedOrgId] = useState<string | null>(null);
   const [editOrg, setEditOrg] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [orgToDelete, setOrgToDelete] = useState<string | null>(null);
@@ -221,7 +223,7 @@ const OrganizationsTable: React.FC<OrganizationsTableProps> = ({
         <Col numColSpan={1} className="flex flex-col gap-2">
           {(userRole === "Admin" || userRole === "Org Admin") && (
             <Button className="w-fit" onClick={() => setIsOrgModalVisible(true)}>
-              + Создать новую организацию
+              {t('Sozdat_novuyu_organizatsiyu')}
             </Button>
           )}
           {selectedOrgId ? (
@@ -241,10 +243,10 @@ const OrganizationsTable: React.FC<OrganizationsTableProps> = ({
             <TabGroup className="gap-2 h-[75vh] w-full">
               <TabList className="flex justify-between mt-2 w-full items-center">
                 <div className="flex">
-                  <Tab>Ваши организации</Tab>
+                  <Tab>{t('Vashi_organizatsii')}</Tab>
                 </div>
                 <div className="flex items-center space-x-2">
-                  {lastRefreshed && <Text>Последнее обновление: {lastRefreshed}</Text>}
+                  {lastRefreshed && <Text>${t('Poslednee_obnovlenie')}: {lastRefreshed}</Text>}
                   <Icon
                     icon={RefreshIcon}
                     variant="shadow"
@@ -256,7 +258,7 @@ const OrganizationsTable: React.FC<OrganizationsTableProps> = ({
               </TabList>
               <TabPanels>
                 <TabPanel>
-                  <Text>Нажмите на &ldquo;ID организации&rdquo; для просмотра деталей.</Text>
+                  <Text>{t('Nazhmite_na_ldquo_ID_organizatsii_rdquo')}</Text>
                   <Grid numItems={1} className="gap-2 pt-2 pb-2 h-[75vh] w-full mt-2">
                     <Col numColSpan={1}>
                       <Card className="w-full mx-auto flex-auto overflow-hidden overflow-y-auto max-h-[50vh]">
@@ -274,15 +276,15 @@ const OrganizationsTable: React.FC<OrganizationsTableProps> = ({
                         <Table>
                           <TableHead>
                             <TableRow>
-                              <TableHeaderCell>Organization ID</TableHeaderCell>
-                              <TableHeaderCell>Organization Name</TableHeaderCell>
-                              <TableHeaderCell>Created</TableHeaderCell>
-                              <TableHeaderCell>Spend (USD)</TableHeaderCell>
-                              <TableHeaderCell>Budget (USD)</TableHeaderCell>
-                              <TableHeaderCell>Models</TableHeaderCell>
-                              <TableHeaderCell>TPM / RPM Limits</TableHeaderCell>
-                              <TableHeaderCell>Info</TableHeaderCell>
-                              <TableHeaderCell>Actions</TableHeaderCell>
+                              <TableHeaderCell>{t('Organization_ID')}</TableHeaderCell>
+                              <TableHeaderCell>{t('Organization_Name')}</TableHeaderCell>
+                              <TableHeaderCell>{t('Created')}</TableHeaderCell>
+                              <TableHeaderCell>{t('Spend_USD')}</TableHeaderCell>
+                              <TableHeaderCell>{t('Budget_USD')}</TableHeaderCell>
+                              <TableHeaderCell>{t('Models')}</TableHeaderCell>
+                              <TableHeaderCell>{t('TPM_RPM_Limits')}</TableHeaderCell>
+                              <TableHeaderCell>{t('Info')}</TableHeaderCell>
+                              <TableHeaderCell>{t('Actions')}</TableHeaderCell>
                             </TableRow>
                           </TableHead>
 
@@ -331,7 +333,7 @@ const OrganizationsTable: React.FC<OrganizationsTableProps> = ({
                                             <div className="flex flex-col">
                                               {org.models.length === 0 ? (
                                                 <Badge size={"xs"} className="mb-1" color="red">
-                                                  <Text>All Proxy Models</Text>
+                                                  <Text>{t('All_Proxy_Models')}</Text>
                                                 </Badge>
                                               ) : (
                                                 <>
@@ -360,7 +362,7 @@ const OrganizationsTable: React.FC<OrganizationsTableProps> = ({
                                                       {org.models.slice(0, 3).map((model, index) =>
                                                         model === "all-proxy-models" ? (
                                                           <Badge key={index} size={"xs"} color="red">
-                                                            <Text>All Proxy Models</Text>
+                                                            <Text>{t('All_Proxy_Models')}</Text>
                                                           </Badge>
                                                         ) : (
                                                           <Badge key={index} size={"xs"} color="blue">
@@ -388,7 +390,7 @@ const OrganizationsTable: React.FC<OrganizationsTableProps> = ({
                                                           {org.models.slice(3).map((model, index) =>
                                                             model === "all-proxy-models" ? (
                                                               <Badge key={index + 3} size={"xs"} color="red">
-                                                                <Text>All Proxy Models</Text>
+                                                                <Text>{t('All_Proxy_Models')}</Text>
                                                               </Badge>
                                                             ) : (
                                                               <Badge key={index + 3} size={"xs"} color="blue">
@@ -546,7 +548,7 @@ const OrganizationsTable: React.FC<OrganizationsTableProps> = ({
           </Form.Item>
 
           <div style={{ textAlign: "right", marginTop: "10px" }}>
-            <Button type="submit">Create Organization</Button>
+            <Button type="submit">{t('Create_Organization')}</Button>
           </div>
         </Form>
       </Modal>

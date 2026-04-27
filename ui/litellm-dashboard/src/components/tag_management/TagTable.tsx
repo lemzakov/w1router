@@ -22,6 +22,7 @@ import {
 import { Tooltip } from "antd";
 import React from "react";
 import { Tag } from "./types";
+import { useTranslation } from "react-i18next";
 
 interface TagTableProps {
   data: Tag[];
@@ -34,6 +35,7 @@ const DYNAMIC_SPEND_TAG_DESCRIPTION =
   "This is just a spend tag that was passed dynamically in a request. It does not control any LLM models.";
 
 const TagTable: React.FC<TagTableProps> = ({ data, onEdit, onDelete, onSelectTag }) => {
+  const { t } = useTranslation();
   const [sorting, setSorting] = React.useState<SortingState>([{ id: "created_at", desc: true }]);
 
   const columns: ColumnDef<Tag>[] = [
@@ -232,7 +234,7 @@ const TagTable: React.FC<TagTableProps> = ({ data, onEdit, onDelete, onSelectTag
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-8 text-center">
                   <div className="text-center text-gray-500">
-                    <p>No tags found</p>
+                    <p>{t('No_tags_found')}</p>
                   </div>
                 </TableCell>
               </TableRow>

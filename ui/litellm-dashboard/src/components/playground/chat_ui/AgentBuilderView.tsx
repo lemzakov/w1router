@@ -1,4 +1,6 @@
 "use client";
+import "@/i18n";
+import { useTranslation, getI18n } from "react-i18next";
 
 import { CommentOutlined, DeleteOutlined, ExperimentOutlined, LinkOutlined, PlusOutlined, RobotOutlined, SaveOutlined } from "@ant-design/icons";
 import { Button, Input, Modal, Select, Spin, Tabs } from "antd";
@@ -12,6 +14,7 @@ import { AgentModel, fetchAvailableAgentModels, MCPToolEntry } from "../llm_call
 import { fetchAvailableModels, ModelGroup } from "../llm_calls/fetch_models";
 import ComplianceUI from "../complianceUI/ComplianceUI";
 import ChatUI from "./ChatUI";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 const { TextArea } = Input;
 
@@ -86,19 +89,19 @@ function ConnectTabContent({
   return (
     <div className="mx-auto max-w-3xl space-y-6">
       <div>
-        <h3 className="text-sm font-semibold text-gray-900 mb-1">Базовый URL прокси</h3>
+        <h3 className="text-sm font-semibold text-gray-900 mb-1">{t('Bazovyy_URL_proksi')}</h3>
         <p className="text-sm text-gray-600 font-mono bg-gray-50 px-2 py-1.5 rounded border border-gray-200 break-all">
           {baseUrl}
         </p>
       </div>
       <div>
-        <h3 className="text-sm font-semibold text-gray-900 mb-2">Вызов вашего агента (cURL)</h3>
+        <h3 className="text-sm font-semibold text-gray-900 mb-2">{t('Vyzov_vashego_agenta_cURL')}</h3>
         <CodeBlock code={curlExample} language="bash" />
       </div>
       <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
-        <h3 className="text-sm font-semibold text-gray-900 mb-2">Создать ключ для этого агента</h3>
+        <h3 className="text-sm font-semibold text-gray-900 mb-2">{t('Sozdat_klyuch_dlya_etogo_agenta')}</h3>
         <p className="text-sm text-gray-600 mb-3">
-          Создайте виртуальный ключ, который может только вызывать этого агента. Ключ будет ограничен вашим user_id и моделью <span className="font-mono text-gray-800">{agentName}</span>.
+          {t('Sozdayte_virtualnyy_klyuch_kotoryy_mozhe')} <span className="font-mono text-gray-800">{agentName}</span>.
         </p>
         <Button
           type="primary"
@@ -106,14 +109,14 @@ function ConnectTabContent({
           loading={creatingKey}
           disabled={disabledPersonalKeyCreation}
         >
-          Создать ключ для этого агента
+          {t('Sozdat_klyuch_dlya_etogo_agenta')}
         </Button>
         {disabledPersonalKeyCreation && (
-          <p className="text-xs text-amber-600 mt-2">Создание ключей отключено для вашей учётной записи.</p>
+          <p className="text-xs text-amber-600 mt-2">{t('Sozdanie_klyuchey_otklyucheno_dlya_vashe')}</p>
         )}
         {createdKeyValue && (
           <p className="text-xs text-green-700 mt-2">
-            Ключ создан. Он показан в примере cURL выше — скопируйте фрагмент для использования.
+            {t('Klyuch_sozdan_On_pokazan_v_primere_cURL_')}
           </p>
         )}
       </div>
@@ -167,7 +170,8 @@ export default function AgentBuilderView({
   apiKey,
   customProxyBaseUrl,
 }: AgentBuilderViewProps) {
-  const [agentModels, setAgentModels] = useState<AgentModel[]>([]);
+    const { t } = useTranslation();
+const [agentModels, setAgentModels] = useState<AgentModel[]>([]);
   const [modelGroups, setModelGroups] = useState<ModelGroup[]>([]);
   const [loadingAgents, setLoadingAgents] = useState(true);
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -205,7 +209,7 @@ export default function AgentBuilderView({
       }
     } catch (e) {
       console.error(e);
-      NotificationsManager.fromBackend("Не удалось загрузить агентов");
+      NotificationsManager.fromBackend(t('Ne_udalos_zagruzit_agentov'));
     } finally {
       setLoadingAgents(false);
     }
@@ -291,7 +295,7 @@ export default function AgentBuilderView({
 
   const handleSaveAgent = async () => {
     if (!accessToken || !draftName?.trim() || !draftUnderlyingModel) {
-      NotificationsManager.fromBackend("Требуется имя и базовая модель");
+      NotificationsManager.fromBackend(t('Trebuetsya_imya_i_bazovaya_model'));
       return;
     }
     setSaving(true);
@@ -312,7 +316,7 @@ export default function AgentBuilderView({
       setSelectedId(newName);
       setActiveTab("chat");
     } catch (e) {
-      NotificationsManager.fromBackend("Не удалось сохранить агента");
+      NotificationsManager.fromBackend(t('Ne_udalos_sohranit_agenta'));
     } finally {
       setSaving(false);
     }
@@ -320,7 +324,7 @@ export default function AgentBuilderView({
 
   const handleUpdateAgent = async () => {
     if (!accessToken || !selectedAgent || !selectedAgentModelId || !draftName?.trim() || !draftUnderlyingModel) {
-      NotificationsManager.fromBackend("Требуется имя и базовая модель");
+      NotificationsManager.fromBackend(t('Trebuetsya_imya_i_bazovaya_model'));
       return;
     }
     setSaving(true);
@@ -340,11 +344,11 @@ export default function AgentBuilderView({
         },
         selectedAgentModelId,
       );
-      NotificationsManager.success("Агент успешно обновлён");
+      NotificationsManager.success(t('Agent_uspeshno_obnovlyon'));
       await loadAgents();
       setSelectedId(draftName.trim());
     } catch (e) {
-      NotificationsManager.fromBackend("Не удалось обновить агента");
+      NotificationsManager.fromBackend(t('Ne_udalos_obnovit_agenta'));
     } finally {
       setSaving(false);
     }
@@ -362,12 +366,12 @@ export default function AgentBuilderView({
       const keyValue = response?.key ?? null;
       if (keyValue) {
         setCreatedKeyValue(keyValue);
-        NotificationsManager.success("Виртуальный ключ создан. Используйте его в примере curl ниже.");
+        NotificationsManager.success(t('Virtualnyy_klyuch_sozdan_Ispolzuyte_ego'));
       } else {
-        NotificationsManager.fromBackend("Ключ создан, но значение не возвращено");
+        NotificationsManager.fromBackend(t('Klyuch_sozdan_no_znachenie_ne_vozvrasche'));
       }
     } catch (e) {
-      NotificationsManager.fromBackend("Не удалось создать ключ для агента");
+      NotificationsManager.fromBackend(t('Ne_udalos_sozdat_klyuch_dlya_agenta'));
     } finally {
       setCreatingKey(false);
     }
@@ -376,21 +380,21 @@ export default function AgentBuilderView({
   const handleDeleteAgent = () => {
     if (!selectedAgent || !selectedAgentModelId || !accessToken) return;
     Modal.confirm({
-      title: "Удалить агента",
-      content: `Вы уверены, что хотите удалить "${selectedAgent.model_name}"? Это действие нельзя отменить.`,
-      okText: "Удалить",
+      title: t('Udalit_agenta'),
+      content: `${t('Vy_uvereny_chto_hotite_udalit')} "${selectedAgent.model_name}"? ${t('Eto_deystvie_nelzya_otmenit')}`,
+      okText: t('Udalit'),
       okType: "danger",
-      cancelText: "Отмена",
+      cancelText: t('Otmena'),
       onOk: async () => {
         setDeleting(true);
         try {
           await modelDeleteCall(accessToken, selectedAgentModelId);
-          NotificationsManager.success("Агент удалён");
+          NotificationsManager.success(t('Agent_udalyon'));
           await loadAgents();
           const remaining = agentModels.filter((a) => a.model_name !== selectedAgent.model_name);
           setSelectedId(remaining.length > 0 ? remaining[0].model_name : null);
         } catch (e) {
-          NotificationsManager.fromBackend("Не удалось удалить агента");
+          NotificationsManager.fromBackend(t('Ne_udalos_udalit_agenta'));
         } finally {
           setDeleting(false);
         }
@@ -401,7 +405,7 @@ export default function AgentBuilderView({
   if (!accessToken || !userID || !userRole) {
     return (
       <div className="flex h-full items-center justify-center p-8 text-gray-500">
-        Войдите для использования конструктора агентов.
+        {t('Voydite_dlya_ispolzovaniya_konstruktora_')}
       </div>
     );
   }
@@ -410,7 +414,7 @@ export default function AgentBuilderView({
     <div className="flex h-full flex-col bg-white text-gray-900">
       <div className="flex flex-shrink-0 flex-col border-b border-gray-200">
         <div className="flex h-12 items-center justify-between px-4">
-          <span className="text-sm font-medium text-gray-900">Конструктор агентов</span>
+          <span className="text-sm font-medium text-gray-900">{t('Konstruktor_agentov')}</span>
         {isNewAgent ? (
           <Button
             type="primary"
@@ -419,16 +423,16 @@ export default function AgentBuilderView({
             loading={saving}
             disabled={!draftName?.trim() || !draftUnderlyingModel}
           >
-            Сохранить агента
+            {t('Sohranit_agenta')}
           </Button>
         ) : (
-          <span className="text-xs text-gray-500">Создавайте агентов, соответствующих требованиям соответствия.</span>
+          <span className="text-xs text-gray-500">{t('Sozdavayte_agentov_sootvetstvuyuschih_tr')}</span>
         )}
         </div>
         <div className="flex items-center gap-2 border-t border-amber-200 bg-amber-50 px-4 py-2 text-xs text-amber-800">
           <ExperimentOutlined className="flex-shrink-0 text-amber-600" />
           <span>
-            Конструктор агентов является экспериментальным и может быть изменён или удалён без уведомления. Мы ценим ваши отзывы — пишите нам на{" "}
+            {t('Konstruktor_agentov_yavlyaetsya_eksperim')}{" "}
             <a href="mailto:product@berri.ai" className="font-medium text-amber-900 underline hover:text-amber-700">
               product@berri.ai
             </a>
@@ -441,8 +445,8 @@ export default function AgentBuilderView({
         {/* Roster */}
         <div className="w-60 flex-shrink-0 border-r border-gray-200 bg-white flex flex-col">
           <div className="flex items-center justify-between border-b border-gray-200 p-3">
-            <span className="text-xs font-semibold uppercase tracking-wide text-gray-500">Агенты</span>
-            <Button type="text" size="small" icon={<PlusOutlined />} onClick={handleAddAgent} aria-label="Добавить агента" />
+            <span className="text-xs font-semibold uppercase tracking-wide text-gray-500">{t('Agenty')}</span>
+            <Button type="text" size="small" icon={<PlusOutlined />} onClick={handleAddAgent} aria-label={t('Dobavit_agenta')} />
           </div>
           <div className="flex-1 overflow-y-auto p-2">
             {loadingAgents ? (
@@ -471,7 +475,7 @@ export default function AgentBuilderView({
                   onClick={handleAddAgent}
                   className="mb-1 w-full rounded-md border border-dashed border-gray-300 px-3 py-2 text-left text-sm text-gray-500 hover:border-blue-400 hover:bg-blue-50/50 hover:text-gray-700"
                 >
-                  <PlusOutlined className="mr-1" /> Новый агент
+                  <PlusOutlined className="mr-1" /> {t('Novyy_agent')}
                 </button>
               </>
             )}
@@ -482,7 +486,7 @@ export default function AgentBuilderView({
         <div className="flex flex-1 flex-col overflow-hidden">
           {selectedId === null && !isNewAgent && agentModels.length === 0 && !loadingAgents && (
             <div className="flex flex-1 items-center justify-center p-8 text-gray-500">
-              Агентов пока нет. Добавьте агента для начала работы.
+              {t('Agentov_poka_net_Dobavte_agenta_dlya_na')}
             </div>
           )}
           {(selectedId !== null || isNewAgent) && (
@@ -496,7 +500,7 @@ export default function AgentBuilderView({
                     key: "configure",
                     label: (
                       <span>
-                        <RobotOutlined className="mr-1" /> Настройка
+                        <RobotOutlined className="mr-1" /> {t('Nastroyka')}
                       </span>
                     ),
                     children: (
@@ -505,39 +509,39 @@ export default function AgentBuilderView({
                           <div className="mx-auto max-w-xl space-y-4">
                             {!selectedAgentModelId && selectedAgent && (
                               <div className="rounded border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-800">
-                                Этот агент не может быть обновлён или удалён здесь (отсутствует идентификатор модели). Управляйте им через Модели и конечные точки.
+                                {t('Etot_agent_ne_mozhet_byt_obnovlyon_ili_u')}
                               </div>
                             )}
                             <div>
-                              <label className="mb-1 block text-sm font-medium text-gray-700">Имя агента</label>
+                              <label className="mb-1 block text-sm font-medium text-gray-700">{t('Imya_agenta')}</label>
                               <Input
                                 value={draftName}
                                 onChange={(e) => setDraftName(e.target.value)}
-                                placeholder="Мой агент"
+                                placeholder={t('Moy_agent')}
                               />
                             </div>
                             <div>
-                              <label className="mb-1 block text-sm font-medium text-gray-700">Системный промпт</label>
+                              <label className="mb-1 block text-sm font-medium text-gray-700">{t('Sistemnyy_prompt')}</label>
                               <TextArea
                                 value={draftSystemPrompt}
                                 onChange={(e) => setDraftSystemPrompt(e.target.value)}
-                                placeholder="Вы — полезный ассистент..."
+                                placeholder={t('Vy_poleznyy_assistent')}
                                 rows={6}
                               />
                             </div>
                             <div>
-                              <label className="mb-1 block text-sm font-medium text-gray-700">Базовая LLM</label>
+                              <label className="mb-1 block text-sm font-medium text-gray-700">{t('Bazovaya_LLM')}</label>
                               <Select
                                 value={draftUnderlyingModel}
                                 onChange={setDraftUnderlyingModel}
                                 className="w-full"
                                 options={modelGroups.map((m) => ({ value: m.model_group, label: m.model_group }))}
-                                placeholder="Выберите модель"
+                                placeholder={t('Vyberite_model')}
                               />
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                               <div>
-                                <label className="mb-1 block text-sm font-medium text-gray-700">Температура</label>
+                                <label className="mb-1 block text-sm font-medium text-gray-700">{t('Temperatura')}</label>
                                 <Input
                                   type="number"
                                   min={0}
@@ -548,7 +552,7 @@ export default function AgentBuilderView({
                                 />
                               </div>
                               <div>
-                                <label className="mb-1 block text-sm font-medium text-gray-700">Максимум токенов</label>
+                                <label className="mb-1 block text-sm font-medium text-gray-700">{t('Maksimum_tokenov')}</label>
                                 <Input
                                   type="number"
                                   min={1}
@@ -558,10 +562,10 @@ export default function AgentBuilderView({
                               </div>
                             </div>
                             <div>
-                              <label className="mb-1 block text-sm font-medium text-gray-700">MCP-серверы</label>
+                              <label className="mb-1 block text-sm font-medium text-gray-700">{t('MCP_servery')}</label>
                               <Select
                                 mode="multiple"
-                                placeholder="Выберите MCP-серверы для подключения (тот же формат, что и в API завершения чата)"
+                                placeholder={t('Vyberite_MCP_servery_dlya_podklyucheniya')}
                                 value={selectedMCPServerIds}
                                 onChange={handleMCPServerChange}
                                 loading={loadingMCPServers}
@@ -576,7 +580,7 @@ export default function AgentBuilderView({
                               />
                               {selectedAgent && draftTools.length > 0 && (
                                 <p className="mt-1 text-xs text-gray-500">
-                                  {draftTools.length} MCP-серв{draftTools.length === 1 ? "ер" : "ера"} сохранено. Используйте тот же массив <code className="rounded bg-gray-100 px-1">tools</code> в завершении чата при вызове этого агента.
+                                  {draftTools.length} MCP-{t('serverov')} {t('sohraneno')}. {t('Ispolzuyte_tot_zhe_massiv')} <code className="rounded bg-gray-100 px-1">tools</code> {t('v_zavershenii_chata_pri_vyzove_etogo_age')}
                                 </p>
                               )}
                             </div>
@@ -591,7 +595,7 @@ export default function AgentBuilderView({
                                       loading={saving}
                                       disabled={!draftName?.trim() || !draftUnderlyingModel}
                                     >
-                                Обновить агента
+                                {t('Obnovit_agenta')}
                                     </Button>
                                     <Button
                                       type="default"
@@ -600,12 +604,12 @@ export default function AgentBuilderView({
                                       onClick={handleDeleteAgent}
                                       loading={deleting}
                                     >
-                                      Удалить
+                                      {t('Udalit')}
                                     </Button>
                                   </>
                                 )}
                                 <Button type="primary" icon={<CommentOutlined />} onClick={() => setActiveTab("chat")}>
-                                  Тестировать в чате
+                                  {t('Testirovat_v_chate')}
                                 </Button>
                               </div>
                             )}
@@ -618,7 +622,7 @@ export default function AgentBuilderView({
                     key: "chat",
                     label: (
                       <span>
-                        <CommentOutlined className="mr-1" /> Чат
+                        <CommentOutlined className="mr-1" /> {t('Chat')}
                       </span>
                     ),
                     disabled: isNewAgent,
@@ -638,7 +642,7 @@ export default function AgentBuilderView({
                           />
                         ) : (
                           <div className="flex flex-1 items-center justify-center text-gray-500">
-                            Сначала сохраните агента для тестирования в чате.
+                            {t('Snachala_sohranite_agenta_dlya_testirova')}
                           </div>
                         )}
                       </div>
@@ -648,7 +652,7 @@ export default function AgentBuilderView({
                     key: "test",
                     label: (
                       <span>
-                        <ExperimentOutlined className="mr-1" /> Пакетное тестирование
+                        <ExperimentOutlined className="mr-1" /> {t('Paketnoe_testirovanie')}
                       </span>
                     ),
                     disabled: isNewAgent,
@@ -664,7 +668,7 @@ export default function AgentBuilderView({
                           />
                         ) : (
                           <div className="flex flex-1 items-center justify-center text-gray-500">
-                            Выберите агента для запуска пакетных тестов.
+                            {t('Vyberite_agenta_dlya_zapuska_paketnyh_te')}
                           </div>
                         )}
                       </div>
@@ -674,7 +678,7 @@ export default function AgentBuilderView({
                     key: "connect",
                     label: (
                       <span>
-                        <LinkOutlined className="mr-1" /> Подключение
+                        <LinkOutlined className="mr-1" /> {t('Podklyuchenie')}
                       </span>
                     ),
                     disabled: isNewAgent,
@@ -694,7 +698,7 @@ export default function AgentBuilderView({
                           />
                         ) : (
                           <div className="flex flex-1 items-center justify-center text-gray-500">
-                            Выберите агента для просмотра способа подключения.
+                            {t('Vyberite_agenta_dlya_prosmotra_sposoba_p')}
                           </div>
                         )}
                       </div>

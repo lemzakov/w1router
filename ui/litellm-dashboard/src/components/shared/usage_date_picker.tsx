@@ -1,5 +1,6 @@
 import React, { useCallback, useState, useRef } from "react";
 import { DateRangePicker, DateRangePickerValue, Text } from "@tremor/react";
+import { useTranslation } from "react-i18next";
 
 interface UsageDatePickerProps {
   value: DateRangePickerValue;
@@ -19,6 +20,7 @@ const UsageDatePicker: React.FC<UsageDatePickerProps> = ({
   className = "",
   showTimeRange = true,
 }) => {
+  const { t } = useTranslation();
   const [showSelectedFeedback, setShowSelectedFeedback] = useState(false);
   const datePickerRef = useRef<HTMLDivElement>(null);
 
@@ -139,7 +141,7 @@ const UsageDatePicker: React.FC<UsageDatePickerProps> = ({
               <div className="w-3 h-3 bg-green-500 text-white rounded-full flex items-center justify-center text-xs">
                 ✓
               </div>
-              <span className="text-xs">Selected</span>
+              <span className="text-xs">{t('Selected')}</span>
             </div>
           </div>
         )}

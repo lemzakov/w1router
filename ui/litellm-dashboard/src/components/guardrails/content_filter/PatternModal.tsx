@@ -1,5 +1,6 @@
 import React from "react";
 import { Typography, Select, Modal, Space, Button } from "antd";
+import { useTranslation } from "react-i18next";
 
 const { Text } = Typography;
 const { Option } = Select;
@@ -34,6 +35,7 @@ const PatternModal: React.FC<PatternModalProps> = ({
   onAdd,
   onCancel,
 }) => {
+  const { t } = useTranslation();
   return (
     <Modal
       title="Add prebuilt pattern"
@@ -44,7 +46,7 @@ const PatternModal: React.FC<PatternModalProps> = ({
     >
       <Space direction="vertical" style={{ width: "100%" }} size="large">
         <div>
-          <Text strong>Pattern type</Text>
+          <Text strong>{t('Pattern_type')}</Text>
           <Select
             placeholder="Choose pattern type"
             value={selectedPatternName}
@@ -80,7 +82,7 @@ const PatternModal: React.FC<PatternModalProps> = ({
         </div>
 
         <div>
-          <Text strong>Action</Text>
+          <Text strong>{t('Action')}</Text>
           <Text type="secondary" style={{ display: "block", marginTop: 4, marginBottom: 8 }}>
             Choose what action the guardrail should take when this pattern is detected
           </Text>
@@ -89,8 +91,8 @@ const PatternModal: React.FC<PatternModalProps> = ({
             onChange={onActionChange}
             style={{ width: "100%" }}
           >
-            <Option value="BLOCK">Block</Option>
-            <Option value="MASK">Mask</Option>
+            <Option value="BLOCK">{t('Block')}</Option>
+            <Option value="MASK">{t('Mask')}</Option>
           </Select>
         </div>
       </Space>

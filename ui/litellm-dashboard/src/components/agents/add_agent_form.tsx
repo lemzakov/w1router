@@ -24,6 +24,7 @@ import { getDefaultFormValues, buildAgentDataFromForm } from "./agent_config";
 import MCPServerSelector from "../mcp_server_management/MCPServerSelector";
 import MCPToolPermissions from "../mcp_server_management/MCPToolPermissions";
 import GuardrailSelector from "../guardrails/GuardrailSelector";
+import { useTranslation } from "react-i18next";
 
 const { Step } = Steps;
 
@@ -44,6 +45,7 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
   onSuccess,
   teams,
 }) => {
+  const { t } = useTranslation();
   const { userId, userRole } = useAuthorized();
   const [form] = Form.useForm();
   const [currentStep, setCurrentStep] = useState(0);
@@ -350,7 +352,7 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
       </p>
 
       <Form.Item
-        label={<span className="text-sm font-medium text-gray-700">Allowed Models</span>}
+        label={<span className="text-sm font-medium text-gray-700">{t('Allowed_Models')}</span>}
         name="entitlement_models"
         tooltip="Restrict which models this agent can call. Leave empty to allow all."
       >
@@ -369,7 +371,7 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
       </Form.Item>
 
       <Form.Item
-        label={<span className="text-sm font-medium text-gray-700">Allowed Agents (Sub-Agents)</span>}
+        label={<span className="text-sm font-medium text-gray-700">{t('Allowed_Agents_SubAgents')}</span>}
         name="entitlement_agents"
         tooltip="Restrict which other agents this agent can invoke as sub-agents. Leave empty to allow all."
       >
@@ -437,7 +439,7 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
   const renderObservabilityStep = () => (
     <div className="space-y-6">
       <div>
-        <h4 className="text-sm font-medium text-gray-700 mb-3">Tracing</h4>
+        <h4 className="text-sm font-medium text-gray-700 mb-3">{t('Tracing')}</h4>
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <div>
@@ -480,7 +482,7 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
       <Divider className="my-0" />
 
       <div>
-        <h4 className="text-sm font-medium text-gray-700 mb-3">Budgets &amp; Rate Limits</h4>
+        <h4 className="text-sm font-medium text-gray-700 mb-3">{t('Budgets_amp_Rate_Limits')}</h4>
         <div className="space-y-4">
           {!requireTraceIdOutbound && (
             <div className="p-3 bg-yellow-50 border border-yellow-200 rounded-lg text-sm text-yellow-800">
@@ -488,10 +490,10 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
             </div>
           )}
 
-          <div className="text-sm font-medium text-gray-700">Session Budgets</div>
+          <div className="text-sm font-medium text-gray-700">{t('Session_Budgets')}</div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="text-sm text-gray-600 block mb-1">Max Iterations</label>
+              <label className="text-sm text-gray-600 block mb-1">{t('Max_Iterations')}</label>
               <InputNumber
                 className="w-full"
                 min={1}
@@ -500,10 +502,10 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
                 value={maxIterations}
                 onChange={(val) => setMaxIterations(val)}
               />
-              <p className="text-xs text-gray-400 mt-1">Hard cap on LLM calls per session</p>
+              <p className="text-xs text-gray-400 mt-1">{t('Hard_cap_on_LLM_calls_per_session')}</p>
             </div>
             <div>
-              <label className="text-sm text-gray-600 block mb-1">Max Budget Per Session ($)</label>
+              <label className="text-sm text-gray-600 block mb-1">{t('Max_Budget_Per_Session')}</label>
               <InputNumber
                 className="w-full"
                 min={0.01}
@@ -513,13 +515,13 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
                 value={maxBudgetPerSession}
                 onChange={(val) => setMaxBudgetPerSession(val)}
               />
-              <p className="text-xs text-gray-400 mt-1">Max spend per trace before returning 429</p>
+              <p className="text-xs text-gray-400 mt-1">{t('Max_spend_per_trace_before_returning_429')}</p>
             </div>
           </div>
 
           <Divider className="my-2" />
 
-          <div className="text-sm font-medium text-gray-700">Agent Rate Limits</div>
+          <div className="text-sm font-medium text-gray-700">{t('Agent_Rate_Limits')}</div>
           <p className="text-xs text-gray-500">
             Global rate limits applied across all callers of this agent.
           </p>
@@ -532,7 +534,7 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
             </Form.Item>
           </div>
 
-          <div className="text-sm font-medium text-gray-700 mt-4">Per-Session Rate Limits</div>
+          <div className="text-sm font-medium text-gray-700 mt-4">{t('PerSession_Rate_Limits')}</div>
           <p className="text-xs text-gray-500">
             Rate limits per session (x-litellm-trace-id). Each session gets its own counters.
           </p>
@@ -550,7 +552,7 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
       <Divider className="my-0" />
 
       <div>
-        <h4 className="text-sm font-medium text-gray-700 mb-3">Guardrails</h4>
+        <h4 className="text-sm font-medium text-gray-700 mb-3">{t('Guardrails')}</h4>
         <p className="text-xs text-gray-500 mb-3">
           Apply guardrails to this agent. Selected guardrails will run on all calls made by this agent.
         </p>
@@ -579,7 +581,7 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
   const renderConfigureStep = () => (
     <>
       <Form.Item
-        label={<span className="text-sm font-medium text-gray-700">Agent Type</span>}
+        label={<span className="text-sm font-medium text-gray-700">{t('Agent_Type')}</span>}
         required
         tooltip="Select the type of agent you want to create"
       >
@@ -608,7 +610,7 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
                   <AppstoreOutlined className="text-amber-600 text-lg" />
                   <div className="flex-1">
                     <div className="flex items-center gap-2">
-                      <span className="font-medium text-amber-700">Custom / Other</span>
+                      <span className="font-medium text-amber-700">{t('Custom_Other')}</span>
                       <Tag color="orange" style={{ fontSize: 10, padding: "0 4px" }}>GENERIC</Tag>
                     </div>
                     <div className="text-xs text-amber-600">
@@ -719,7 +721,7 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
         </div>
 
         <Form.Item
-          label={<span className="text-sm font-medium text-gray-700">Assign to Team</span>}
+          label={<span className="text-sm font-medium text-gray-700">{t('Assign_to_Team')}</span>}
           name="team_id"
           tooltip="Optionally assign this agent to a team. The agent and its key will belong to the selected team."
         >
@@ -748,7 +750,7 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
                 <div className="flex-1">
                   <div className="flex items-center gap-2">
                     <KeyOutlined className="text-indigo-600" />
-                    <span className="font-medium text-gray-900">Create a new key for this agent</span>
+                    <span className="font-medium text-gray-900">{t('Create_a_new_key_for_this_agent')}</span>
                   </div>
                   <p className="text-sm text-gray-500 mt-1">
                     A dedicated key scoped to this agent.
@@ -756,7 +758,7 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
                   {keyAssignOption === "create_new" && (
                     <div className="mt-3 space-y-3" onClick={(e) => e.stopPropagation()}>
                       <div>
-                        <label className="text-sm text-gray-600 block mb-1">Key Name</label>
+                        <label className="text-sm text-gray-600 block mb-1">{t('Key_Name')}</label>
                         <Input
                           value={newKeyName}
                           onChange={(e) => setNewKeyName(e.target.value)}
@@ -767,7 +769,7 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
                   )}
                 </div>
               </div>
-              <Tag color="green">Recommended</Tag>
+              <Tag color="green">{t('Recommended')}</Tag>
             </div>
           </div>
 
@@ -789,7 +791,7 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
               <div className="flex-1">
                 <div className="flex items-center gap-2">
                   <KeyOutlined className="text-gray-500" />
-                  <span className="font-medium text-gray-900">Assign an existing key</span>
+                  <span className="font-medium text-gray-900">{t('Assign_an_existing_key')}</span>
                 </div>
                 <p className="text-sm text-gray-500 mt-1">
                   Re-assign a key you already have to this agent.
@@ -834,7 +836,7 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
   const renderReadyStep = () => (
     <div className="text-center py-6">
       <CheckCircleFilled className="text-5xl text-green-500 mb-4" style={{ fontSize: 48 }} />
-      <h3 className="text-xl font-semibold text-gray-900 mb-2">Agent Created!</h3>
+      <h3 className="text-xl font-semibold text-gray-900 mb-2">{t('Agent_Created')}</h3>
       <div className="flex justify-center mb-4">
         <Tag icon={<RobotOutlined />} color="purple" className="px-3 py-1 text-sm">
           {createdAgentName}
@@ -865,7 +867,7 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
           {selectedLogo && currentStep < 1 && (
             <img src={selectedLogo} alt="Agent" className="w-6 h-6 object-contain" />
           )}
-          <h2 className="text-xl font-semibold text-gray-900">Add New Agent</h2>
+          <h2 className="text-xl font-semibold text-gray-900">{t('Add_New_Agent')}</h2>
         </div>
       }
       open={visible}

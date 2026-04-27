@@ -20,6 +20,7 @@ import {
 import type { MenuProps } from "antd";
 import { Button, Divider, Dropdown, Space, Switch, Tag, Tooltip, Typography } from "antd";
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const { Text } = Typography;
 
@@ -28,6 +29,7 @@ interface UserDropdownProps {
 }
 
 const UserDropdown: React.FC<UserDropdownProps> = ({ onLogout }) => {
+  const { t } = useTranslation();
   const { userId, userEmail, userRole, premiumUser } = useAuthorized();
   const disableShowPrompts = useDisableShowPrompts();
   const disableUsageIndicator = useDisableUsageIndicator();
@@ -81,7 +83,7 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ onLogout }) => {
       <Space style={{ width: "100%", justifyContent: "space-between" }}>
         <Space>
           <UserOutlined />
-          <Text type="secondary">User ID</Text>
+          <Text type="secondary">{t('User_ID')}</Text>
         </Space>
         <Text
           copyable
@@ -95,13 +97,13 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ onLogout }) => {
       <Space style={{ width: "100%", justifyContent: "space-between" }}>
         <Space>
           <SafetyOutlined />
-          <Text type="secondary">Role</Text>
+          <Text type="secondary">{t('Role_1')}</Text>
         </Space>
         <Text>{userRole}</Text>
       </Space>
       <Divider style={{ margin: "8px 0" }} />
       <Space style={{ width: "100%", justifyContent: "space-between" }}>
-        <Text type="secondary">Hide New Feature Indicators</Text>
+        <Text type="secondary">{t('Hide_New_Feature_Indicators')}</Text>
         <Switch
           size="small"
           checked={disableShowNewBadge}
@@ -119,7 +121,7 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ onLogout }) => {
         />
       </Space>
       <Space style={{ width: "100%", justifyContent: "space-between" }}>
-        <Text type="secondary">Hide All Prompts</Text>
+        <Text type="secondary">{t('Hide_All_Prompts')}</Text>
         <Switch
           size="small"
           checked={disableShowPrompts}
@@ -136,7 +138,7 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ onLogout }) => {
         />
       </Space>
       <Space style={{ width: "100%", justifyContent: "space-between" }}>
-        <Text type="secondary">Hide Usage Indicator</Text>
+        <Text type="secondary">{t('Hide_Usage_Indicator')}</Text>
         <Switch
           size="small"
           checked={disableUsageIndicator}
@@ -153,7 +155,7 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ onLogout }) => {
         />
       </Space>
       <Space style={{ width: "100%", justifyContent: "space-between" }}>
-        <Text type="secondary">Hide Blog Posts</Text>
+        <Text type="secondary">{t('Hide_Blog_Posts')}</Text>
         <Switch
           size="small"
           checked={disableBlogPosts}
@@ -170,7 +172,7 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ onLogout }) => {
         />
       </Space>
       <Space style={{ width: "100%", justifyContent: "space-between" }}>
-        <Text type="secondary">Hide Bouncing Icon</Text>
+        <Text type="secondary">{t('Hide_Bouncing_Icon')}</Text>
         <Switch
           size="small"
           checked={disableBouncingIcon}
@@ -207,7 +209,7 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ onLogout }) => {
       <Button type="text" >
         <Space>
           <UserOutlined />
-          <Text>User</Text>
+          <Text>{t('User')}</Text>
           <DownOutlined />
         </Space>
       </Button>

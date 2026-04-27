@@ -6,6 +6,7 @@ import { Guardrail } from "../guardrails/types";
 import { getResolvedGuardrails, modelAvailableCall } from "../networking";
 import NotificationsManager from "../molecules/notifications_manager";
 import useAuthorized from "@/app/(dashboard)/hooks/useAuthorized";
+import { useTranslation } from "react-i18next";
 
 const { Text } = Typography;
 const { Option } = Select;
@@ -141,6 +142,7 @@ const AddPolicyForm: React.FC<AddPolicyFormProps> = ({
   createPolicy,
   updatePolicy,
 }) => {
+  const { t } = useTranslation();
   const [form] = Form.useForm();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [resolvedGuardrails, setResolvedGuardrails] = useState<string[]>([]);
@@ -429,7 +431,7 @@ const AddPolicyForm: React.FC<AddPolicyFormProps> = ({
         </Form.Item>
 
         <Divider orientation="left">
-          <Text strong>Inheritance</Text>
+          <Text strong>{t('Inheritance')}</Text>
         </Divider>
 
         <Form.Item
@@ -446,7 +448,7 @@ const AddPolicyForm: React.FC<AddPolicyFormProps> = ({
         </Form.Item>
 
         <Divider orientation="left">
-          <Text strong>Guardrails</Text>
+          <Text strong>{t('Guardrails')}</Text>
         </Divider>
 
         <Form.Item
@@ -501,7 +503,7 @@ const AddPolicyForm: React.FC<AddPolicyFormProps> = ({
         )}
 
         <Divider orientation="left">
-          <Text strong>Conditions (Optional)</Text>
+          <Text strong>{t('Conditions_Optional')}</Text>
         </Divider>
 
         <Alert
@@ -520,8 +522,8 @@ const AddPolicyForm: React.FC<AddPolicyFormProps> = ({
               form.setFieldValue("model_condition", undefined);
             }}
           >
-            <Radio value="model">Select Model</Radio>
-            <Radio value="regex">Custom Regex Pattern</Radio>
+            <Radio value="model">{t('Select_Model')}</Radio>
+            <Radio value="regex">{t('Custom_Regex_Pattern')}</Radio>
           </Radio.Group>
         </Form.Item>
 

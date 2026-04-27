@@ -5,6 +5,7 @@ import { Button as TremorButton, Text } from "@tremor/react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { coy } from "react-syntax-highlighter/dist/esm/styles/prism";
 import NotificationsManager from "../../molecules/notifications_manager";
+import { useTranslation } from "react-i18next";
 
 interface PromptCodeSnippetsProps {
   promptId: string;
@@ -26,6 +27,7 @@ const PromptCodeSnippets: React.FC<PromptCodeSnippetsProps> = ({
   version = "1",
   proxySettings,
 }) => {
+  const { t } = useTranslation();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState<"curl" | "python" | "javascript">("curl");
   const [selectedTab, setSelectedTab] = useState("basic");
@@ -227,7 +229,7 @@ main();`;
       >
         <div className="flex justify-between items-center mb-4">
           <div>
-            <Text className="font-medium block mb-1 text-gray-700">Language</Text>
+            <Text className="font-medium block mb-1 text-gray-700">{t('Language')}</Text>
             <Select
               value={selectedLanguage}
               onChange={(value) => setSelectedLanguage(value as "curl" | "python" | "javascript")}

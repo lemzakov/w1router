@@ -1,9 +1,12 @@
+import "@/i18n";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Card, Title, Text } from "@tremor/react";
 import { ToolOutlined, CheckCircleOutlined, SearchOutlined, EditOutlined } from "@ant-design/icons";
 import { Badge, Spin, Checkbox, Input, Radio } from "antd";
 import { useTestMCPConnection } from "../../hooks/useTestMCPConnection";
 import McpCrudPermissionPanel from "./McpCrudPermissionPanel";
+import { useTranslation, getI18n } from "react-i18next";
+const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
 interface KeyTool {
   name: string;
@@ -115,7 +118,7 @@ const ToolRow: React.FC<ToolRowProps> = ({
         onClick={(e) => e.stopPropagation()}
       >
         <div>
-          <Text className="text-xs font-medium text-gray-600 mb-1 block">Display Name</Text>
+          <Text className="text-xs font-medium text-gray-600 mb-1 block">{t('Display_Name')}</Text>
           <Input
             placeholder={tool.name}
             value={toolNameToDisplayName[tool.name] || ""}
@@ -126,7 +129,7 @@ const ToolRow: React.FC<ToolRowProps> = ({
           </Text>
         </div>
         <div>
-          <Text className="text-xs font-medium text-gray-600 mb-1 block">Description</Text>
+          <Text className="text-xs font-medium text-gray-600 mb-1 block">{t('Description_1')}</Text>
           <Input.TextArea
             placeholder={tool.description || "No description"}
             value={toolNameToDescription[tool.name] || ""}
@@ -159,6 +162,7 @@ const MCPToolConfiguration: React.FC<MCPToolConfigurationProps> = ({
   externalError,
   externalCanFetch,
 }) => {
+  const { t } = useTranslation();
   const previousToolsRef = useRef<ToolEntry[]>([]);
   const [toolSearchTerm, setToolSearchTerm] = useState("");
   const [viewMode, setViewMode] = useState<"crud" | "flat">("crud");
@@ -359,7 +363,7 @@ const MCPToolConfiguration: React.FC<MCPToolConfigurationProps> = ({
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <ToolOutlined className="text-blue-600" />
-            <Title>Tool Configuration</Title>
+            <Title>{t('Tool_Configuration')}</Title>
             {tools.length > 0 && (
               <Badge
                 count={tools.length}
@@ -387,7 +391,7 @@ const MCPToolConfiguration: React.FC<MCPToolConfigurationProps> = ({
         {/* Description */}
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
           <Text className="text-blue-800 text-sm">
-            <strong>Select which tools users can call:</strong> Only checked tools will be available for users to
+            <strong>{t('Select_which_tools_users_can_call')}</strong> Only checked tools will be available for users to
             invoke. Unchecked tools will be blocked from execution.
           </Text>
         </div>
@@ -396,7 +400,7 @@ const MCPToolConfiguration: React.FC<MCPToolConfigurationProps> = ({
         {isLoadingTools && (
           <div className="flex items-center justify-center py-6">
             <Spin size="large" />
-            <Text className="ml-3">Loading tools from spec...</Text>
+            <Text className="ml-3">{t('Loading_tools_from_spec')}</Text>
           </div>
         )}
 
@@ -404,7 +408,7 @@ const MCPToolConfiguration: React.FC<MCPToolConfigurationProps> = ({
         {toolsError && !isLoadingTools && (
           <div className="text-center py-6 text-red-500 border rounded-lg border-dashed border-red-300 bg-red-50">
             <ToolOutlined className="text-2xl mb-2" />
-            <Text className="text-red-600 font-medium">Unable to load tools</Text>
+            <Text className="text-red-600 font-medium">{t('Unable_to_load_tools')}</Text>
             <br />
             <Text className="text-sm text-red-500">{toolsError}</Text>
           </div>
@@ -415,7 +419,7 @@ const MCPToolConfiguration: React.FC<MCPToolConfigurationProps> = ({
           keyTools && keyTools.length > 0 ? (
             <div className="text-center py-4 text-gray-400 border rounded-lg border-dashed">
               <ToolOutlined className="text-2xl mb-2" />
-              <Text>No tools loaded from spec</Text>
+              <Text>{t('No_tools_loaded_from_spec')}</Text>
               <Text className="text-sm block mt-1">
                 Expected tools: {keyTools.map((t) => t.name).join(", ")}
               </Text>
@@ -423,9 +427,9 @@ const MCPToolConfiguration: React.FC<MCPToolConfigurationProps> = ({
           ) : (
             <div className="text-center py-6 text-gray-400 border rounded-lg border-dashed">
               <ToolOutlined className="text-2xl mb-2" />
-              <Text>No tools available for configuration</Text>
+              <Text>{t('No_tools_available_for_configuration')}</Text>
               <br />
-              <Text className="text-sm">Connect to an MCP server with tools to configure them</Text>
+              <Text className="text-sm">{t('Connect_to_an_MCP_server_with_tools_to_c')}</Text>
             </div>
           )
         )}
@@ -434,9 +438,9 @@ const MCPToolConfiguration: React.FC<MCPToolConfigurationProps> = ({
         {!canFetchTools && (formValues.url || formValues.spec_path) && (
           <div className="text-center py-6 text-gray-400 border rounded-lg border-dashed">
             <ToolOutlined className="text-2xl mb-2" />
-            <Text>Complete required fields to configure tools</Text>
+            <Text>{t('Complete_required_fields_to_configure_to')}</Text>
             <br />
-            <Text className="text-sm">Fill in URL, Transport, and Authentication to load available tools</Text>
+            <Text className="text-sm">{t('Fill_in_URL_Transport_and_Authentication_1')}</Text>
           </div>
         )}
 

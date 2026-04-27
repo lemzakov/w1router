@@ -8,6 +8,7 @@ import { errorPatterns } from "@/utils/errorPatterns";
 import { individualModelHealthCheckCall, latestHealthChecksCall } from "../networking";
 import { Table as TableInstance } from "@tanstack/react-table";
 import { Team } from "../key_team_helpers/key_list";
+import { useTranslation } from "react-i18next";
 
 interface HealthStatus {
   status: string;
@@ -36,6 +37,7 @@ const HealthCheckComponent: React.FC<HealthCheckComponentProps> = ({
   setSelectedModelId,
   teams,
 }) => {
+  const { t } = useTranslation();
   const [modelHealthStatuses, setModelHealthStatuses] = useState<{ [key: string]: HealthStatus }>({});
   const [selectedModelsForHealth, setSelectedModelsForHealth] = useState<string[]>([]);
   const [allModelsSelected, setAllModelsSelected] = useState<boolean>(false);
@@ -495,7 +497,7 @@ const HealthCheckComponent: React.FC<HealthCheckComponentProps> = ({
       <div className="mb-6">
         <div className="flex justify-between items-center">
           <div>
-            <Title>Model Health Status</Title>
+            <Title>{t('Model_Health_Status')}</Title>
             <Text className="text-gray-600 mt-1">
               Run health checks on individual models to verify they are working correctly
             </Text>
@@ -577,14 +579,14 @@ const HealthCheckComponent: React.FC<HealthCheckComponentProps> = ({
         {selectedErrorDetails && (
           <div className="space-y-4">
             <div>
-              <Text className="font-medium">Error:</Text>
+              <Text className="font-medium">{t('Error_1')}</Text>
               <div className="mt-2 p-3 bg-red-50 border border-red-200 rounded-md">
                 <Text className="text-red-800">{selectedErrorDetails.cleanedError}</Text>
               </div>
             </div>
 
             <div>
-              <Text className="font-medium">Full Error Details:</Text>
+              <Text className="font-medium">{t('Full_Error_Details')}</Text>
               <div className="mt-2 p-3 bg-gray-50 border border-gray-200 rounded-md max-h-96 overflow-y-auto">
                 <pre className="text-sm text-gray-800 whitespace-pre-wrap">{selectedErrorDetails.fullError}</pre>
               </div>
@@ -610,14 +612,14 @@ const HealthCheckComponent: React.FC<HealthCheckComponentProps> = ({
         {selectedSuccessDetails && (
           <div className="space-y-4">
             <div>
-              <Text className="font-medium">Status:</Text>
+              <Text className="font-medium">{t('Status_2')}</Text>
               <div className="mt-2 p-3 bg-green-50 border border-green-200 rounded-md">
-                <Text className="text-green-800">Health check passed successfully</Text>
+                <Text className="text-green-800">{t('Health_check_passed_successfully')}</Text>
               </div>
             </div>
 
             <div>
-              <Text className="font-medium">Response Details:</Text>
+              <Text className="font-medium">{t('Response_Details')}</Text>
               <div className="mt-2 p-3 bg-gray-50 border border-gray-200 rounded-md max-h-96 overflow-y-auto">
                 <pre className="text-sm text-gray-800 whitespace-pre-wrap">
                   {JSON.stringify(selectedSuccessDetails.response, null, 2)}
