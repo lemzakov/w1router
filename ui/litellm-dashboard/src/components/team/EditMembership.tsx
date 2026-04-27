@@ -2,6 +2,7 @@ import { Text, TextInput } from "@tremor/react";
 import { Button as AntButton, Form, Modal, Select } from "antd";
 import React, { useEffect, useState } from "react";
 import NumericalInput from "../shared/numerical_input";
+import { useTranslation } from "react-i18next";
 
 interface BaseMember {
   user_email?: string;
@@ -48,7 +49,8 @@ const MemberModal = <T extends BaseMember>({
   config,
 }: MemberModalProps<T>) => {
   const [form] = Form.useForm();
-  const [isSubmitting, setIsSubmitting] = useState(false);
+    const { t } = useTranslation();
+const [isSubmitting, setIsSubmitting] = useState(false);
 
   console.log("Initial Data:", initialData);
 
@@ -131,7 +133,7 @@ const MemberModal = <T extends BaseMember>({
             step={field.step || 1}
             min={field.min || 0}
             style={{ width: "100%" }}
-            placeholder={field.placeholder || "Введите числовое значение"}
+            placeholder={field.placeholder || t('Vvedite_chislovoe_znachenie')}
           />
         );
       case "select":
@@ -151,7 +153,7 @@ const MemberModal = <T extends BaseMember>({
 
   return (
     <Modal
-      title={config.title || (mode === "add" ? "Добавить участника" : "Редактировать участника")}
+      title={config.title || (mode === "add" ? t('Dobavit_uchastnika') : t('Redaktirovat_uchastnika'))}
       open={visible}
       width={1000}
       footer={null}
@@ -160,10 +162,10 @@ const MemberModal = <T extends BaseMember>({
       <Form form={form} onFinish={handleSubmit} labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} labelAlign="left">
         {config.showEmail && (
           <Form.Item
-            label="Электронная почта"
+            label={t('Elektronnaya_pochta')}
             name="user_email"
             className="mb-4"
-            rules={[{ type: "email", message: "Пожалуйста, введите корректный email!" }]}
+            rules={[{ type: "email", message: t('Pozhaluysta_vvedite_korrektnyy_email') }]}
           >
             <TextInput placeholder="user@example.com" />
           </Form.Item>
@@ -171,12 +173,12 @@ const MemberModal = <T extends BaseMember>({
 
         {config.showEmail && config.showUserId && (
           <div className="text-center mb-4">
-            <Text>ИЛИ</Text>
+            <Text>{t('ILI')}</Text>
           </div>
         )}
 
         {config.showUserId && (
-          <Form.Item label="ID пользователя" name="user_id" className="mb-4">
+          <Form.Item label={t('ID_polzovatelya')} name="user_id" className="mb-4">
             <TextInput placeholder="user_123" />
           </Form.Item>
         )}
@@ -184,15 +186,15 @@ const MemberModal = <T extends BaseMember>({
         <Form.Item
           label={
             <div className="flex items-center gap-2">
-              <span>Роль</span>
+              <span>{t('Rol')}</span>
               {mode === "edit" && initialData && (
-                <span className="text-gray-500 text-sm">(Текущая: {getRoleLabel(initialData.role)})</span>
+                <span className="text-gray-500 text-sm">({t('Tekuschaya_1')} {getRoleLabel(initialData.role)})</span>
               )}
             </div>
           }
           name="role"
           className="mb-4"
-          rules={[{ required: true, message: "Пожалуйста, выберите роль!" }]}
+          rules={[{ required: true, message: t('Pozhaluysta_vyberite_rol') }]}
         >
           <Select>
             {mode === "edit" && initialData
@@ -222,16 +224,16 @@ const MemberModal = <T extends BaseMember>({
 
         <div className="text-right mt-6">
           <AntButton onClick={onCancel} className="mr-2" disabled={isSubmitting}>
-            Отмена
+            {t('Otmena')}
           </AntButton>
           <AntButton type="default" htmlType="submit" loading={isSubmitting}>
             {mode === "add"
               ? isSubmitting
-                ? "Добавление..."
-                : "Добавить участника"
+                ? t('Dobavlenie')
+                : t('Dobavit_uchastnika')
               : isSubmitting
-                ? "Сохранение..."
-                : "Сохранить"}
+                ? t('Sohranenie')
+                : t('Sohranit')}
           </AntButton>
         </div>
       </Form>

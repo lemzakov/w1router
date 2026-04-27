@@ -7,6 +7,7 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { KeyResponse } from "../key_team_helpers/key_list";
 import NotificationManager from "../molecules/notifications_manager";
 import { regenerateKeyCall } from "../networking";
+import { useTranslation } from "react-i18next";
 
 interface RegenerateKeyModalProps {
   selectedToken: KeyResponse | null;
@@ -16,7 +17,8 @@ interface RegenerateKeyModalProps {
 }
 
 export function RegenerateKeyModal({ selectedToken, visible, onClose, onKeyUpdate }: RegenerateKeyModalProps) {
-  const { accessToken } = useAuthorized();
+    const { t } = useTranslation();
+const { accessToken } = useAuthorized();
   const [form] = Form.useForm();
   const [regeneratedKey, setRegeneratedKey] = useState<string | null>(null);
   const [regenerateFormData, setRegenerateFormData] = useState<any>(null);
@@ -105,7 +107,7 @@ export function RegenerateKeyModal({ selectedToken, visible, onClose, onKeyUpdat
         formValues,
       );
       setRegeneratedKey(response.key);
-      NotificationManager.success("Виртуальный ключ успешно пересоздан");
+      NotificationManager.success(t('Virtualnyy_klyuch_uspeshno_peresozdan'));
 
       console.log("Full regenerate response:", response); // Debug log to see what's returned
 
@@ -148,50 +150,49 @@ export function RegenerateKeyModal({ selectedToken, visible, onClose, onKeyUpdat
 
   return (
     <Modal
-      title="Пересоздать виртуальный ключ"
+      title={t('Peresozdat_virtualnyy_klyuch')}
       open={visible}
       onCancel={handleClose}
       footer={
         regeneratedKey
           ? [
               <Button key="close" onClick={handleClose}>
-                Закрыть
+                {t('Zakryt')}
               </Button>,
             ]
           : [
               <Button key="cancel" onClick={handleClose} className="mr-2">
-                Отмена
+                {t('Otmena')}
               </Button>,
               <Button key="regenerate" onClick={handleRegenerateKey} disabled={isRegenerating}>
-                {isRegenerating ? "Пересоздание..." : "Пересоздать"}
+                {isRegenerating ? t('Peresozdanie') : t('Peresozdat')}
               </Button>,
             ]
       }
     >
       {regeneratedKey ? (
         <Grid numItems={1} className="gap-2 w-full">
-          <Title>Пересозданный ключ</Title>
+          <Title>{t('Peresozdannyy_klyuch')}</Title>
           <Col numColSpan={1}>
             <p>
-              Замените ваш старый ключ на новый. В целях безопасности{" "}
-              <b>вы больше не сможете просмотреть его</b> в вашем аккаунте LiteLLM. Если вы потеряете этот секретный
-              ключ, вам потребуется создать новый.
+              {t('Zamenite_vash_staryy_klyuch_na_novyy_V_t')}{" "}
+              <b>{t('vy_bolshe_ne_smozhete_prosmotret_ego')}</b> {t('v_vashem_akkaunte_LiteLLM_Esli_vy_potery')}
             </p>
           </Col>
           <Col numColSpan={1}>
-            <Text className="mt-3">Псевдоним ключа:</Text>
+            <Text className="mt-3">{t('Psevdonim_klyucha_1')}</Text>
             <div className="bg-gray-100 p-2 rounded mb-2">
-              <pre className="break-words whitespace-normal">{selectedToken?.key_alias || "Псевдоним не задан"}</pre>
+              <pre className="break-words whitespace-normal">{selectedToken?.key_alias || t('Psevdonim_ne_zadan')}</pre>
             </div>
-            <Text className="mt-3">Новый виртуальный ключ:</Text>
+            <Text className="mt-3">{t('Novyy_virtualnyy_klyuch')}</Text>
             <div className="bg-gray-100 p-2 rounded mb-2">
               <pre className="break-words whitespace-normal">{regeneratedKey}</pre>
             </div>
             <CopyToClipboard
               text={regeneratedKey}
-              onCopy={() => NotificationManager.success("Виртуальный ключ скопирован")}
+              onCopy={() => NotificationManager.success(t('Virtualnyy_klyuch_skopirovan'))}
             >
-              <Button className="mt-3">Копировать виртуальный ключ</Button>
+              <Button className="mt-3">{t('Kopirovat_virtualnyy_klyuch')}</Button>
             </CopyToClipboard>
           </Col>
         </Grid>
@@ -205,41 +206,41 @@ export function RegenerateKeyModal({ selectedToken, visible, onClose, onKeyUpdat
             }
           }}
         >
-          <Form.Item name="key_alias" label="Псевдоним ключа">
+          <Form.Item name="key_alias" label={t('Psevdonim_klyucha')}>
             <TextInput disabled={true} />
           </Form.Item>
-          <Form.Item name="max_budget" label="Максимальный бюджет (USD)">
+          <Form.Item name="max_budget" label={t('Maksimalnyy_byudzhet_USD')}>
             <InputNumber step={0.01} precision={2} style={{ width: "100%" }} />
           </Form.Item>
-          <Form.Item name="tpm_limit" label="Лимит TPM">
+          <Form.Item name="tpm_limit" label={t('Limit_TPM')}>
             <InputNumber style={{ width: "100%" }} />
           </Form.Item>
-          <Form.Item name="rpm_limit" label="Лимит RPM">
+          <Form.Item name="rpm_limit" label={t('Limit_RPM')}>
             <InputNumber style={{ width: "100%" }} />
           </Form.Item>
-          <Form.Item name="duration" label="Истекает (напр.: 30s, 30h, 30d)" className="mt-8">
+          <Form.Item name="duration" label={t('Istekaet_napr_30s_30h_30d')} className="mt-8">
             <TextInput placeholder="" />
           </Form.Item>
           <div className="mt-2 text-sm text-gray-500">
-            Текущий срок: {selectedToken?.expires ? new Date(selectedToken.expires).toLocaleString() : "Никогда"}
+            {t('Tekuschiy_srok')} {selectedToken?.expires ? new Date(selectedToken.expires).toLocaleString() : t('Nikogda')}
           </div>
-          {newExpiryTime && <div className="mt-2 text-sm text-green-600">Новый срок: {newExpiryTime}</div>}
+          {newExpiryTime && <div className="mt-2 text-sm text-green-600">{t('Novyy_srok')} {newExpiryTime}</div>}
           <Form.Item
             name="grace_period"
-            label="Период ожидания (напр.: 24h, 2d)"
-            tooltip="Сохраняйте старый ключ действительным в течение этого времени после ротации. Оба ключа работают в этот период для плавного переключения. Пусто = немедленная отмена."
+            label={t('Period_ozhidaniya_napr_24h_2d')}
+            tooltip={t('Sohranyayte_staryy_klyuch_deystvitelnym_')}
             className="mt-8"
             rules={[
               {
                 pattern: /^(\d+(s|m|h|d|w|mo))?$/,
-                message: "Должно быть длительностью вида 30s, 30m, 24h, 2d, 1w или 1mo",
+                message: t('Dolzhno_byt_dlitelnostyu_vida_30s_30m'),
               },
             ]}
           >
-            <TextInput placeholder="напр. 24h, 2d (пусто = немедленная отмена)" />
+            <TextInput placeholder={t('napr_24h_2d_pusto_nemedlennaya_otmen')} />
           </Form.Item>
           <div className="mt-2 text-sm text-gray-500">
-            Рекомендуется: 24h–72h для ключей в продакшене для плавной миграции клиентов.
+            {t('Rekomenduetsya_24h_72h_dlya_klyuchey_v_p')}
           </div>
         </Form>
       )}

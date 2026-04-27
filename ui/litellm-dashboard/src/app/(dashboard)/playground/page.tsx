@@ -1,4 +1,5 @@
 "use client";
+import { useTranslation } from "react-i18next";
 
 import { useState, useEffect } from "react";
 import AgentBuilderView from "@/components/playground/chat_ui/AgentBuilderView";
@@ -15,7 +16,8 @@ interface ProxySettings {
 }
 
 export default function PlaygroundPage() {
-  const { accessToken, userRole, userId, disabledPersonalKeyCreation, token } = useAuthorized();
+    const { t } = useTranslation();
+const { accessToken, userRole, userId, disabledPersonalKeyCreation, token } = useAuthorized();
   const [proxySettings, setProxySettings] = useState<ProxySettings | undefined>(undefined);
 
   useEffect(() => {
@@ -38,10 +40,10 @@ export default function PlaygroundPage() {
     <div className="h-full w-full flex flex-col">
     <TabGroup className="w-full" style={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column" }}>
       <TabList className="mb-0">
-        <Tab>Чат</Tab>
-        <Tab>Сравнение</Tab>
-        <Tab>Соответствие</Tab>
-        <Tab>Конструктор агентов (Экспериментально)</Tab>
+        <Tab>{t('Chat')}</Tab>
+        <Tab>{t('Sravnenie')}</Tab>
+        <Tab>{t('Sootvetstvie')}</Tab>
+        <Tab>{t('Konstruktor_agentov_Eksperimentalno')}</Tab>
       </TabList>
       <TabPanels className="h-full">
         <TabPanel className="h-full">

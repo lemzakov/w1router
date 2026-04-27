@@ -32,6 +32,7 @@ import {
 } from "./constants";
 import { ToolsSection } from "../ToolsSection";
 import { PrettyMessagesView } from "./PrettyMessagesView";
+import { useTranslation } from "react-i18next";
 
 const { Text } = Typography;
 
@@ -96,7 +97,7 @@ export function LogDetailContent({ logEntry, onOpenSettings, isLoadingDetails = 
         <Alert
           type="error"
           showIcon
-          message="Запрос завершился ошибкой"
+          message={t('Zapros_zavershilsya_oshibkoy')}
           description={<ErrorDescription errorInfo={errorInfo} />}
           className="mb-6"
         />
@@ -109,22 +110,22 @@ export function LogDetailContent({ logEntry, onOpenSettings, isLoadingDetails = 
 
       {/* Request Details */}
       <div className="bg-white rounded-lg shadow w-full max-w-full overflow-hidden mb-6">
-        <Card title="Детали запроса" size="small" bordered={false} style={{ marginBottom: 0 }}>
+        <Card title={t('Detali_zaprosa')} size="small" bordered={false} style={{ marginBottom: 0 }}>
           <Descriptions column={2} size="small">
-            <Descriptions.Item label="Модель">{logEntry.model}</Descriptions.Item>
-            <Descriptions.Item label="Провайдер">{logEntry.custom_llm_provider || "-"}</Descriptions.Item>
-            <Descriptions.Item label="Тип вызова">{logEntry.call_type}</Descriptions.Item>
-            <Descriptions.Item label="ID модели">
+            <Descriptions.Item label={t('Model')}>{logEntry.model}</Descriptions.Item>
+            <Descriptions.Item label={t('Provayder')}>{logEntry.custom_llm_provider || "-"}</Descriptions.Item>
+            <Descriptions.Item label={t('Tip_vyzova')}>{logEntry.call_type}</Descriptions.Item>
+            <Descriptions.Item label={t('ID_modeli')}>
               <TruncatedValue value={logEntry.model_id} />
             </Descriptions.Item>
             <Descriptions.Item label="API Base">
               <TruncatedValue value={logEntry.api_base} maxWidth={API_BASE_MAX_WIDTH} />
             </Descriptions.Item>
             {logEntry.requester_ip_address && (
-              <Descriptions.Item label="IP-адрес">{logEntry.requester_ip_address}</Descriptions.Item>
+              <Descriptions.Item label={t('IP_adres')}>{logEntry.requester_ip_address}</Descriptions.Item>
             )}
             {hasGuardrailData && (
-              <Descriptions.Item label="Защита">
+              <Descriptions.Item label={t('Zaschita')}>
                 <GuardrailLabel label={primaryGuardrailLabel} maskedCount={totalMaskedEntities} />
               </Descriptions.Item>
             )}
@@ -158,7 +159,7 @@ export function LogDetailContent({ logEntry, onOpenSettings, isLoadingDetails = 
       {isLoadingDetails ? (
         <div className="bg-white rounded-lg shadow w-full max-w-full overflow-hidden mb-6 p-8 text-center">
           <Spin size="default" />
-          <div style={{ marginTop: 8, color: "#999" }}>Загрузка данных запроса и ответа...</div>
+          <div style={{ marginTop: 8, color: "#999" }}>{t('Zagruzka_dannyh_zaprosa_i_otveta')}</div>
         </div>
       ) : (
         <RequestResponseSection
@@ -210,12 +211,12 @@ function ErrorDescription({ errorInfo }: { errorInfo: any }) {
     <div>
       {errorInfo.error_code && (
         <div>
-          <Text strong>Код ошибки:</Text> {errorInfo.error_code}
+          <Text strong>{t('Kod_oshibki_1')}</Text> {errorInfo.error_code}
         </div>
       )}
       {errorInfo.error_message && (
         <div>
-          <Text strong>Сообщение:</Text> {errorInfo.error_message}
+          <Text strong>{t('Soobschenie')}</Text> {errorInfo.error_message}
         </div>
       )}
     </div>
@@ -226,7 +227,7 @@ function TagsSection({ tags }: { tags: Record<string, any> }) {
   return (
     <div className="bg-white rounded-lg shadow w-full max-w-full overflow-hidden p-4 mb-6">
       <Text strong style={{ display: "block", marginBottom: 8, fontSize: 16 }}>
-        Теги
+        {t('Tegi')}
       </Text>
       <Space size={SPACING_MEDIUM} wrap>
         {Object.entries(tags).map(([key, value]) => (
@@ -250,7 +251,7 @@ function GuardrailLabel({ label, maskedCount }: { label: string; maskedCount: nu
       <a onClick={handleClick} style={{ cursor: "pointer" }}>{label}</a>
       {maskedCount > 0 && (
         <Tag color="blue">
-          {maskedCount} замаскировано
+          {maskedCount} ${t('zamaskirovano')}
         </Tag>
       )}
     </Space>
@@ -279,33 +280,33 @@ function MetricsSection({ logEntry, metadata }: { logEntry: LogEntry; metadata: 
 
   return (
     <div className="bg-white rounded-lg shadow w-full max-w-full overflow-hidden mb-6">
-      <Card title="Метрики" size="small" style={{ marginBottom: 0 }}>
+      <Card title={t('Metriki')} size="small" style={{ marginBottom: 0 }}>
         <Descriptions column={2} size="small">
-          <Descriptions.Item label="Токены">
+          <Descriptions.Item label={t('Tokeny')}>
             <TokenFlow
               prompt={logEntry.prompt_tokens}
               completion={logEntry.completion_tokens}
               total={logEntry.total_tokens}
             />
           </Descriptions.Item>
-          <Descriptions.Item label="Стоимость">${formatNumberWithCommas(logEntry.spend || 0, 8)}</Descriptions.Item>
-          <Descriptions.Item label="Длительность">{logEntry.request_duration_ms != null ? (logEntry.request_duration_ms / 1000).toFixed(3) : "-"} s</Descriptions.Item>
+          <Descriptions.Item label={t('Stoimost')}>${formatNumberWithCommas(logEntry.spend || 0, 8)}</Descriptions.Item>
+          <Descriptions.Item label={t('Dlitelnost')}>{logEntry.request_duration_ms != null ? (logEntry.request_duration_ms / 1000).toFixed(3) : "-"} s</Descriptions.Item>
           {ttftMs != null && ttftMs > 0 && (
-            <Descriptions.Item label="Время до первого токена">{(ttftMs / 1000).toFixed(3)} s</Descriptions.Item>
+            <Descriptions.Item label={t('Vremya_do_pervogo_tokena')}>{(ttftMs / 1000).toFixed(3)} s</Descriptions.Item>
           )}
 
           {hasCacheActivity && (
             <>
-              <Descriptions.Item label="Кеш-попадание">
+              <Descriptions.Item label={t('Kesh_popadanie')}>
                 <Tag color={cacheHitColor}>{cacheHitValue}</Tag>
               </Descriptions.Item>
               {metadata?.additional_usage_values?.cache_read_input_tokens > 0 && (
-                <Descriptions.Item label="Токены кеш-чтения">
+                <Descriptions.Item label={t('Tokeny_kesh_chteniya')}>
                   {formatNumberWithCommas(metadata.additional_usage_values.cache_read_input_tokens)}
                 </Descriptions.Item>
               )}
               {metadata?.additional_usage_values?.cache_creation_input_tokens > 0 && (
-                <Descriptions.Item label="Токены создания кеша">
+                <Descriptions.Item label={t('Tokeny_sozdaniya_kesha')}>
                   {formatNumberWithCommas(metadata.additional_usage_values.cache_creation_input_tokens)}
                 </Descriptions.Item>
               )}
@@ -313,12 +314,12 @@ function MetricsSection({ logEntry, metadata }: { logEntry: LogEntry; metadata: 
           )}
 
           {metadata?.litellm_overhead_time_ms !== undefined && metadata.litellm_overhead_time_ms !== null && (
-            <Descriptions.Item label="Накладные расходы LiteLLM">
+            <Descriptions.Item label={t('Nakladnye_rashody_LiteLLM')}>
               {metadata.litellm_overhead_time_ms.toFixed(2)} ms
             </Descriptions.Item>
           )}
 
-          <Descriptions.Item label="Повторы">
+          <Descriptions.Item label={t('Povtory')}>
             {metadata?.attempted_retries !== undefined && metadata?.attempted_retries !== null
               ? metadata.attempted_retries > 0
                 ? <>{metadata.attempted_retries}{metadata.max_retries !== undefined && metadata.max_retries !== null ? ` / ${metadata.max_retries}` : ''}</>
@@ -326,10 +327,10 @@ function MetricsSection({ logEntry, metadata }: { logEntry: LogEntry; metadata: 
               : "-"}
           </Descriptions.Item>
 
-          <Descriptions.Item label="Время начала">
+          <Descriptions.Item label={t('Vremya_nachala')}>
             {moment(logEntry.startTime).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]")}
           </Descriptions.Item>
-          <Descriptions.Item label="Время окончания">
+          <Descriptions.Item label={t('Vremya_okonchaniya')}>
             {moment(logEntry.endTime).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]")}
           </Descriptions.Item>
         </Descriptions>
@@ -353,7 +354,8 @@ function RequestResponseSection({
   getFormattedResponse,
   logEntry,
 }: RequestResponseSectionProps) {
-  const [activeTab, setActiveTab] = useState<typeof TAB_REQUEST | typeof TAB_RESPONSE>(TAB_REQUEST);
+    const { t } = useTranslation();
+const [activeTab, setActiveTab] = useState<typeof TAB_REQUEST | typeof TAB_RESPONSE>(TAB_REQUEST);
   const [viewMode, setViewMode] = useState<'pretty' | 'json'>('pretty');
 
   const getCopyText = () => {
@@ -398,13 +400,13 @@ function RequestResponseSection({
                   }
                 }}
               >
-                <h3 className="text-lg font-medium text-gray-900" style={{ margin: 0 }}>Запрос и ответ</h3>
+                <h3 className="text-lg font-medium text-gray-900" style={{ margin: 0 }}>{t('Zapros_i_otvet')}</h3>
                 <Radio.Group
                   size="small"
                   value={viewMode}
                   onChange={(e) => setViewMode(e.target.value)}
                 >
-                  <Radio.Button value="pretty">Красиво</Radio.Button>
+                  <Radio.Button value="pretty">{t('Krasivo')}</Radio.Button>
                   <Radio.Button value="json">JSON</Radio.Button>
                 </Radio.Group>
               </div>
@@ -430,7 +432,7 @@ function RequestResponseSection({
                       <Text
                         copyable={{
                           text: getCopyText(),
-                          tooltips: ["Копировать JSON", "Скопировано!"]
+                          tooltips: [t('Kopirovat_JSON'), t('Skopirovano')]
                         }}
                         disabled={activeTab === TAB_RESPONSE && !hasResponse && !hasError}
                       />
@@ -438,7 +440,7 @@ function RequestResponseSection({
                     items={[
                       {
                         key: TAB_REQUEST,
-                        label: "Запрос",
+                        label: t('Zapros'),
                         children: (
                           <div style={{ paddingTop: SPACING_XLARGE, paddingBottom: SPACING_XLARGE }}>
                             <JsonViewer data={getRawRequest()} mode="formatted" />
@@ -447,14 +449,14 @@ function RequestResponseSection({
                       },
                       {
                         key: TAB_RESPONSE,
-                        label: "Ответ",
+                        label: t('Otvet'),
                         children: (
                           <div style={{ paddingTop: SPACING_XLARGE, paddingBottom: SPACING_XLARGE }}>
                             {hasResponse || hasError ? (
                               <JsonViewer data={getFormattedResponse()} mode="formatted" />
                             ) : (
                               <div style={{ textAlign: "center", padding: 20, color: "#999", fontStyle: "italic" }}>
-                                Данные ответа недоступны
+                                {t('Dannye_otveta_nedostupny')}
                               </div>
                             )}
                           </div>
@@ -501,7 +503,7 @@ export function GuardrailJumpLink({ guardrailEntries }: { guardrailEntries: any[
           border: `1px solid ${allPassed ? "#bbf7d0" : "#fecaca"}`,
         }}
       >
-        {allPassed ? "\u2713" : "\u2717"} {guardrailEntries.length} {guardrailEntries.length !== 1 ? "защит проверено" : "защита проверена"}
+        {allPassed ? "\u2713" : "\u2717"} {guardrailEntries.length} {guardrailEntries.length !== 1 ? t('zaschit_provereno') : t('zaschita_proverena')}
         <span style={{ fontSize: 11, opacity: 0.7 }}>{"\u2193"}</span>
       </div>
     </div>
@@ -517,14 +519,14 @@ function MetadataSection({ metadata }: { metadata: Record<string, any> }) {
         items={[
           {
             key: "1",
-            label: <h3 className="text-lg font-medium text-gray-900">Метаданные</h3>,
+            label: <h3 className="text-lg font-medium text-gray-900">{t('Metadannye')}</h3>,
             children: (
               <div>
                 <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 8 }}>
                   <Text
                     copyable={{
                       text: JSON.stringify(metadata, null, 2),
-                      tooltips: ["Копировать метаданные", "Скопировано!"]
+                      tooltips: [t('Kopirovat_metadannye'), t('Skopirovano')]
                     }}
                   />
                 </div>

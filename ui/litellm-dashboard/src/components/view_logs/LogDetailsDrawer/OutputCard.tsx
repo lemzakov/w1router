@@ -9,6 +9,7 @@ import MessageManager from "@/components/molecules/message_manager";
 import { ParsedMessage } from './prettyMessagesTypes';
 import { SectionHeader } from './SectionHeader';
 import { SimpleMessageBlock } from './SimpleMessageBlock';
+import { useTranslation } from "react-i18next";
 
 const { Text } = Typography;
 
@@ -19,14 +20,15 @@ interface OutputCardProps {
 }
 
 export function OutputCard({ message, completionTokens, outputCost }: OutputCardProps) {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+    const { t } = useTranslation();
+const [isCollapsed, setIsCollapsed] = useState(false);
 
   const handleCopy = () => {
     if (!message) return;
     
     const content = message.content || '';
     navigator.clipboard.writeText(content);
-    MessageManager.success('Выходные данные скопированы');
+    MessageManager.success(t('Vyhodnye_dannye_skopirovany'));
   };
 
   if (!message) {
@@ -56,7 +58,7 @@ export function OutputCard({ message, completionTokens, outputCost }: OutputCard
         >
           <div style={{ padding: '12px 16px' }}>
             <Text type="secondary" style={{ fontSize: 13, fontStyle: 'italic' }}>
-              Данные ответа недоступны
+              {t('Dannye_otveta_nedostupny')}
             </Text>
           </div>
         </div>
@@ -93,7 +95,7 @@ export function OutputCard({ message, completionTokens, outputCost }: OutputCard
       >
         <div style={{ padding: '12px 16px' }}>
           <SimpleMessageBlock
-            label="АССИСТЕНТ"
+            label={t('ASSISTENT')}
             content={message.content}
             toolCalls={message.toolCalls}
           />

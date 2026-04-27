@@ -18,6 +18,7 @@ import debounce from "lodash/debounce";
 import { useEffect, useMemo, useState } from "react";
 import { useModelsInfo } from "../../hooks/models/useModels";
 import { transformModelData } from "../utils/modelDataTransformer";
+import { useTranslation } from "react-i18next";
 type ModelViewMode = "all" | "current_team";
 const { Text } = Typography;
 
@@ -39,7 +40,8 @@ const AllModelsTab = ({
   setSelectedTeamId,
 }: AllModelsTabProps) => {
   const { data: modelCostMapData, isLoading: isLoadingModelCostMap } = useModelCostMap();
-  const { accessToken, userId, userRole, premiumUser } = useAuthorized();
+    const { t } = useTranslation();
+const { accessToken, userId, userRole, premiumUser } = useAuthorized();
   const { data: teams, isLoading: isLoadingTeams } = useTeams();
   const queryClient = useQueryClient();
 
@@ -208,7 +210,7 @@ const AllModelsTab = ({
     try {
       setDeleteLoading(true);
       await modelDeleteCall(accessToken, deleteModalModelId);
-      NotificationsManager.success("Модель успешно удалена");
+      NotificationsManager.success(t('Model_uspeshno_udalena'));
       queryClient.invalidateQueries({ queryKey: ["models", "list"] });
       refetchModels();
     } catch (error) {
@@ -229,7 +231,7 @@ const AllModelsTab = ({
             <div className="border-b px-6 py-4 bg-gray-50">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                  <Text className="text-lg font-semibold text-gray-900">Текущая команда:</Text>
+                  <Text className="text-lg font-semibold text-gray-900">{t('Tekuschaya_komanda')}</Text>
                   <div className="w-80">
                     {isLoading ? (
                       <Skeleton.Input active block size="large" />
@@ -262,7 +264,7 @@ const AllModelsTab = ({
                             label: (
                               <Space direction="horizontal" align="center">
                                 <Badge color="blue" size="small" />
-                                <Text style={{ fontSize: 16 }}>Личный</Text>
+                                <Text style={{ fontSize: 16 }}>{t('Lichnyy')}</Text>
                               </Space>
                             ),
                           },
@@ -285,7 +287,7 @@ const AllModelsTab = ({
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
-                  <Text className="text-lg font-semibold text-gray-900">Вид:</Text>
+                  <Text className="text-lg font-semibold text-gray-900">{t('Vid')}</Text>
                   <div className="w-64">
                     {isLoading ? (
                       <Skeleton.Input active block size="large" />
@@ -302,7 +304,7 @@ const AllModelsTab = ({
                             label: (
                               <Space direction="horizontal" align="center">
                                 <Badge color="purple" size="small" />
-                                <Text style={{ fontSize: 16 }}>Модели текущей команды</Text>
+                                <Text style={{ fontSize: 16 }}>{t('Modeli_tekuschey_komandy')}</Text>
                               </Space>
                             ),
                           },
@@ -311,7 +313,7 @@ const AllModelsTab = ({
                             label: (
                               <Space direction="horizontal" align="center">
                                 <Badge color="gray" size="small" />
-                                <Text style={{ fontSize: 16 }}>Все доступные модели</Text>
+                                <Text style={{ fontSize: 16 }}>{t('Vse_dostupnye_modeli')}</Text>
                               </Space>
                             ),
                           },
@@ -328,23 +330,23 @@ const AllModelsTab = ({
                   <div className="text-xs text-gray-500">
                     {currentTeam === "personal" ? (
                       <span>
-                        Для доступа к этим моделям: создайте виртуальный ключ без выбора команды на{" "}
+                        {t('Dlya_dostupa_k_etim_modelyam_sozdayte_vi')}{" "}
                         <a
                           href="/public?login=success&page=api-keys"
                           className="text-gray-600 hover:text-gray-800 underline"
                         >
-                          странице виртуальных ключей
+                          {t('stranitse_virtualnyh_klyuchey')}
                         </a>
                       </span>
                     ) : (
                       <span>
-                        Для доступа к этим моделям: создайте виртуальный ключ и выберите команду &quot;
-                        {typeof currentTeam !== "string" ? currentTeam.team_alias || currentTeam.team_id : ""}&quot; на{" "}
+                        {t('Dlya_dostupa_k_etim_modelyam_sozdayte_vi_1')} &quot;
+                        {typeof currentTeam !== "string" ? currentTeam.team_alias || currentTeam.team_id : "t('quot_na') "}
                         <a
                           href="/public?login=success&page=api-keys"
                           className="text-gray-600 hover:text-gray-800 underline"
                         >
-                          странице виртуальных ключей
+                          {t('stranitse_virtualnyh_klyuchey')}
                         </a>
                       </span>
                     )}
@@ -363,7 +365,7 @@ const AllModelsTab = ({
                     <div className="relative w-64">
                       <input
                         type="text"
-                        placeholder="Поиск по названиям моделей..."
+                        placeholder={t('Poisk_po_nazvaniyam_modeley')}
                         className="w-full px-3 py-2 pl-8 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         value={modelNameSearch}
                         onChange={(e) => setModelNameSearch(e.target.value)}
@@ -396,7 +398,7 @@ const AllModelsTab = ({
                           d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
                         />
                       </svg>
-                      Фильтры
+                      {t('Filtry')}
                     </button>
 
                     {/* Reset Filters Button */}
@@ -412,7 +414,7 @@ const AllModelsTab = ({
                           d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
                         />
                       </svg>
-                      Сбросить фильтры
+                      {t('Sbrosit_filtry')}
                     </button>
                   </div>
 
@@ -420,7 +422,7 @@ const AllModelsTab = ({
                   <Button
                     icon={<SettingOutlined />}
                     onClick={() => setIsModelSettingsModalVisible(true)}
-                    title="Настройки модели"
+                    title={t('Nastroyki_modeli')}
                   />
                 </div>
 
@@ -433,11 +435,11 @@ const AllModelsTab = ({
                         className="w-full"
                         value={selectedModelGroup ?? "all"}
                         onChange={(value) => setSelectedModelGroup(value === "all" ? "all" : value)}
-                        placeholder="Фильтр по публичному названию модели"
+                        placeholder={t('Filtr_po_publichnomu_nazvaniyu_modeli')}
                         showSearch
                         options={[
-                          { value: "all", label: "Все модели" },
-                          { value: "wildcard", label: "Шаблонные модели (*)" },
+                          { value: "all", label: t('Vse_modeli') },
+                          { value: "wildcard", label: t('Shablonnye_modeli') },
                           ...availableModelGroups.map((group, idx) => ({
                             value: group,
                             label: group,
@@ -452,10 +454,10 @@ const AllModelsTab = ({
                         className="w-full"
                         value={selectedModelAccessGroupFilter ?? "all"}
                         onChange={(value) => setSelectedModelAccessGroupFilter(value === "all" ? null : value)}
-                        placeholder="Фильтр по группе доступа модели"
+                        placeholder={t('Filtr_po_gruppe_dostupa_modeli')}
                         showSearch
                         options={[
-                          { value: "all", label: "Все группы доступа моделей" },
+                          { value: "all", label: t('Vse_gruppy_dostupa_modeley') },
                           ...availableModelAccessGroups.map((accessGroup, idx) => ({
                             value: accessGroup,
                             label: accessGroup,
@@ -473,8 +475,8 @@ const AllModelsTab = ({
                   ) : (
                     <span className="text-sm text-gray-700">
                       {paginationMeta.total_count > 0
-                        ? `Показано ${((currentPage - 1) * pageSize) + 1} - ${Math.min(currentPage * pageSize, paginationMeta.total_count)} из ${paginationMeta.total_count} результатов`
-                        : "Показано 0 результатов"}
+                        ? `${t('Pokazano')} ${((currentPage - 1) * pageSize) + 1} - ${Math.min(currentPage * pageSize, paginationMeta.total_count)} ${t('iz')} ${paginationMeta.total_count} ${t('rezultatov')}`
+                        : t('Pokazano_0_rezultatov')}
                     </span>
                   )}
 
@@ -494,7 +496,7 @@ const AllModelsTab = ({
                           : "hover:bg-gray-50"
                           }`}
                       >
-                        Назад
+                        {t('Nazad')}
                       </button>
                     )}
 
@@ -513,7 +515,7 @@ const AllModelsTab = ({
                           : "hover:bg-gray-50"
                           }`}
                       >
-                        Вперёд
+                        {t('Vperyod')}
                       </button>
                     )}
                   </div>
@@ -550,26 +552,26 @@ const AllModelsTab = ({
 
       <DeleteResourceModal
         isOpen={!!deleteModalModelId}
-        title="Удалить модель"
-        alertMessage="Это действие нельзя отменить."
-        message="Вы уверены, что хотите удалить эту модель?"
-        resourceInformationTitle="Информация о модели"
+        title={t('Udalit_model')}
+        alertMessage={t('Eto_deystvie_nelzya_otmenit')}
+        message={t('Vy_uvereny_chto_hotite_udalit_etu_model')}
+        resourceInformationTitle={t('Informatsiya_o_modeli')}
         resourceInformation={modelToDelete ? [
           {
-            label: "Название модели",
-            value: modelToDelete.model_name || "Не задано",
+            label: t('Nazvanie_modeli'),
+            value: modelToDelete.model_name || t('Ne_zadano'),
           },
           {
-            label: "Название модели LiteLLM",
-            value: modelToDelete.litellm_model_name || "Не задано",
+            label: t('Nazvanie_modeli_LiteLLM'),
+            value: modelToDelete.litellm_model_name || t('Ne_zadano'),
           },
           {
-            label: "Провайдер",
-            value: modelToDelete.provider || "Не задано",
+            label: t('Provayder'),
+            value: modelToDelete.provider || t('Ne_zadano'),
           },
           {
-            label: "Создано кем",
-            value: modelToDelete.model_info?.created_by || "Не задано",
+            label: t('Sozdano_kem'),
+            value: modelToDelete.model_info?.created_by || t('Ne_zadano'),
           },
         ] : []}
         onCancel={() => setDeleteModalModelId(null)}

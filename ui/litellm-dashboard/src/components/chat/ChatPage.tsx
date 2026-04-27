@@ -1,4 +1,5 @@
 "use client";
+import { useTranslation } from "react-i18next";
 
 import React, { useCallback, useEffect, useRef, useState, useLayoutEffect } from "react";
 import { Tooltip, Skeleton, Popover } from "antd";
@@ -124,7 +125,8 @@ async function streamToModel(
 }
 
 const ChatPage: React.FC<ChatPageProps> = ({ accessToken, userRole, userId, userEmail }) => {
-  const router = useRouter();
+    const { t } = useTranslation();
+const router = useRouter();
   const searchParams = useSearchParams();
   const activeConversationId = searchParams.get("id");
   const { data: uiConfig } = useUIConfig();
@@ -848,7 +850,7 @@ const ChatPage: React.FC<ChatPageProps> = ({ accessToken, userRole, userId, user
               </span>
             </div>
           )}
-          <Tooltip title={sidebarCollapsed ? "Развернуть меню" : "Свернуть меню"} placement="right">
+          <Tooltip title={sidebarCollapsed ? t('Razvernut_menyu') : t('Svernut_menyu')} placement="right">
             <button
               onClick={() => setSidebarCollapsed((v) => !v)}
               style={{

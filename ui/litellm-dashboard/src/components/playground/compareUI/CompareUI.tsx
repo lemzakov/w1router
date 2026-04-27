@@ -1,4 +1,5 @@
 "use client";
+import { useTranslation } from "react-i18next";
 
 import NotificationsManager from "@/components/molecules/notifications_manager";
 import { ClearOutlined, DeleteOutlined, FilePdfOutlined, PlusOutlined } from "@ant-design/icons";
@@ -46,14 +47,15 @@ interface CompareUIProps {
   disabledPersonalKeyCreation: boolean;
 }
 const GENERIC_FOLLOW_UPS = [
-  "Можете подвести итог ключевых моментов?",
-  "Какие предположения вы сделали?",
-  "Каковы следующие шаги?",
+  t('Mozhete_podvesti_itog_klyuchevyh_momento'),
+  t('Kakie_predpolozheniya_vy_sdelali'),
+  t('Kakovy_sleduyuschie_shagi'),
 ];
-const SUGGESTED_PROMPTS = ["Напишите мне стихотворение", "Объясните квантовые вычисления", "Составьте вежливое письмо с просьбой о встрече"];
+const SUGGESTED_PROMPTS = [t('Napishite_mne_stihotvorenie'), t('Obyasnite_kvantovye_vychisleniya'), t('Sostavte_vezhlivoe_pismo_s_prosboy_o_v')];
 const DEFAULT_ENDPOINT = EndpointId.CHAT_COMPLETIONS;
 export default function CompareUI({ accessToken, disabledPersonalKeyCreation }: CompareUIProps) {
-  const [comparisons, setComparisons] = useState<ComparisonInstance[]>([
+    const { t } = useTranslation();
+const [comparisons, setComparisons] = useState<ComparisonInstance[]>([
     {
       id: "1",
       model: "",
@@ -485,7 +487,7 @@ export default function CompareUI({ accessToken, disabledPersonalKeyCreation }: 
       return;
     }
     if (!effectiveApiKey) {
-      NotificationsManager.fromBackend("Укажите виртуальный ключ или выберите текущую сессию UI");
+      NotificationsManager.fromBackend(t('Ukazhite_virtualnyy_klyuch_ili_vyberite_'));
       return;
     }
     const targetComparisons = comparisons;
@@ -645,13 +647,13 @@ export default function CompareUI({ accessToken, disabledPersonalKeyCreation }: 
                 messages[messages.length - 1] = {
                   ...last,
                   content: assistantContent
-                    ? `${assistantContent}\nОшибка получения ответа: ${errorMessage}`
-                    : `Ошибка получения ответа: ${errorMessage}`,
+                    ? `${assistantContent}\n${t('Oshibka_polucheniya_otveta')} ${errorMessage}`
+                    : `${t('Oshibka_polucheniya_otveta')} ${errorMessage}`,
                 };
               } else {
                 messages.push({
                   role: "assistant",
-                  content: `Ошибка получения ответа: ${errorMessage}`,
+                  content: `${t('Oshibka_polucheniya_otveta')} ${errorMessage}`,
                 });
               }
               return {
@@ -695,7 +697,7 @@ export default function CompareUI({ accessToken, disabledPersonalKeyCreation }: 
         <div className="border-b px-4 py-2">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-2">
-              <span className="text-sm font-medium text-gray-600">Источник виртуального ключа</span>
+              <span className="text-sm font-medium text-gray-600">{t('Istochnik_virtualnogo_klyucha')}</span>
               <Select
                 value={apiKeySource}
                 onChange={(value) => setApiKeySource(value as "session" | "custom")}
@@ -703,21 +705,21 @@ export default function CompareUI({ accessToken, disabledPersonalKeyCreation }: 
                 className="w-48"
               >
                 <Select.Option value="session" disabled={!canUseSessionKey}>
-                  Текущая сессия UI
+                  {t('Tekuschaya_sessiya_UI')}
                 </Select.Option>
-                <Select.Option value="custom">Виртуальный ключ</Select.Option>
+                <Select.Option value="custom">{t('Virtualnyy_klyuch')}</Select.Option>
               </Select>
               {apiKeySource === "custom" && (
                 <Input.Password
                   value={customApiKey}
                   onChange={(event) => setCustomApiKey(event.target.value)}
-                  placeholder="Введите виртуальный ключ"
+                  placeholder={t('Vvedite_virtualnyy_klyuch')}
                   className="w-56"
                 />
               )}
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-sm font-medium text-gray-600">Конечная точка</span>
+              <span className="text-sm font-medium text-gray-600">{t('Konechnaya_tochka')}</span>
               <Select 
                 value={selectedEndpoint} 
                 onChange={(value) => setSelectedEndpoint(value as EndpointIdType)}
@@ -735,15 +737,15 @@ export default function CompareUI({ accessToken, disabledPersonalKeyCreation }: 
             </div>
             <div className="flex items-center gap-3">
               <Button onClick={clearAllChats} disabled={!hasMessages} icon={<ClearOutlined />}>
-                Очистить все чаты
+                {t('Ochistit_vse_chaty')}
               </Button>
               <Tooltip
                 title={
-                  comparisons.length >= maxComparisons ? "Сравнивайте до 3 моделей одновременно" : "Добавить ещё одно сравнение"
+                  comparisons.length >= maxComparisons ? t('Sravnivayte_do_3_modeley_odnovremenno') : t('Dobavit_eschyo_odno_sravnenie')
                 }
               >
                 <Button onClick={addComparison} disabled={comparisons.length >= maxComparisons} icon={<PlusOutlined />}>
-                  Добавить сравнение
+                  {t('Dobavit_sravnenie')}
                 </Button>
               </Tooltip>
             </div>
@@ -775,7 +777,7 @@ export default function CompareUI({ accessToken, disabledPersonalKeyCreation }: 
             <div className="border border-gray-200 shadow-lg rounded-xl bg-white p-4">
               <div className="flex items-center justify-between gap-4 mb-3 min-h-8">
                 {hasAttachment ? (
-                  <span className="text-sm text-gray-500">Вложение готово к отправке</span>
+                  <span className="text-sm text-gray-500">{t('Vlozhenie_gotovo_k_otpravke')}</span>
                 ) : showSuggestedPrompts ? (
                   <div className="flex items-center gap-2 overflow-x-auto">
                     {SUGGESTED_PROMPTS.map((prompt) => (
@@ -829,7 +831,7 @@ export default function CompareUI({ accessToken, disabledPersonalKeyCreation }: 
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="text-sm font-medium text-gray-900 truncate">{uploadedFile.name}</div>
-                      <div className="text-xs text-gray-500">{isUploadedFilePdf ? "PDF" : "Изображение"}</div>
+                      <div className="text-xs text-gray-500">{isUploadedFilePdf ? "PDF" : t('Izobrazhenie')}</div>
                     </div>
                     <button
                       className="flex items-center justify-center w-6 h-6 text-gray-400 hover:text-gray-600 hover:bg-gray-200 rounded-full transition-colors"

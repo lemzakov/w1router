@@ -14,6 +14,7 @@ import { userBulkUpdateUserCall, teamBulkMemberAddCall, Member } from "./network
 import { UserEditView } from "./user_edit_view";
 import NotificationsManager from "./molecules/notifications_manager";
 import MessageManager from "@/components/molecules/message_manager";
+import { useTranslation } from "react-i18next";
 
 const { Text, Title } = Typography;
 
@@ -42,7 +43,8 @@ const BulkEditUserModal: React.FC<BulkEditUserModalProps> = ({
   userModels,
   allowAllUsers = false,
 }) => {
-  const [loading, setLoading] = useState(false);
+    const { t } = useTranslation();
+const [loading, setLoading] = useState(false);
   const [selectedTeams, setSelectedTeams] = useState<string[]>([]);
   const [teamBudget, setTeamBudget] = useState<number | null>(null);
   const [addToTeams, setAddToTeams] = useState(false);
@@ -217,18 +219,18 @@ const BulkEditUserModal: React.FC<BulkEditUserModalProps> = ({
       open={open}
       onCancel={handleCancel}
       footer={null}
-      title={updateAllUsers ? "Массовое редактирование всех пользователей" : `Массовое редактирование ${selectedUsers.length} пользователя(-ей)`}
+      title={updateAllUsers ? t('Massovoe_redaktirovanie_vseh_polzovatel') : `${t('Massovoe_redaktirovanie')} ${selectedUsers.length} ${t('polzovatelya_ey')}`}
       width={800}
     >
       {allowAllUsers && (
         <div className="mb-4">
           <Checkbox checked={updateAllUsers} onChange={(e) => setUpdateAllUsers(e.target.checked)}>
-            <Text strong>Обновить ВСЕХ пользователей в системе</Text>
+            <Text strong>{t('Obnovit_VSEH_polzovateley_v_sisteme')}</Text>
           </Checkbox>
           {updateAllUsers && (
             <div style={{ marginTop: 8 }}>
               <Text type="warning" style={{ fontSize: "12px" }}>
-                ⚠️ Изменения будут применены ко ВСЕМ пользователям системы, а не только к выбранным.
+                {t('Izmeneniya_budut_primeneny_ko_VSEM_pol')}
               </Text>
             </div>
           )}
@@ -237,7 +239,7 @@ const BulkEditUserModal: React.FC<BulkEditUserModalProps> = ({
 
       {!updateAllUsers && (
         <div className="mb-4">
-          <Title level={5}>Выбранные пользователи ({selectedUsers.length}):</Title>
+          <Title level={5}>${t('Vybrannye_polzovateli')} ({selectedUsers.length}):</Title>
           <Table
             size="small"
             bordered
@@ -247,7 +249,7 @@ const BulkEditUserModal: React.FC<BulkEditUserModalProps> = ({
             rowKey="user_id"
             columns={[
               {
-                title: "ID пользователя",
+                title: t('ID_polzovatelya'),
                 dataIndex: "user_id",
                 key: "user_id",
                 width: "30%",
@@ -258,18 +260,18 @@ const BulkEditUserModal: React.FC<BulkEditUserModalProps> = ({
                 ),
               },
               {
-                title: "Электронная почта",
+                title: t('Elektronnaya_pochta'),
                 dataIndex: "user_email",
                 key: "user_email",
                 width: "25%",
                 render: (text: string) => (
                   <Text type="secondary" style={{ fontSize: "12px" }}>
-                    {text || "Нет email"}
+                    {text || t('Net_email')}
                   </Text>
                 ),
               },
               {
-                title: "Текущая роль",
+                title: t('Tekuschaya_rol'),
                 dataIndex: "user_role",
                 key: "user_role",
                 width: "25%",
@@ -278,12 +280,12 @@ const BulkEditUserModal: React.FC<BulkEditUserModalProps> = ({
                 ),
               },
               {
-                title: "Бюджет",
+                title: t('Byudzhet'),
                 dataIndex: "max_budget",
                 key: "max_budget",
                 width: "20%",
                 render: (budget: number | null) => (
-                  <Text style={{ fontSize: "12px" }}>{budget !== null ? `$${budget}` : "Без ограничений"}</Text>
+                  <Text style={{ fontSize: "12px" }}>{budget !== null ? `$${budget}` : t('Bez_ogranicheniy')}</Text>
                 ),
               },
             ]}
@@ -295,25 +297,24 @@ const BulkEditUserModal: React.FC<BulkEditUserModalProps> = ({
 
       <div className="mb-4">
         <Text>
-          <strong>Инструкция:</strong> Заполните поля ниже значениями, которые нужно применить ко всем выбранным
-          пользователям. Можно редактировать: роль, бюджет, модели и метаданные. Также можно добавить пользователей в команды.
+          <strong>{t('Instruktsiya')}</strong> {t('Zapolnite_polya_nizhe_znacheniyami_kotor')}
         </Text>
       </div>
 
       {/* Team Management Section */}
-      <Card title="Управление командами" size="small" className="mb-4" style={{ backgroundColor: "#fafafa" }}>
+      <Card title={t('Upravlenie_komandami')} size="small" className="mb-4" style={{ backgroundColor: "#fafafa" }}>
         <Space direction="vertical" style={{ width: "100%" }}>
           <Checkbox checked={addToTeams} onChange={(e) => setAddToTeams(e.target.checked)}>
-            Добавить выбранных пользователей в команды
+            {t('Dobavit_vybrannyh_polzovateley_v_koman')}
           </Checkbox>
 
           {addToTeams && (
             <>
               <div>
-                <Text strong>Выбрать команды:</Text>
+                <Text strong>{t('Vybrat_komandy')}</Text>
                 <Select
                   mode="multiple"
-                  placeholder="Выберите команды для добавления пользователей"
+                  placeholder={t('Vyberite_komandy_dlya_dobavleniya_polzov')}
                   value={selectedTeams}
                   onChange={setSelectedTeams}
                   style={{ width: "100%", marginTop: 8 }}
@@ -327,9 +328,9 @@ const BulkEditUserModal: React.FC<BulkEditUserModalProps> = ({
               </div>
 
               <div>
-                <Text strong>Бюджет команды (необязательно):</Text>
+                <Text strong>{t('Byudzhet_komandy_neobyazatelno')}</Text>
                 <InputNumber
-                  placeholder="Макс. бюджет на пользователя в команде"
+                  placeholder={t('Maks_byudzhet_na_polzovatelya_v_komande')}
                   value={teamBudget}
                   onChange={(value) => setTeamBudget(value)}
                   style={{ width: "100%", marginTop: 8 }}
@@ -338,12 +339,12 @@ const BulkEditUserModal: React.FC<BulkEditUserModalProps> = ({
                   precision={2}
                 />
                 <Text type="secondary" style={{ fontSize: "12px" }}>
-                  Оставьте пустым для неограниченного бюджета в рамках лимитов команды
+                  {t('Ostavte_pustym_dlya_neogranichennogo_byu')}
                 </Text>
               </div>
 
               <Text type="secondary" style={{ fontSize: "12px" }}>
-                Пользователи будут добавлены с ролью &quot;user&quot; по умолчанию. Все пользователи будут добавлены в каждую выбранную команду.
+                {t('Polzovateli_budut_dobavleny_s_rolyu_qu')}
               </Text>
             </>
           )}
@@ -365,7 +366,7 @@ const BulkEditUserModal: React.FC<BulkEditUserModalProps> = ({
 
       {loading && (
         <div style={{ textAlign: "center", marginTop: "10px" }}>
-          <Text>Обновление {updateAllUsers ? "всех пользователей" : selectedUsers.length} пользователя(-ей)...</Text>
+          <Text>{t('Obnovlenie')} {updateAllUsers ? t('vseh_polzovateley') : selectedUsers.length} {t('polzovatelya_ey')}...</Text>
         </div>
       )}
     </Modal>

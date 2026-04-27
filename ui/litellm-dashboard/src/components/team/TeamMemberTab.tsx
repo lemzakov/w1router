@@ -8,6 +8,7 @@ import { Space, Tooltip, Typography } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import MemberTable from "@/components/common_components/MemberTable";
 import { TeamData } from "./TeamInfo";
+import { useTranslation } from "react-i18next";
 
 interface TeamMemberTabProps {
   teamData: TeamData;
@@ -64,7 +65,7 @@ export default function TeamMemberTab({
 
   // Helper function to get rate limits for a user
   const getUserRateLimits = (userId: string | null): string => {
-    if (!userId) return "Без ограничений";
+    if (!userId) return t('Bez_ogranicheniy');
     const membership = teamData.team_memberships.find((tm) => tm.user_id === userId);
     const rpmLimit = membership?.litellm_budget_table?.rpm_limit;
     const tpmLimit = membership?.litellm_budget_table?.tpm_limit;
@@ -73,11 +74,12 @@ export default function TeamMemberTab({
     const tpmText = tpmLimit ? `${formatNumber(tpmLimit)} TPM` : null;
 
     const limits = [rpmText, tpmText].filter(Boolean);
-    return limits.length > 0 ? limits.join(" / ") : "Без ограничений";
+    return limits.length > 0 ? limits.join(" / ") : t('Bez_ogranicheniy');
   };
 
   const { data: uiSettingsData } = useUISettings();
-  const { userId, userRole } = useAuthorized();
+    const { t } = useTranslation();
+const { userId, userRole } = useAuthorized();
   const disableTeamAdminDeleteTeamUser = Boolean(uiSettingsData?.values?.disable_team_admin_delete_team_user);
   const isUserTeamAdmin = isUserTeamAdminForSingleTeam(teamData.team_info.members_with_roles, userId || "");
   const isProxyAdmin = isProxyAdminRole(userRole || "");
@@ -86,8 +88,8 @@ export default function TeamMemberTab({
     {
       title: (
         <Space direction="horizontal">
-          Расходы участника команды (USD)
-          <Tooltip title="Сумма, потраченная пользователем в команде.">
+          {t('Rashody_uchastnika_komandy_USD')}
+          <Tooltip title={t('Summa_potrachennaya_polzovatelem_v_koman')}>
             <InfoCircleOutlined />
           </Tooltip>
         </Space>
@@ -98,13 +100,13 @@ export default function TeamMemberTab({
       ),
     },
     {
-      title: "Бюджет участника команды (USD)",
+      title: t('Byudzhet_uchastnika_komandy_USD'),
       key: "budget",
       render: (_: unknown, record: Member) => {
         const budget = getUserBudget(record.user_id);
         return (
           <Typography.Text>
-            {budget ? `$${formatNumberWithCommas(Number(budget), 4)}` : "Без ограничений"}
+            {budget ? `$${formatNumberWithCommas(Number(budget), 4)}` : t('Bez_ogranicheniy')}
           </Typography.Text>
         );
       },
@@ -112,8 +114,8 @@ export default function TeamMemberTab({
     {
       title: (
         <Space direction="horizontal">
-          Лимиты скорости участника
-          <Tooltip title="Лимиты скорости для использования этого участника в данной команде.">
+          {t('Limity_skorosti_uchastnika')}
+          <Tooltip title={t('Limity_skorosti_dlya_ispolzovaniya_etogo')}>
             <InfoCircleOutlined />
           </Tooltip>
         </Space>
@@ -144,8 +146,8 @@ export default function TeamMemberTab({
       }}
       onDelete={handleMemberDelete}
       onAddMember={() => setIsAddMemberModalVisible(true)}
-      roleColumnTitle="Роль в команде"
-      roleTooltip="Эта роль применяется только к данной команде и не зависит от роли пользователя на уровне прокси."
+      roleColumnTitle={t('Rol_v_komande')}
+      roleTooltip={t('Eta_rol_primenyaetsya_tolko_k_dannoy_kom')}
       extraColumns={extraColumns}
       showDeleteForMember={() =>
         isProxyAdmin || (canEditTeam && !isUserTeamAdmin) || (isUserTeamAdmin && !disableTeamAdminDeleteTeamUser)

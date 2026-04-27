@@ -19,6 +19,7 @@ import { getSpendString } from "@/utils/dataUtils";
 import { normalizeGuardrailEntries } from "./utils";
 import { DRAWER_WIDTH } from "./constants";
 import { useLogDetails } from "@/app/(dashboard)/hooks/logDetails/useLogDetails";
+import { useTranslation } from "react-i18next";
 
 export interface LogDetailsDrawerProps {
   open: boolean;
@@ -115,7 +116,8 @@ export function LogDetailsDrawer({
   startTime,
 }: LogDetailsDrawerProps) {
   const isSessionMode = Boolean(sessionId);
-  const [selectedSessionRequestId, setSelectedSessionRequestId] = useState<string | null>(null);
+    const { t } = useTranslation();
+const [selectedSessionRequestId, setSelectedSessionRequestId] = useState<string | null>(null);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [copiedLeftPanelId, setCopiedLeftPanelId] = useState(false);
 
@@ -209,7 +211,7 @@ export function LogDetailsDrawer({
   const metadata = currentLog?.metadata || {};
 
   // Status display values
-  const statusLabel = metadata.status === "failure" ? "Ошибка" : "Успешно";
+  const statusLabel = metadata.status === "failure" ? t('Oshibka') : t('Uspeshno');
   const statusColor = metadata.status === "failure" ? ("error" as const) : ("success" as const);
   const environment = metadata?.user_api_key_team_alias || "default";
 
@@ -266,7 +268,7 @@ export function LogDetailsDrawer({
               icon={<LeftOutlined />}
               onClick={() => setIsSidebarCollapsed(true)}
               className="absolute top-2 left-2 z-20 !bg-white !border !border-slate-200 !rounded-md"
-              aria-label="Свернуть панель трейса"
+              aria-label={t('Svernut_panel_treysa')}
             />
           ) : (
             <Button
@@ -275,7 +277,7 @@ export function LogDetailsDrawer({
               icon={<RightOutlined />}
               onClick={() => setIsSidebarCollapsed(false)}
               className="absolute top-2 left-2 z-20 !bg-white !border !border-slate-200 !rounded-md"
-              aria-label="Развернуть панель трейса"
+              aria-label={t('Razvernut_panel_treysa')}
             />
           )}
           {!isSidebarCollapsed && (
@@ -287,7 +289,7 @@ export function LogDetailsDrawer({
               <div className="flex items-start justify-between gap-2">
                 <div>
                   <div className="text-[10px] uppercase tracking-wide text-slate-500">
-                    {isSessionMode ? "Сессия" : "Трейс"}
+                    {isSessionMode ? t('Sessiya') : t('Treys')}
                   </div>
                   <div className="font-mono text-[12px] text-slate-900 leading-tight flex items-center gap-1">
                     <span className="truncate">{leftPanelDisplayId}</span>
@@ -295,7 +297,7 @@ export function LogDetailsDrawer({
                       type="button"
                       onClick={handleCopyLeftPanelId}
                       className="text-slate-400 hover:text-slate-600"
-                      aria-label="Копировать ID трейса"
+                      aria-label={t('Kopirovat_ID_treysa')}
                     >
                       {copiedLeftPanelId ? (
                         <CheckOutlined className="text-[11px]" />

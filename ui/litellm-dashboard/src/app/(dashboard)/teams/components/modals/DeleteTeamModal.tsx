@@ -1,6 +1,7 @@
 import { AlertTriangleIcon, XIcon } from "lucide-react";
 import React, { useState } from "react";
 import { Team } from "@/components/key_team_helpers/key_list";
+import { useTranslation } from "react-i18next";
 
 interface DeleteTeamModalProps {
   teams: Team[] | null;
@@ -10,7 +11,8 @@ interface DeleteTeamModalProps {
 }
 
 const DeleteTeamModal = ({ teams, teamToDelete, onCancel, onConfirm }: DeleteTeamModalProps) => {
-  const [deleteConfirmInput, setDeleteConfirmInput] = useState("");
+    const { t } = useTranslation();
+const [deleteConfirmInput, setDeleteConfirmInput] = useState("");
 
   const team = teams?.find((t) => t.team_id === teamToDelete);
   const teamName = team?.team_alias || "";
@@ -22,7 +24,7 @@ const DeleteTeamModal = ({ teams, teamToDelete, onCancel, onConfirm }: DeleteTea
       <div className="bg-white rounded-lg shadow-xl w-full max-w-2xl min-h-[380px] py-6 overflow-hidden transform transition-all flex flex-col justify-between">
         <div>
           <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
-            <h3 className="text-lg font-semibold text-gray-900">Удалить команду</h3>
+            <h3 className="text-lg font-semibold text-gray-900">{t('Udalit_komandu')}</h3>
             <button
               aria-label="Close"
               onClick={() => {
@@ -42,28 +44,28 @@ const DeleteTeamModal = ({ teams, teamToDelete, onCancel, onConfirm }: DeleteTea
                 </div>
                 <div>
                   <p className="text-base font-medium text-red-600">
-                    Предупреждение: У этой команды есть {keyCount} связанный ключ{keyCount > 1 ? "а" : ""}.
+                    {t('Preduprezhdenie_U_etoy_komandy_est')} {keyCount} {t('svyazannyy_klyuch')}{keyCount > 1 ? "" : ""}.
                   </p>
                   <p className="text-base text-red-600 mt-2">
-                    Удаление команды также удалит все связанные ключи. Это действие необратимо.
+                    {t('Udalenie_komandy_takzhe_udalit_vse_svyaz')}
                   </p>
                 </div>
               </div>
             )}
             <p className="text-base text-gray-600 mb-5">
-              Вы уверены, что хотите принудительно удалить эту команду и все её ключи?
+              {t('Vy_uvereny_chto_hotite_prinuditelno_uda')}
             </p>
             <div className="mb-5">
               <label className="block text-base font-medium text-gray-700 mb-2">
-                {`Введите `}
+                {`${t('Vvedite')} `}
                 <span className="underline">{teamName}</span>
-                {` для подтверждения удаления:`}
+                {` ${t('dlya_podtverzhdeniya_udaleniya')}`}
               </label>
               <input
                 type="text"
                 value={deleteConfirmInput}
                 onChange={(e) => setDeleteConfirmInput(e.target.value)}
-                placeholder="Введите название команды точно"
+                placeholder={t('Vvedite_nazvanie_komandy_tochno')}
                 className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base"
                 autoFocus
               />
@@ -78,14 +80,14 @@ const DeleteTeamModal = ({ teams, teamToDelete, onCancel, onConfirm }: DeleteTea
             }}
             className="px-5 py-3 bg-white border border-gray-300 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           >
-            Отмена
+            {t('Otmena')}
           </button>
           <button
             onClick={onConfirm}
             disabled={!isValid}
             className={`px-5 py-3 rounded-md text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 ${isValid ? "bg-red-600 hover:bg-red-700" : "bg-red-300 cursor-not-allowed"}`}
           >
-            Принудительно удалить
+            {t('Prinuditelno_udalit')}
           </button>
         </div>
       </div>

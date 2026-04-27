@@ -2,6 +2,7 @@ import { InfoCircleOutlined } from "@ant-design/icons";
 import { Text } from "@tremor/react";
 import { Checkbox, InputNumber, Popover, Slider, Tooltip, Typography } from "antd";
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 interface AdditionalModelSettingsProps {
   temperature?: number;
@@ -24,7 +25,8 @@ const AdditionalModelSettings: React.FC<AdditionalModelSettingsProps> = ({
   mockTestFallbacks,
   onMockTestFallbacksChange,
 }) => {
-  const [internalUseAdvancedParams, setInternalUseAdvancedParams] = useState(false);
+    const { t } = useTranslation();
+const [internalUseAdvancedParams, setInternalUseAdvancedParams] = useState(false);
   const useAdvancedParams =
     externalUseAdvancedParams !== undefined ? externalUseAdvancedParams : internalUseAdvancedParams;
   const [localTemperature, setLocalTemperature] = useState(temperature);
@@ -65,7 +67,7 @@ const AdditionalModelSettings: React.FC<AdditionalModelSettingsProps> = ({
   return (
     <div className="space-y-4 p-4 w-80">
       <Checkbox checked={useAdvancedParams} onChange={(e) => handleUseAdvancedParamsChange(e.target.checked)}>
-        <span className="font-medium">Использовать расширенные параметры</span>
+        <span className="font-medium">{t('Ispolzovat_rasshirennye_parametry')}</span>
       </Checkbox>
 
       {onMockTestFallbacksChange && (
@@ -74,7 +76,7 @@ const AdditionalModelSettings: React.FC<AdditionalModelSettingsProps> = ({
             checked={mockTestFallbacks ?? false}
             onChange={(e) => onMockTestFallbacksChange(e.target.checked)}
           >
-            <span className="font-medium">Имитировать сбой для тестирования резервных вариантов</span>
+            <span className="font-medium">{t('Imitirovat_sboy_dlya_testirovaniya_rezer')}</span>
           </Checkbox>
           <Popover
             trigger="hover"
@@ -82,17 +84,17 @@ const AdditionalModelSettings: React.FC<AdditionalModelSettingsProps> = ({
             content={
               <div style={{ maxWidth: 340 }}>
                 <Typography.Paragraph className="text-sm" style={{ marginBottom: 8 }}>
-                  Вызывает сбой первого запроса, чтобы маршрутизатор попробовал резервные варианты (если настроены). Используйте это для проверки настройки резервных вариантов.
+                  {t('Vyzyvaet_sboy_pervogo_zaprosa_chtoby_mar')}
                 </Typography.Paragraph>
                 <Typography.Paragraph className="text-sm" style={{ marginBottom: 0 }}>
-                  Поведение может отличаться при настройке ключей, команд или маршрутизатора.{" "}
+                  {t('Povedenie_mozhet_otlichatsya_pri_nastroy')}{" "}
                   <a
                     href="https://docs.litellm.ai/docs/proxy/keys_teams_router_settings"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:text-blue-800"
                   >
-                    Подробнее
+                    {t('Podrobnee')}
                   </a>
                 </Typography.Paragraph>
               </div>
@@ -100,7 +102,7 @@ const AdditionalModelSettings: React.FC<AdditionalModelSettingsProps> = ({
           >
             <InfoCircleOutlined
               className="text-xs text-gray-400 cursor-pointer shrink-0 hover:text-gray-600"
-              aria-label="Помощь: Имитировать сбой для тестирования резервных вариантов"
+              aria-label={t('Pomosch_Imitirovat_sboy_dlya_testirovani')}
             />
           </Popover>
         </div>
@@ -110,8 +112,8 @@ const AdditionalModelSettings: React.FC<AdditionalModelSettingsProps> = ({
         <div>
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-1">
-              <Text className={`text-sm ${disabledTextColor}`}>Температура</Text>
-              <Tooltip title="Управляет случайностью. Меньшие значения делают вывод более детерминированным, большие — более творческим.">
+              <Text className={`text-sm ${disabledTextColor}`}>{t('Temperatura')}</Text>
+              <Tooltip title={t('Upravlyaet_sluchaynostyu_Menshie_znachen')}>
                 <InfoCircleOutlined className={`text-xs ${disabledTextColor} cursor-help`} />
               </Tooltip>
             </div>
@@ -144,8 +146,8 @@ const AdditionalModelSettings: React.FC<AdditionalModelSettingsProps> = ({
         <div>
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-1">
-              <Text className={`text-sm ${disabledTextColor}`}>Максимум токенов</Text>
-              <Tooltip title="Максимальное количество токенов для генерации в ответе.">
+              <Text className={`text-sm ${disabledTextColor}`}>{t('Maksimum_tokenov')}</Text>
+              <Tooltip title={t('Maksimalnoe_kolichestvo_tokenov_dlya_gen')}>
                 <InfoCircleOutlined className={`text-xs ${disabledTextColor} cursor-help`} />
               </Tooltip>
             </div>

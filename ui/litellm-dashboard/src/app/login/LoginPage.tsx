@@ -1,4 +1,6 @@
 "use client";
+import "@/i18n";
+import { useTranslation } from "react-i18next";
 
 import { useLogin } from "@/app/(dashboard)/hooks/login/useLogin";
 import { useUIConfig } from "@/app/(dashboard)/hooks/uiConfig/useUIConfig";
@@ -14,7 +16,8 @@ import { useEffect, useState } from "react";
 import { useWorker } from "@/hooks/useWorker";
 
 function LoginPageContent() {
-  const [username, setUsername] = useState("");
+    const { t } = useTranslation();
+const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const { data: uiConfig, isLoading: isConfigLoading } = useUIConfig();
@@ -171,12 +174,11 @@ function LoginPageContent() {
             </div>
 
             <Alert
-              message="Административный интерфейс отключён"
+              message={t('Administrativnyy_interfeys_otklyuchyon')}
               description={
                 <>
                   <Paragraph className="text-sm">
-                    Административный интерфейс был отключён администратором. Для повторного включения обновите следующую
-                    переменную окружения:
+                    {t('Administrativnyy_interfeys_byl_otklyuchy')}
                   </Paragraph>
                   <Paragraph className="text-sm">
                     <code className="bg-gray-100 px-1 py-0.5 rounded text-xs">DISABLE_ADMIN_UI=False</code>
@@ -201,23 +203,22 @@ function LoginPageContent() {
           </div>
 
           <div className="text-center">
-            <Title level={3}>Вход</Title>
-            <Text type="secondary">Доступ к административному интерфейсу W1 Router.</Text>
+            <Title level={3}>{t('Vhod')}</Title>
+            <Text type="secondary">{t('Dostup_k_administrativnomu_interfeysu_W1')}</Text>
           </div>
 
           <Alert
-            message="Учётные данные по умолчанию"
+            message={t('Uchyotnye_dannye_po_umolchaniyu')}
             description={
               <>
                 <Paragraph className="text-sm">
-                  По умолчанию имя пользователя — <code className="bg-gray-100 px-1 py-0.5 rounded text-xs">admin</code>, а
-                  пароль — ваш LiteLLM Proxy
+                  {t('Po_umolchaniyu_imya_polzovatelya')} <code className="bg-gray-100 px-1 py-0.5 rounded text-xs">admin</code>{t('a_parol_vash_LiteL')}
                   <code className="bg-gray-100 px-1 py-0.5 rounded text-xs">MASTER_KEY</code>.
                 </Paragraph>
                 <Paragraph className="text-sm">
-                  Нужно настроить учётные данные или SSO?{" "}
+                  {t('Nuzhno_nastroit_uchyotnye_dannye_ili_SSO')}{" "}
                   <a href="https://docs.litellm.ai/docs/proxy/ui" target="_blank" rel="noopener noreferrer">
-                    Смотрите документацию
+                    {t('Smotrite_dokumentatsiyu')}
                   </a>
                   .
                 </Paragraph>
@@ -236,7 +237,7 @@ function LoginPageContent() {
                 <Select
                   value={selectedWorkerId || undefined}
                   onChange={(value) => setSelectedWorkerId(value)}
-                  placeholder="Выберите воркер для подключения"
+                  placeholder={t('Vyberite_vorker_dlya_podklyucheniya')}
                   size="large"
                   suffixIcon={<CloudServerOutlined />}
                   options={workers.map((w) => ({
@@ -248,12 +249,12 @@ function LoginPageContent() {
             )}
 
             <Form.Item
-              label="Имя пользователя"
+              label={t('Imya_polzovatelya')}
               name="username"
-              rules={[{ required: true, message: "Введите имя пользователя" }]}
+              rules={[{ required: true, message: t('Vvedite_imya_polzovatelya') }]}
             >
               <Input
-                placeholder="Введите имя пользователя"
+                placeholder={t('Vvedite_imya_polzovatelya')}
                 autoComplete="username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
@@ -264,12 +265,12 @@ function LoginPageContent() {
             </Form.Item>
 
             <Form.Item
-              label="Пароль"
+              label={t('Parol')}
               name="password"
-              rules={[{ required: true, message: "Введите пароль" }]}
+              rules={[{ required: true, message: t('Vvedite_parol') }]}
             >
               <Input.Password
-                placeholder="Введите пароль"
+                placeholder={t('Vvedite_parol')}
                 autoComplete="current-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -287,17 +288,17 @@ function LoginPageContent() {
                 block
                 size="large"
               >
-                {isLoginLoading ? "Выполняется вход..." : "Войти"}
+                {isLoginLoading ? t('Vypolnyaetsya_vhod') : t('Voyti')}
               </Button>
             </Form.Item>
             <Form.Item>
               {!uiConfig?.sso_configured ? (
                 <Popover
-                  content="Пожалуйста, настройте SSO для входа через SSO."
+                  content={t('Pozhaluysta_nastroyte_SSO_dlya_vhoda_che')}
                   trigger="hover"
                 >
                   <Button disabled block size="large">
-                    Войти через SSO
+                    {t('Voyti_cherez_SSO')}
                   </Button>
                 </Popover>
               ) : (
@@ -319,7 +320,7 @@ function LoginPageContent() {
                   block
                   size="large"
                 >
-                  Войти через SSO
+                  {t('Voyti_cherez_SSO')}
                 </Button>
               )}
             </Form.Item>
@@ -330,7 +331,7 @@ function LoginPageContent() {
             type="info"
             showIcon
             closable
-            message={<Text>Включён единый вход (SSO). W1 Router больше не перенаправляет автоматически на страницу входа SSO. Для повторного включения авто-перенаправления установите <Text code>AUTO_REDIRECT_UI_LOGIN_TO_SSO=true</Text> в конфигурации среды.</Text>}
+            message={<Text>{t('Vklyuchyon_edinyy_vhod_SSO_W1_Router_bol')} <Text code>AUTO_REDIRECT_UI_LOGIN_TO_SSO=true</Text> {t('v_konfiguratsii_sredy')}</Text>}
           />
         )}
       </Card>

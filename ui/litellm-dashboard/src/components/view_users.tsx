@@ -28,6 +28,7 @@ import { columns } from "./view_users/columns";
 import { UserDataTable } from "./view_users/table";
 import { UserInfo } from "./view_users/types";
 import { Skeleton } from "antd";
+import { useTranslation } from "react-i18next";
 
 const { Text, Title } = Typography;
 
@@ -72,7 +73,8 @@ const initialFilters: FilterState = {
 
 const ViewUserDashboard: React.FC<ViewUserDashboardProps> = ({ accessToken, token, userRole, userID, teams, orgAdminOrgIds }) => {
   const isProxyAdmin = userRole ? isProxyAdminRole(userRole) : false;
-  const queryClient = useQueryClient();
+    const { t } = useTranslation();
+const queryClient = useQueryClient();
   const [currentPage, setCurrentPage] = useState(1);
   const [editModalVisible, setEditModalVisible] = useState(false);
   const [selectedUser, setSelectedUser] = useState<UserInfo | null>(null);
@@ -312,13 +314,13 @@ const ViewUserDashboard: React.FC<ViewUserDashboardProps> = ({ accessToken, toke
                   type={selectionMode ? "primary" : "default"}
                   className="flex items-center"
                 >
-                  {selectionMode ? "Отменить выбор" : "Выбрать пользователей"}
+                  {selectionMode ? t('Otmenit_vybor') : t('Vybrat_polzovateley')}
                 </Button>
               )}
 
               {isProxyAdmin && selectionMode && (
                 <Button type="primary" onClick={handleBulkEdit} disabled={selectedUsers.length === 0} className="flex items-center">
-                  Массовое редактирование ({selectedUsers.length} выбрано)
+                  ${t('Massovoe_redaktirovanie')} ({selectedUsers.length} ${t('vybrano')})
                 </Button>
               )}
             </>
@@ -329,8 +331,8 @@ const ViewUserDashboard: React.FC<ViewUserDashboardProps> = ({ accessToken, toke
       {isProxyAdmin ? (
         <TabGroup defaultIndex={0} onIndexChange={(index) => setActiveTab(index === 0 ? "users" : "settings")}>
           <TabList className="mb-4">
-            <Tab>Пользователи</Tab>
-            <Tab>Настройки пользователей по умолчанию</Tab>
+            <Tab>{t('Polzovateli')}</Tab>
+            <Tab>{t('Nastroyki_polzovateley_po_umolchaniyu')}</Tab>
           </TabList>
 
           <TabPanels>
@@ -425,18 +427,18 @@ const ViewUserDashboard: React.FC<ViewUserDashboardProps> = ({ accessToken, toke
 
       <DeleteResourceModal
         isOpen={isDeleteModalOpen}
-        title="Удалить пользователя?"
-        message="Вы уверены, что хотите удалить этого пользователя? Это действие нельзя отменить."
-        resourceInformationTitle="Информация о пользователе"
+        title={t('Udalit_polzovatelya_1')}
+        message={t('Vy_uvereny_chto_hotite_udalit_etogo_pol_1')}
+        resourceInformationTitle={t('Informatsiya_o_polzovatele')}
         resourceInformation={[
-          { label: "Электронная почта", value: userToDelete?.user_email },
-          { label: "ID пользователя", value: userToDelete?.user_id, code: true },
+          { label: t('Elektronnaya_pochta'), value: userToDelete?.user_email },
+          { label: t('ID_polzovatelya'), value: userToDelete?.user_id, code: true },
           {
-            label: "Глобальная роль прокси",
+            label: t('Globalnaya_rol_proksi'),
             value:
               (userToDelete && possibleUIRoles?.[userToDelete.user_role]?.ui_label) || userToDelete?.user_role || "-",
           },
-          { label: "Общие расходы (USD)", value: userToDelete?.spend?.toFixed(2) },
+          { label: t('Obschie_rashody_USD'), value: userToDelete?.spend?.toFixed(2) },
         ]}
         onCancel={cancelDelete}
         onOk={confirmDelete}

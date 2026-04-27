@@ -2,6 +2,7 @@ import { Icon, Tab, TabGroup, TabList, TabPanels, Text } from "@tremor/react";
 import { isAdminRole } from "@/utils/roles";
 import { RefreshIcon } from "@heroicons/react/outline";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 type TeamsHeaderTabsProps = {
   lastRefreshed: string;
@@ -11,16 +12,17 @@ type TeamsHeaderTabsProps = {
 };
 
 const TeamsHeaderTabs = ({ lastRefreshed, onRefresh, userRole, children }: TeamsHeaderTabsProps) => {
+  const { t } = useTranslation();
   return (
     <TabGroup className="gap-2 h-[75vh] w-full">
       <TabList className="flex justify-between mt-2 w-full items-center">
         <div className="flex">
-          <Tab>Ваши команды</Tab>
-          <Tab>Доступные команды</Tab>
-          {isAdminRole(userRole || "") && <Tab>Настройки команды по умолчанию</Tab>}
+          <Tab>{t('Vashi_komandy')}</Tab>
+          <Tab>{t('Dostupnye_komandy')}</Tab>
+          {isAdminRole(userRole || "") && <Tab>{t('Nastroyki_komandy_po_umolchaniyu')}</Tab>}
         </div>
         <div className="flex items-center space-x-2">
-          {lastRefreshed && <Text>Последнее обновление: {lastRefreshed}</Text>}
+          {lastRefreshed && <Text>{t('Poslednee_obnovlenie_1')} {lastRefreshed}</Text>}
           <Icon
             icon={RefreshIcon} // Modify as necessary for correct icon name
             variant="shadow"

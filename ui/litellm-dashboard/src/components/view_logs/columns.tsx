@@ -8,6 +8,7 @@ import { TableHeaderSortDropdown } from "../common_components/TableHeaderSortDro
 import { TimeCell } from "./time_cell";
 import { AGENT_CALL_TYPES, MCP_CALL_TYPES } from "./constants";
 import { AgentBadge, AgentIcon, LlmBadge, McpBadge, SparkleIcon, WrenchIcon } from "./TypeBadges";
+import { useTranslation } from "react-i18next";
 
 /** API sort field mapping for /spend/logs/ui endpoint */
 export const LOGS_SORT_FIELD_MAP = {
@@ -108,19 +109,19 @@ export const createColumns = (sortProps?: LogsSortProps): ColumnDef<LogEntry>[] 
     header: sortProps
       ? () => (
           <SortableHeader
-            label="Время"
+            label={t('Vremya')}
             field="startTime"
             sortBy={sortProps.sortBy}
             sortOrder={sortProps.sortOrder}
             onSortChange={sortProps.onSortChange}
           />
         )
-      : "Время",
+      : t('Vremya'),
     accessorKey: "startTime",
     cell: (info: any) => <TimeCell utcTime={info.getValue()} />,
   },
   {
-    header: "Тип",
+    header: t('Tip'),
     id: "type",
     cell: (info: any) => {
       const row = info.row.original;
@@ -168,7 +169,7 @@ export const createColumns = (sortProps?: LogsSortProps): ColumnDef<LogEntry>[] 
     },
   },
   {
-    header: "Статус",
+    header: t('Status'),
     accessorKey: "metadata.status",
     cell: (info: any) => {
       const status = info.getValue() || "Success";
@@ -180,13 +181,13 @@ export const createColumns = (sortProps?: LogsSortProps): ColumnDef<LogEntry>[] 
             isSuccess ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
           }`}
         >
-          {isSuccess ? "Успешно" : "Ошибка"}
+          {isSuccess ? t('Uspeshno') : t('Oshibka')}
         </span>
       );
     },
   },
   {
-    header: "ID сессии",
+    header: t('ID_sessii'),
     accessorKey: "session_id",
     cell: (info: any) => {
       const value = String(info.getValue() || "");
@@ -207,7 +208,7 @@ export const createColumns = (sortProps?: LogsSortProps): ColumnDef<LogEntry>[] 
   },
 
   {
-    header: "ID запроса",
+    header: t('ID_zaprosa'),
     accessorKey: "request_id",
     cell: (info: any) => (
       <Tooltip title={String(info.getValue() || "")}>
@@ -219,14 +220,14 @@ export const createColumns = (sortProps?: LogsSortProps): ColumnDef<LogEntry>[] 
     header: sortProps
       ? () => (
           <SortableHeader
-            label="Стоимость"
+            label={t('Stoimost')}
             field="spend"
             sortBy={sortProps.sortBy}
             sortOrder={sortProps.sortOrder}
             onSortChange={sortProps.onSortChange}
           />
         )
-      : "Стоимость",
+      : t('Stoimost'),
     accessorKey: "spend",
     cell: (info: any) => {
       const row = info.row.original;
@@ -251,14 +252,14 @@ export const createColumns = (sortProps?: LogsSortProps): ColumnDef<LogEntry>[] 
     header: sortProps
       ? () => (
           <SortableHeader
-            label="Длительность (с)"
+            label={t('Dlitelnost_s')}
             field="request_duration_ms"
             sortBy={sortProps.sortBy}
             sortOrder={sortProps.sortOrder}
             onSortChange={sortProps.onSortChange}
           />
         )
-      : "Длительность (с)",
+      : t('Dlitelnost_s'),
     accessorKey: "request_duration_ms",
     cell: (info: any) => {
       const ms = info.getValue();
@@ -272,7 +273,7 @@ export const createColumns = (sortProps?: LogsSortProps): ColumnDef<LogEntry>[] 
     },
   },
   {
-    header: "TTFT (с)",
+    header: t('TTFT_s'),
     accessorKey: "completionStartTime",
     cell: (info: any) => {
       const row = info.row.original;
@@ -291,7 +292,7 @@ export const createColumns = (sortProps?: LogsSortProps): ColumnDef<LogEntry>[] 
     },
   },
   {
-    header: "Название команды",
+    header: t('Nazvanie_komandy'),
     accessorKey: "metadata.user_api_key_team_alias",
     cell: (info: any) => (
       <Tooltip title={String(info.getValue() || "-")}>
@@ -300,7 +301,7 @@ export const createColumns = (sortProps?: LogsSortProps): ColumnDef<LogEntry>[] 
     ),
   },
   {
-    header: "Хэш ключа",
+    header: t('Hesh_klyucha_1'),
     accessorKey: "metadata.user_api_key",
     cell: (info: any) => {
       const value = String(info.getValue() || "-");
@@ -319,7 +320,7 @@ export const createColumns = (sortProps?: LogsSortProps): ColumnDef<LogEntry>[] 
     },
   },
   {
-    header: "Название ключа",
+    header: t('Nazvanie_klyucha'),
     accessorKey: "metadata.user_api_key_alias",
     cell: (info: any) => (
       <Tooltip title={String(info.getValue() || "-")}>
@@ -328,7 +329,7 @@ export const createColumns = (sortProps?: LogsSortProps): ColumnDef<LogEntry>[] 
     ),
   },
   {
-    header: "Модель",
+    header: t('Model'),
     accessorKey: "model",
     cell: (info: any) => {
       const row = info.row.original;
@@ -358,14 +359,14 @@ export const createColumns = (sortProps?: LogsSortProps): ColumnDef<LogEntry>[] 
     header: sortProps
       ? () => (
           <SortableHeader
-            label="Токены"
+            label={t('Tokeny')}
             field="total_tokens"
             sortBy={sortProps.sortBy}
             sortOrder={sortProps.sortOrder}
             onSortChange={sortProps.onSortChange}
           />
         )
-      : "Токены",
+      : t('Tokeny'),
     accessorKey: "total_tokens",
     cell: (info: any) => {
       const row = info.row.original;
@@ -380,7 +381,7 @@ export const createColumns = (sortProps?: LogsSortProps): ColumnDef<LogEntry>[] 
     },
   },
   {
-    header: "Внутренний пользователь",
+    header: t('Vnutrenniy_polzovatel'),
     accessorKey: "user",
     cell: (info: any) => (
       <Tooltip title={String(info.getValue() || "-")}>
@@ -389,7 +390,7 @@ export const createColumns = (sortProps?: LogsSortProps): ColumnDef<LogEntry>[] 
     ),
   },
   {
-    header: "Конечный пользователь",
+    header: t('Konechnyy_polzovatel'),
     accessorKey: "end_user",
     cell: (info: any) => (
       <Tooltip title={String(info.getValue() || "-")}>
@@ -399,7 +400,7 @@ export const createColumns = (sortProps?: LogsSortProps): ColumnDef<LogEntry>[] 
   },
 
   {
-    header: "Теги",
+    header: t('Tegi'),
     accessorKey: "request_tags",
     cell: (info: any) => {
       const tags = info.getValue();
@@ -465,11 +466,11 @@ export const RequestResponsePanel = ({ request, response }: { request: any; resp
     <div className="grid grid-cols-2 gap-4 mt-4">
       <div className="rounded-lg border border-gray-200 bg-gray-50">
         <div className="flex justify-between items-center p-3 border-b border-gray-200">
-          <h3 className="text-sm font-medium">Запрос</h3>
+          <h3 className="text-sm font-medium">{t('Zapros')}</h3>
           <button
             onClick={() => copyToClipboard(requestStr)}
             className="p-1 hover:bg-gray-200 rounded"
-            title="Копировать запрос"
+            title={t('Kopirovat_zapros')}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -492,11 +493,11 @@ export const RequestResponsePanel = ({ request, response }: { request: any; resp
 
       <div className="rounded-lg border border-gray-200 bg-gray-50">
         <div className="flex justify-between items-center p-3 border-b border-gray-200">
-          <h3 className="text-sm font-medium">Ответ</h3>
+          <h3 className="text-sm font-medium">{t('Otvet')}</h3>
           <button
             onClick={() => copyToClipboard(responseStr)}
             className="p-1 hover:bg-gray-200 rounded"
-            title="Копировать ответ"
+            title={t('Kopirovat_otvet')}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -532,7 +533,7 @@ const CollapsibleJsonCell = ({ jsonData }: { jsonData: any }) => {
   return (
     <div>
       <button onClick={() => setIsExpanded(!isExpanded)} className="text-blue-500 hover:text-blue-700 text-xs">
-        {isExpanded ? "Скрыть JSON" : "Показать JSON"} ({Object.keys(jsonData).length} fields)
+        {isExpanded ? t('Skryt_JSON') : t('Pokazat_JSON')} ({Object.keys(jsonData).length} fields)
       </button>
       {isExpanded && (
         <pre className="mt-2 p-2 bg-gray-50 border rounded text-xs overflow-auto max-h-60">{jsonString}</pre>
@@ -599,31 +600,31 @@ export const auditLogColumns: ColumnDef<AuditLogEntry>[] = [
     },
   },
   {
-    header: "Метка времени",
+    header: t('Metka_vremeni'),
     accessorKey: "updated_at",
     cell: (info: any) => <TimeCell utcTime={info.getValue()} />,
   },
   {
-    header: "Название таблицы",
+    header: t('Nazvanie_tablitsy'),
     accessorKey: "table_name",
     cell: (info: any) => {
       const tableName = info.getValue();
       let displayValue = tableName;
       switch (tableName) {
         case "LiteLLM_VerificationToken":
-          displayValue = "Ключи";
+          displayValue = t('Klyuchi');
           break;
         case "LiteLLM_TeamTable":
-          displayValue = "Команды";
+          displayValue = t('Komandy');
           break;
         case "LiteLLM_OrganizationTable":
-          displayValue = "Организации";
+          displayValue = t('Organizatsii');
           break;
         case "LiteLLM_UserTable":
-          displayValue = "Пользователи";
+          displayValue = t('Polzovateli');
           break;
         case "LiteLLM_ProxyModelTable":
-          displayValue = "Модели";
+          displayValue = t('Modeli');
           break;
         default:
           displayValue = tableName;
@@ -632,12 +633,12 @@ export const auditLogColumns: ColumnDef<AuditLogEntry>[] = [
     },
   },
   {
-    header: "Действие",
+    header: t('Deystvie'),
     accessorKey: "action",
     cell: (info: any) => <span>{getActionBadge(info.getValue())}</span>,
   },
   {
-    header: "Изменено кем",
+    header: t('Izmeneno_kem'),
     accessorKey: "changed_by",
     cell: (info: any) => {
       const changedBy = info.row.original.changed_by;
@@ -659,12 +660,13 @@ export const auditLogColumns: ColumnDef<AuditLogEntry>[] = [
     },
   },
   {
-    header: "ID затронутого элемента",
+    header: t('ID_zatronutogo_elementa'),
     accessorKey: "object_id",
     cell: (props) => {
       const ObjectIdDisplay = () => {
         const objectId = props.getValue();
-        const [copied, setCopied] = useState(false);
+          const { t } = useTranslation();
+const [copied, setCopied] = useState(false);
 
         if (!objectId) return <>-</>;
 

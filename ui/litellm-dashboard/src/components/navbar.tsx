@@ -11,6 +11,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import UserDropdown from "./Navbar/UserDropdown/UserDropdown";
 import WorkerDropdown from "./Navbar/WorkerDropdown/WorkerDropdown";
+import { useTranslation } from "react-i18next";
 
 interface NavbarProps {
   userID: string | null;
@@ -42,7 +43,8 @@ const Navbar: React.FC<NavbarProps> = ({
   toggleDarkMode,
 }) => {
   const baseUrl = getProxyBaseUrl();
-  const [logoutUrl, setLogoutUrl] = useState("");
+    const { t } = useTranslation();
+const [logoutUrl, setLogoutUrl] = useState("");
   const { logoUrl } = useTheme();
   const { data: healthData } = useHealthReadiness();
   const version = healthData?.litellm_version;
@@ -93,7 +95,7 @@ const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={onToggleSidebar}
                 className="flex items-center justify-center w-10 h-10 mr-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded transition-colors"
-                title={sidebarCollapsed ? "Развернуть меню" : "Свернуть меню"}
+                title={sidebarCollapsed ? t('Razvernut_menyu') : t('Svernut_menyu')}
               >
                 <span className="text-lg">{sidebarCollapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}</span>
               </button>
@@ -117,7 +119,7 @@ const Navbar: React.FC<NavbarProps> = ({
                     <span
                       className="absolute -top-1 -left-2 text-lg animate-bounce"
                       style={{ animationDuration: "2s" }}
-                      title="Спасибо за использование W1 Router!"
+                      title={t('Spasibo_za_ispolzovanie_W1_Router')}
                     >
                       🌑
                     </span>
@@ -151,7 +153,7 @@ const Navbar: React.FC<NavbarProps> = ({
               />
             )}
             <Button type="text" href="https://docs.litellm.ai/docs/" target="_blank" rel="noopener noreferrer">
-              Документация
+              {t('Dokumentatsiya')}
             </Button>
 
             {!isPublicPage && <UserDropdown onLogout={handleLogout} />}

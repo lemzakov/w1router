@@ -1,4 +1,5 @@
 "use client";
+import { useTranslation } from "react-i18next";
 
 import {
   getFrameworks,
@@ -128,7 +129,8 @@ export default function ComplianceUI({
 }: ComplianceUIProps) {
   const frameworks = getFrameworks();
 
-  const [policyValueToLabel, setPolicyValueToLabel] = useState<Map<string, string>>(new Map());
+    const { t } = useTranslation();
+const [policyValueToLabel, setPolicyValueToLabel] = useState<Map<string, string>>(new Map());
   const [guardrailOptions, setGuardrailOptions] = useState<GuardrailOption[]>([]);
   const [selectedPolicies, setSelectedPolicies] = useState<string[]>([]);
   const [selectedGuardrails, setSelectedGuardrails] = useState<string[]>([]);
@@ -200,7 +202,7 @@ export default function ComplianceUI({
       ([fwName, catMap]) => ({
         name: fwName,
         icon: customPrompts.find((p) => p.framework === fwName)?.categoryIcon ?? "file-text",
-        description: `Пользовательские промпты — ${fwName}.`,
+        description: `${t('Polzovatelskie_prompty')} — ${fwName}.`,
         categories: Array.from(catMap.entries()).map(([catName, prompts]) => ({
           name: catName,
           icon: prompts[0]?.categoryIcon ?? "file-text",
@@ -284,9 +286,9 @@ export default function ComplianceUI({
     const newPrompt: CompliancePrompt = {
       id,
       framework: "Custom",
-      category: "Пользовательские промпты",
+      category: t('Polzovatelskie_prompty'),
       categoryIcon: "pencil",
-      categoryDescription: "Пользовательские промпты, добавленные в этой сессии.",
+      categoryDescription: t('Polzovatelskie_prompty_dobavlennye_v'),
       prompt: newPromptText.trim(),
       expectedResult: newPromptExpected,
     };
@@ -295,7 +297,7 @@ export default function ComplianceUI({
     setNewPromptExpected("fail");
     setShowAddPrompt(false);
     setExpandedFrameworks((prev) => new Set([...prev, "Custom"]));
-    setExpandedCategories((prev) => new Set([...prev, "Пользовательские промпты"]));
+    setExpandedCategories((prev) => new Set([...prev, t('Polzovatelskie_prompty')]));
   };
 
   const deleteCustomPrompt = (id: string) => {
@@ -389,7 +391,7 @@ export default function ComplianceUI({
             framework,
             category,
             categoryIcon: "file-text",
-            categoryDescription: `Промпты загружены из CSV — ${category}.`,
+            categoryDescription: `${t('Prompty')} ${t('zagruzheny_iz_CSV')} ${category}.`,
             prompt,
             expectedResult: expected as "fail" | "pass",
           });
@@ -401,7 +403,7 @@ export default function ComplianceUI({
         }
 
         if (newPrompts.length === 0) {
-          setCsvError("Не найдены корректные промпты в CSV.");
+          setCsvError(t('Ne_naydeny_korrektnye_prompty_v_CSV'));
           return;
         }
 
@@ -477,7 +479,7 @@ export default function ComplianceUI({
         const sysMsg: QuickTestMessage = {
           id: `msg-${Date.now()}-sys`,
           type: "system",
-          text: "Разрешено — получен ответ модели.",
+          text: t('Razresheno_poluchen_otvet_modeli'),
           result: "allowed",
           returnedText: fullResponse,
           timestamp: new Date(),
@@ -510,8 +512,8 @@ export default function ComplianceUI({
             : undefined;
         const displayText =
           result === "blocked"
-            ? `Заблокировано — ${triggeredBy ?? "контентный фильтр"}`
-            : "Разрешено — нарушений политик или ограждений не обнаружено.";
+            ? `${t('Zablokirovano')} — ${triggeredBy ?? t('kontentnyy_filtr')}`
+            : t('Razresheno_narusheniy_politik_ili_ograzh');
         const sysMsg: QuickTestMessage = {
           id: `msg-${Date.now()}-sys`,
           type: "system",
@@ -723,14 +725,14 @@ export default function ComplianceUI({
     const parts: string[] = [];
     if (selectedPolicies.length > 0)
       parts.push(
-        `${selectedPolicies.length} ${selectedPolicies.length === 1 ? "политика" : "политик"}`
+        `${selectedPolicies.length} ${selectedPolicies.length === 1 ? t('politika') : t('politik')}`
       );
     if (selectedGuardrails.length > 0)
       parts.push(
-        `${selectedGuardrails.length} ${selectedGuardrails.length === 1 ? "ограждение" : "ограждений"}`
+        `${selectedGuardrails.length} ${selectedGuardrails.length === 1 ? t('ograzhdenie') : t('ograzhdeniy')}`
       );
-    if (parts.length === 0) return "Тест";
-    return `Тест ${parts.join(" & ")}`;
+    if (parts.length === 0) return t('Test');
+    return `${t('Test')} ${parts.join(" & ")}`;
   })();
 
   return (
@@ -739,16 +741,16 @@ export default function ComplianceUI({
         {/* Top config */}
         <div className="flex-shrink-0 border-b border-gray-200 px-6 py-4">
         <div className="mb-3">
-          <h3 className="text-sm font-semibold text-gray-900">Конфигурация тестирования</h3>
+          <h3 className="text-sm font-semibold text-gray-900">{t('Konfiguratsiya_testirovaniya')}</h3>
           <p className="text-xs text-gray-500 mt-0.5">
-            Выберите политики, ограждения или оба варианта для тестирования.
+            {t('Vyberite_politiki_ograzhdeniya_ili_oba_v')}
           </p>
         </div>
 
         <div className="flex items-start gap-3 flex-wrap">
           <div className="flex-1 min-w-[200px]">
             <label className="text-[11px] font-medium text-gray-500 uppercase tracking-wide mb-1.5 block">
-              Политики
+              {t('Politiki')}
             </label>
             {accessToken && (
               <PolicySelector
@@ -762,13 +764,13 @@ export default function ComplianceUI({
 
           <div className="flex flex-col items-center pt-6 flex-shrink-0">
             <div className="w-px h-4 bg-gray-200" />
-            <span className="text-[10px] font-medium text-gray-400 my-1">или</span>
+            <span className="text-[10px] font-medium text-gray-400 my-1">{t('ili')}</span>
             <div className="w-px h-4 bg-gray-200" />
           </div>
 
           <div className="flex-1 min-w-[200px]">
             <label className="text-[11px] font-medium text-gray-500 uppercase tracking-wide mb-1.5 block">
-              Ограждения
+              {t('Ograzhdeniya')}
             </label>
             <div className="relative">
               <button
@@ -782,8 +784,8 @@ export default function ComplianceUI({
                   }
                 >
                   {selectedGuardrails.length > 0
-                    ? `${selectedGuardrails.length} выбрано`
-                    : "Ничего не выбрано"}
+                    ? `${selectedGuardrails.length} ${t('vybrano')}`
+                    : t('Nichego_ne_vybrano')}
                 </span>
                 <ChevronDown className="w-4 h-4 text-gray-400" />
               </button>
@@ -791,7 +793,7 @@ export default function ComplianceUI({
                 <div className="absolute z-30 top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg py-1 max-h-52 overflow-y-auto">
                   {guardrailOptions.length === 0 ? (
                     <div className="px-3 py-2 text-xs text-gray-500">
-                      Нет доступных ограждений. Создайте ограждения на странице Guardrails.
+                      {t('Net_dostupnyh_ograzhdeniy_Sozdayte_ograz')}
                     </div>
                   ) : (
                     guardrailOptions.map((g) => (
@@ -834,7 +836,7 @@ export default function ComplianceUI({
                         type="button"
                         onClick={() => toggleGuardrail(id)}
                         className="hover:text-indigo-900"
-                        aria-label="Удалить"
+                        aria-label={t('Udalit')}
                       >
                         <X className="w-2.5 h-2.5" />
                       </button>
@@ -852,7 +854,7 @@ export default function ComplianceUI({
                 onClick={() => batchAbortControllerRef.current?.abort()}
                 className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap bg-red-600 text-white hover:bg-red-700"
               >
-                <Square className="w-3.5 h-3.5" /> Остановить
+                <Square className="w-3.5 h-3.5" /> {t('Ostanovit')}
               </button>
             ) : (
               <button
@@ -861,13 +863,13 @@ export default function ComplianceUI({
                 disabled={selectedPromptIds.size === 0 || disabledPersonalKeyCreation}
                 className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${selectedPromptIds.size === 0 || disabledPersonalKeyCreation ? "bg-gray-100 text-gray-400 cursor-not-allowed" : "bg-blue-600 text-white hover:bg-blue-700"}`}
               >
-                <Play className="w-3.5 h-3.5" /> Симуляция (
+                <Play className="w-3.5 h-3.5" /> ${t('Simulyatsiya')} (
                 {selectedPromptIds.size})
               </button>
             )}
             {isRunning && (
               <span className="text-[11px] text-gray-500 flex items-center gap-1">
-                <Loader2 className="w-3 h-3 animate-spin" /> Выполняется...
+                <Loader2 className="w-3 h-3 animate-spin" /> {t('Vypolnyaetsya')}
               </span>
             )}
             <button
@@ -880,7 +882,7 @@ export default function ComplianceUI({
               }}
               className="flex items-center justify-center gap-1.5 px-4 py-1.5 rounded-lg text-xs font-medium text-gray-500 hover:bg-gray-100 transition-colors"
             >
-              <RotateCcw className="w-3 h-3" /> Сбросить
+              <RotateCcw className="w-3 h-3" /> {t('Sbrosit')}
             </button>
           </div>
         </div>
@@ -893,7 +895,7 @@ export default function ComplianceUI({
           <div className="flex-1 overflow-y-auto min-h-0">
             <div className="px-4 pt-4 pb-2">
               <div className="flex items-center justify-between mb-2.5">
-                <h3 className="text-sm font-semibold text-gray-900">Тестовые промпты</h3>
+                <h3 className="text-sm font-semibold text-gray-900">{t('Testovye_prompty')}</h3>
                 <span className="text-[11px] text-gray-400 tabular-nums">
                   {selectedPromptIds.size}/{totalPromptCount}
                 </span>
@@ -905,7 +907,7 @@ export default function ComplianceUI({
                   type="text"
                   value={searchPrompt}
                   onChange={(e) => setSearchPrompt(e.target.value)}
-                  placeholder="Поиск промптов..."
+                  placeholder={t('Poisk_promptov')}
                   className="w-full border border-gray-200 rounded-lg pl-8 pr-3 py-1.5 text-xs placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400"
                 />
               </div>
@@ -917,7 +919,7 @@ export default function ComplianceUI({
                     onClick={selectAll}
                     className="text-[11px] font-medium text-blue-600 hover:text-blue-700"
                   >
-                    Выбрать всё
+                    {t('Vybrat_vsyo')}
                   </button>
                   <span className="text-gray-300 text-[10px]">·</span>
                   <button
@@ -925,7 +927,7 @@ export default function ComplianceUI({
                     onClick={deselectAll}
                     className="text-[11px] font-medium text-gray-500 hover:text-gray-700"
                   >
-                    Очистить
+                    {t('Ochistit')}
                   </button>
                 </div>
                 <div className="flex items-center gap-1">
@@ -934,7 +936,7 @@ export default function ComplianceUI({
                     onClick={() => { setShowAddPrompt(!showAddPrompt); setShowCsvUpload(false); }}
                     className={`flex items-center gap-1 text-[11px] font-medium px-2 py-0.5 rounded transition-colors ${showAddPrompt ? "bg-blue-50 text-blue-600" : "text-gray-500 hover:bg-gray-100"}`}
                   >
-                    <Plus className="w-3 h-3" /> Добавить
+                    <Plus className="w-3 h-3" /> {t('Dobavit')}
                   </button>
                   <button
                     type="button"
@@ -952,7 +954,7 @@ export default function ComplianceUI({
                 <textarea
                   value={newPromptText}
                   onChange={(e) => setNewPromptText(e.target.value)}
-                  placeholder="Введите тестовый промпт..."
+                  placeholder={t('Vvedite_testovyy_prompt')}
                   rows={2}
                   className="w-full border border-gray-200 rounded px-2.5 py-1.5 text-xs text-gray-700 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 resize-none bg-white"
                 />
@@ -963,14 +965,14 @@ export default function ComplianceUI({
                       onClick={() => setNewPromptExpected("fail")}
                       className={`text-[10px] font-semibold px-2 py-0.5 rounded ${newPromptExpected === "fail" ? "bg-red-100 text-red-700" : "bg-gray-100 text-gray-500"}`}
                     >
-                      Должно отклонить
+                      {t('Dolzhno_otklonit')}
                     </button>
                     <button
                       type="button"
                       onClick={() => setNewPromptExpected("pass")}
                       className={`text-[10px] font-semibold px-2 py-0.5 rounded ${newPromptExpected === "pass" ? "bg-green-100 text-green-700" : "bg-gray-100 text-gray-500"}`}
                     >
-                      Должно пропустить
+                      {t('Dolzhno_propustit')}
                     </button>
                   </div>
                   <div className="flex items-center gap-1.5">
@@ -982,7 +984,7 @@ export default function ComplianceUI({
                       }}
                       className="text-[11px] text-gray-500 px-2 py-1"
                     >
-                      Отмена
+                      {t('Otmena')}
                     </button>
                     <button
                       type="button"
@@ -990,7 +992,7 @@ export default function ComplianceUI({
                       disabled={!newPromptText.trim()}
                       className={`text-[11px] font-medium px-2.5 py-1 rounded ${newPromptText.trim() ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-400"}`}
                     >
-                      Добавить
+                      {t('Dobavit')}
                     </button>
                   </div>
                 </div>
@@ -1000,25 +1002,25 @@ export default function ComplianceUI({
             {showCsvUpload && (
               <div className="mx-4 mb-2 border border-blue-200 bg-blue-50/30 rounded-lg p-3">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-[11px] font-semibold text-gray-700">Загрузить набор данных CSV</span>
+                  <span className="text-[11px] font-semibold text-gray-700">{t('Zagruzit_nabor_dannyh_CSV')}</span>
                   <button
                     type="button"
                     onClick={downloadCsvTemplate}
                     className="flex items-center gap-1 text-[10px] font-medium text-blue-600 hover:text-blue-700"
                   >
-                    <Download className="w-3 h-3" /> Скачать шаблон
+                    <Download className="w-3 h-3" /> {t('Skachat_shablon')}
                   </button>
                 </div>
 
                 <div className="mb-2 p-2 bg-white rounded border border-gray-200">
                   <p className="text-[10px] text-gray-500 leading-relaxed">
-                    <span className="font-semibold text-gray-600">Обязательные столбцы:</span>{" "}
+                    <span className="font-semibold text-gray-600t('Obyazatelnye_stolbtsy_span') "}
                     <code className="bg-gray-100 px-1 rounded text-[10px]">prompt</code>,{" "}
                     <code className="bg-gray-100 px-1 rounded text-[10px]">expected_result</code>{" "}
-                    <span className="text-gray-400">(fail или pass)</span>
+                    <span className="text-gray-400">{t('fail_ili_pass')}</span>
                   </p>
                   <p className="text-[10px] text-gray-500 leading-relaxed mt-0.5">
-                    <span className="font-semibold text-gray-600">Необязательные столбцы:</span>{" "}
+                    <span className="font-semibold text-gray-600t('Neobyazatelnye_stolbtsy_span') "}
                     <code className="bg-gray-100 px-1 rounded text-[10px]">framework</code>,{" "}
                     <code className="bg-gray-100 px-1 rounded text-[10px]">category</code>
                   </p>
@@ -1039,7 +1041,7 @@ export default function ComplianceUI({
                   onClick={() => csvInputRef.current?.click()}
                   className="w-full flex items-center justify-center gap-1.5 py-2 border-2 border-dashed border-gray-300 rounded-lg text-xs text-gray-500 hover:border-blue-400 hover:text-blue-600 transition-colors"
                 >
-                  <Upload className="w-3.5 h-3.5" /> Выбрать CSV файл
+                  <Upload className="w-3.5 h-3.5" /> {t('Vybrat_CSV_fayl')}
                 </button>
 
                 {csvError && (
@@ -1054,7 +1056,7 @@ export default function ComplianceUI({
                     onClick={() => { setShowCsvUpload(false); setCsvError(null); }}
                     className="text-[11px] text-gray-500 px-2 py-1"
                   >
-                    Отмена
+                    {t('Otmena')}
                   </button>
                 </div>
               </div>
@@ -1090,7 +1092,7 @@ export default function ComplianceUI({
                           {fw.name}
                         </span>
                   <span className="text-[10px] font-semibold text-gray-700 ml-1">
-                    {fwPromptCount} промптов
+                    {fwPromptCount} ${t('promptov')}
                   </span>
                       </div>
                       {fwSelectedCount > 0 && (
@@ -1106,7 +1108,7 @@ export default function ComplianceUI({
                         }}
                         className="text-[10px] font-medium text-blue-600 hover:text-blue-700 px-1.5 py-0.5 rounded hover:bg-blue-50 flex-shrink-0"
                       >
-                        {fwSelectedCount === fwPromptCount ? "Очистить" : "Все"}
+                        {fwSelectedCount === fwPromptCount ? t('Ochistit') : t('Vse')}
                       </button>
                     </button>
 
@@ -1164,7 +1166,7 @@ export default function ComplianceUI({
                                       onClick={() => toggleCategoryPrompts(category)}
                                       className="text-[10px] font-medium text-blue-600 hover:text-blue-700 flex-shrink-0 whitespace-nowrap"
                                     >
-                                      {allCatSelected ? "Очистить" : "Выбрать всё"}
+                                      {allCatSelected ? t('Ochistit') : t('Vybrat_vsyo')}
                                     </button>
                                   </div>
                                   {category.prompts.map((prompt) => (
@@ -1186,8 +1188,8 @@ export default function ComplianceUI({
                                           className={`inline-block mt-0.5 text-[9px] font-semibold px-1 py-0.5 rounded ${prompt.expectedResult === "fail" ? "bg-red-50 text-red-600" : "bg-green-50 text-green-600"}`}
                                         >
                                           {prompt.expectedResult === "fail"
-                                            ? "Должно отклонить"
-                                            : "Должно пропустить"}
+                                            ? t('Dolzhno_otklonit')
+                                            : t('Dolzhno_propustit')}
                                         </span>
                                       </div>
                                       {isCustom && (
@@ -1199,7 +1201,7 @@ export default function ComplianceUI({
                                             deleteCustomPrompt(prompt.id);
                                           }}
                                           className="opacity-0 group-hover:opacity-100 p-0.5 text-gray-400 hover:text-red-500 transition-all flex-shrink-0"
-                                          aria-label="Удалить"
+                                          aria-label={t('Udalit')}
                                         >
                                           <Trash2 className="w-3 h-3" />
                                         </button>
@@ -1229,7 +1231,7 @@ export default function ComplianceUI({
                 onClick={() => setRightTab("quick-test")}
                 className={`relative flex items-center gap-1.5 px-3 py-2.5 text-xs font-medium transition-colors ${rightTab === "quick-test" ? "text-blue-600" : "text-gray-500 hover:text-gray-700"}`}
               >
-                <MessageSquare className="w-3.5 h-3.5" /> Быстрый тест
+                <MessageSquare className="w-3.5 h-3.5" /> ${t('Bystryy_test')}
                 {rightTab === "quick-test" && (
                   <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600 rounded-t" />
                 )}
@@ -1239,7 +1241,7 @@ export default function ComplianceUI({
                 onClick={() => setRightTab("batch-results")}
                 className={`relative flex items-center gap-1.5 px-3 py-2.5 text-xs font-medium transition-colors ${rightTab === "batch-results" ? "text-blue-600" : "text-gray-500 hover:text-gray-700"}`}
               >
-                <ListChecks className="w-3.5 h-3.5" /> Пакетные результаты
+                <ListChecks className="w-3.5 h-3.5" /> ${t('Paketnye_rezultaty')}
                 {testResults.length > 0 && (
                   <span className="text-[10px] bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded-full">
                     {testResults.length}
@@ -1258,7 +1260,7 @@ export default function ComplianceUI({
                 {hasAnyConfig ? (
                   <div className="flex items-center gap-2 flex-wrap">
                     <span className="text-[11px] font-medium text-gray-500">
-                      Тестируется против:
+                      {t('Testiruetsya_protiv')}
                     </span>
                     {selectedPolicies.map((id) => (
                       <span
@@ -1282,7 +1284,7 @@ export default function ComplianceUI({
                   </div>
                 ) : (
                   <p className="text-[11px] text-gray-400">
-                    Политики или ограждения не выбраны — выберите выше для тестирования по конкретным правилам.
+                    {t('Politiki_ili_ograzhdeniya_ne_vybrany_vyb')}
                   </p>
                 )}
               </div>
@@ -1295,7 +1297,7 @@ export default function ComplianceUI({
                         <MessageSquare className="w-5 h-5 text-gray-400" />
                       </div>
                       <p className="text-xs text-gray-500">
-                        Введите промпт ниже для быстрого тестирования.
+                        {t('Vvedite_prompt_nizhe_dlya_bystrogo_testi')}
                       </p>
                     </div>
                   </div>
@@ -1318,14 +1320,14 @@ export default function ComplianceUI({
                             ) : (
                               <CheckCircle2 className="w-3 h-3 inline" />
                             )}
-                            {msg.result === "blocked" ? "Заблокировано" : "Разрешено"}
+                            {msg.result === "blocked" ? t('Zablokirovano') : t('Razresheno')}
                             <span className="font-normal mx-0.5">—</span>
                           </span>
                         )}
                         {msg.text}
                         {msg.type === "system" && msg.returnedText != null && (
                           <span className="block mt-1.5 pt-1.5 border-t border-gray-200/60">
-                            <span className="text-gray-500">Возвращено: </span>
+                            <span className="text-gray-500">{t('Vozvrascheno')} </span>
                             <span className="font-medium text-gray-700 break-all">
                               {msg.returnedText}
                             </span>
@@ -1352,21 +1354,21 @@ export default function ComplianceUI({
                     value={quickTestInput}
                     onChange={(e) => setQuickTestInput(e.target.value)}
                     onKeyDown={handleQuickTestKeyDown}
-                    placeholder="Введите текст для тестирования..."
+                    placeholder={t('Vvedite_tekst_dlya_testirovaniya')}
                     rows={3}
                     className="w-full px-3 pt-3 pb-1 text-sm text-gray-700 placeholder:text-gray-400 focus:outline-none resize-none"
                   />
                   <div className="flex items-center justify-between px-3 pb-2">
                   <span className="text-[10px] text-gray-400">
-                    Нажмите{" "}
+                    {t('Nazhmite')}{" "}
                     <kbd className="px-1 py-0.5 bg-gray-100 rounded text-[10px] font-mono">
                       Enter
                     </kbd>{" "}
-                    для отправки ·{" "}
+                    {t('dlya_otpravki')} ·{" "}
                     <kbd className="px-1 py-0.5 bg-gray-100 rounded text-[10px] font-mono">
                       Shift+Enter
                     </kbd>{" "}
-                    для новой строки
+                    {t('dlya_novoy_stroki')}
                   </span>
                     <span className="text-[10px] text-gray-400 tabular-nums">
                       {quickTestInput.length}
@@ -1398,7 +1400,7 @@ export default function ComplianceUI({
             <div className="flex-1 flex flex-col overflow-hidden bg-white min-h-0">
               <div className="px-5 py-3 border-b border-gray-200 flex-shrink-0">
                 <div className="flex items-center justify-between mb-2">
-                  <h2 className="text-sm font-semibold text-gray-900">Результаты</h2>
+                  <h2 className="text-sm font-semibold text-gray-900">{t('Rezultaty')}</h2>
                   {testResults.length > 0 && (
                     <div className="flex items-center gap-2">
                       <button
@@ -1407,7 +1409,7 @@ export default function ComplianceUI({
                         disabled={filteredResults.length === 0}
                         className="flex items-center gap-1 text-[11px] font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 px-2 py-1 rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent"
                       >
-                        <Download className="w-3 h-3" /> Экспорт CSV
+                        <Download className="w-3 h-3" /> {t('Eksport_CSV')}
                       </button>
                       <div className="flex items-center gap-2.5 text-[11px]">
                       <span className="flex items-center gap-1 text-green-600">
@@ -1416,14 +1418,14 @@ export default function ComplianceUI({
                       </span>
                       <span
                         className="flex items-center gap-1 text-amber-600"
-                        title="Разрешённый контент, который должен был быть заблокирован"
+                        title={t('Razreshyonnyy_kontent_kotoryy_dolzhen_by')}
                       >
                         <AlertTriangle className="w-3 h-3" />
                         {falseNegativeCount} FN
                       </span>
                       <span
                         className="flex items-center gap-1 text-red-600"
-                        title="Заблокированный контент, который должен был быть разрешён"
+                        title={t('Zablokirovannyy_kontent_kotoryy_dolzhen')}
                       >
                         <X className="w-3 h-3" />
                         {falsePositiveCount} FP
@@ -1458,7 +1460,7 @@ export default function ComplianceUI({
                           onClick={() => setResultFilter(filter)}
                           className={`text-[11px] font-medium px-2.5 py-1 rounded-md transition-colors capitalize ${resultFilter === filter ? "bg-gray-900 text-white" : "text-gray-500 hover:bg-gray-100"}`}
                         >
-                          {filter === "all" ? "все" : filter === "matches" ? "совпадения" : filter === "mismatches" ? "несоответствия" : "ожидание"} ({count})
+                          {filter === "all" ? t('vse') : filter === "matches" ? t('sovpadeniya') : filter === "mismatches" ? t('nesootvetstviya') : t('ozhidanie')} ({count})
                         </button>
                       );
                     })}
@@ -1474,7 +1476,7 @@ export default function ComplianceUI({
                         <FlaskConical className="w-6 h-6 text-gray-400" />
                       </div>
                       <p className="text-xs text-gray-500 max-w-[240px]">
-                        Выберите промпты и нажмите «Симуляция» для запуска пакетных тестов на соответствие.
+                        {t('Vyberite_prompty_i_nazhmite_Simulyatsiya')}
                       </p>
                     </div>
                   </div>
@@ -1487,28 +1489,28 @@ export default function ComplianceUI({
                             <span className="font-semibold text-gray-700">
                               {testResults.length}
                             </span>{" "}
-                            <span className="text-gray-500">всего</span>
+                            <span className="text-gray-500">{t('vsego')}</span>
                           </span>
                           <div className="w-px h-4 bg-gray-200" />
                           <span>
                             <span className="font-semibold text-green-700">
                               {matchCount}
                             </span>{" "}
-                            <span className="text-gray-500">верно</span>
+                            <span className="text-gray-500">{t('verno')}</span>
                           </span>
                           <div className="w-px h-4 bg-gray-200" />
-                          <span title="Разрешённый контент, который должен был быть заблокирован">
+                          <span title={t('Razreshyonnyy_kontent_kotoryy_dolzhen_by')}>
                             <span className="font-semibold text-amber-700">
                               {falseNegativeCount}
                             </span>{" "}
-                            <span className="text-gray-500">ложноотрицательных</span>
+                            <span className="text-gray-500">{t('lozhnootritsatelnyh')}</span>
                           </span>
                           <div className="w-px h-4 bg-gray-200" />
-                          <span title="Заблокированный контент, который должен был быть разрешён">
+                          <span title={t('Zablokirovannyy_kontent_kotoryy_dolzhen')}>
                             <span className="font-semibold text-red-700">
                               {falsePositiveCount}
                             </span>{" "}
-                            <span className="text-gray-500">ложноположительных</span>
+                            <span className="text-gray-500">{t('lozhnopolozhitelnyh')}</span>
                           </span>
                         </div>
                         <div
@@ -1521,7 +1523,7 @@ export default function ComplianceUI({
                           }`}
                         >
                           <span className="text-[10px] font-semibold uppercase tracking-wider opacity-90">
-                            Счёт
+                            {t('Schyot')}
                           </span>
                           <span>
                             {Math.round(
@@ -1564,14 +1566,14 @@ export default function ComplianceUI({
                                     className={`text-[9px] font-semibold px-1 py-0.5 rounded ${result.expectedResult === "fail" ? "bg-red-50 text-red-600" : "bg-green-50 text-green-600"}`}
                                   >
                                     {result.expectedResult === "fail"
-                                      ? "Ожидается блокировка"
-                                      : "Ожидается пропуск"}
+                                      ? t('Ozhidaetsya_blokirovka')
+                                      : t('Ozhidaetsya_propusk')}
                                   </span>
                                   {result.status === "complete" && (
                                     <span
                                       className={`text-[9px] font-bold px-1 py-0.5 rounded ${result.isMatch ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}
                                     >
-                                      {result.isMatch ? "✓ Совпадение" : "✗ Пробел"}
+                                      {result.isMatch ? t('Sovpadenie') : t('Probel')}
                                     </span>
                                   )}
                                 </div>
@@ -1589,7 +1591,7 @@ export default function ComplianceUI({
                                     });
                                   }}
                                   className="flex-shrink-0 p-0.5 text-gray-400 hover:text-gray-600"
-                                  aria-label={isExpanded ? "Свернуть" : "Развернуть"}
+                                  aria-label={isExpanded ? t('Svernut') : t('Razvernut')}
                                 >
                                   {isExpanded ? (
                                     <ChevronDown className="w-3.5 h-3.5" />
@@ -1604,7 +1606,7 @@ export default function ComplianceUI({
                                 {result.triggeredBy && (
                                   <div>
                                     <span className="text-gray-400">
-                                      Инициировано:
+                                      {t('Initsiirovano')}
                                     </span>{" "}
                                     <span className="font-medium text-gray-700 bg-gray-100 px-1.5 py-0.5 rounded">
                                       {result.triggeredBy}
@@ -1612,7 +1614,7 @@ export default function ComplianceUI({
                                   </div>
                                 )}
                                 <div>
-                                  <span className="text-gray-400">Вердикт:</span>{" "}
+                                  <span className="text-gray-400t('Verdikt_span') "}
                                   <span
                                     className={
                                       result.isMatch
@@ -1630,7 +1632,7 @@ export default function ComplianceUI({
                                 {result.returnedText != null && result.returnedText !== "" && (
                                   <div className="mt-1.5">
                                     <span className="text-gray-400 block mb-0.5">
-                                      Ответ LLM:
+                                      {t('Otvet_LLM')}
                                     </span>
                                     <div className="text-gray-700 bg-gray-50 rounded px-2 py-1.5 border border-gray-100 max-h-32 overflow-y-auto whitespace-pre-wrap break-words">
                                       {result.returnedText}

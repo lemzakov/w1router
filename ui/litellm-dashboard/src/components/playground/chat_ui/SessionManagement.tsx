@@ -3,6 +3,7 @@ import { Switch, Tooltip } from "antd";
 import { InfoCircleOutlined, CopyOutlined } from "@ant-design/icons";
 import { EndpointType } from "./mode_endpoint_mapping";
 import NotificationsManager from "../../molecules/notifications_manager";
+import { useTranslation } from "react-i18next";
 
 interface SessionManagementProps {
   endpointType: string;
@@ -24,16 +25,16 @@ const SessionManagement: React.FC<SessionManagementProps> = ({
   const handleCopySessionId = () => {
     if (responsesSessionId) {
       navigator.clipboard.writeText(responsesSessionId);
-      NotificationsManager.success("ID ответа скопирован в буфер обмена!");
+      NotificationsManager.success(t('ID_otveta_skopirovan_v_bufer_obmena'));
     }
   };
 
   const getSessionDisplay = () => {
     if (!responsesSessionId) {
-      return useApiSessionManagement ? "API-сессия: Готова" : "UI-сессия: Готова";
+      return useApiSessionManagement ? t('API_sessiya_Gotova') : t('UI_sessiya_Gotova');
     }
 
-    const sessionPrefix = useApiSessionManagement ? "ID ответа" : "UI-сессия";
+    const sessionPrefix = useApiSessionManagement ? t('ID_otveta') : t('UI_sessiya');
     const truncatedId = responsesSessionId.slice(0, 10);
     return `${sessionPrefix}: ${truncatedId}...`;
   };
@@ -41,22 +42,24 @@ const SessionManagement: React.FC<SessionManagementProps> = ({
   const getSessionDescription = () => {
     if (!responsesSessionId) {
       return useApiSessionManagement
-        ? "LiteLLM будет управлять сессией с помощью previous_response_id"
-        : "UI будет управлять сессией с помощью истории чата";
+        ? t('LiteLLM_budet_upravlyat_sessiey_s_pomosc')
+        : t('UI_budet_upravlyat_sessiey_s_pomoschyu_i');
     }
 
     return useApiSessionManagement
-      ? "API-сессия LiteLLM активна — контекст сохраняется на сервере"
-      : "UI-сессия активна — контекст сохраняется на клиенте";
+      ? t('API_sessiya_LiteLLM_aktivna_kontekst_so')
+      : t('UI_sessiya_aktivna_kontekst_sohranyaetsy');
   };
+
+  const { t } = useTranslation();
 
   return (
     <div className="mb-4">
       {/* Session Management Toggle */}
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-2">
-          <span className="text-sm font-medium text-gray-700">Управление сессиями</span>
-          <Tooltip title="Выберите между управлением сессиями LiteLLM API (с использованием previous_response_id) или управлением сессиями на основе UI (с использованием истории чата)">
+          <span className="text-sm font-medium text-gray-700">{t('Upravlenie_sessiyami')}</span>
+          <Tooltip title={t('Vyberite_mezhdu_upravleniem_sessiyami_Li')}>
             <InfoCircleOutlined className="text-gray-400" style={{ fontSize: "12px" }} />
           </Tooltip>
         </div>
@@ -86,7 +89,7 @@ const SessionManagement: React.FC<SessionManagementProps> = ({
             <Tooltip
               title={
                 <div className="text-xs">
-                  <div className="mb-1">Скопировать ID ответа для продолжения сессии:</div>
+                  <div className="mb-1">{t('Skopirovat_ID_otveta_dlya_prodolzheniya_')}</div>
                   <div className="bg-gray-800 text-gray-100 p-2 rounded font-mono text-xs whitespace-pre-wrap">
                     {`curl -X POST "your-proxy-url/v1/responses" \\
   -H "Authorization: Bearer your-api-key" \\

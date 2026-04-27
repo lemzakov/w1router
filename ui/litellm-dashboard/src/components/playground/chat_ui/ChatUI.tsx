@@ -1,4 +1,5 @@
 "use client";
+import { useTranslation } from "react-i18next";
 
 import {
   ApiOutlined,
@@ -112,7 +113,8 @@ const ChatUI: React.FC<ChatUIProps> = ({
   simplified = false,
   fixedModel,
 }) => {
-  const [mcpServers, setMCPServers] = useState<MCPServer[]>([]);
+    const { t } = useTranslation();
+const [mcpServers, setMCPServers] = useState<MCPServer[]>([]);
   const [mcpToolsets, setMCPToolsets] = useState<MCPToolset[]>([]);
   const [isToolsetsInfoModalVisible, setIsToolsetsInfoModalVisible] = useState(false);
   const [byokModalServer, setByokModalServer] = useState<MCPServer | null>(null);
@@ -498,7 +500,7 @@ const ChatUI: React.FC<ChatUIProps> = ({
       abortControllerRef.current.abort();
       abortControllerRef.current = null;
       setIsLoading(false);
-      NotificationsManager.info("Запрос отменён");
+      NotificationsManager.info(t('Zapros_otmenyon'));
     }
   };
 
@@ -576,19 +578,19 @@ const ChatUI: React.FC<ChatUIProps> = ({
 
     // For image edits, require both image and prompt
     if (endpointType === EndpointType.IMAGE_EDITS && uploadedImages.length === 0) {
-      NotificationsManager.fromBackend("Загрузите хотя бы одно изображение для редактирования");
+      NotificationsManager.fromBackend(t('Zagruzite_hotya_by_odno_izobrazhenie_dly'));
       return;
     }
 
     // For audio transcriptions, require audio file
     if (endpointType === EndpointType.TRANSCRIPTION && !uploadedAudio) {
-      NotificationsManager.fromBackend("Загрузите аудиофайл для транскрипции");
+      NotificationsManager.fromBackend(t('Zagruzite_audiofayl_dlya_transkriptsii'));
       return;
     }
 
     // For A2A agents, require agent selection
     if (endpointType === EndpointType.A2A_AGENTS && !selectedAgent) {
-      NotificationsManager.fromBackend("Выберите агента для отправки сообщения");
+      NotificationsManager.fromBackend(t('Vyberite_agenta_dlya_otpravki_soobscheni'));
       return;
     }
 
@@ -600,13 +602,13 @@ const ChatUI: React.FC<ChatUIProps> = ({
           ? selectedMCPServers[0]
           : null;
       if (!rawSelected) {
-        NotificationsManager.fromBackend("Выберите MCP-сервер для тестирования");
+        NotificationsManager.fromBackend(t('Vyberite_MCP_server_dlya_testirovaniya'));
         return;
       }
       // Resolve the real server ID (toolsets use toolset: prefix)
       const mcpServerId = rawSelected.startsWith("toolset:") ? rawSelected : rawSelected;
       if (!selectedMCPDirectTool) {
-        NotificationsManager.fromBackend("Выберите инструмент MCP для вызова");
+        NotificationsManager.fromBackend(t('Vyberite_instrument_MCP_dlya_vyzova'));
         return;
       }
       // For toolsets, find the tool in the servers that back this toolset
@@ -626,14 +628,14 @@ const ChatUI: React.FC<ChatUIProps> = ({
         (t: any) => t.name === selectedMCPDirectTool,
       );
       if (!mcpTool) {
-        NotificationsManager.fromBackend("Подождите загрузки схемы инструмента");
+        NotificationsManager.fromBackend(t('Podozhdite_zagruzki_shemy_instrumenta'));
         return;
       }
       try {
         mcpToolArguments = (await mcpToolArgsFormRef.current?.getSubmitValues()) ?? {};
       } catch (err) {
         NotificationsManager.fromBackend(
-          err instanceof Error ? err.message : "Заполните все обязательные параметры",
+          err instanceof Error ? err.message : t('Zapolnite_vse_obyazatelnye_parametry'),
         );
         return;
       }
@@ -652,7 +654,7 @@ const ChatUI: React.FC<ChatUIProps> = ({
     ];
 
     if (modelRequiredEndpoints.includes(endpointType as EndpointType) && !selectedModel) {
-      NotificationsManager.fromBackend("Выберите модель перед отправкой запроса");
+      NotificationsManager.fromBackend(t('Vyberite_model_pered_otpravkoy_zaprosa'));
       return;
     }
 
@@ -663,7 +665,7 @@ const ChatUI: React.FC<ChatUIProps> = ({
     const effectiveApiKey = simplified ? accessToken : apiKeySource === "session" ? accessToken : apiKey;
 
     if (!effectiveApiKey) {
-      NotificationsManager.fromBackend("Укажите виртуальный ключ или выберите текущую сессию UI");
+      NotificationsManager.fromBackend(t('Ukazhite_virtualnyy_klyuch_ili_vyberite_'));
       return;
     }
 
@@ -679,7 +681,7 @@ const ChatUI: React.FC<ChatUIProps> = ({
       try {
         newUserMessage = await createMultimodalMessage(inputMessage, responsesUploadedImage);
       } catch (error) {
-        NotificationsManager.fromBackend("Не удалось обработать изображение. Попробуйте ещё раз.");
+        NotificationsManager.fromBackend(t('Ne_udalos_obrabotat_izobrazhenie_Popro'));
         return;
       }
     }
@@ -688,7 +690,7 @@ const ChatUI: React.FC<ChatUIProps> = ({
       try {
         newUserMessage = await createChatMultimodalMessage(inputMessage, chatUploadedImage);
       } catch (error) {
-        NotificationsManager.fromBackend("Не удалось обработать изображение. Попробуйте ещё раз.");
+        NotificationsManager.fromBackend(t('Ne_udalos_obrabotat_izobrazhenie_Popro'));
         return;
       }
     } else {
@@ -947,7 +949,7 @@ const ChatUI: React.FC<ChatUIProps> = ({
                   2,
                 )
               : JSON.stringify(result, null, 2);
-          updateTextUI("assistant", resultText || "Инструмент выполнен успешно.");
+          updateTextUI("assistant", resultText || t('Instrument_vypolnen_uspeshno'));
         }
       }
 
@@ -1003,15 +1005,15 @@ const ChatUI: React.FC<ChatUIProps> = ({
     handleRemoveResponsesImage();
     handleRemoveChatImage();
     handleRemoveAudio();
-    NotificationsManager.success("История чата очищена.");
+    NotificationsManager.success(t('Istoriya_chata_ochischena'));
   };
 
   if (userRole && userRole === "Admin Viewer") {
     const { Title, Paragraph } = Typography;
     return (
       <div>
-        <Title level={1}>Доступ запрещён</Title>
-        <Paragraph>Обратитесь к администратору прокси для получения доступа к тестированию моделей</Paragraph>
+        <Title level={1}>{t('Dostup_zapreschyon')}</Title>
+        <Paragraph>{t('Obratites_k_administratoru_proksi_dlya_p')}</Paragraph>
       </div>
     );
   }
@@ -1045,11 +1047,11 @@ const ChatUI: React.FC<ChatUIProps> = ({
           {/* Left Sidebar with Controls - hidden in simplified mode */}
           {!simplified && (
           <div className="w-1/4 p-4 bg-gray-50 overflow-y-auto">
-            <Title className="text-xl font-semibold mb-6 mt-2">Конфигурации</Title>
+            <Title className="text-xl font-semibold mb-6 mt-2">{t('Konfiguratsii')}</Title>
             <div className="space-y-4">
               <div>
                 <Text className="font-medium block mb-2 text-gray-700 flex items-center">
-                  <KeyOutlined className="mr-2" /> Источник виртуального ключа
+                  <KeyOutlined className="mr-2" /> {t('Istochnik_virtualnogo_klyucha')}
                 </Text>
                 <Select
                   disabled={disabledPersonalKeyCreation}
@@ -1059,15 +1061,15 @@ const ChatUI: React.FC<ChatUIProps> = ({
                     setApiKeySource(value as "session" | "custom");
                   }}
                   options={[
-                    { value: "session", label: "Текущая сессия UI" },
-                    { value: "custom", label: "Виртуальный ключ" },
+                    { value: "session", label: t('Tekuschaya_sessiya_UI') },
+                    { value: "custom", label: t('Virtualnyy_klyuch') },
                   ]}
                   className="rounded-md"
                 />
                 {apiKeySource === "custom" && (
                   <TextInput
                     className="mt-2"
-                    placeholder="Введите пользовательский виртуальный ключ"
+                    placeholder={t('Vvedite_polzovatelskiy_virtualnyy_klyu')}
                     type="password"
                     onValueChange={setApiKey}
                     value={apiKey}
@@ -1079,7 +1081,7 @@ const ChatUI: React.FC<ChatUIProps> = ({
               <div>
                 <div className="flex items-center justify-between mb-2">
                   <Text className="font-medium block text-gray-700 flex items-center">
-                    <SettingOutlined className="mr-2" /> Пользовательский базовый URL прокси
+                    <SettingOutlined className="mr-2" /> {t('Polzovatelskiy_bazovyy_URL_proksi')}
                   </Text>
                   {proxySettings?.LITELLM_UI_API_DOC_BASE_URL && !customProxyBaseUrl && (
                     <Button
@@ -1092,7 +1094,7 @@ const ChatUI: React.FC<ChatUIProps> = ({
                       }}
                       className="text-gray-500 hover:text-gray-700"
                     >
-                      Заполнить
+                      {t('Zapolnit')}
                     </Button>
                   )}
                   {customProxyBaseUrl && (
@@ -1106,12 +1108,12 @@ const ChatUI: React.FC<ChatUIProps> = ({
                       }}
                       className="text-gray-500 hover:text-gray-700"
                     >
-                      Очистить
+                      {t('Ochistit')}
                     </Button>
                   )}
                 </div>
                 <TextInput
-                  placeholder="Необязательно: введите пользовательский URL прокси (например, http://localhost:5000)"
+                  placeholder={t('Neobyazatelno_vvedite_polzovatelskiy')}
                   onValueChange={(value) => {
                     setCustomProxyBaseUrl(value);
                     sessionStorage.setItem("customProxyBaseUrl", value);
@@ -1120,13 +1122,13 @@ const ChatUI: React.FC<ChatUIProps> = ({
                   icon={ApiOutlined}
                 />
                 {customProxyBaseUrl && (
-                  <Text className="text-xs text-gray-500 mt-1">Запросы API будут отправлены на: {customProxyBaseUrl}</Text>
+                  <Text className="text-xs text-gray-500 mt-1">${t('Zaprosy_API_budut_otpravleny_na')} {customProxyBaseUrl}</Text>
                 )}
               </div>
 
               <div>
                 <Text className="font-medium block mb-2 text-gray-700 flex items-center">
-                  <ApiOutlined className="mr-2" /> Тип конечной точки
+                  <ApiOutlined className="mr-2" /> {t('Tip_konechnoy_tochki')}
                 </Text>
                 <EndpointSelector
                   endpointType={endpointType}
@@ -1156,7 +1158,7 @@ const ChatUI: React.FC<ChatUIProps> = ({
                   <div className="mb-4">
                     <Text className="font-medium block mb-2 text-gray-700 flex items-center">
                       <SoundOutlined className="mr-2" />
-                      Голос
+                      {t('Golos')}
                     </Text>
                     <Select
                       value={selectedVoice}
@@ -1185,7 +1187,7 @@ const ChatUI: React.FC<ChatUIProps> = ({
                 <div>
                   <Text className="font-medium block mb-2 text-gray-700 flex items-center justify-between">
                     <span className="flex items-center">
-                      <RobotOutlined className="mr-2" /> Выберите модель
+                      <RobotOutlined className="mr-2" /> {t('Vyberite_model')}
                     </span>
                     {isChatModel() ? (
                       <Popover
@@ -1201,7 +1203,7 @@ const ChatUI: React.FC<ChatUIProps> = ({
                             onMockTestFallbacksChange={setMockTestFallbacks}
                           />
                         }
-                        title="Настройки модели"
+                        title={t('Nastroyki_modeli')}
                         trigger="click"
                         placement="right"
                       >
@@ -1210,12 +1212,12 @@ const ChatUI: React.FC<ChatUIProps> = ({
                           size="small"
                           icon={<SettingOutlined />}
                           className="text-gray-500 hover:text-gray-700"
-                          aria-label="Настройки модели"
+                          aria-label={t('Nastroyki_modeli')}
                           data-testid="model-settings-button"
                         />
                       </Popover>
                     ) : (
-                      <Tooltip title="Расширенные параметры в настоящее время поддерживаются только для моделей чата">
+                      <Tooltip title={t('Rasshirennye_parametry_v_nastoyaschee_vr')}>
                         <Button
                           type="text"
                           size="small"
@@ -1228,10 +1230,10 @@ const ChatUI: React.FC<ChatUIProps> = ({
                   </Text>
                   <Select
                     value={selectedModel}
-                    placeholder="Выберите модель"
+                    placeholder={t('Vyberite_model')}
                     onChange={onModelChange}
                     options={[
-                      { value: "custom", label: "Ввести пользовательскую модель", key: "custom" },
+                      { value: "custom", label: t('Vvesti_polzovatelskuyu_model'), key: "custom" },
                       ...Array.from(
                         new Set(
                           modelInfo
@@ -1269,7 +1271,7 @@ const ChatUI: React.FC<ChatUIProps> = ({
                   {showCustomModelInput && (
                     <TextInput
                       className="mt-2"
-                      placeholder="Введите пользовательское название модели"
+                      placeholder={t('Vvedite_polzovatelskoe_nazvanie_modeli')}
                       onValueChange={(value) => {
                         // Using setTimeout to create a simple debounce effect
                         if (customModelTimeout.current) {
@@ -1289,11 +1291,11 @@ const ChatUI: React.FC<ChatUIProps> = ({
               {endpointType === EndpointType.A2A_AGENTS && (
                 <div>
                   <Text className="font-medium block mb-2 text-gray-700 flex items-center">
-                    <RobotOutlined className="mr-2" /> Выберите агента
+                    <RobotOutlined className="mr-2" /> {t('Vyberite_agenta')}
                   </Text>
                   <Select
                     value={selectedAgent}
-                    placeholder="Выберите агента"
+                    placeholder={t('Vyberite_agenta')}
                     onChange={(value) => setSelectedAgent(value)}
                     options={agentInfo.map((agent) => ({
                       value: agent.agent_name,
@@ -1322,7 +1324,7 @@ const ChatUI: React.FC<ChatUIProps> = ({
                   </Select>
                   {agentInfo.length === 0 && (
                     <Text className="text-xs text-gray-500 mt-2 block">
-                      Агенты не найдены. Создайте агентов через конечную точку /v1/agents.
+                      {t('Agenty_ne_naydeny_Sozdayte_agentov_chere')}
                     </Text>
                   )}
                 </div>
@@ -1330,7 +1332,7 @@ const ChatUI: React.FC<ChatUIProps> = ({
 
               <div>
                 <Text className="font-medium block mb-2 text-gray-700 flex items-center">
-                  <TagsOutlined className="mr-2" /> Теги
+                  <TagsOutlined className="mr-2" /> {t('Tegi')}
                 </Text>
                 <TagSelector
                   value={selectedTags}
@@ -1344,13 +1346,13 @@ const ChatUI: React.FC<ChatUIProps> = ({
               <div>
                 <Text className="font-medium block mb-2 text-gray-700 flex items-center">
                   <ToolOutlined className="mr-2" />
-                  {endpointType === EndpointType.MCP ? "MCP-сервер" : "MCP-серверы"}
+                  {endpointType === EndpointType.MCP ? t('MCP_server') : t('MCP_servery')}
                   <Tooltip
                     className="ml-1"
                     title={
                       endpointType === EndpointType.MCP
-                        ? "Выберите MCP-сервер или набор инструментов для прямого тестирования."
-                        : "Выберите MCP-серверы или наборы инструментов для использования в разговоре."
+                        ? t('Vyberite_MCP_server_ili_nabor_instrument')
+                        : t('Vyberite_MCP_servery_ili_nabory_instrume')
                     }
                   >
                     <InfoCircleOutlined
@@ -1363,7 +1365,7 @@ const ChatUI: React.FC<ChatUIProps> = ({
                   mode={endpointType === EndpointType.MCP ? undefined : "multiple"}
                   style={{ width: "100%" }}
                   placeholder={
-                    endpointType === EndpointType.MCP ? "Выберите MCP-сервер" : "Выберите MCP-серверы"
+                    endpointType === EndpointType.MCP ? t('Vyberite_MCP_server') : t('Vyberite_MCP_servery')
                   }
                   value={
                     endpointType === EndpointType.MCP
@@ -1439,17 +1441,17 @@ const ChatUI: React.FC<ChatUIProps> = ({
                 >
                   {/* All MCP Servers option - hidden for MCP direct mode */}
                   {endpointType !== EndpointType.MCP && (
-                    <Select.Option key="__all__" value="__all__" label="Все MCP-серверы">
+                    <Select.Option key="__all__" value="__all__" label={t('Vse_MCP_servery')}>
                       <div className="flex flex-col py-1">
-                        <span className="font-medium">Все MCP-серверы</span>
-                        <span className="text-xs text-gray-500 mt-1">Использовать все доступные MCP-серверы</span>
+                        <span className="font-medium">{t('Vse_MCP_servery')}</span>
+                        <span className="text-xs text-gray-500 mt-1">{t('Ispolzovat_vse_dostupnye_MCP_servery')}</span>
                       </div>
                     </Select.Option>
                   )}
 
                   {/* Toolsets (purple badge) */}
                   {mcpToolsets.length > 0 && (
-                    <Select.OptGroup label="Наборы инструментов">
+                    <Select.OptGroup label={t('Nabory_instrumentov')}>
                       {mcpToolsets.map((toolset) => (
                         <Select.Option
                           key={`toolset:${toolset.toolset_id}`}
@@ -1466,10 +1468,10 @@ const ChatUI: React.FC<ChatUIProps> = ({
                                 className="text-xs px-1 rounded"
                                 style={{ background: "#ede9fe", color: "#7c3aed" }}
                               >
-                                Набор инструментов
+                                {t('Nabor_instrumentov')}
                               </span>
                               <span className="text-xs text-gray-500">
-                                ({toolset.tools.length} инструментов)
+                                ({toolset.tools.length} ${t('instrumentov')})
                               </span>
                             </div>
                             {toolset.description && (
@@ -1483,7 +1485,7 @@ const ChatUI: React.FC<ChatUIProps> = ({
 
                   {/* Individual servers */}
                   {mcpServers.length > 0 && (
-                    <Select.OptGroup label="Серверы">
+                    <Select.OptGroup label={t('Servery')}>
                       {mcpServers.map((server) => (
                         <Select.Option
                           key={server.server_id}
@@ -1527,10 +1529,10 @@ const ChatUI: React.FC<ChatUIProps> = ({
                     }
                     return (
                       <div className="mt-3">
-                        <Text className="text-xs text-gray-600 mb-1 block">Выберите инструмент</Text>
+                        <Text className="text-xs text-gray-600 mb-1 block">{t('Vyberite_instrument')}</Text>
                         <Select
                           style={{ width: "100%" }}
-                          placeholder="Выберите инструмент для вызова"
+                          placeholder={t('Vyberite_instrument_dlya_vyzova')}
                           value={selectedMCPDirectTool}
                           onChange={(value) => setSelectedMCPDirectTool(value)}
                           options={toolOptions}
@@ -1555,13 +1557,13 @@ const ChatUI: React.FC<ChatUIProps> = ({
                         return (
                           <div key={serverId} className="border rounded p-2">
                             <Text className="text-xs text-gray-600 mb-1">
-                              Ограничить инструменты для {server?.alias || server?.server_name || serverId}:
+                              ${t('Ogranichit_instrumenty_dlya')} {server?.alias || server?.server_name || serverId}:
                             </Text>
                             <Select
                               mode="multiple"
                               size="small"
                               style={{ width: "100%" }}
-                              placeholder="Все инструменты (по умолчанию)"
+                              placeholder={t('Vse_instrumenty_po_umolchaniyu')}
                               value={mcpServerToolRestrictions[serverId] || []}
                               onChange={(selectedTools) => {
                                 setMCPServerToolRestrictions((prev) => ({
@@ -1596,18 +1598,18 @@ const ChatUI: React.FC<ChatUIProps> = ({
                         return (
                           <div key={serverId} className="border border-blue-100 rounded p-2 bg-blue-50 flex items-center justify-between">
                             <Text className="text-xs text-blue-700">
-                              {serverName} требует ваш API-ключ
+                              {serverName} ${t('trebuet_vash_API_klyuch')}
                             </Text>
                             {server.has_user_credential ? (
                               <div className="flex items-center gap-2">
                                 <span className="text-green-600 text-xs font-medium flex items-center gap-1">
-                                  <KeyOutlined /> Подключено
+                                  <KeyOutlined /> {t('Podklyucheno')}
                                 </span>
                                 <button
                                   className="text-xs text-gray-400 hover:text-blue-500 underline"
                                   onClick={() => setByokModalServer(server)}
                                 >
-                                  Переподключиться
+                                  {t('Perepodklyuchitsya')}
                                 </button>
                               </div>
                             ) : (
@@ -1615,7 +1617,7 @@ const ChatUI: React.FC<ChatUIProps> = ({
                                 className="text-xs bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-lg font-medium"
                                 onClick={() => setByokModalServer(server)}
                               >
-                                Подключиться
+                                {t('Podklyuchitsya')}
                               </button>
                             )}
                           </div>
@@ -1627,14 +1629,14 @@ const ChatUI: React.FC<ChatUIProps> = ({
 
               <div>
                 <Text className="font-medium block mb-2 text-gray-700 flex items-center">
-                  <DatabaseOutlined className="mr-2" /> Векторное хранилище
+                  <DatabaseOutlined className="mr-2" /> {t('Vektornoe_hranilische')}
                   <Tooltip
                     className="ml-1"
                     title={
                       <span>
-                        Выберите векторное хранилище для этого вызова LLM API. Настроить хранилище можно{" "}
+                        {t('Vyberite_vektornoe_hranilische_dlya_etog')}{" "}
                         <a href="?page=vector-stores" style={{ color: "#1890ff" }}>
-                          здесь
+                          {t('zdes')}
                         </a>
                         .
                       </span>
@@ -1653,14 +1655,14 @@ const ChatUI: React.FC<ChatUIProps> = ({
 
               <div>
                 <Text className="font-medium block mb-2 text-gray-700 flex items-center">
-                  <SafetyOutlined className="mr-2" /> Ограждения
+                  <SafetyOutlined className="mr-2" /> {t('Ograzhdeniya')}
                   <Tooltip
                     className="ml-1"
                     title={
                       <span>
-                        Выберите ограждение для этого вызова LLM API. Настроить ограждения можно{" "}
+                        {t('Vyberite_ograzhdenie_dlya_etogo_vyzova_L')}{" "}
                         <a href="?page=guardrails" style={{ color: "#1890ff" }}>
-                          здесь
+                          {t('zdes')}
                         </a>
                         .
                       </span>
@@ -1679,14 +1681,14 @@ const ChatUI: React.FC<ChatUIProps> = ({
 
               <div>
                 <Text className="font-medium block mb-2 text-gray-700 flex items-center">
-                  <SafetyOutlined className="mr-2" /> Политики
+                  <SafetyOutlined className="mr-2" /> {t('Politiki')}
                   <Tooltip
                     className="ml-1"
                     title={
                       <span>
-                        Выберите политику для применения к этому вызову LLM API. Политики определяют, какие ограждения применяются на основе условий. Настроить политики можно{" "}
+                        {t('Vyberite_politiku_dlya_primeneniya_k_eto')}{" "}
                         <a href="?page=policies" style={{ color: "#1890ff" }}>
-                          здесь
+                          {t('zdes')}
                         </a>
                         .
                       </span>
@@ -1732,14 +1734,14 @@ const ChatUI: React.FC<ChatUIProps> = ({
             ) : (
             <>
             <div className="p-4 border-b border-gray-200 flex justify-between items-center">
-              <Title className="text-xl font-semibold mb-0">{simplified ? "Чат" : "Тест ключа"}</Title>
+              <Title className="text-xl font-semibold mb-0">{simplified ? t('Chat') : t('Test_klyucha')}</Title>
               <div className="flex gap-2">
                 <TremorButton
                   onClick={clearChatHistory}
                   className="bg-gray-100 hover:bg-gray-200 text-gray-700 border-gray-300"
                   icon={ClearOutlined}
                 >
-                  Очистить чат
+                  {t('Ochistit_chat')}
                 </TremorButton>
                 {!simplified && (
                 <TremorButton
@@ -1747,7 +1749,7 @@ const ChatUI: React.FC<ChatUIProps> = ({
                   className="bg-gray-100 hover:bg-gray-200 text-gray-700 border-gray-300"
                   icon={CodeOutlined}
                 >
-                  Получить код
+                  {t('Poluchit_kod')}
                 </TremorButton>
                 )}
               </div>
@@ -1756,7 +1758,7 @@ const ChatUI: React.FC<ChatUIProps> = ({
               {chatHistory.length === 0 && (
                 <div className="h-full flex flex-col items-center justify-center text-gray-400">
                   <RobotOutlined style={{ fontSize: "48px", marginBottom: "16px" }} />
-                  <Text>Начните разговор, сгенерируйте изображение или обработайте аудио</Text>
+                  <Text>{t('Nachnite_razgovor_sgeneriruyte_izobrazhe')}</Text>
                 </div>
               )}
 
@@ -1797,7 +1799,7 @@ const ChatUI: React.FC<ChatUIProps> = ({
                         >
                           <RobotOutlined style={{ fontSize: "12px", color: "#4b5563" }} />
                         </div>
-                        <strong className="text-sm capitalize">Ассистент</strong>
+                        <strong className="text-sm capitalize">{t('Assistent')}</strong>
                       </div>
                       <MCPEventsDisplay events={mcpEvents} />
                     </div>
@@ -1821,9 +1823,9 @@ const ChatUI: React.FC<ChatUIProps> = ({
                       <p className="ant-upload-drag-icon">
                         <PictureOutlined style={{ fontSize: "24px", color: "#666" }} />
                       </p>
-                      <p className="ant-upload-text text-sm">Нажмите или перетащите изображения для загрузки</p>
+                      <p className="ant-upload-text text-sm">{t('Nazhmite_ili_peretaschite_izobrazheniya_')}</p>
                       <p className="ant-upload-hint text-xs text-gray-500">
-                        Поддерживаются форматы PNG, JPG, JPEG. Можно загрузить несколько изображений.
+                        {t('Podderzhivayutsya_formaty_PNG_JPG_JPEG_M')}
                       </p>
                     </Dragger>
                   ) : (
@@ -1859,7 +1861,7 @@ const ChatUI: React.FC<ChatUIProps> = ({
                       >
                         <div className="text-center">
                           <PictureOutlined style={{ fontSize: "24px", color: "#666" }} />
-                          <p className="text-xs text-gray-500 mt-1">Добавить ещё</p>
+                          <p className="text-xs text-gray-500 mt-1">{t('Dobavit_eschyo')}</p>
                         </div>
                         <input
                           id="additional-image-upload"
@@ -1890,9 +1892,9 @@ const ChatUI: React.FC<ChatUIProps> = ({
                       <p className="ant-upload-drag-icon">
                         <SoundOutlined style={{ fontSize: "24px", color: "#666" }} />
                       </p>
-                      <p className="ant-upload-text text-sm">Нажмите или перетащите аудиофайл для загрузки</p>
+                      <p className="ant-upload-text text-sm">{t('Nazhmite_ili_peretaschite_audiofayl_dlya')}</p>
                       <p className="ant-upload-hint text-xs text-gray-500">
-                        Поддерживаются форматы MP3, MP4, MPEG, MPGA, M4A, WAV, WEBM. Максимальный размер файла: 25 МБ.
+                        {t('Podderzhivayutsya_formaty_MP3_MP4_MPEG_M')}
                       </p>
                     </Dragger>
                   ) : (
@@ -1908,7 +1910,7 @@ const ChatUI: React.FC<ChatUIProps> = ({
                         className="bg-white shadow-sm border border-gray-200 rounded px-2 py-1 text-red-500 hover:bg-red-50 text-xs"
                         onClick={handleRemoveAudio}
                       >
-                        <DeleteOutlined /> Удалить
+                        <DeleteOutlined /> {t('Udalit')}
                       </button>
                     </div>
                   )}
@@ -1940,12 +1942,12 @@ const ChatUI: React.FC<ChatUIProps> = ({
                       {isLoading ? (
                         <>
                           <LoadingOutlined className="text-blue-500" spin />
-                          <span className="text-sm text-blue-700 font-medium">Выполняется Python-код...</span>
+                          <span className="text-sm text-blue-700 font-medium">{t('Vypolnyaetsya_Python_kod')}</span>
                         </>
                       ) : (
                         <>
                           <CodeOutlined className="text-blue-500" />
-                          <span className="text-sm text-blue-700 font-medium">Интерпретатор кода активен</span>
+                          <span className="text-sm text-blue-700 font-medium">{t('Interpretator_koda_aktiven')}</span>
                         </>
                       )}
                     </div>
@@ -1953,16 +1955,16 @@ const ChatUI: React.FC<ChatUIProps> = ({
                       className="text-xs text-blue-500 hover:text-blue-700"
                       onClick={() => codeInterpreter.setEnabled(false)}
                     >
-                      Отключить
+                      {t('Otklyuchit')}
                     </button>
                   </div>
                   {/* Sample prompts - only show when not loading */}
                   {!isLoading && (
                     <div className="flex flex-wrap gap-2">
                       {[
-                        "Создайте примерный CSV с данными о продажах и постройте диаграмму",
-                        "Создайте PNG гистограмму, сравнивающую провайдеров AI-шлюзов, включая LiteLLM",
-                        "Создайте CSV с данными о ценах LLM и визуализируйте их в виде линейного графика",
+                        t('Sozdayte_primernyy_CSV_s_dannymi_o_proda'),
+                        t('Sozdayte_PNG_gistogrammu_sravnivayuschuy'),
+                        t('Sozdayte_CSV_s_dannymi_o_tsenah_LLM_i_vi'),
                       ].map((prompt, idx) => (
                         <button
                           key={idx}
@@ -1981,8 +1983,8 @@ const ChatUI: React.FC<ChatUIProps> = ({
               {chatHistory.length === 0 && !isLoading && endpointType !== EndpointType.MCP && (
                 <div className="flex items-center gap-2 mb-3 overflow-x-auto">
                   {(endpointType === EndpointType.A2A_AGENTS
-                    ? ["Что вы можете мне помочь?", "Расскажите о себе", "Какие задачи вы можете выполнять?"]
-                    : ["Напишите мне стихотворение", "Объясните квантовые вычисления", "Составьте вежливое письмо с просьбой о встрече"]
+                    ? [t('Chto_vy_mozhete_mne_pomoch'), t('Rasskazhite_o_sebe'), t('Kakie_zadachi_vy_mozhete_vypolnyat')]
+                    : [t('Napishite_mne_stihotvorenie'), t('Obyasnite_kvantovye_vychisleniya'), t('Sostavte_vezhlivoe_pismo_s_prosboy_o_v')]
                   ).map((prompt) => (
                     <button
                       key={prompt}
@@ -2021,8 +2023,8 @@ const ChatUI: React.FC<ChatUIProps> = ({
                       <Tooltip
                         title={
                           codeInterpreter.enabled
-                            ? "Интерпретатор кода включён (нажмите для отключения)"
-                            : "Включить интерпретатор кода"
+                            ? t('Interpretator_koda_vklyuchyon_nazhmite_d')
+                            : t('Vklyuchit_interpretator_koda')
                         }
                       >
                         <button
@@ -2033,7 +2035,7 @@ const ChatUI: React.FC<ChatUIProps> = ({
                           onClick={() => {
                             codeInterpreter.toggle();
                             if (!codeInterpreter.enabled) {
-                              NotificationsManager.success("Интерпретатор кода включён!");
+                              NotificationsManager.success(t('Interpretator_koda_vklyuchyon'));
                             }
                           }}
                         >
@@ -2075,7 +2077,7 @@ const ChatUI: React.FC<ChatUIProps> = ({
                           />
                         ) : (
                           <div className="flex items-center justify-center h-10 text-sm text-gray-500">
-                            Загрузка схемы инструмента...
+                            {t('Zagruzka_shemy_instrumenta')}
                           </div>
                         );
                       })()}
@@ -2090,16 +2092,16 @@ const ChatUI: React.FC<ChatUIProps> = ({
                         endpointType === EndpointType.EMBEDDINGS ||
                         endpointType === EndpointType.RESPONSES ||
                         endpointType === EndpointType.ANTHROPIC_MESSAGES
-                          ? "Введите сообщение... (Shift+Enter для новой строки)"
+                          ? t('Vvedite_soobschenie_Shift_Enter_dlya_no')
                           : endpointType === EndpointType.A2A_AGENTS
-                            ? "Отправьте сообщение A2A-агенту..."
+                            ? t('Otpravte_soobschenie_A2A_agentu')
                             : endpointType === EndpointType.IMAGE_EDITS
-                              ? "Опишите, как вы хотите отредактировать изображение..."
+                              ? t('Opishite_kak_vy_hotite_otredaktirovat_i')
                               : endpointType === EndpointType.SPEECH
-                                ? "Введите текст для преобразования в речь..."
+                                ? t('Vvedite_tekst_dlya_preobrazovaniya_v_rec')
                                 : endpointType === EndpointType.TRANSCRIPTION
-                                  ? "Необязательно: добавьте контекст или подсказку для транскрипции..."
-                                  : "Опишите изображение, которое хотите создать..."
+                                  ? t('Neobyazatelno_dobavte_kontekst_ili_pod')
+                                  : t('Opishite_izobrazhenie_kotoroe_hotite_soz')
                       }
                       disabled={isLoading}
                       className="flex-1"
@@ -2143,7 +2145,7 @@ const ChatUI: React.FC<ChatUIProps> = ({
                     className="bg-red-50 hover:bg-red-100 text-red-600 border-red-200"
                     icon={DeleteOutlined}
                   >
-                    Отмена
+                    {t('Otmena')}
                   </TremorButton>
                 )}
               </div>
@@ -2154,7 +2156,7 @@ const ChatUI: React.FC<ChatUIProps> = ({
         </div>
       </Card>
       <Modal
-        title="Сгенерированный код"
+        title={t('Sgenerirovannyy_kod')}
         open={isGetCodeModalVisible}
         onCancel={() => setIsGetCodeModalVisible(false)}
         footer={null}
@@ -2162,7 +2164,7 @@ const ChatUI: React.FC<ChatUIProps> = ({
       >
         <div className="flex justify-between items-end my-4">
           <div>
-            <Text className="font-medium block mb-1 text-gray-700">Тип SDK</Text>
+            <Text className="font-medium block mb-1 text-gray-700">{t('Tip_SDK')}</Text>
             <Select
               value={selectedSdk}
               onChange={(value) => setSelectedSdk(value as "openai" | "azure")}
@@ -2176,10 +2178,10 @@ const ChatUI: React.FC<ChatUIProps> = ({
           <Button
             onClick={() => {
               navigator.clipboard.writeText(generatedCode);
-              NotificationsManager.success("Скопировано в буфер обмена!");
+              NotificationsManager.success(t('Skopirovano_v_bufer_obmena'));
             }}
           >
-            Копировать в буфер обмена
+            {t('Kopirovat_v_bufer_obmena')}
           </Button>
         </div>
         <SyntaxHighlighter
@@ -2213,40 +2215,38 @@ const ChatUI: React.FC<ChatUIProps> = ({
 
       {/* Toolsets info modal */}
       <Modal
-        title="Как работают наборы инструментов"
+        title={t('Kak_rabotayut_nabory_instrumentov')}
         open={isToolsetsInfoModalVisible}
         onCancel={() => setIsToolsetsInfoModalVisible(false)}
         footer={[
           <Button key="close" onClick={() => setIsToolsetsInfoModalVisible(false)}>
-            Закрыть
+            {t('Zakryt')}
           </Button>,
         ]}
         width={600}
       >
         <div className="space-y-4 py-2">
           <p className="text-gray-700">
-            <strong>Наборы инструментов</strong> — это именованные коллекции конкретных инструментов из одного или нескольких MCP-серверов.
-            Вместо предоставления всех инструментов сервера, набор инструментов даёт агенту именно те инструменты, которые ему нужны.
+            <strong>{t('Nabory_instrumentov')}</strong> {t('eto_imenovannye_kollektsii_konkretnyh_i')}
           </p>
           <div>
-            <h4 className="font-semibold text-gray-800 mb-2">Как использовать набор инструментов:</h4>
+            <h4 className="font-semibold text-gray-800 mb-2">{t('Kak_ispolzovat_nabor_instrumentov')}</h4>
             <ol className="list-decimal list-inside space-y-2 text-gray-700">
-              <li>Выберите <span style={{ color: "#7c3aed", fontWeight: 600 }}>Набор инструментов</span> (фиолетовый значок) из выпадающего списка MCP-серверов.</li>
-              <li>Выбор инструментов покажет только те инструменты, которые входят в этот набор.</li>
-              <li>Выберите инструмент, заполните его параметры и отправьте.</li>
-              <li>Вызов инструмента автоматически маршрутизируется на правильный базовый MCP-сервер.</li>
+              <li>{t('Vyberite')} <span style={{ color: "#7c3aed", fontWeight: 600 }}>{t('Nabor_instrumentov')}</span> {t('fioletovyy_znachok_iz_vypadayuschego_spi')}</li>
+              <li>{t('Vybor_instrumentov_pokazhet_tolko_te_ins')}</li>
+              <li>{t('Vyberite_instrument_zapolnite_ego_param')}</li>
+              <li>{t('Vyzov_instrumenta_avtomaticheski_marshru')}</li>
             </ol>
           </div>
           <div className="bg-purple-50 border border-purple-200 rounded p-3">
             <p className="text-sm text-purple-800">
-              <strong>Пример:</strong> Набор инструментов &quot;GitHub только для чтения&quot; может включать только <code>list_repos</code> и <code>get_file</code> с сервера GitHub MCP — предотвращая внесение изменений агентами.
+              <strong>{t('Primer')}</strong> {t('Nabor_instrumentov_quot_GitHub_tolko_d')} <code>list_repos</code> {t('i')} <code>get_file</code> {t('s_servera_GitHub_MCP_predotvraschaya_vne')}
             </p>
           </div>
           <div>
-            <h4 className="font-semibold text-gray-800 mb-1">Создание наборов инструментов:</h4>
+            <h4 className="font-semibold text-gray-800 mb-1">{t('Sozdanie_naborov_instrumentov')}</h4>
             <p className="text-sm text-gray-600">
-              Администраторы могут создавать наборы инструментов и управлять ими на странице <strong>MCP</strong> → вкладка <strong>Наборы инструментов</strong>.
-              Наборы инструментов можно назначать ключам и командам для ограничения доступа к инструментам.
+              {t('Administratory_mogut_sozdavat_nabory_in')} <strong>MCP</strong> {t('vkladka')} <strong>{t('Nabory_instrumentov')}</strong>{t('Nabory_instrumentov_mozhn')}
             </p>
           </div>
         </div>

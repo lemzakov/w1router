@@ -14,6 +14,7 @@ import {
 import React from "react";
 import { Table, TableHead, TableHeaderCell, TableBody, TableRow, TableCell } from "@tremor/react";
 import { SwitchVerticalIcon, ChevronUpIcon, ChevronDownIcon } from "@heroicons/react/outline";
+import { useTranslation } from "react-i18next";
 
 // Extend the column meta type to include className
 declare module "@tanstack/react-table" {
@@ -92,6 +93,8 @@ export function ModelDataTable<TData, TValue>({
     return "";
   };
 
+  const { t } = useTranslation();
+
   return (
     <div className="rounded-lg custom-border relative">
       <div className="overflow-x-auto">
@@ -160,7 +163,7 @@ export function ModelDataTable<TData, TValue>({
                 <TableRow>
                   <TableCell colSpan={columns.length} className="h-8 text-center">
                     <div className="text-center text-gray-500">
-                      <p>🚅 Загрузка моделей...</p>
+                      <p>{t('Zagruzka_modeley')}</p>
                     </div>
                   </TableCell>
                 </TableRow>
@@ -194,7 +197,7 @@ export function ModelDataTable<TData, TValue>({
                 <TableRow>
                   <TableCell colSpan={columns.length} className="h-8 text-center">
                     <div className="text-center text-gray-500">
-                      <p>Модели не найдены</p>
+                      <p>{t('Modeli_ne_naydeny')}</p>
                     </div>
                   </TableCell>
                 </TableRow>

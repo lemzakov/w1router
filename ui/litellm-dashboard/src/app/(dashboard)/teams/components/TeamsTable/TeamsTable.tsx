@@ -7,6 +7,7 @@ import { type KeyResponse, Team } from "@/components/key_team_helpers/key_list";
 import { Member, Organization } from "@/components/networking";
 import ModelsCell from "@/app/(dashboard)/teams/components/TeamsTable/ModelsCell";
 import YourRoleCell from "@/app/(dashboard)/teams/components/TeamsTable/YourRoleCell/YourRoleCell";
+import { useTranslation } from "react-i18next";
 
 type TeamsTableProps = {
   teams: Team[] | null;
@@ -38,19 +39,20 @@ const TeamsTable = ({
   setEditTeam,
   onDeleteTeam,
 }: TeamsTableProps) => {
+  const { t } = useTranslation();
   return (
     <Table>
       <TableHead>
         <TableRow>
-          <TableHeaderCell>Название команды</TableHeaderCell>
-          <TableHeaderCell>ID команды</TableHeaderCell>
-          <TableHeaderCell>Создано</TableHeaderCell>
-          <TableHeaderCell>Расходы (USD)</TableHeaderCell>
-          <TableHeaderCell>Бюджет (USD)</TableHeaderCell>
-          <TableHeaderCell>Модели</TableHeaderCell>
-          <TableHeaderCell>Организация</TableHeaderCell>
-          <TableHeaderCell>Ваша роль</TableHeaderCell>
-          <TableHeaderCell>Информация</TableHeaderCell>
+          <TableHeaderCell>{t('Nazvanie_komandy')}</TableHeaderCell>
+          <TableHeaderCell>{t('ID_komandy')}</TableHeaderCell>
+          <TableHeaderCell>{t('Sozdano')}</TableHeaderCell>
+          <TableHeaderCell>{t('Rashody_USD')}</TableHeaderCell>
+          <TableHeaderCell>{t('Byudzhet_USD')}</TableHeaderCell>
+          <TableHeaderCell>{t('Modeli')}</TableHeaderCell>
+          <TableHeaderCell>{t('Organizatsiya')}</TableHeaderCell>
+          <TableHeaderCell>{t('Vasha_rol')}</TableHeaderCell>
+          <TableHeaderCell>{t('Informatsiya')}</TableHeaderCell>
         </TableRow>
       </TableHead>
 
@@ -116,7 +118,7 @@ const TeamsTable = ({
                       overflow: "hidden",
                     }}
                   >
-                    {team["max_budget"] !== null && team["max_budget"] !== undefined ? team["max_budget"] : "Без ограничений"}
+                    {team["max_budget"] !== null && team["max_budget"] !== undefined ? team["max_budget"] : t('Bez_ogranicheniy')}
                   </TableCell>
                   <ModelsCell team={team} />
                   <TableCell>{team.organization_id}</TableCell>
@@ -128,7 +130,7 @@ const TeamsTable = ({
                         perTeamInfo[team.team_id] &&
                         perTeamInfo[team.team_id].keys &&
                         perTeamInfo[team.team_id].keys.length}{" "}
-                      Ключей
+                      {t('Klyuchey')}
                     </Text>
                     <Text>
                       {perTeamInfo &&
@@ -137,7 +139,7 @@ const TeamsTable = ({
                         perTeamInfo[team.team_id].team_info &&
                         perTeamInfo[team.team_id].team_info.members_with_roles &&
                         perTeamInfo[team.team_id].team_info.members_with_roles.length}{" "}
-                      Участников
+                      {t('Uchastnikov')}
                     </Text>
                   </TableCell>
                   <TableCell>
