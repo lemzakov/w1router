@@ -128,7 +128,7 @@ const GuardrailTestPlayground: React.FC<GuardrailTestPlaygroundProps> = ({
                 <Title className="text-lg font-semibold mb-3">{t('Guardrails')}</Title>
                 <TextInput
                   icon={SearchOutlined}
-                  placeholder="Search guardrails..."
+                  placeholder={t('Search_guardrails_placeholder')}
                   value={searchQuery}
                   onValueChange={setSearchQuery}
                 />
@@ -144,7 +144,7 @@ const GuardrailTestPlayground: React.FC<GuardrailTestPlaygroundProps> = ({
                 <div className="p-4">
                   <Empty
                     description={
-                      searchQuery ? "No guardrails match your search" : "No guardrails available"
+                      searchQuery ? t('No_guardrails_match_search') : t('No_guardrails_available')
                     }
                   />
                 </div>
@@ -209,7 +209,7 @@ const GuardrailTestPlayground: React.FC<GuardrailTestPlaygroundProps> = ({
 
             <div className="p-3 border-t border-gray-200 bg-gray-50">
               <Text className="text-xs text-gray-600">
-                {selectedGuardrails.size} of {filteredGuardrails.length} selected
+                {t('Selected_count', { selected: selectedGuardrails.size, total: filteredGuardrails.length })}
               </Text>
             </div>
           </div>
@@ -225,11 +225,10 @@ const GuardrailTestPlayground: React.FC<GuardrailTestPlaygroundProps> = ({
                 <div className="h-full flex flex-col items-center justify-center text-gray-400">
                   <ExperimentOutlined style={{ fontSize: "48px", marginBottom: "16px" }} />
                   <Text className="text-lg font-medium text-gray-600 mb-2">
-                    Select Guardrails to Test
+                    {t('Select_Guardrails_to_Test')}
                   </Text>
                   <Text className="text-center text-gray-500 max-w-md">
-                    Choose one or more guardrails from the left sidebar to start testing and
-                    comparing results.
+                    {t('Select_guardrails_description')}
                   </Text>
                 </div>
               ) : (

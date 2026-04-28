@@ -24,28 +24,28 @@ const GuardrailDetailView: React.FC<GuardrailDetailViewProps> = ({
   const [activeTab, setActiveTab] = useState("overview");
 
   const detailRows = [
-    { property: "Provider", value: card.category === "litellm" ? "LiteLLM Content Filter" : "Partner Guardrail" },
-    ...(card.subcategory ? [{ property: "Subcategory", value: card.subcategory }] : []),
-    ...(card.category === "litellm" ? [{ property: "Cost", value: "$0 / request" }] : []),
-    ...(card.category === "litellm" ? [{ property: "External Dependencies", value: "None" }] : []),
-    ...(card.category === "litellm" ? [{ property: "Latency", value: card.eval?.latency || "<1ms" }] : []),
+    { property: t('Provider'), value: card.category === "litellm" ? "LiteLLM Content Filter" : "Partner Guardrail" },
+    ...(card.subcategory ? [{ property: t('Subcategory'), value: card.subcategory }] : []),
+    ...(card.category === "litellm" ? [{ property: t('Cost'), value: "$0 / request" }] : []),
+    ...(card.category === "litellm" ? [{ property: t('External_Dependencies'), value: "None" }] : []),
+    ...(card.category === "litellm" ? [{ property: t('Latency'), value: card.eval?.latency || "<1ms" }] : []),
   ];
 
   const evalRows = card.eval
     ? [
-        { metric: "Precision", value: `${card.eval.precision}%` },
-        { metric: "Recall", value: `${card.eval.recall}%` },
-        { metric: "F1 Score", value: `${card.eval.f1}%` },
-        { metric: "Test Cases", value: String(card.eval.testCases) },
-        { metric: "False Positives", value: "0" },
-        { metric: "False Negatives", value: "0" },
-        { metric: "Latency (p50)", value: card.eval.latency },
+        { metric: t('Precision'), value: `${card.eval.precision}%` },
+        { metric: t('Recall'), value: `${card.eval.recall}%` },
+        { metric: t('F1_Score'), value: `${card.eval.f1}%` },
+        { metric: t('Test_Cases'), value: String(card.eval.testCases) },
+        { metric: t('False_Positives'), value: "0" },
+        { metric: t('False_Negatives'), value: "0" },
+        { metric: t('Latency_p50'), value: card.eval.latency },
       ]
     : [];
 
   const tabs = [
-    { key: "overview", label: "Overview" },
-    ...(card.eval ? [{ key: "eval", label: "Eval Results" }] : []),
+    { key: "overview", label: t('Overview') },
+    ...(card.eval ? [{ key: "eval", label: t('Eval_Results') }] : []),
   ];
 
   return (
@@ -98,7 +98,7 @@ const GuardrailDetailView: React.FC<GuardrailDetailViewProps> = ({
             fontSize: 14,
           }}
         >
-          Create Guardrail
+          {t('Create_Guardrail')}
         </Button>
       </div>
 
