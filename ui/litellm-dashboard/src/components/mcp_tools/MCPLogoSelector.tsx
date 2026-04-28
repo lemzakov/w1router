@@ -109,7 +109,7 @@ const MCPLogoSelector: React.FC<MCPLogoSelectorProps> = ({ value, onChange }) =>
       {/* Custom URL input */}
       <Input
         prefix={<LinkOutlined className="text-gray-400" />}
-        placeholder="Or paste a custom logo URL..."
+        placeholder={t('Or_paste_custom_logo_URL')}
         value={value && !WELL_KNOWN_LOGOS.some((l) => l.url === value) ? value : ""}
         onChange={(e) => {
           const v = e.target.value.trim();

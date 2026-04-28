@@ -35,6 +35,20 @@ function getInitialAvatar(name: string) {
   return { initial, backgroundColor: INITIAL_COLORS[colorIndex] };
 }
 
+const CATEGORY_KEY_MAP: Record<string, string> = {
+  "All": "Category_All",
+  "Developer Tools": "Category_Developer_Tools",
+  "Communication": "Category_Communication",
+  "Databases": "Category_Databases",
+  "Productivity": "Category_Productivity",
+  "Search": "Category_Search_cat",
+  "Web & Browser": "Category_Web_Browser",
+  "Cloud": "Category_Cloud",
+  "System": "Category_System",
+  "Finance": "Category_Finance",
+  "E-Commerce": "Category_E_Commerce",
+};
+
 const MCPDiscovery: React.FC<MCPDiscoveryProps> = ({
   isVisible,
   onClose,
@@ -124,7 +138,7 @@ const MCPDiscovery: React.FC<MCPDiscoveryProps> = ({
             onClick={onCustomServer}
             className="text-sm text-blue-600 hover:text-blue-800 cursor-pointer bg-transparent border-none font-medium"
           >
-            + Custom Server
+            + {t('Custom_Server_link')}
           </button>
         </div>
       }
@@ -142,6 +156,8 @@ const MCPDiscovery: React.FC<MCPDiscoveryProps> = ({
       <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 12 }}>
         {["All", ...categories].map((cat) => {
           const isSelected = selectedCategory === cat;
+          const catKey = CATEGORY_KEY_MAP[cat];
+          const displayLabel = catKey ? t(catKey) : cat;
           return (
             <button
               key={cat}
@@ -158,7 +174,7 @@ const MCPDiscovery: React.FC<MCPDiscoveryProps> = ({
                 lineHeight: "20px",
               }}
             >
-              {cat}
+              {displayLabel}
             </button>
           );
         })}
@@ -166,7 +182,7 @@ const MCPDiscovery: React.FC<MCPDiscoveryProps> = ({
 
       {/* Search */}
       <Search
-        placeholder="Search servers..."
+        placeholder={t('Search_servers_placeholder')}
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
         style={{ marginBottom: 16 }}
@@ -226,7 +242,7 @@ const MCPDiscovery: React.FC<MCPDiscoveryProps> = ({
                 marginBottom: 4,
               }}
             >
-              {category}
+              {CATEGORY_KEY_MAP[category] ? t(CATEGORY_KEY_MAP[category]) : category}
             </div>
             <div
               style={{

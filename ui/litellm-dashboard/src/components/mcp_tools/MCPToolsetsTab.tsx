@@ -187,7 +187,7 @@ function CreateToolsetModal({ open, onClose, onSave, accessToken, initialToolset
     <Modal
       open={open}
       onCancel={onClose}
-      title={initialToolset ? "Edit Toolset" : "New Toolset"}
+      title={initialToolset ? t('Edit_Toolset_title') : t('New_Toolset_title')}
       width={960}
       footer={null}
       forceRender
@@ -195,15 +195,15 @@ function CreateToolsetModal({ open, onClose, onSave, accessToken, initialToolset
       <Form form={form} layout="vertical" className="mt-2">
         <div className="flex gap-4 mb-4">
           <Form.Item
-            label="Toolset Name"
+            label={t('Toolset_Name_label')}
             name="toolset_name"
             rules={[{ required: true, message: "Please enter a toolset name" }]}
             className="flex-1 mb-0"
           >
-            <Input placeholder="e.g. github-linear-tools" />
+            <Input placeholder={t('eg_github_linear_placeholder')} />
           </Form.Item>
-          <Form.Item label="Description" name="description" className="flex-1 mb-0">
-            <Input placeholder="Optional description" />
+          <Form.Item label={t('Description_1')} name="description" className="flex-1 mb-0">
+            <Input placeholder={t('Optional_description_placeholder')} />
           </Form.Item>
         </div>
       </Form>
@@ -215,7 +215,7 @@ function CreateToolsetModal({ open, onClose, onSave, accessToken, initialToolset
             <Text className="text-sm font-semibold text-gray-700">{t('Available_Tools')}</Text>
           </div>
           <Input
-            placeholder="Search MCP servers..."
+            placeholder={t('Search_MCP_servers_placeholder')}
             value={serverSearch}
             onChange={(e) => setServerSearch(e.target.value)}
             className="mb-2"
@@ -223,7 +223,7 @@ function CreateToolsetModal({ open, onClose, onSave, accessToken, initialToolset
           />
           <div className="space-y-2 overflow-y-auto" style={{ maxHeight: 300 }}>
             {filteredServers.length === 0 ? (
-              <Text className="text-gray-400 text-sm">{mcpServers.length === 0 ? "No MCP servers configured" : "No servers match your search"}</Text>
+              <Text className="text-gray-400 text-sm">{mcpServers.length === 0 ? t('No_MCP_servers_configured_text') : "No servers match your search"}</Text>
             ) : (
               filteredServers.map((server) => (
                 <MCPToolList
@@ -245,8 +245,8 @@ function CreateToolsetModal({ open, onClose, onSave, accessToken, initialToolset
         {/* Right panel: Your Toolset */}
         <div className="w-72 flex-shrink-0">
           <Text className="text-sm font-semibold text-gray-700 mb-2 block">
-            Your Toolset{" "}
-            <span className="text-xs font-normal text-gray-400">({selectedTools.length} tools)</span>
+            {t('Your_Toolset_header')}{" "}
+            <span className="text-xs font-normal text-gray-400">({selectedTools.length} {t('tools_word')})</span>
           </Text>
           <div className="space-y-1 overflow-y-auto" style={{ maxHeight: 340 }}>
             {selectedTools.length === 0 ? (
@@ -274,7 +274,7 @@ function CreateToolsetModal({ open, onClose, onSave, accessToken, initialToolset
       <div className="flex justify-end gap-2 mt-4 pt-4 border-t border-gray-200">
         <Button variant="secondary" onClick={onClose}>{t('Cancel')}</Button>
         <Button onClick={handleSubmit} loading={saving}>
-          {initialToolset ? "Save Changes" : "Create Toolset"}
+          {initialToolset ? t('Save_Changes_btn') : t('Create_Toolset_btn')}
         </Button>
       </div>
     </Modal>
@@ -289,7 +289,7 @@ function toolsetColumns(
 ): ColumnDef<MCPToolset>[] {
   return [
     {
-      header: "Toolset ID",
+      header: t('Toolset_ID_col'),
       accessorKey: "toolset_id",
       cell: ({ row }) => (
         <span className="font-mono text-xs bg-gray-100 px-2 py-0.5 rounded text-gray-600">
@@ -298,7 +298,7 @@ function toolsetColumns(
       ),
     },
     {
-      header: "Name",
+      header: t('Name_col'),
       accessorKey: "toolset_name",
       cell: ({ row }) => {
         const url = `${proxyBaseUrl}/toolset/${row.original.toolset_name}/mcp`;
@@ -321,14 +321,14 @@ function toolsetColumns(
       },
     },
     {
-      header: "Description",
+      header: t('Description_1'),
       accessorKey: "description",
       cell: ({ row }) => (
         <span className="text-sm text-gray-500">{row.original.description || "—"}</span>
       ),
     },
     {
-      header: "Tools",
+      header: t('Tools_col'),
       accessorKey: "tools",
       cell: ({ row }) => {
         const tools = row.original.tools;
@@ -347,7 +347,7 @@ function toolsetColumns(
       },
     },
     {
-      header: "Created",
+      header: t('Created_toolset_col'),
       accessorKey: "created_at",
       cell: ({ row }) => (
         <span className="text-xs text-gray-500">
@@ -407,7 +407,7 @@ function ToolsetUsageGuide() {
     <div className="mb-6 rounded-lg border border-gray-200 bg-gray-50 px-5 py-4">
       <p className="text-sm font-medium text-gray-700 mb-1">{t('How_toolsets_work')}</p>
       <p className="text-sm text-gray-500 mb-3">
-        Create a toolset, assign it to a key via <span className="font-medium text-gray-700">{t('API_Keys_Edit_Key_MCP_Servers')}</span>, then point your MCP client at the toolset URL. The client only sees the tools you picked.
+        Create a toolset, assign it to a key via <span className="font-medium text-gray-700">{t('API_Keys_Edit_Key_MCP_Servers')}</span>{t('Toolsets_how_it_works_part2')}
       </p>
       <div className="text-xs text-gray-400 mb-1">{t('Claude_Code_Cursor_config')}</div>
       <div className="relative">
@@ -473,12 +473,12 @@ export function MCPToolsetsTab({ accessToken, userRole }: MCPToolsetsTabProps) {
         <div>
           <Title>{t('MCP_Toolsets')}</Title>
           <Text className="text-gray-500 text-sm">
-            Curated collections of tools from one or more MCP servers. Assign toolsets to keys and teams via the MCP permissions dropdown.
+            {t('Curated_collections_description')}
           </Text>
         </div>
         {isAdmin && (
           <Button icon={PlusIcon} onClick={() => setCreateOpen(true)}>
-            New Toolset
+            {t('New_Toolset_btn')}
           </Button>
         )}
       </div>
@@ -491,7 +491,7 @@ export function MCPToolsetsTab({ accessToken, userRole }: MCPToolsetsTabProps) {
         renderSubComponent={() => <div />}
         getRowCanExpand={() => false}
         isLoading={isLoading}
-        noDataMessage="No toolsets yet. Click 'New Toolset' to create one."
+        noDataMessage={t('No_toolsets_msg')}
         loadingMessage="Loading toolsets..."
         enableSorting={true}
       />
@@ -517,9 +517,9 @@ export function MCPToolsetsTab({ accessToken, userRole }: MCPToolsetsTabProps) {
         open={!!deleteId}
         onCancel={() => setDeleteId(null)}
         onOk={handleDelete}
-        okText="Delete"
+        okText={t('Delete_Toolset_modal_title')}
         okButtonProps={{ danger: true, loading: deleting }}
-        title="Delete Toolset"
+        title={t('Delete_Toolset_modal_title')}
       >
         <p>{t('Are_you_sure_you_want_to_delete_this_too')}</p>
       </Modal>

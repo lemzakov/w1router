@@ -531,7 +531,7 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
             }}
           />
           <h2 className="text-xl font-semibold text-gray-900">
-            {isAdmin ? "Add New MCP Server" : "Submit MCP Server for Review"}
+            {isAdmin ? t('Add_New_MCP_Server_title') : t('Submit_MCP_Server_for_Review')}
           </h2>
         </div>
       }
@@ -564,7 +564,7 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
             <Form.Item
               label={
                 <span className="text-sm font-medium text-gray-700 flex items-center">
-                  MCP Server Name
+                  {t('MCP_Server_Name_label')}
                   <Tooltip title="Best practice: Use a descriptive name that indicates the server's purpose (e.g., 'GitHub_MCP', 'Email_Service'). Cannot contain spaces or hyphens; use underscores instead. Names must comply with SEP-986 and will be rejected if invalid (https://modelcontextprotocol.io/specification/2025-11-25/server/tools#tool-names).">
                     <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                   </Tooltip>
@@ -577,7 +577,7 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
               ]}
             >
               <TextInput
-                placeholder="e.g., GitHub_MCP, Zapier_MCP, etc."
+                placeholder={t('eg_MCP_placeholder')}
                 className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
               />
             </Form.Item>
@@ -585,7 +585,7 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
             <Form.Item
               label={
                 <span className="text-sm font-medium text-gray-700 flex items-center">
-                  Alias
+                  {t('Alias_field_label')}
                   <Tooltip title="A short, unique identifier for this server. Defaults to the server name if not provided. Cannot contain spaces or hyphens; use underscores instead.">
                     <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                   </Tooltip>
@@ -595,7 +595,7 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
               rules={[{ required: false }, { validator: (_, value) => validateMCPServerName(value) }]}
             >
               <TextInput
-                placeholder="e.g., GitHub_MCP, Zapier_MCP, etc."
+                placeholder={t('eg_MCP_placeholder')}
                 className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
                 onChange={() => setAliasManuallyEdited(true)}
               />
@@ -612,7 +612,7 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
               ]}
             >
               <TextInput
-                placeholder="Brief description of what this server does"
+                placeholder={t('Brief_description_placeholder')}
                 className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
               />
             </Form.Item>
@@ -635,7 +635,7 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
               rules={[{ required: true, message: "Please select a transport type" }]}
             >
               <Select
-                placeholder="Select transport"
+                placeholder={t('Select_transport_placeholder')}
                 className="rounded-lg"
                 size="large"
                 onChange={handleTransportChange}
@@ -1046,10 +1046,10 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
 
           <div className="flex items-center justify-end space-x-3 pt-6 border-t border-gray-100">
             <Button variant="secondary" onClick={handleCancel}>
-              Cancel
+              {t('Cancel')}
             </Button>
             <Button variant="primary" loading={isLoading}>
-              {isLoading ? "Creating..." : "Add MCP Server"}
+              {isLoading ? t('Creating_text') : t('Add_MCP_Server')}
             </Button>
           </div>
         </Form>

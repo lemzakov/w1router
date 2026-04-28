@@ -98,7 +98,7 @@ export const mcpServerColumns = (
 ): ColumnDef<MCPServer>[] => [
   {
     accessorKey: "server_id",
-    header: "Server ID",
+    header: t('Server_ID_col'),
     enableSorting: true,
     cell: ({ row }) => (
       <button
@@ -111,7 +111,7 @@ export const mcpServerColumns = (
   },
   {
     accessorKey: "server_name",
-    header: "Name",
+    header: t('Name_col'),
     enableSorting: true,
     cell: ({ row }) => {
       const logoUrl = row.original.mcp_info?.logo_url;
@@ -133,7 +133,7 @@ export const mcpServerColumns = (
   },
   {
     accessorKey: "alias",
-    header: "Alias",
+    header: t('Alias_col'),
     enableSorting: true,
   },
   {
@@ -150,7 +150,7 @@ export const mcpServerColumns = (
   },
   {
     accessorKey: "transport",
-    header: "Transport",
+    header: t('Transport_col'),
     enableSorting: true,
     cell: ({ row }) => {
       const transport = row.original.transport || "http";
@@ -166,7 +166,7 @@ export const mcpServerColumns = (
   },
   {
     accessorKey: "auth_type",
-    header: "Auth Type",
+    header: t('Auth_Type_col'),
     enableSorting: true,
     cell: ({ getValue }) => {
       const authType = (getValue() as string) || "none";
@@ -179,7 +179,7 @@ export const mcpServerColumns = (
   },
   {
     id: "health_status",
-    header: "Health Status",
+    header: t('Health_Status_col'),
     cell: ({ row }) => (
       <HealthStatusBadge
         server={row.original}
@@ -191,7 +191,7 @@ export const mcpServerColumns = (
   },
   {
     id: "mcp_access_groups",
-    header: "Access Groups",
+    header: t('Access_Groups_col'),
     cell: ({ row }) => {
       const groups = row.original.mcp_access_groups;
       if (Array.isArray(groups) && groups.length > 0) {
@@ -216,7 +216,7 @@ export const mcpServerColumns = (
   },
   {
     id: "available_on_public_internet",
-    header: "Network Access",
+    header: t('Network_Access_col'),
     cell: ({ row }) => {
       const isPublic = row.original.available_on_public_internet;
       return isPublic ? (
@@ -233,7 +233,7 @@ export const mcpServerColumns = (
     },
   },
   {
-    header: "Created",
+    header: t('Created_col'),
     accessorKey: "created_at",
     enableSorting: true,
     sortingFn: "datetime",
@@ -249,7 +249,7 @@ export const mcpServerColumns = (
     },
   },
   {
-    header: "Updated",
+    header: t('Updated_col'),
     accessorKey: "updated_at",
     enableSorting: true,
     sortingFn: "datetime",
@@ -266,7 +266,7 @@ export const mcpServerColumns = (
   },
   {
     id: "byok_credential",
-    header: "Credential",
+    header: t('Credential_col'),
     cell: ({ row }) => {
       const server = row.original;
       if (!server.is_byok) {
@@ -301,7 +301,7 @@ export const mcpServerColumns = (
   },
   {
     id: "actions",
-    header: "Actions",
+    header: t('Actions_col'),
     cell: ({ row }) => (
       <div className="flex items-center gap-1">
         <Tooltip title="Edit">
