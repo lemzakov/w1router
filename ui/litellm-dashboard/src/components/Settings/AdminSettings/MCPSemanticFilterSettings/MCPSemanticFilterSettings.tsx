@@ -141,8 +141,8 @@ export default function MCPSemanticFilterSettings({ accessToken }: MCPSemanticFi
         <>
           <Alert
             type="info"
-            message="Semantic Tool Filtering"
-            description="Filter MCP tools semantically based on query relevance. This reduces context window size and improves tool selection accuracy. Click 'Save Settings' to apply changes across all pods (takes effect within 10 seconds)."
+            message={t('Semantic_Tool_Filtering')}
+            description={t('Semantic_Filter_description')}
             showIcon
             style={{ marginBottom: 24 }}
           />
@@ -201,7 +201,7 @@ export default function MCPSemanticFilterSettings({ accessToken }: MCPSemanticFi
                   </Typography.Text>
                 </Card>
 
-                <Card title="Configuration" style={{ marginBottom: 16 }}>
+                <Card title={t('Configuration')} style={{ marginBottom: 16 }}>
                   <Form.Item
                     name="embedding_model"
                     label={
@@ -282,7 +282,7 @@ export default function MCPSemanticFilterSettings({ accessToken }: MCPSemanticFi
                     loading={isUpdating}
                     disabled={!isDirty}
                   >
-                    Save Settings
+                    {t('Save_Settings')}
                   </Button>
                 </div>
               </Form>

@@ -609,19 +609,19 @@ const AddGuardrailForm: React.FC<AddGuardrailFormProps> = ({ visible, onClose, a
       <>
         <Form.Item
           name="guardrail_name"
-          label="Guardrail Name"
+          label={t('Guardrail_Name')}
           rules={[{ required: true, message: "Please enter a guardrail name" }]}
         >
-          <Input placeholder="Enter a name for this guardrail" />
+          <Input placeholder={t('Enter_guardrail_name_placeholder')} />
         </Form.Item>
 
         <Form.Item
           name="provider"
-          label="Guardrail Provider"
+          label={t('Guardrail_Provider')}
           rules={[{ required: true, message: "Please select a provider" }]}
         >
           <Select
-            placeholder="Select a guardrail provider"
+            placeholder={t('Select_guardrail_provider_placeholder')}
             onChange={handleProviderChange}
             labelInValue={false}
             optionLabelProp="label"
@@ -680,7 +680,7 @@ const AddGuardrailForm: React.FC<AddGuardrailFormProps> = ({ visible, onClose, a
 
         <Form.Item
           name="mode"
-          label="Mode"
+          label={t('Mode_1')}
           tooltip="How the guardrail should be applied"
           rules={[{ required: true, message: "Please select a mode" }]}
         >
@@ -742,12 +742,12 @@ const AddGuardrailForm: React.FC<AddGuardrailFormProps> = ({ visible, onClose, a
 
         <Form.Item
           name="default_on"
-          label="Always On"
+          label={t('Always_On_label')}
           tooltip="If enabled, this guardrail will be applied to all requests by default."
         >
           <Select>
-            <Select.Option value={true}>Yes</Select.Option>
-            <Select.Option value={false}>No</Select.Option>
+            <Select.Option value={true}>{t('Yes')}</Select.Option>
+            <Select.Option value={false}>{t('No')}</Select.Option>
           </Select>
         </Form.Item>
 
@@ -903,12 +903,12 @@ const AddGuardrailForm: React.FC<AddGuardrailFormProps> = ({ visible, onClose, a
           <>
             {!isLastStep && (
               <Button type="primary" onClick={nextStep}>
-                Next
+                {t('Next')}
               </Button>
             )}
             {isLastStep && (
               <Button type="primary" onClick={handleSubmit} loading={loading}>
-                Create Guardrail
+                {t('Create_Guardrail_button')}
               </Button>
             )}
           </>
@@ -1044,7 +1044,7 @@ const AddGuardrailForm: React.FC<AddGuardrailFormProps> = ({ visible, onClose, a
   const getStepConfigs = () => {
     if (shouldRenderContentFilterConfigSettings(selectedProvider)) {
       return [
-        { title: "Basic Info", optional: false },
+        { title: t('Basic_Info'), optional: false },
         { title: "Topics", optional: false },
         { title: "Patterns", optional: false },
         { title: "Keywords", optional: false },
@@ -1053,13 +1053,13 @@ const AddGuardrailForm: React.FC<AddGuardrailFormProps> = ({ visible, onClose, a
     }
     if (shouldRenderPIIConfigSettings(selectedProvider)) {
       return [
-        { title: "Basic Info", optional: false },
+        { title: t('Basic_Info'), optional: false },
         { title: "PII Configuration", optional: false },
       ];
     }
     return [
-      { title: "Basic Info", optional: false },
-      { title: "Provider Configuration", optional: false },
+      { title: t('Basic_Info'), optional: false },
+      { title: t('Provider_Configuration'), optional: false },
     ];
   };
 
@@ -1168,11 +1168,11 @@ const AddGuardrailForm: React.FC<AddGuardrailFormProps> = ({ visible, onClose, a
           {currentStep > 0 && <Button onClick={prevStep}>{t('Previous')}</Button>}
           {currentStep < stepConfigs.length - 1 ? (
             <Button type="primary" onClick={nextStep}>
-              Next
+              {t('Next')}
             </Button>
           ) : (
             <Button type="primary" onClick={handleSubmit} loading={loading}>
-              Create Guardrail
+              {t('Create_Guardrail_button')}
             </Button>
           )}
         </div>

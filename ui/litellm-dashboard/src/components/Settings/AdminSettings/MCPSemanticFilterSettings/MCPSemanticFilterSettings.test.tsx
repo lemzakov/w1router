@@ -72,7 +72,7 @@ describe("MCPSemanticFilterSettings", () => {
 
   it("should render", async () => {
     await renderSettings({ accessToken: "test-token" });
-    expect(screen.getByText("Semantic Tool Filtering")).toBeInTheDocument();
+    expect(screen.getByText("Семантическая фильтрация инструментов")).toBeInTheDocument();
   });
 
   it("should show a login prompt when accessToken is null", () => {
@@ -82,7 +82,7 @@ describe("MCPSemanticFilterSettings", () => {
 
   it("should not render the form when accessToken is null", () => {
     render(<MCPSemanticFilterSettings accessToken={null} />);
-    expect(screen.queryByText("Enable Semantic Filtering")).not.toBeInTheDocument();
+    expect(screen.queryByText("Включить семантическую фильтрацию")).not.toBeInTheDocument();
   });
 
   it("should not show the settings content while loading", async () => {
@@ -93,7 +93,7 @@ describe("MCPSemanticFilterSettings", () => {
       error: null,
     } as any);
     await renderSettings({ accessToken: "test-token" });
-    expect(screen.queryByText("Semantic Tool Filtering")).not.toBeInTheDocument();
+    expect(screen.queryByText("Семантическая фильтрация инструментов")).not.toBeInTheDocument();
   });
 
   it("should show an error alert when data fails to load", async () => {
@@ -123,10 +123,10 @@ describe("MCPSemanticFilterSettings", () => {
 
   it("should render the info alert and form fields when data is loaded", async () => {
     await renderSettings({ accessToken: "test-token" });
-    expect(screen.getByText("Semantic Tool Filtering")).toBeInTheDocument();
-    expect(screen.getByText("Enable Semantic Filtering")).toBeInTheDocument();
-    expect(screen.getByText("Top K Results")).toBeInTheDocument();
-    expect(screen.getByText("Similarity Threshold")).toBeInTheDocument();
+    expect(screen.getByText("Семантическая фильтрация инструментов")).toBeInTheDocument();
+    expect(screen.getByText("Включить семантическую фильтрацию")).toBeInTheDocument();
+    expect(screen.getByText("Количество результатов (Top K)")).toBeInTheDocument();
+    expect(screen.getByText("Порог схожести")).toBeInTheDocument();
   });
 
   it("should render the test panel", async () => {
@@ -137,7 +137,7 @@ describe("MCPSemanticFilterSettings", () => {
   it("should have Save Settings button disabled initially", async () => {
     await renderSettings({ accessToken: "test-token" });
     expect(
-      screen.getByRole("button", { name: /save settings/i })
+      screen.getByRole("button", { name: /сохранить настройки/i })
     ).toBeDisabled();
   });
 
@@ -145,11 +145,11 @@ describe("MCPSemanticFilterSettings", () => {
     const user = userEvent.setup();
     await renderSettings({ accessToken: "test-token" });
 
-    expect(screen.getByRole("button", { name: /save settings/i })).toBeDisabled();
+    expect(screen.getByRole("button", { name: /сохранить настройки/i })).toBeDisabled();
 
     await user.click(screen.getByRole("switch"));
 
-    expect(screen.getByRole("button", { name: /save settings/i })).not.toBeDisabled();
+    expect(screen.getByRole("button", { name: /сохранить настройки/i })).not.toBeDisabled();
   });
 
   it("should show an error alert when the mutation fails", async () => {

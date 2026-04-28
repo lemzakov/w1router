@@ -93,7 +93,7 @@ const MCPNetworkSettings: React.FC<MCPNetworkSettingsProps> = ({ accessToken }) 
       <div>
         <Text className="text-lg font-semibold">{t('Private_IP_Ranges')}</Text>
         <p className="text-sm text-gray-500 mt-1">
-          Define which IP ranges are part of your private network. Callers from these IPs can see all MCP servers. Callers from any other IP can only see servers marked &quot;Available on Public Internet&quot;.
+          {t('Private_IP_description')}
         </p>
       </div>
 
@@ -101,7 +101,7 @@ const MCPNetworkSettings: React.FC<MCPNetworkSettingsProps> = ({ accessToken }) 
         {currentIp && (
           <div className="mb-4 p-3 bg-blue-50 rounded-lg">
             <Text className="text-sm text-blue-700">
-              Your current IP: <span className="font-mono font-medium">{currentIp}</span>
+              {t('Your_current_IP')} <span className="font-mono font-medium">{currentIp}</span>
             </Text>
             {suggestedRange && !privateRanges.includes(suggestedRange) && (
               <div className="mt-1">
@@ -126,14 +126,14 @@ const MCPNetworkSettings: React.FC<MCPNetworkSettingsProps> = ({ accessToken }) 
           mode="tags"
           value={privateRanges}
           onChange={setPrivateRanges}
-          placeholder="Leave empty to use defaults: 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, 127.0.0.0/8"
+          placeholder={t('IP_ranges_placeholder')}
           tokenSeparators={[","]}
           className="w-full"
           size="large"
           allowClear
         />
         <p className="text-xs text-gray-400 mt-2">
-          Enter CIDR ranges (e.g., 10.0.0.0/8). When empty, standard private IP ranges are used.
+          {t('IP_ranges_hint')}
         </p>
       </Card>
 
@@ -144,7 +144,7 @@ const MCPNetworkSettings: React.FC<MCPNetworkSettingsProps> = ({ accessToken }) 
           onClick={handleSave}
           loading={saving}
         >
-          Save
+          {t('Save')}
         </Button>
       </div>
     </div>

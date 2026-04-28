@@ -64,7 +64,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
           <Text className="text-gray-600">{description}</Text>
         </div>
       </div>
-      {serverName && (title === "Implementation Example" || title === "Configuration") && (
+      {serverName && (title === t("Implementation_Example") || title === t("Configuration")) && (
         <Form.Item className="mb-4">
           <div className="flex items-center gap-2 mb-2">
             <Switch size="small" checked={useServerHeader} onChange={setUseServerHeader} />
@@ -213,40 +213,40 @@ const MCPConnect: React.FC<MCPConnectProps> = ({ currentServerAccessGroups = [] 
         <div className="flex items-center gap-3 mb-3">
           <Zap className="text-emerald-600" size={24} />
           <Title level={4} className="mb-0 text-emerald-900">
-            LiteLLM Proxy API Integration
+            {t('MCP_API_Integration')}
           </Title>
         </div>
         <Text className="text-emerald-700">
-          Connect to LiteLLM Proxy Responses API for seamless tool integration with multiple model providers
+          {t('LiteLLM_Proxy_description')}
         </Text>
       </div>
 
       <Space direction="vertical" size="large" className="w-full">
         <FeatureCard
           icon={<KeyIcon className="text-emerald-600" size={16} />}
-          title="Virtual Key Setup"
-          description="Configure your LiteLLM Proxy Virtual Key for authentication"
+          title={t('Virtual_Key_Setup')}
+          description={t('Virtual_Key_Setup_description')}
         >
           <Space direction="vertical" size="middle" className="w-full">
             <div>
               <Text>{t('Get_your_Virtual_Key_from_your_LiteLLM_P')}</Text>
             </div>
-            <CodeBlock title="Environment Variable" code='export LITELLM_API_KEY="sk-..."' copyKey="litellm-env" />
+            <CodeBlock title={t('Environment_Variable')} code='export LITELLM_API_KEY="sk-..."' copyKey="litellm-env" />
           </Space>
         </FeatureCard>
 
         <FeatureCard
           icon={<ServerIcon className="text-emerald-600" size={16} />}
-          title="MCP Server Information"
-          description="Connection details for your LiteLLM MCP server"
+          title={t('MCP_Server_Information')}
+          description={t('MCP_Server_Connection_Details')}
         >
-          <CodeBlock title="Server URL" code={`${proxyBaseUrl}/mcp`} copyKey="litellm-server-url" />
+          <CodeBlock title={t('Server_URL')} code={`${proxyBaseUrl}/mcp`} copyKey="litellm-server-url" />
         </FeatureCard>
 
         <FeatureCard
           icon={<Code className="text-emerald-600" size={16} />}
-          title="Implementation Example"
-          description="Complete cURL example for using the LiteLLM Proxy Responses API"
+          title={t('Implementation_Example')}
+          description={t('LiteLLM_Proxy_curl_description')}
           serverName={currentServer}
           accessGroups={["dev-group"]}
         >
@@ -285,25 +285,25 @@ const MCPConnect: React.FC<MCPConnectProps> = ({ currentServerAccessGroups = [] 
         <div className="flex items-center gap-3 mb-3">
           <Code className="text-blue-600" size={24} />
           <Title level={4} className="mb-0 text-blue-900">
-            OpenAI Responses API Integration
+            {t('OpenAI_Responses_API_Integration')}
           </Title>
         </div>
         <Text className="text-blue-700">
-          Connect OpenAI Responses API to your LiteLLM MCP server for seamless tool integration
+          {t('OpenAI_Responses_description')}
         </Text>
       </div>
 
       <Space direction="vertical" size="large" className="w-full">
         <FeatureCard
           icon={<KeyIcon className="text-blue-600" size={16} />}
-          title="API Key Setup"
-          description="Configure your OpenAI API key for authentication"
+          title={t('API_Key_Setup')}
+          description={t('Configure_OpenAI_API_Key')}
         >
           <Space direction="vertical" size="middle" className="w-full">
             <div>
               {/* eslint-disable-next-line react/no-unescaped-entities */}
               <Text>
-                Get your API key from the{" "}
+                {t('Get_OpenAI_API_Key')}{" "}
                 <a
                   href="https://platform.openai.com/api-keys"
                   target="_blank"
@@ -314,22 +314,22 @@ const MCPConnect: React.FC<MCPConnectProps> = ({ currentServerAccessGroups = [] 
                 </a>
               </Text>
             </div>
-            <CodeBlock title="Environment Variable" code='export OPENAI_API_KEY="sk-..."' copyKey="openai-env" />
+            <CodeBlock title={t('Environment_Variable')} code='export OPENAI_API_KEY="sk-..."' copyKey="openai-env" />
           </Space>
         </FeatureCard>
 
         <FeatureCard
           icon={<ServerIcon className="text-blue-600" size={16} />}
-          title="MCP Server Information"
-          description="Connection details for your LiteLLM MCP server"
+          title={t('MCP_Server_Information')}
+          description={t('MCP_Server_Connection_Details')}
         >
-          <CodeBlock title="Server URL" code={`${proxyBaseUrl}/mcp`} copyKey="openai-server-url" />
+          <CodeBlock title={t('Server_URL')} code={`${proxyBaseUrl}/mcp`} copyKey="openai-server-url" />
         </FeatureCard>
 
         <FeatureCard
           icon={<Code className="text-blue-600" size={16} />}
-          title="Implementation Example"
-          description="Complete cURL example for using the Responses API"
+          title={t('Implementation_Example')}
+          description={t('OpenAI_curl_description')}
           serverName="Zapier Gmail"
           accessGroups={["dev-group"]}
         >
@@ -368,41 +368,40 @@ const MCPConnect: React.FC<MCPConnectProps> = ({ currentServerAccessGroups = [] 
         <div className="flex items-center gap-3 mb-3">
           <Terminal className="text-purple-600" size={24} />
           <Title level={4} className="mb-0 text-purple-900">
-            Cursor IDE Integration
+            {t('Cursor_IDE_Integration')}
           </Title>
         </div>
         <Text className="text-purple-700">
-          Use tools directly from Cursor IDE with LiteLLM MCP. Enable your AI assistant to perform real-world tasks
-          without leaving your coding environment.
+          {t('Cursor_description')}
         </Text>
       </div>
 
       <Card className="border border-gray-200">
         <Title level={5} className="mb-4 text-gray-800">
-          Setup Instructions
+          {t('Setup_Instructions')}
         </Title>
         <Space direction="vertical" size="large" className="w-full">
-          <StepCard step={1} title="Open Cursor Settings">
+          <StepCard step={1} title={t('Open_Cursor_Settings')}>
             <Text className="text-gray-600">
-              Use the keyboard shortcut <code className="bg-gray-100 px-2 py-1 rounded">⇧+⌘+J</code> (Mac) or{" "}
+              {t('Use_keyboard_shortcut')} <code className="bg-gray-100 px-2 py-1 rounded">⇧+⌘+J</code> (Mac) or{" "}
               <code className="bg-gray-100 px-2 py-1 rounded">{t('CtrlShiftJ')}</code> (Windows/Linux)
             </Text>
           </StepCard>
 
-          <StepCard step={2} title="Navigate to MCP Tools">
+          <StepCard step={2} title={t('Navigate_to_MCP_Tools')}>
             <Text className="text-gray-600">{t('Go_to_the_MCP_Tools_tab_and_click_New_MC')}</Text>
           </StepCard>
 
-          <StepCard step={3} title="Add Configuration">
+          <StepCard step={3} title={t('Add_Configuration')}>
             <Text className="text-gray-600 mb-3">
-              Copy the JSON configuration below and paste it into Cursor, then save with{" "}
+              {t('Copy_JSON_configuration')}{" "}
               <code className="bg-gray-100 px-2 py-1 rounded">{t('CmdS')}</code> or{" "}
               <code className="bg-gray-100 px-2 py-1 rounded">{t('CtrlS')}</code>
             </Text>
             <FeatureCard
               icon={<Code className="text-purple-600" size={16} />}
-              title="Configuration"
-              description="Cursor MCP configuration"
+              title={t('Configuration')}
+              description={t('Cursor_MCP_configuration')}
               serverName="Zapier Gmail"
               accessGroups={["dev-group"]}
             >
@@ -434,29 +433,28 @@ const MCPConnect: React.FC<MCPConnectProps> = ({ currentServerAccessGroups = [] 
         <div className="flex items-center gap-3 mb-3">
           <Globe className="text-green-600" size={24} />
           <Title level={4} className="mb-0 text-green-900">
-            Streamable HTTP Transport
+            {t('Streamable_HTTP_Transport')}
           </Title>
         </div>
         <Text className="text-green-700">
-          Connect to LiteLLM MCP using HTTP transport. Compatible with any MCP client that supports HTTP streaming.
+          {t('Streamable_HTTP_description')}
         </Text>
       </div>
 
       <FeatureCard
         icon={<Globe className="text-green-600" size={16} />}
-        title="Universal MCP Connection"
-        description="Use this URL with any MCP client that supports HTTP transport"
+        title={t('Universal_MCP_Connection')}
+        description={t('Universal_MCP_URL_description')}
       >
         <Space direction="vertical" size="middle" className="w-full">
           <div>
             <Text>
-              Each MCP client supports different transports. Refer to your client documentation to determine the
-              appropriate transport method.
+              {t('MCP_transport_info')}
             </Text>
           </div>
-          <CodeBlock title="Server URL" code={`${proxyBaseUrl}/mcp`} copyKey="http-server-url" />
+          <CodeBlock title={t('Server_URL')} code={`${proxyBaseUrl}/mcp`} copyKey="http-server-url" />
           <CodeBlock
-            title="Headers Configuration"
+            title={t('Headers_Configuration')}
             code={JSON.stringify(
               {
                 "x-litellm-api-key": "Bearer YOUR_LITELLM_API_KEY",
@@ -473,7 +471,7 @@ const MCPConnect: React.FC<MCPConnectProps> = ({ currentServerAccessGroups = [] 
               href="https://modelcontextprotocol.io/docs/concepts/transports"
               icon={<ExternalLinkIcon size={14} />}
             >
-              Learn more about MCP transports
+              {t('Learn_more_MCP_transports')}
             </Button>
           </div>
         </Space>
@@ -487,8 +485,7 @@ const MCPConnect: React.FC<MCPConnectProps> = ({ currentServerAccessGroups = [] 
         <div>
           <TremorTitle className="text-3xl font-bold text-gray-900 mb-3">{t('Connect_to_your_MCP_client')}</TremorTitle>
           <TremorText className="text-lg text-gray-600">
-            Use tools directly from any MCP client with LiteLLM MCP. Enable your AI assistant to perform real-world
-            tasks through a simple, secure connection.
+            {t('Connect_MCP_description')}
           </TremorText>
         </div>
 
@@ -504,7 +501,7 @@ const MCPConnect: React.FC<MCPConnectProps> = ({ currentServerAccessGroups = [] 
               <Tab className="px-6 py-3 rounded-md transition-all duration-200">
                 <span className="flex items-center gap-2 font-medium">
                   <Zap size={18} />
-                  LiteLLM Proxy
+                  {t('MCP_API_Integration')}
                 </span>
               </Tab>
               <Tab className="px-6 py-3 rounded-md transition-all duration-200">
