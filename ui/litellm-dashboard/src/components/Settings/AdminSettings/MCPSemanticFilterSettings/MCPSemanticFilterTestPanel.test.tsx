@@ -45,13 +45,13 @@ describe("MCPSemanticFilterTestPanel", () => {
 
   it("should render the Test Configuration card", () => {
     render(<MCPSemanticFilterTestPanel {...buildProps()} />);
-    expect(screen.getByText("Test Configuration")).toBeInTheDocument();
+    expect(screen.getByText("Тестовая конфигурация")).toBeInTheDocument();
   });
 
   it("should show the test query textarea", () => {
     render(<MCPSemanticFilterTestPanel {...buildProps()} />);
     expect(
-      screen.getByPlaceholderText(/enter a test query to see which tools/i)
+      screen.getByPlaceholderText(/введите тестовый запрос/i)
     ).toBeInTheDocument();
   });
 
@@ -59,7 +59,7 @@ describe("MCPSemanticFilterTestPanel", () => {
     const mockSetTestQuery = vi.fn();
     render(<MCPSemanticFilterTestPanel {...buildProps({ setTestQuery: mockSetTestQuery })} />);
 
-    const textarea = screen.getByPlaceholderText(/enter a test query to see which tools/i);
+    const textarea = screen.getByPlaceholderText(/введите тестовый запрос/i);
     fireEvent.change(textarea, { target: { value: "find relevant tools" } });
 
     expect(mockSetTestQuery).toHaveBeenCalledWith("find relevant tools");
@@ -67,7 +67,7 @@ describe("MCPSemanticFilterTestPanel", () => {
 
   it("should disable the Test Filter button when testQuery is empty", () => {
     render(<MCPSemanticFilterTestPanel {...buildProps({ testQuery: "" })} />);
-    expect(screen.getByRole("button", { name: /test filter/i })).toBeDisabled();
+    expect(screen.getByRole("button", { name: /проверить фильтр/i })).toBeDisabled();
   });
 
   it("should disable the Test Filter button when filterEnabled is false", () => {
@@ -76,14 +76,14 @@ describe("MCPSemanticFilterTestPanel", () => {
         {...buildProps({ testQuery: "search query", filterEnabled: false })}
       />
     );
-    expect(screen.getByRole("button", { name: /test filter/i })).toBeDisabled();
+    expect(screen.getByRole("button", { name: /проверить фильтр/i })).toBeDisabled();
   });
 
   it("should enable the Test Filter button when testQuery is set and filter is enabled", () => {
     render(
       <MCPSemanticFilterTestPanel {...buildProps({ testQuery: "search query" })} />
     );
-    expect(screen.getByRole("button", { name: /test filter/i })).not.toBeDisabled();
+    expect(screen.getByRole("button", { name: /проверить фильтр/i })).not.toBeDisabled();
   });
 
   it("should call onTest when the Test Filter button is clicked", async () => {
@@ -95,18 +95,18 @@ describe("MCPSemanticFilterTestPanel", () => {
       />
     );
 
-    await user.click(screen.getByRole("button", { name: /test filter/i }));
+    await user.click(screen.getByRole("button", { name: /проверить фильтр/i }));
     expect(mockOnTest).toHaveBeenCalledOnce();
   });
 
   it("should show a warning when semantic filtering is disabled", () => {
     render(<MCPSemanticFilterTestPanel {...buildProps({ filterEnabled: false })} />);
-    expect(screen.getByText("Semantic filtering is disabled")).toBeInTheDocument();
+    expect(screen.getByText("Семантическая фильтрация отключена")).toBeInTheDocument();
   });
 
   it("should not show the disabled warning when filterEnabled is true", () => {
     render(<MCPSemanticFilterTestPanel {...buildProps({ filterEnabled: true })} />);
-    expect(screen.queryByText("Semantic filtering is disabled")).not.toBeInTheDocument();
+    expect(screen.queryByText("Семантическая фильтрация отключена")).not.toBeInTheDocument();
   });
 
   it("should display test results when testResult is provided", () => {
@@ -126,7 +126,7 @@ describe("MCPSemanticFilterTestPanel", () => {
 
   it("should not render the results section when testResult is null", () => {
     render(<MCPSemanticFilterTestPanel {...buildProps({ testResult: null })} />);
-    expect(screen.queryByText("Results")).not.toBeInTheDocument();
+    expect(screen.queryByText("Результаты")).not.toBeInTheDocument();
   });
 
   it("should show the curl command in the API Usage tab", async () => {
@@ -134,7 +134,7 @@ describe("MCPSemanticFilterTestPanel", () => {
     const curlCommand = "curl --location 'http://localhost:4000/v1/responses' --header 'Authorization: Bearer sk-1234'";
     render(<MCPSemanticFilterTestPanel {...buildProps({ curlCommand })} />);
 
-    await user.click(screen.getByRole("tab", { name: "API Usage" }));
+    await user.click(screen.getByRole("tab", { name: "Использование API" }));
 
     expect(screen.getByText(curlCommand)).toBeInTheDocument();
   });

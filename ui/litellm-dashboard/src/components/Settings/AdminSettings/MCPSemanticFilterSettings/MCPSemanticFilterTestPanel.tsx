@@ -31,21 +31,21 @@ export default function MCPSemanticFilterTestPanel({
 }: MCPSemanticFilterTestPanelProps) {
   const { t } = useTranslation();
   return (
-    <Card title="Test Configuration" style={{ marginBottom: 16 }}>
+    <Card title={t('Test_Configuration')} style={{ marginBottom: 16 }}>
       <Tabs
         defaultActiveKey="test"
         items={[
           {
             key: "test",
-            label: "Test",
+            label: t('Test'),
             children: (
               <Space direction="vertical" style={{ width: "100%" }} size="large">
           <div>
             <Typography.Text strong style={{ display: "block", marginBottom: 8 }}>
-              <PlayCircleOutlined /> Test Query
+              <PlayCircleOutlined /> {t('Test_Query')}
             </Typography.Text>
             <Input.TextArea
-              placeholder="Enter a test query to see which tools would be selected..."
+              placeholder={t('Test_query_placeholder')}
               value={testQuery}
               onChange={(e) => setTestQuery(e.target.value)}
               rows={4}
@@ -60,7 +60,7 @@ export default function MCPSemanticFilterTestPanel({
               onChange={setTestModel}
               disabled={isTesting}
               showLabel={true}
-              labelText="Select Model"
+              labelText={t('Select_Model')}
             />
           </div>
 
@@ -72,14 +72,14 @@ export default function MCPSemanticFilterTestPanel({
             disabled={!testQuery || !testModel || !filterEnabled}
             block
           >
-            Test Filter
+            {t('Test_Filter')}
           </Button>
 
           {!filterEnabled && (
             <Alert
               type="warning"
-              message="Semantic filtering is disabled"
-              description="Enable semantic filtering and save settings to test the filter."
+              message={t('Semantic_filtering_disabled')}
+              description={t('Enable_semantic_filtering_save')}
               showIcon
             />
           )}
@@ -113,7 +113,7 @@ export default function MCPSemanticFilterTestPanel({
           },
           {
             key: "api",
-            label: "API Usage",
+            label: t('API_Usage'),
             children: (
               <div>
                 <Space style={{ marginBottom: 8 }}>

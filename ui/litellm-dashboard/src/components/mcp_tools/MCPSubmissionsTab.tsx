@@ -179,7 +179,7 @@ function SubmissionRulesPanel({ requiredFields, onChange, onSave, isSaving }: Su
               ({activeLabels.length} required field{activeLabels.length !== 1 ? "s" : ""})
             </span>
           ) : (
-            <span className="text-xs text-gray-400 italic">no rules set</span>
+            <span className="text-xs text-gray-400 italic">{t('no_rules_set')}</span>
           )}
         </div>
         <div className="flex items-center gap-3">
@@ -579,10 +579,10 @@ export function MCPSubmissionsTab({ accessToken }: MCPSubmissionsTabProps) {
       />
 
       <div className="grid grid-cols-4 gap-4 mb-6">
-        <StatCard label="Total Submitted" value={summary.total} color="text-gray-900" />
-        <StatCard label="Pending Review" value={summary.pending_review} color="text-yellow-600" />
-        <StatCard label="Active" value={summary.active} color="text-green-600" />
-        <StatCard label="Rejected" value={summary.rejected} color="text-red-600" />
+        <StatCard label={t('Total_Submitted')} value={summary.total} color="text-gray-900" />
+        <StatCard label={t('Pending_Review')} value={summary.pending_review} color="text-yellow-600" />
+        <StatCard label={t('Active')} value={summary.active} color="text-green-600" />
+        <StatCard label={t('Rejected')} value={summary.rejected} color="text-red-600" />
       </div>
 
       <div className="flex items-center gap-3 mb-5">
@@ -590,7 +590,7 @@ export function MCPSubmissionsTab({ accessToken }: MCPSubmissionsTabProps) {
           <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
           <input
             type="text"
-            placeholder="Search MCP servers..."
+            placeholder={t('Search_MCP_servers_placeholder')}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-md text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
@@ -617,7 +617,7 @@ export function MCPSubmissionsTab({ accessToken }: MCPSubmissionsTabProps) {
         )}
         {!isLoading && !error && filtered.length === 0 && (
           <div className="text-center py-12 text-gray-400 text-sm">
-            No MCP server submissions match your filters.
+            {t('No_submissions_match_filters')}
           </div>
         )}
         {!isLoading &&
