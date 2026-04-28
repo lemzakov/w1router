@@ -2440,5 +2440,21 @@
   "Semantic_filtering_disabled": "Semantic filtering is disabled",
   "Enable_semantic_filtering_save": "Enable semantic filtering and save settings to test the filter.",
   "no_rules_set": "no rules set",
-  "No_submissions_match_filters": "No MCP server submissions match your filters."
+  "No_submissions_match_filters": "No MCP server submissions match your filters.",
+  "Run_Test": "Run Test",
+  "Output": "Output",
+  "Basic_Info": "Basic Info",
+  "Provider_Configuration": "Provider Configuration",
+  "Guardrail_Provider": "Guardrail Provider",
+  "Always_On_label": "Always On",
+  "Next": "Next",
+  "Create_Guardrail_button": "Create Guardrail",
+  "Search_guardrails": "Search guardrails",
+  "Contribute_Template": "Contribute Template",
+  "Test_Your_Guardrail": "Test Your Guardrail",
+  "Create_Custom_Guardrail": "Create Custom Guardrail",
+  "Edit_Custom_Guardrail": "Edit Custom Guardrail",
+  "Save_Guardrail": "Save Guardrail",
+  "Update_Guardrail": "Update Guardrail",
+  "Running": "Running..."
 }
