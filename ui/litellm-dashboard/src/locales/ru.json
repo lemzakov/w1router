@@ -8,7 +8,7 @@
   "Sozdat_komandu": "+ Создать команду",
   "Sozdat_novuyu_organizatsiyu": "+ Создать новую организацию",
   "Sozdat_novyy_klyuch": "+ Создать новый ключ",
-  "a_parol_vash_LiteL": ", а\n                  пароль — ваш LiteLLM Proxy",
+  "a_parol_vash_LiteL": ", а пароль — ваш",
   "Mozhet_prosmatrivat_informatsiyu_komandy": "- Может просматривать информацию команды, но не управлять ей",
   "Mozhet_sozdavat_klyuchi_komandy_dobavlya": "- Может создавать ключи команды, добавлять участников и управлять настройками",
   "Nabory_instrumentov_mozhn": ".\n              Наборы инструментов можно назначать ключам и командам для ограничения доступа к инструментам.",
@@ -2331,5 +2331,7 @@
   "Guardrail_approved": "Guardrail одобрен",
   "Failed_to_approve_guardrail": "Не удалось одобрить guardrail",
   "Guardrail_rejected": "Guardrail отклонён",
-  "Failed_to_reject_guardrail": "Не удалось отклонить guardrail"
+  "Failed_to_reject_guardrail": "Не удалось отклонить guardrail",
+  "Zachem_agentam_nuzhny_klyuchi": "Зачем агентам нужны ключи?",
+  "Klyuchi_opredelyayut_dostup_k_agentu": "Ключи определяют доступ к агенту и позволяют ему вызывать MCP-инструменты. Назначьте ключ при создании агента или на странице «Виртуальные ключи»."
 }

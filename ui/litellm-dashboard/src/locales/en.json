@@ -8,7 +8,7 @@
   "Sozdat_komandu": "+ Create Team",
   "Sozdat_novuyu_organizatsiyu": "+ Create New Organization",
   "Sozdat_novyy_klyuch": "+ Create New Key",
-  "a_parol_vash_LiteL": ", and\n                  the password is your LiteLLM Proxy",
+  "a_parol_vash_LiteL": ", and the password is your",
   "Mozhet_prosmatrivat_informatsiyu_komandy": "- Can view team information but cannot manage it",
   "Mozhet_sozdavat_klyuchi_komandy_dobavlya": "- Can create team keys, add members and manage settings",
   "Nabory_instrumentov_mozhn": ".\n              Toolsets can be assigned to keys and teams to restrict tool access.",
@@ -2331,5 +2331,7 @@
   "Guardrail_approved": "Guardrail approved",
   "Failed_to_approve_guardrail": "Failed to approve guardrail",
   "Guardrail_rejected": "Guardrail rejected",
-  "Failed_to_reject_guardrail": "Failed to reject guardrail"
+  "Failed_to_reject_guardrail": "Failed to reject guardrail",
+  "Zachem_agentam_nuzhny_klyuchi": "Why do agents need keys?",
+  "Klyuchi_opredelyayut_dostup_k_agentu": "Keys scope access to an agent and allow it to call MCP tools. Assign a key when creating an agent or from the Virtual Keys page."
 }

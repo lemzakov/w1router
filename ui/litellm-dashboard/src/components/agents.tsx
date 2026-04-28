@@ -166,8 +166,8 @@ const AgentsPanel: React.FC<AgentsPanelProps> = ({ accessToken, userRole, teams 
         <h1 className="text-2xl font-bold">{t('Agents')}</h1>
         <p className="text-sm text-gray-600">{t('List_of_A2Aspec_agents_that_are_availabl')}</p>
         <Alert
-          message="Why do agents need keys?"
-          description="Keys scope access to an agent and allow it to call MCP tools. Assign a key when creating an agent or from the Virtual Keys page."
+          message={t('Zachem_agentam_nuzhny_klyuchi')}
+          description={t('Klyuchi_opredelyayut_dostup_k_agentu')}
           type="info"
           showIcon
           className="mb-3"
@@ -175,7 +175,7 @@ const AgentsPanel: React.FC<AgentsPanelProps> = ({ accessToken, userRole, teams 
         <div className="mt-2 flex items-center gap-4">
           {isAdmin && (
             <Button onClick={handleAddAgent} disabled={!accessToken}>
-              + Add New Agent
+              + {t('Dobavit_agenta')}
             </Button>
           )}
           <Tooltip title="When enabled, only agents with reachable URLs are shown">
