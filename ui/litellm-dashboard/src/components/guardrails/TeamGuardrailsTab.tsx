@@ -685,7 +685,8 @@ function DetailPanel({
           <div className="flex items-start gap-2 bg-gray-50 border border-gray-200 rounded-lg p-3">
             <InfoIcon className="h-3.5 w-3.5 text-gray-400 flex-shrink-0 mt-0.5" />
             <p className="text-xs text-gray-500 leading-relaxed">
-              {t('Guardrail_submitted_info')}{" "}
+              {t('Guardrail_submitted_info')}
+              {" "}
               <a
                 href="https://docs.litellm.ai/docs/adding_provider/generic_guardrail_api"
                 target="_blank"
