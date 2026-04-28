@@ -199,7 +199,7 @@ const [username, setUsername] = useState("");
       <Card className="w-full max-w-lg shadow-md">
         <Space direction="vertical" size="middle" className="w-full">
           <div className="text-center">
-            <Title level={2}>🚅 W1 Router</Title>
+            <img src="/w1-logo.svg" alt="W1" style={{ height: 48, margin: "0 auto" }} />
           </div>
 
           <div className="text-center">

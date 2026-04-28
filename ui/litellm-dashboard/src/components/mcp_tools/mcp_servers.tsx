@@ -316,7 +316,7 @@ const MCPServers: React.FC<MCPServerProps> = ({ accessToken, userRole, userID })
         <div className="flex items-center gap-2">
           {isAdminRole(userRole) && (
             <Button className="flex-shrink-0" onClick={() => setDiscoveryVisible(true)}>
-              + Add New MCP Server
+              + {t('Add_MCP_Server')}
             </Button>
           )}
           {!isAdminRole(userRole) && (
@@ -353,7 +353,7 @@ const MCPServers: React.FC<MCPServerProps> = ({ accessToken, userRole, userID })
           <div className="flex">
             <Tab>{t('All_Servers')}</Tab>
             <Tab>{t('Toolsets')}</Tab>
-            <Tab>{t('Connect')}</Tab>
+            <Tab>{t('Connect_tab')}</Tab>
             <Tab>{t('Semantic_Filter')}</Tab>
             <Tab>{t('Network_Settings')}</Tab>
             {isAdminRole(userRole) && <Tab><span className="flex items-center gap-2">{t('Submitted_MCPs')}<NewBadge /></span></Tab>}
@@ -382,7 +382,7 @@ const MCPServers: React.FC<MCPServerProps> = ({ accessToken, userRole, userID })
                         <Text className="text-sm font-medium text-gray-600 whitespace-nowrap">{t('Team')}</Text>
                         <Select value={selectedTeam} onChange={handleTeamChange} style={{ width: 220 }} size="middle">
                           <Option value="all">
-                            <span className="font-medium">{isInternalUser ? "All Available Servers" : "All Servers"}</span>
+                            <span className="font-medium">{isInternalUser ? t('All_Servers') : t('All_Servers')}</span>
                           </Option>
                           <Option value="personal">
                             <span className="font-medium">{t('Personal')}</span>
@@ -397,7 +397,7 @@ const MCPServers: React.FC<MCPServerProps> = ({ accessToken, userRole, userID })
                       <div className="h-6 w-px bg-gray-200"></div>
                       <div className="flex items-center gap-2">
                         <Text className="text-sm font-medium text-gray-600 whitespace-nowrap">
-                          Access Group
+                          {t('Access_Group_filter_label')}
                           <Tooltip title="An MCP Access Group is a set of users or teams that have permission to access specific MCP servers. Use access groups to control and organize who can connect to which servers.">
                             <QuestionCircleOutlined style={{ marginLeft: 4, color: "#9ca3af" }} />
                           </Tooltip>
@@ -423,7 +423,7 @@ const MCPServers: React.FC<MCPServerProps> = ({ accessToken, userRole, userID })
                     renderSubComponent={() => <div></div>}
                     getRowCanExpand={() => false}
                     isLoading={isLoadingServers}
-                    noDataMessage="No MCP servers configured. Click '+ Add New MCP Server' to get started."
+                    noDataMessage={t('No_MCP_servers_configured_msg')}
                     loadingMessage="Loading MCP servers..."
                     enableSorting={true}
                   />

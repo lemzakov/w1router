@@ -52,7 +52,7 @@ const MCPServerCostConfig: React.FC<MCPServerCostConfigProps> = ({
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Default Cost per Query ($)
+              {t('Default_Cost_per_Query_label')}
               <Tooltip title="Default cost charged for each tool call to this server.">
                 <InfoCircleOutlined className="ml-1 text-gray-400" />
               </Tooltip>
@@ -66,10 +66,10 @@ const MCPServerCostConfig: React.FC<MCPServerCostConfigProps> = ({
               onChange={handleDefaultCostChange}
               disabled={disabled}
               style={{ width: "200px" }}
-              addonBefore="$"
+              addonBefore={t('Cost_currency_symbol')}
             />
             <Text className="block mt-1 text-gray-500 text-sm">
-              Set a default cost for all tool calls to this server
+              {t('Set_default_cost_description_text')}
             </Text>
           </div>
 
@@ -118,7 +118,7 @@ const MCPServerCostConfig: React.FC<MCPServerCostConfigProps> = ({
                                 onChange={(cost) => handleToolCostChange(tool.name, cost)}
                                 disabled={disabled}
                                 style={{ width: "120px" }}
-                                addonBefore="$"
+                              addonBefore={t('Cost_currency_symbol')}
                               />
                             </div>
                           </div>

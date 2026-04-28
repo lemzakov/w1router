@@ -1,12 +1,10 @@
-import { useHealthReadiness } from "@/app/(dashboard)/hooks/healthReadiness/useHealthReadiness";
-import { useDisableBouncingIcon } from "@/app/(dashboard)/hooks/useDisableBouncingIcon";
 import { getProxyBaseUrl } from "@/components/networking";
 import { useTheme } from "@/contexts/ThemeContext";
 import { clearTokenCookies } from "@/utils/cookieUtils";
 import { clearStoredReturnUrl } from "@/utils/returnUrlUtils";
 import { fetchProxySettings } from "@/utils/proxyUtils";
 import { MenuFoldOutlined, MenuUnfoldOutlined, MoonOutlined, SunOutlined } from "@ant-design/icons";
-import { Button, Switch, Tag } from "antd";
+import { Button, Switch } from "antd";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import UserDropdown from "./Navbar/UserDropdown/UserDropdown";
@@ -46,9 +44,6 @@ const Navbar: React.FC<NavbarProps> = ({
     const { t } = useTranslation();
 const [logoutUrl, setLogoutUrl] = useState("");
   const { logoUrl } = useTheme();
-  const { data: healthData } = useHealthReadiness();
-  const version = healthData?.litellm_version;
-  const disableBouncingIcon = useDisableBouncingIcon();
 
   // Use custom logo if configured via UI theme settings, otherwise use W1 Router logo
   const imageUrl = logoUrl || "/w1-logo.svg";
@@ -113,29 +108,6 @@ const [logoutUrl, setLogoutUrl] = useState("");
                   </div>
                 </div>
               </Link>
-              {version && (
-                <div className="relative">
-                  {!disableBouncingIcon && (
-                    <span
-                      className="absolute -top-1 -left-2 text-lg animate-bounce"
-                      style={{ animationDuration: "2s" }}
-                      title={t('Spasibo_za_ispolzovanie_W1_Router')}
-                    >
-                      🌑
-                    </span>
-                  )}
-                  <Tag className="relative text-xs font-medium cursor-pointer z-10">
-                    <a
-                      href="https://docs.litellm.ai/release_notes"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-shrink-0"
-                    >
-                      v{version}
-                    </a>
-                  </Tag>
-                </div>
-              )}
             </div>
           </div>
           {/* Right side nav items */}
