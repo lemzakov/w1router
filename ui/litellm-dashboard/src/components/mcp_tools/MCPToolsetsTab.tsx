@@ -407,7 +407,7 @@ function ToolsetUsageGuide() {
     <div className="mb-6 rounded-lg border border-gray-200 bg-gray-50 px-5 py-4">
       <p className="text-sm font-medium text-gray-700 mb-1">{t('How_toolsets_work')}</p>
       <p className="text-sm text-gray-500 mb-3">
-        Create a toolset, assign it to a key via <span className="font-medium text-gray-700">{t('API_Keys_Edit_Key_MCP_Servers')}</span>{t('Toolsets_how_it_works_part2')}
+        {t('Toolsets_how_it_works_part1')} <span className="font-medium text-gray-700">{t('API_Keys_Edit_Key_MCP_Servers')}</span>{t('Toolsets_how_it_works_part2')}
       </p>
       <div className="text-xs text-gray-400 mb-1">{t('Claude_Code_Cursor_config')}</div>
       <div className="relative">
