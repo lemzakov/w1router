@@ -70,13 +70,13 @@ const GuardrailGarden: React.FC<GuardrailGardenProps> = ({ accessToken, onGuardr
             ) : (
               <>
                 <ArrowRightOutlined style={{ fontSize: 12 }} />
-                {`Show all (${litellmCards.length})`}
+                {t('Show_all_count', { count: litellmCards.length })}
               </>
             )}
           </span>
         </div>
         <p style={{ fontSize: 13, color: "#6b7280", margin: "4px 0 20px 0" }}>
-          Built-in guardrails powered by LiteLLM. Zero latency, no external dependencies, no additional cost.
+          {t('Built_in_guardrails_description')}
         </p>
         <div style={{
           display: "grid",
@@ -93,7 +93,7 @@ const GuardrailGarden: React.FC<GuardrailGardenProps> = ({ accessToken, onGuardr
       <div style={{ marginBottom: 40 }}>
         <h2 style={{ fontSize: 20, fontWeight: 600, color: "#111827", margin: "0 0 4px 0" }}>{t('Partner_Guardrails')}</h2>
         <p style={{ fontSize: 13, color: "#6b7280", margin: "4px 0 20px 0" }}>
-          Third-party guardrail integrations from leading AI security providers.
+          {t('Third_party_guardrails_description')}
         </p>
         <div style={{
           display: "grid",
