@@ -1,5 +1,5 @@
 import "@/i18n";
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { Select, Typography, Spin } from "antd";
 import MessageManager from "@/components/molecules/message_manager";
 import { Button, TextInput } from "@tremor/react";
@@ -28,13 +28,6 @@ function getPromptsForTestSource(source: string): CompliancePrompt[] {
 }
 
 const { Text } = Typography;
-
-const getActionOptions = () => [
-  { label: t("Next_Step_action") ?? "Next Step", value: "next" },
-  { label: "Allow", value: "allow" },
-  { label: t("Block") ?? "Block", value: "block" },
-  { label: "Custom Response", value: "modify_response" },
-];
 
 const ACTION_LABELS: Record<string, string> = {
   allow: "Allow",
@@ -232,6 +225,12 @@ const StepCard: React.FC<StepCardProps> = ({
     label: g.guardrail_name || g.guardrail_id,
     value: g.guardrail_name || g.guardrail_id,
   }));
+  const actionOptions = useMemo(() => [
+    { label: t("Next_Step_action"), value: "next" },
+    { label: t("Allow_action"), value: "allow" },
+    { label: t("Block"), value: "block" },
+    { label: t("Custom_Response_action"), value: "modify_response" },
+  ], [t]);
 
   return (
     <div
@@ -317,7 +316,7 @@ const StepCard: React.FC<StepCardProps> = ({
           style={{ width: "100%" }}
           value={step.on_pass}
           onChange={(value) => onChange({ on_pass: value as PipelineStep["on_pass"] })}
-          options={getActionOptions()}
+          options={actionOptions}
         />
         {step.on_pass === "modify_response" && (
           <div style={{ marginTop: 8 }}>
@@ -346,7 +345,7 @@ const StepCard: React.FC<StepCardProps> = ({
           style={{ width: "100%" }}
           value={step.on_fail}
           onChange={(value) => onChange({ on_fail: value as PipelineStep["on_fail"] })}
-          options={getActionOptions()}
+          options={actionOptions}
         />
         {step.on_fail === "modify_response" && (
           <div style={{ marginTop: 8 }}>
@@ -381,7 +380,7 @@ const StepCard: React.FC<StepCardProps> = ({
               on_error: value === undefined || value === null ? undefined : (value as PipelineStep["on_error"]),
             })
           }
-          options={getActionOptions()}
+          options={actionOptions}
         />
         {step.on_error === "modify_response" && step.on_fail !== "modify_response" && (
           <div style={{ marginTop: 8 }}>

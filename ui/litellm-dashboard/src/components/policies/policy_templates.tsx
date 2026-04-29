@@ -57,7 +57,7 @@ const PolicyTemplateCard: React.FC<PolicyTemplateCardProps> = ({
 }) => {
   const { t } = useTranslation();
   const translatedTitle = TEMPLATE_TITLE_KEYS[title]
-    ? t(TEMPLATE_TITLE_KEYS[title], { defaultValue: title })
+    ? t(TEMPLATE_TITLE_KEYS[title])
     : title;
   const getComplexityStyle = () => {
     switch (complexity) {
