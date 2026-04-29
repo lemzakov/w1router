@@ -487,7 +487,7 @@ const [searchTerm, setSearchTerm] = useState("");
 
   return (
     <div className="w-full max-w-screen p-6 overflow-x-hidden box-border">
-      <TabGroup defaultIndex={0} onIndexChange={(index) => setActiveTab(index === 0 ? "request logs" : "other")}>
+      <TabGroup defaultIndex={0} onIndexChange={(index) => setActiveTab(index === 0 ? "request logs" : index === 1 ? "deleted keys" : "deleted teams")}>
         <TabList>
           <Tab>{t('Zhurnal_zaprosov')}</Tab>
           <Tab>{t('Udalyonnye_klyuchi')}</Tab>

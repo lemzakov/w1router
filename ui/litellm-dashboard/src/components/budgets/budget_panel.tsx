@@ -42,6 +42,9 @@ export interface budgetItem {
   updated_at: string;
 }
 
+const formatBudgetAmount = (amount: number | null, notSetLabel: string): string =>
+  amount != null ? `₽${amount.toFixed(2)}` : notSetLabel;
+
 const BudgetPanel: React.FC<BudgetSettingsPageProps> = ({ accessToken }) => {
   const { t } = useTranslation();
   const [isCreateModelVisible, setIsCreateModelVisible] = useState(false);
@@ -132,7 +135,7 @@ const BudgetPanel: React.FC<BudgetSettingsPageProps> = ({ accessToken }) => {
                       .map((value: budgetItem) => (
                         <TableRow key={value.budget_id}>
                           <TableCell>{value.budget_id}</TableCell>
-                          <TableCell>{value.max_budget != null ? `₽${value.max_budget.toFixed(2)}` : t('not_set')}</TableCell>
+                          <TableCell>{formatBudgetAmount(value.max_budget, t('not_set'))}</TableCell>
                           <TableCell>{value.tpm_limit != null ? value.tpm_limit : t('not_set')}</TableCell>
                           <TableCell>{value.rpm_limit != null ? value.rpm_limit : t('not_set')}</TableCell>
                           <TableIconActionButton
@@ -159,7 +162,7 @@ const BudgetPanel: React.FC<BudgetSettingsPageProps> = ({ accessToken }) => {
                 resourceInformationTitle={t('Budget_Information')}
                 resourceInformation={[
                   { label: t('Budget_ID'), value: selectedBudget?.budget_id, code: true },
-                  { label: t('Max_Budget_RUB'), value: selectedBudget?.max_budget != null ? `₽${selectedBudget.max_budget.toFixed(2)}` : t('not_set') },
+                  { label: t('Max_Budget_RUB'), value: selectedBudget?.max_budget != null ? formatBudgetAmount(selectedBudget.max_budget, t('not_set')) : t('not_set') },
                   { label: t('TPM_Tokens_per_Minute'), value: selectedBudget?.tpm_limit },
                   { label: t('RPM_Requests_per_Minute'), value: selectedBudget?.rpm_limit },
                 ]}
