@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40" width="120" height="40">
+  <rect width="120" height="40" rx="6" fill="#1a1a2e"/>
+  <text x="10" y="27" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#e94560">W1</text>
+  <text x="42" y="27" font-family="Arial, sans-serif" font-size="14" font-weight="500" fill="#ffffff">Router</text>
+</svg>
