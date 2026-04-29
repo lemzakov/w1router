@@ -41,7 +41,7 @@ const AttachmentTable: React.FC<AttachmentTableProps> = ({
 
   const columns: ColumnDef<PolicyAttachment>[] = [
     {
-      header: "Attachment ID",
+      header: t('Attachment_ID_col'),
       accessorKey: "attachment_id",
       cell: (info: any) => (
         <Tooltip title={String(info.getValue() || "")}>
@@ -52,7 +52,7 @@ const AttachmentTable: React.FC<AttachmentTableProps> = ({
       ),
     },
     {
-      header: "Policy",
+      header: t('Policy'),
       accessorKey: "policy_name",
       cell: ({ row }) => {
         const attachment = row.original;
@@ -64,7 +64,7 @@ const AttachmentTable: React.FC<AttachmentTableProps> = ({
       },
     },
     {
-      header: "Scope",
+      header: t('Attachment_Scope_col'),
       accessorKey: "scope",
       cell: ({ row }) => {
         const attachment = row.original;
@@ -83,7 +83,7 @@ const AttachmentTable: React.FC<AttachmentTableProps> = ({
       },
     },
     {
-      header: "Teams",
+      header: t('Teams'),
       accessorKey: "teams",
       cell: ({ row }) => {
         const attachment = row.original;
@@ -108,7 +108,7 @@ const AttachmentTable: React.FC<AttachmentTableProps> = ({
       },
     },
     {
-      header: "Keys",
+      header: t('Keys'),
       accessorKey: "keys",
       cell: ({ row }) => {
         const attachment = row.original;
@@ -133,7 +133,7 @@ const AttachmentTable: React.FC<AttachmentTableProps> = ({
       },
     },
     {
-      header: "Models",
+      header: t('Models'),
       accessorKey: "models",
       cell: ({ row }) => {
         const attachment = row.original;
@@ -158,7 +158,7 @@ const AttachmentTable: React.FC<AttachmentTableProps> = ({
       },
     },
     {
-      header: "Tags",
+      header: t('Tags'),
       accessorKey: "tags",
       cell: ({ row }) => {
         const attachment = row.original;
@@ -183,7 +183,7 @@ const AttachmentTable: React.FC<AttachmentTableProps> = ({
       },
     },
     {
-      header: "Created At",
+      header: t('Created_At'),
       accessorKey: "created_at",
       cell: ({ row }) => {
         const attachment = row.original;
@@ -196,7 +196,7 @@ const AttachmentTable: React.FC<AttachmentTableProps> = ({
     },
     {
       id: "actions",
-      header: "Actions",
+      header: t('Actions_col'),
       cell: ({ row }) => {
         const attachment = row.original;
         return (

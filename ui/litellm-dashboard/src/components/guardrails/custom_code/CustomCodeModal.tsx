@@ -184,6 +184,21 @@ const CustomCodeModal: React.FC<CustomCodeModalProps> = ({
   const [isSaving, setIsSaving] = useState(false);
   const [isTesting, setIsTesting] = useState(false);
   const [testExpanded, setTestExpanded] = useState(false);
+
+  const PRIMITIVES_CATEGORY_KEY_MAP: Record<string, string> = {
+    "Return Values": "Return_Values",
+    "HTTP Requests (async)": "HTTP_Requests_async",
+    "Regex Functions": "Regex_Functions",
+    "JSON Functions": "JSON_Functions",
+    "URL Functions": "URL_Functions",
+    "Code Detection": "Code_Detection",
+    "Text Utilities": "Text_Utilities",
+  };
+
+  const translateCategory = (category: string): string => {
+    const key = PRIMITIVES_CATEGORY_KEY_MAP[category];
+    return key ? t(key) : category;
+  };
   
   // Test input examples for pre_call and post_call
   const TEST_INPUT_EXAMPLES = {
@@ -498,7 +513,7 @@ const CustomCodeModal: React.FC<CustomCodeModalProps> = ({
         {/* Header */}
         <div className="pb-4 border-b border-gray-200">
           <h2 className="text-xl font-semibold text-gray-900">
-            {isEditMode ? "Edit Custom Guardrail" : "Create Custom Guardrail"}
+            {isEditMode ? t('Edit_Custom_Guardrail') : t('Create_Custom_Guardrail')}
           </h2>
           <p className="text-sm text-gray-500 mt-1">{t('Define_custom_logic_using_Pythonlike_syn')}</p>
         </div>
@@ -510,7 +525,7 @@ const CustomCodeModal: React.FC<CustomCodeModalProps> = ({
             <TextInput
               value={guardrailName}
               onValueChange={setGuardrailName}
-              placeholder="e.g., block-pii-custom"
+              placeholder={t('Enter_guardrail_name_placeholder')}
             />
           </div>
           <div className="w-[280px]">
@@ -620,7 +635,7 @@ const CustomCodeModal: React.FC<CustomCodeModalProps> = ({
                 header={
                   <span className="flex items-center gap-2 text-sm font-medium">
                     <PlayCircleOutlined className="text-blue-500" />
-                    Test Your Guardrail
+                    {t('Test_Your_Guardrail')}
                   </span>
                 }
                 key="test"
@@ -679,7 +694,7 @@ const CustomCodeModal: React.FC<CustomCodeModalProps> = ({
                       disabled={isTesting}
                       icon={PlayCircleOutlined}
                     >
-                      {isTesting ? "Running..." : "Run Test"}
+                      {isTesting ? t('Running') : t('Run_Test')}
                     </Button>
                     {testResult && (
                       <div className={`flex items-center gap-2 text-sm ${
@@ -735,7 +750,7 @@ const CustomCodeModal: React.FC<CustomCodeModalProps> = ({
                 icon={ExportOutlined}
                 className="bg-blue-600 hover:bg-blue-700 text-white border-0"
               >
-                Contribute Template
+                {t('Contribute_Template')}
               </Button>
             </div>
 
@@ -756,7 +771,7 @@ const CustomCodeModal: React.FC<CustomCodeModalProps> = ({
             >
               {Object.entries(PRIMITIVES).map(([category, primitives]) => (
                 <Panel
-                  header={<span className="text-sm font-medium text-gray-700">{category}</span>}
+                  header={<span className="text-sm font-medium text-gray-700">{translateCategory(category)}</span>}
                   key={category}
                   className="bg-white mb-2 rounded-lg border border-gray-200"
                 >
@@ -795,7 +810,7 @@ const CustomCodeModal: React.FC<CustomCodeModalProps> = ({
           <span className="text-xs text-gray-400">{t('Changes_are_autosaved_to_local_draft')}</span>
           <div className="flex items-center gap-3">
             <Button variant="secondary" onClick={onClose}>
-              Cancel
+              {t('Cancel')}
             </Button>
             <Button
               onClick={handleSave}
@@ -803,7 +818,7 @@ const CustomCodeModal: React.FC<CustomCodeModalProps> = ({
               disabled={isSaving || !guardrailName.trim()}
               icon={SaveOutlined}
             >
-              {isEditMode ? "Update Guardrail" : "Save Guardrail"}
+              {isEditMode ? t('Update_Guardrail') : t('Save_Guardrail')}
             </Button>
           </div>
         </div>

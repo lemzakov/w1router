@@ -134,7 +134,7 @@ export function GuardrailTestPanel({
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Enter text to test with guardrails..."
+              placeholder={t('Enter_text_to_test_guardrails')}
               rows={8}
               className="font-mono text-sm"
             />
@@ -153,9 +153,7 @@ export function GuardrailTestPanel({
               disabled={!inputText.trim()}
               className="w-full"
             >
-              {isLoading
-                ? `Testing ${guardrailNames.length} guardrail${guardrailNames.length > 1 ? "s" : ""}...`
-                : `Test ${guardrailNames.length} guardrail${guardrailNames.length > 1 ? "s" : ""}`}
+              {isLoading ? t('Running') : t('Run_Test')}
             </Button>
           </div>
         </div>

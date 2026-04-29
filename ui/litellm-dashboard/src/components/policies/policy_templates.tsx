@@ -13,6 +13,23 @@ import { getPolicyTemplates } from "../networking";
 import { useTranslation, getI18n } from "react-i18next";
 const t = (key: string, options?: Record<string, unknown>) => getI18n()?.t(key, options) ?? key;
 
+const TEMPLATE_TITLE_KEYS: Record<string, string> = {
+  "Advanced PII Protection (Australia)": "Template_Advanced_PII_Protection_AU",
+  "Baseline PII Protection": "Template_Baseline_PII_Protection",
+  "NSFW Content Filter (Australia)": "Template_NSFW_Content_Filter_AU",
+  "NSFW Content Filter (All Regions)": "Template_NSFW_Content_Filter_All",
+  "GDPR Art. 4 — EU PII Protection": "Template_GDPR_Art4_EU_PII",
+  "Toxic AI Act Articles — Prohibited Practices": "Template_Toxic_AI_Act_Prohibited",
+  "MCP Security: Block Unauthorized Servers": "Template_MCP_Security_Block",
+  "Arabic Passenger Data Protection (UAE)": "Template_Arabic_Passenger_UAE",
+  "Aviation Operations Security": "Template_Aviation_Operations_Security",
+  "UAE Regulatory Compliance": "Template_UAE_Regulatory_Compliance",
+  "Competitor Mention Detection": "Template_Competitor_Mention_Detection",
+  "Singapore PDPA — Personal Data Protection": "Template_Singapore_PDPA",
+  "Singapore MAS — AI Risk Management for Financial Institutions": "Template_Singapore_MAS",
+  "Claims Agent Content Safety": "Template_Claims_Agent_Content_Safety",
+};
+
 interface PolicyTemplateCardProps {
   title: string;
   description: string;
@@ -39,6 +56,9 @@ const PolicyTemplateCard: React.FC<PolicyTemplateCardProps> = ({
   onUseTemplate,
 }) => {
   const { t } = useTranslation();
+  const translatedTitle = TEMPLATE_TITLE_KEYS[title]
+    ? t(TEMPLATE_TITLE_KEYS[title])
+    : title;
   const getComplexityStyle = () => {
     switch (complexity) {
       case "Low":
@@ -62,11 +82,11 @@ const PolicyTemplateCard: React.FC<PolicyTemplateCardProps> = ({
         <span
           className={`px-2.5 py-0.5 rounded-full text-xs font-medium border ${getComplexityStyle()}`}
         >
-          {complexity} Complexity
+          {complexity === "High" ? t('High_Complexity') : complexity === "Low" ? t('Low_Complexity') : t('Medium_Complexity')}
         </span>
       </div>
 
-      <h3 className="text-base font-semibold text-gray-900 mb-2">{title}</h3>
+      <h3 className="text-base font-semibold text-gray-900 mb-2">{translatedTitle}</h3>
       <p className="text-sm text-gray-500 mb-4 flex-grow">{description}</p>
 
       {tags.length > 0 && (
@@ -93,7 +113,7 @@ const PolicyTemplateCard: React.FC<PolicyTemplateCardProps> = ({
 
       <div className="mb-6">
         <span className="text-xs font-medium text-gray-500 uppercase tracking-wider block mb-2">
-          Included Guardrails
+          {t('Included_Guardrails')}
         </span>
         <div className="flex flex-wrap gap-2">
           {guardrails.map((g) => (
@@ -113,7 +133,7 @@ const PolicyTemplateCard: React.FC<PolicyTemplateCardProps> = ({
         className="mt-auto"
         onClick={onUseTemplate}
       >
-        Use Template
+        {t('Use_Template')}
       </Button>
     </Card>
   );
@@ -136,6 +156,7 @@ const iconMap: Record<string, React.ComponentType<React.SVGProps<SVGSVGElement>>
 };
 
 const PolicyTemplates: React.FC<PolicyTemplatesProps> = ({ onUseTemplate, onOpenAiSuggestion, onTemplatesLoaded, accessToken }) => {
+  const { t } = useTranslation();
   const [templates, setTemplates] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedTags, setSelectedTags] = useState<Set<string>>(new Set());
@@ -211,11 +232,10 @@ const PolicyTemplates: React.FC<PolicyTemplatesProps> = ({ onUseTemplate, onOpen
       <div className="flex justify-between items-end">
         <div>
           <h2 className="text-lg font-medium text-gray-900">
-            Policy Templates
+            {t('Policy_Templates')}
           </h2>
           <p className="text-sm text-gray-500 mt-1">
-            Start with a pre-configured policy template to quickly set up
-            guardrails for your organization.
+            {t('Start_with_pre_configured_policy')}
           </p>
         </div>
         <Button
@@ -226,7 +246,7 @@ const PolicyTemplates: React.FC<PolicyTemplatesProps> = ({ onUseTemplate, onOpen
           <svg className="w-4 h-4" viewBox="0 0 16 16" fill="currentColor">
             <path d="M8 1l1.5 3.5L13 6l-3.5 1.5L8 11 6.5 7.5 3 6l3.5-1.5L8 1zm4 7l.75 1.75L14.5 10.5l-1.75.75L12 13l-.75-1.75L9.5 10.5l1.75-.75L12 8zM4 9l.75 1.75L6.5 11.5l-1.75.75L4 14l-.75-1.75L1.5 11.5l1.75-.75L4 9z" />
           </svg>
-          Use AI to find templates
+          {t('Use_AI_to_find_templates')}
         </Button>
       </div>
 
@@ -237,14 +257,14 @@ const PolicyTemplates: React.FC<PolicyTemplatesProps> = ({ onUseTemplate, onOpen
             <div className="sticky top-4">
               <div className="flex items-center justify-between mb-3">
                 <span className="text-sm font-semibold text-gray-900">
-                  Categories
+                  {t('Filter_Categories')}
                 </span>
                 {selectedTags.size > 0 && (
                   <button
                     onClick={handleClearAll}
                     className="text-xs text-blue-600 hover:text-blue-800"
                   >
-                    Clear all
+                    {t('Clear_all')}
                   </button>
                 )}
               </div>
@@ -279,7 +299,7 @@ const PolicyTemplates: React.FC<PolicyTemplatesProps> = ({ onUseTemplate, onOpen
         <div className="flex-1">
           {selectedTags.size > 0 && (
             <div className="mb-4 text-sm text-gray-500">
-              Showing {filteredTemplates.length} of {templates.length} templates
+              {t('Showing_N_of_M_templates', { filtered: filteredTemplates.length, total: templates.length })}
             </div>
           )}
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
@@ -307,7 +327,7 @@ const PolicyTemplates: React.FC<PolicyTemplatesProps> = ({ onUseTemplate, onOpen
                 onClick={handleClearAll}
                 className="text-blue-600 hover:text-blue-800 mt-2 text-sm"
               >
-                Clear all filters
+                {t('Clear_all')}
               </button>
             </div>
           )}

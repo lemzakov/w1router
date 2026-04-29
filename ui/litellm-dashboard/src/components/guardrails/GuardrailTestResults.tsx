@@ -124,7 +124,7 @@ export function GuardrailTestResults({ results, errors }: GuardrailTestResultsPr
                   <>
                     <div className="bg-white border border-green-200 rounded p-3">
                       <label className="text-xs font-medium text-gray-600 mb-2 block">
-                        Output Text
+                        {t('Output')}
                       </label>
                       <div className="font-mono text-sm text-gray-900 whitespace-pre-wrap break-words">
                         {result.response_text}

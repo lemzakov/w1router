@@ -375,11 +375,11 @@ const PoliciesPanel: React.FC<PoliciesPanelProps> = ({
         <TabPanels>
           <TabPanel>
           <Alert
-              message="About Policies"
+              message={t('About_Policies')}
               description={
                 <div>
                   <p className="mb-3">
-                    Use policies to group guardrails and control which ones run for specific teams, keys, or models.
+                    {t('Use_policies_description')}
                   </p>
                   <p className="mb-2 font-semibold">{t('Why_use_policies')}</p>
                   <ul className="list-disc list-inside mb-3 space-y-1 ml-2">
@@ -393,7 +393,7 @@ const PoliciesPanel: React.FC<PoliciesPanelProps> = ({
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:text-blue-800 underline inline-block mt-1"
                   >
-                    Learn more in the documentation →
+                    {t('Learn_more_in_documentation')}
                   </a>
                 </div>
               }
@@ -413,11 +413,11 @@ const PoliciesPanel: React.FC<PoliciesPanelProps> = ({
 
           <TabPanel>
             <Alert
-              message="About Policies"
+              message={t('About_Policies')}
               description={
                 <div>
                   <p className="mb-3">
-                    Use policies to group guardrails and control which ones run for specific teams, keys, or models.
+                    {t('Use_policies_description')}
                   </p>
                   <p className="mb-2 font-semibold">{t('Why_use_policies')}</p>
                   <ul className="list-disc list-inside mb-3 space-y-1 ml-2">
@@ -431,7 +431,7 @@ const PoliciesPanel: React.FC<PoliciesPanelProps> = ({
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:text-blue-800 underline inline-block mt-1"
                   >
-                    Learn more in the documentation →
+                    {t('Learn_more_in_documentation')}
                   </a>
                 </div>
               }
@@ -444,7 +444,7 @@ const PoliciesPanel: React.FC<PoliciesPanelProps> = ({
 
             <div className="flex justify-between items-center mb-4">
               <Button onClick={handleAddPolicy} disabled={!accessToken}>
-                + Add New Policy
+                {t('Add_New_Policy')}
               </Button>
             </div>
 
@@ -529,15 +529,15 @@ const PoliciesPanel: React.FC<PoliciesPanelProps> = ({
 
           <TabPanel>
             <Alert
-              message="About Policy Attachments"
+              message={t('About_Policy_Attachments')}
               description={
                 <div>
                   <p className="mb-3">
-                    Policy attachments control where your policies apply. Policies don&apos;t do anything until you attach them to specific teams, keys, models, tags, or globally.
+                    {t('Policy_attachments_description')}
                   </p>
                   <p className="mb-2 font-semibold">{t('Attachment_Scopes')}</p>
                   <ul className="list-disc list-inside mb-3 space-y-1 ml-2">
-                    <li><strong>{t('Global')}</strong> - Applies to all requests</li>
+                    <li><strong>{t('Global')}</strong> - {t('Global_applies_to_all_requests')}</li>
                     <li><strong>{t('Teams')}</strong> - Applies only to specific teams</li>
                     <li><strong>{t('Keys')}</strong> - Applies only to specific API keys (supports wildcards like dev-*)</li>
                     <li><strong>{t('Models')}</strong> - Applies only when specific models are used</li>
@@ -549,7 +549,7 @@ const PoliciesPanel: React.FC<PoliciesPanelProps> = ({
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:text-blue-800 underline inline-block mt-1"
                   >
-                    Learn more about attachments →
+                    {t('Learn_more_about_attachments')}
                   </a>
                 </div>
               }
@@ -560,21 +560,12 @@ const PoliciesPanel: React.FC<PoliciesPanelProps> = ({
               className="mb-6"
             />
 
-            <Alert
-              message="Enterprise Feature Notice"
-              description="Parts of policy attachments will be on LiteLLM Enterprise in subsequent releases."
-              type="warning"
-              showIcon
-              closable
-              className="mb-6"
-            />
-
             <div className="flex justify-between items-center mb-4">
               <Button
                 onClick={() => setIsAddAttachmentModalVisible(true)}
                 disabled={!accessToken || policiesList.length === 0}
               >
-                + Add New Attachment
+                {t('Add_New_Attachment')}
               </Button>
             </div>
 

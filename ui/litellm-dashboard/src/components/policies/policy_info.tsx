@@ -105,25 +105,25 @@ const PolicyInfoView: React.FC<PolicyInfoViewProps> = ({
         <Title level={4}>{policy.policy_name}</Title>
 
         <Descriptions bordered column={1}>
-          <Descriptions.Item label="Policy ID">
+          <Descriptions.Item label={t('Policy')}>
             <code className="text-xs bg-gray-100 px-2 py-1 rounded">{policy.policy_id}</code>
           </Descriptions.Item>
-          <Descriptions.Item label="Description">
+          <Descriptions.Item label={t('Description_1')}>
             {policy.description || <Text type="secondary">{t('No_description')}</Text>}
           </Descriptions.Item>
-          <Descriptions.Item label="Inherits From">
+          <Descriptions.Item label={t('Inherits_From_col')}>
             {policy.inherit ? (
               <Badge color="blue" size="sm">{policy.inherit}</Badge>
             ) : (
               <Text type="secondary">{t('None')}</Text>
             )}
           </Descriptions.Item>
-          <Descriptions.Item label="Created At">
+          <Descriptions.Item label={t('Created_At')}>
             {policy.created_at
               ? new Date(policy.created_at).toLocaleString()
               : "-"}
           </Descriptions.Item>
-          <Descriptions.Item label="Updated At">
+          <Descriptions.Item label={t('Updated_At')}>
             {policy.updated_at
               ? new Date(policy.updated_at).toLocaleString()
               : "-"}
@@ -173,7 +173,7 @@ const PolicyInfoView: React.FC<PolicyInfoViewProps> = ({
         )}
 
         <Descriptions bordered column={1}>
-          <Descriptions.Item label="Guardrails to Add">
+          <Descriptions.Item label={t('Guardrails_to_Add_label')}>
             <div className="flex flex-wrap gap-1">
               {policy.guardrails_add && policy.guardrails_add.length > 0 ? (
                 policy.guardrails_add.map((g) => (
@@ -186,7 +186,7 @@ const PolicyInfoView: React.FC<PolicyInfoViewProps> = ({
               )}
             </div>
           </Descriptions.Item>
-          <Descriptions.Item label="Guardrails to Remove">
+          <Descriptions.Item label={t('Guardrails_to_Remove_label')}>
             <div className="flex flex-wrap gap-1">
               {policy.guardrails_remove && policy.guardrails_remove.length > 0 ? (
                 policy.guardrails_remove.map((g) => (
@@ -206,7 +206,7 @@ const PolicyInfoView: React.FC<PolicyInfoViewProps> = ({
         </Divider>
 
         <Descriptions bordered column={1}>
-          <Descriptions.Item label="Model Condition">
+          <Descriptions.Item label={t('Model_Condition_col')}>
             {policy.condition?.model ? (
               <Tag color="purple">
                 {typeof policy.condition.model === "string"
