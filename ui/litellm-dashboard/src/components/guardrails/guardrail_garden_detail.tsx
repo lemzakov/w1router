@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import AddGuardrailForm from "./add_guardrail_form";
+import { CustomCodeModal } from "./custom_code";
 import { GUARDRAIL_PRESETS } from "./guardrail_garden_configs";
 import { GuardrailCardInfo } from "./guardrail_garden_data";
 import { useTranslation } from "react-i18next";
@@ -21,7 +22,11 @@ const GuardrailDetailView: React.FC<GuardrailDetailViewProps> = ({
 }) => {
   const { t } = useTranslation();
   const [isAddFormVisible, setIsAddFormVisible] = useState(false);
+  const [isCustomCodeVisible, setIsCustomCodeVisible] = useState(false);
   const [activeTab, setActiveTab] = useState("overview");
+
+  const preset = GUARDRAIL_PRESETS[card.id];
+  const isCustomCodePreset = preset?.provider === "custom_code";
 
   const detailRows = [
     { property: t('Provider'), value: card.category === "litellm" ? t('Content_Filter_type') : t('Partner_type') },
@@ -87,7 +92,7 @@ const GuardrailDetailView: React.FC<GuardrailDetailViewProps> = ({
       {/* Action buttons — outlined style like Vertex */}
       <div style={{ display: "flex", gap: 10, marginBottom: 32 }}>
         <Button
-          onClick={() => setIsAddFormVisible(true)}
+          onClick={() => isCustomCodePreset ? setIsCustomCodeVisible(true) : setIsAddFormVisible(true)}
           style={{
             borderRadius: 20,
             padding: "4px 20px",
@@ -231,7 +236,19 @@ const GuardrailDetailView: React.FC<GuardrailDetailViewProps> = ({
           setIsAddFormVisible(false);
           onGuardrailCreated();
         }}
-        preset={GUARDRAIL_PRESETS[card.id]}
+        preset={preset}
+      />
+
+      <CustomCodeModal
+        visible={isCustomCodeVisible}
+        onClose={() => setIsCustomCodeVisible(false)}
+        accessToken={accessToken}
+        onSuccess={() => {
+          setIsCustomCodeVisible(false);
+          onGuardrailCreated();
+        }}
+        initialGuardrailName={preset?.guardrailNameSuggestion}
+        initialCode={preset?.customCode}
       />
     </div>
   );

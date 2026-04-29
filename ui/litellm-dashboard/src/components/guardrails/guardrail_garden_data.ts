@@ -223,6 +223,15 @@ export const LITELLM_CONTENT_FILTER_CARDS: GuardrailCardInfo[] = [
     tags: ["Code", "Safety", "Prompt Injection"],
   },
   {
+    id: "fz_152",
+    name: "152-ФЗ",
+    description: "Masks Russian personal data (PII) in compliance with Federal Law No. 152-FZ: phone numbers, emails, passport numbers, SNILS, INN, and bank card numbers.",
+    category: "litellm",
+    subcategory: "Compliance",
+    logo: `${ASSET_PREFIX}litellm_logo.jpg`,
+    tags: ["PII", "Compliance", "Russia", "Data Protection"],
+  },
+  {
     id: "cf_competitor_intent",
     name: "Competitor Name Blocking",
     description: "Block or reframe competitor comparison and ranking intent. Detect when users ask to compare or recommend competitors (airline or generic competitor lists).",

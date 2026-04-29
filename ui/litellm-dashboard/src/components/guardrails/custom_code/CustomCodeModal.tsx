@@ -165,6 +165,10 @@ interface CustomCodeModalProps {
   accessToken: string | null;
   /** If provided, the modal will be in edit mode */
   editData?: EditGuardrailData | null;
+  /** Pre-populate the guardrail name in create mode */
+  initialGuardrailName?: string;
+  /** Pre-populate the code editor in create mode */
+  initialCode?: string;
 }
 
 const CustomCodeModal: React.FC<CustomCodeModalProps> = ({
@@ -173,6 +177,8 @@ const CustomCodeModal: React.FC<CustomCodeModalProps> = ({
   onSuccess,
   accessToken,
   editData,
+  initialGuardrailName,
+  initialCode,
 }) => {
   const { t } = useTranslation();
   const isEditMode = !!editData;
@@ -323,17 +329,22 @@ const CustomCodeModal: React.FC<CustomCodeModalProps> = ({
         setCode(editData.litellm_params?.custom_code || CODE_TEMPLATES.empty.code);
         setSelectedTemplate(""); // No template selected in edit mode
       } else {
-        // Create mode: reset to defaults
-        setGuardrailName("");
+        // Create mode: reset to defaults (use initial values if provided)
+        setGuardrailName(initialGuardrailName || "");
         setMode(["pre_call"]);
         setDefaultOn(false);
-        setSelectedTemplate("empty");
-        setCode(CODE_TEMPLATES.empty.code);
+        if (initialCode) {
+          setCode(initialCode);
+          setSelectedTemplate(""); // No template selected when using preset code
+        } else {
+          setSelectedTemplate("empty");
+          setCode(CODE_TEMPLATES.empty.code);
+        }
       }
       setTestResult(null);
       setTestExpanded(false);
     }
-  }, [visible, editData]);
+  }, [visible, editData, initialCode, initialGuardrailName]);
 
   // Copy primitive to clipboard
   const copyPrimitive = async (primitive: string) => {
