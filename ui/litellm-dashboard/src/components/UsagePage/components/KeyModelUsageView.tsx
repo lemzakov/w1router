@@ -25,7 +25,7 @@ const columns: ColumnsType<TopModelData> = [
     title: "Spend (USD)",
     dataIndex: "spend",
     key: "spend",
-    render: (value) => `$${formatNumberWithCommas(value, 2)}`,
+    render: (value) => `₽${formatNumberWithCommas(value, 2)}`,
   },
   {
     title: "Successful",
@@ -82,7 +82,7 @@ const KeyModelUsageView: React.FC<KeyModelUsageViewProps> = ({ topModels }) => {
             index="key"
             categories={["spend"]}
             colors={["cyan"]}
-            valueFormatter={(value) => `$${formatNumberWithCommas(value, 2)}`}
+            valueFormatter={(value) => `₽${formatNumberWithCommas(value, 2)}`}
             layout="vertical"
             yAxisWidth={180}
             tickGap={5}

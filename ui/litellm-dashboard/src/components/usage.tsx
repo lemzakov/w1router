@@ -98,7 +98,7 @@ const customTooltip = (props: CustomTooltipTypeBar) => {
               {":"}
               <span className="text-xs text-tremor-content-emphasis">
                 {" "}
-                {value ? `$${formatNumberWithCommas(value, 2)}` : ""}
+                {value ? `₽${formatNumberWithCommas(value, 2)}` : ""}
               </span>
             </p>
           </div>
@@ -250,7 +250,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ accessToken, token, userRole, use
   console.log(`Start date is ${startTime}`);
   console.log(`End date is ${endTime}`);
 
-  const valueFormatter = (number: number) => `$ ${formatNumberWithCommas(number, 2)}`;
+  const valueFormatter = (number: number) => `₽ ${formatNumberWithCommas(number, 2)}`;
 
   const fetchAndSetData = async (
     fetchFunction: () => Promise<any>,
@@ -627,7 +627,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ accessToken, token, userRole, use
                           layout="vertical"
                           showXAxis={false}
                           showLegend={false}
-                          valueFormatter={(value) => `$${formatNumberWithCommas(value, 2)}`}
+                          valueFormatter={(value) => `₽${formatNumberWithCommas(value, 2)}`}
                         />
                       </Card>
                     </Col>
@@ -645,7 +645,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ accessToken, token, userRole, use
                                 index="provider"
                                 category="spend"
                                 colors={["cyan"]}
-                                valueFormatter={(value) => `$${formatNumberWithCommas(value, 2)}`}
+                                valueFormatter={(value) => `₽${formatNumberWithCommas(value, 2)}`}
                               />
                             </Col>
                             <Col numColSpan={1}>

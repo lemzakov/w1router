@@ -98,7 +98,7 @@ export function GuardrailsOverview({
 
   const columns: ColumnsType<PerformanceRow> = [
     {
-      title: "Guardrail",
+      title: t('Guardrail_col'),
       dataIndex: "name",
       key: "name",
       render: (name: string, row) => (
@@ -112,7 +112,7 @@ export function GuardrailsOverview({
       ),
     },
     {
-      title: "Provider",
+      title: t('Provider'),
       dataIndex: "provider",
       key: "provider",
       render: (provider: string) => (
@@ -126,7 +126,7 @@ export function GuardrailsOverview({
       ),
     },
     {
-      title: "Requests",
+      title: t('Requests_col'),
       dataIndex: "requestsEvaluated",
       key: "requestsEvaluated",
       align: "right",
@@ -135,7 +135,7 @@ export function GuardrailsOverview({
       render: (v: number) => v.toLocaleString(),
     },
     {
-      title: "Fail Rate",
+      title: t('Fail_Rate'),
       dataIndex: "failRate",
       key: "failRate",
       align: "right",
@@ -154,7 +154,7 @@ export function GuardrailsOverview({
       ),
     },
     {
-      title: "Avg. latency added",
+      title: t('Avg_latency_added'),
       dataIndex: "avgLatency",
       key: "avgLatency",
       align: "right",
@@ -171,7 +171,7 @@ export function GuardrailsOverview({
       ),
     },
     {
-      title: "Status",
+      title: t('Status'),
       dataIndex: "status",
       key: "status",
       align: "center",
@@ -186,7 +186,9 @@ export function GuardrailsOverview({
                   : "bg-red-500"
             }`}
           />
-          <span className="text-xs text-gray-600 capitalize">{status}</span>
+          <span className="text-xs text-gray-600 capitalize">
+            {status === "healthy" ? t('status_healthy') : status === "warning" ? t('status_warning') : t('status_unhealthy')}
+          </span>
         </span>
       ),
     },
@@ -210,23 +212,23 @@ export function GuardrailsOverview({
             <h1 className="text-xl font-semibold text-gray-900">{t('Guardrails_Monitor')}</h1>
           </div>
           <p className="text-sm text-gray-500">
-            Monitor guardrail performance across all requests
+            {t('Monitor_guardrail_performance')}
           </p>
         </div>
         <div className="flex items-center gap-3">
           <Button type="default" icon={<DownloadOutlined />} title="Coming soon">
-            Export Data
+            {t('Export_Data')}
           </Button>
         </div>
       </div>
 
       <Grid numItems={2} numItemsLg={5} className="gap-4 mb-6 items-stretch">
         <Col className="flex flex-col">
-          <MetricCard label="Total Evaluations" value={metrics.totalRequests.toLocaleString()} />
+          <MetricCard label={t('Total_Evaluations')} value={metrics.totalRequests.toLocaleString()} />
         </Col>
         <Col className="flex flex-col">
           <MetricCard
-            label="Blocked Requests"
+            label={t('Blocked_Requests')}
             value={metrics.totalBlocked.toLocaleString()}
             valueColor="text-red-600"
             icon={<WarningOutlined className="text-red-400" />}
@@ -234,7 +236,7 @@ export function GuardrailsOverview({
         </Col>
         <Col className="flex flex-col">
           <MetricCard
-            label="Pass Rate"
+            label={t('Pass_Rate')}
             value={`${metrics.passRate}%`}
             valueColor="text-green-600"
             icon={<RiseOutlined className="text-green-400" />}
@@ -242,7 +244,7 @@ export function GuardrailsOverview({
         </Col>
         <Col className="flex flex-col">
           <MetricCard
-            label="Avg. latency added"
+            label={t('Avg_latency_added')}
             value={`${metrics.avgLatency}ms`}
             valueColor={
               metrics.avgLatency > 150
@@ -255,7 +257,7 @@ export function GuardrailsOverview({
         </Col>
         <Col className="flex flex-col">
           <MetricCard
-            label="Active Guardrails"
+            label={t('Active_Guardrails')}
             value={metrics.count}
           />
         </Col>
@@ -275,10 +277,10 @@ export function GuardrailsOverview({
         <div className="px-6 py-4 border-b border-gray-200 flex items-start justify-between gap-4">
           <div>
             <Title className="text-base font-semibold text-gray-900">
-              Guardrail Performance
+              {t('Guardrail_Performance')}
             </Title>
             <p className="text-xs text-gray-500 mt-0.5">
-              Click a guardrail to view details, logs, and configuration
+              {t('Click_guardrail_details')}
             </p>
           </div>
           <div className="flex items-center gap-2">
@@ -297,7 +299,7 @@ export function GuardrailsOverview({
           pagination={false}
           loading={isLoading}
           onChange={handleTableChange}
-          locale={activeData.length === 0 && !isLoading ? { emptyText: "No data for this period" } : undefined}
+          locale={activeData.length === 0 && !isLoading ? { emptyText: t('No_data_period') } : undefined}
           onRow={(row) => ({
             onClick: () => onSelectGuardrail(row.id),
             style: { cursor: "pointer" },

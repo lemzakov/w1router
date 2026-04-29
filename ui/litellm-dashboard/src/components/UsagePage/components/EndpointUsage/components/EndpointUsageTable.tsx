@@ -3,6 +3,7 @@ import { Table, Progress } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { formatNumberWithCommas } from "@/utils/dataUtils";
 import { MetricWithMetadata } from "../../../types";
+import { useTranslation } from "react-i18next";
 
 interface EndpointUsageTableProps {
   endpointData: Record<string, MetricWithMetadata>;
@@ -20,6 +21,8 @@ interface EndpointRow {
 }
 
 const EndpointUsageTable: React.FC<EndpointUsageTableProps> = ({ endpointData }) => {
+  const { t } = useTranslation();
+
   const calculateSuccessRate = (successful: number, total: number): number => {
     if (total === 0) return 0;
     return (successful / total) * 100;
@@ -38,13 +41,13 @@ const EndpointUsageTable: React.FC<EndpointUsageTableProps> = ({ endpointData })
 
   const columns: ColumnsType<EndpointRow> = [
     {
-      title: "Endpoint",
+      title: t('Endpoint'),
       dataIndex: "endpoint",
       key: "endpoint",
       render: (text: string) => <span className="font-medium">{text}</span>,
     },
     {
-      title: "Successful / Failed",
+      title: t('Successful_Failed_col'),
       key: "requests",
       render: (_: any, record: EndpointRow) => {
         const successPercentage =
@@ -76,13 +79,13 @@ const EndpointUsageTable: React.FC<EndpointUsageTableProps> = ({ endpointData })
       },
     },
     {
-      title: "Total Request",
+      title: t('Total_Request_col'),
       dataIndex: "api_requests",
       key: "api_requests",
       render: (value: number) => value.toLocaleString(),
     },
     {
-      title: "Success Rate",
+      title: t('Success_Rate'),
       dataIndex: "successRate",
       key: "successRate",
       render: (value: number) => {
@@ -103,16 +106,16 @@ const EndpointUsageTable: React.FC<EndpointUsageTableProps> = ({ endpointData })
       },
     },
     {
-      title: "Total Tokens",
+      title: t('Total_Tokens'),
       dataIndex: "total_tokens",
       key: "total_tokens",
       render: (value: number) => value.toLocaleString(),
     },
     {
-      title: "Spend",
+      title: t('Spend'),
       dataIndex: "spend",
       key: "spend",
-      render: (value: number) => `$${formatNumberWithCommas(value, 2)}`,
+      render: (value: number) => `₽${formatNumberWithCommas(value, 2)}`,
     },
   ];
 

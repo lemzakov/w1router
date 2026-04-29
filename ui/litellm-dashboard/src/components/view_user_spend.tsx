@@ -116,7 +116,7 @@ const ViewUserSpend: React.FC<ViewUserSpendProps> = ({ userSpend, userMaxBudget,
     modelsToDisplay = userModels;
   }
 
-  const displayMaxBudget = maxBudget !== null ? `$${formatNumberWithCommas(Number(maxBudget), 4)} limit` : "No limit";
+  const displayMaxBudget = maxBudget !== null ? `₽${formatNumberWithCommas(Number(maxBudget), 4)} ${t('Budget_limit_label')}` : t('No_limit');
 
   const roundedSpend = spend !== undefined ? formatNumberWithCommas(spend, 4) : null;
 
@@ -127,7 +127,7 @@ const ViewUserSpend: React.FC<ViewUserSpendProps> = ({ userSpend, userMaxBudget,
         <div>
           <p className="text-tremor-default text-tremor-content dark:text-dark-tremor-content">{t('Total_Spend')}</p>
           <p className="text-2xl text-tremor-content-strong dark:text-dark-tremor-content-strong font-semibold">
-            ${roundedSpend}
+            ₽{roundedSpend}
           </p>
         </div>
         <div>
