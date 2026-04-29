@@ -122,8 +122,8 @@ const GuardrailSelectionModal: React.FC<GuardrailSelectionModalProps> = ({
           disabled={selectedCount === 0 && existingCount === 0}
         >
           {selectedCount > 0
-            ? `Create ${selectedCount} Guardrail${selectedCount > 1 ? "s" : ""} & Use Template`
-            : "Use Template"}
+            ? `Create ${selectedCount} Guardrail${selectedCount > 1 ? "s" : ""} & ${t('Use_Template')}`
+            : t('Use_Template')}
         </Button>,
       ]}
     >

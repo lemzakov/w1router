@@ -109,49 +109,49 @@ const PolicyTestPanel: React.FC<PolicyTestPanelProps> = ({ accessToken }) => {
         <div className="mb-5">
           <h3 className="text-base font-semibold mb-1">{t('Policy_Simulator')}</h3>
           <Text type="secondary">
-            Simulate a request to see which policies and guardrails would apply. Select a team, key, model, or tags below and click &quot;Simulate&quot; to see the results.
+            {t('Simulate_description')}
           </Text>
         </div>
 
         <Form form={form} layout="vertical">
           <div className="grid grid-cols-2 gap-4">
-            <Form.Item name="team_alias" label="Team Alias" className="mb-3">
+            <Form.Item name="team_alias" label={t('Team_Alias_label')} className="mb-3">
               <Select
                 showSearch
                 allowClear
-                placeholder="Select or type a team alias"
+                placeholder={t('Select_or_type_team_alias')}
                 options={availableTeams.map((t) => ({ label: t, value: t }))}
                 filterOption={(input, option) =>
                   (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
                 }
               />
             </Form.Item>
-            <Form.Item name="key_alias" label="Key Alias" className="mb-3">
+            <Form.Item name="key_alias" label={t('Key_Alias')} className="mb-3">
               <Select
                 showSearch
                 allowClear
-                placeholder="Select or type a key alias"
+                placeholder={t('Select_or_type_key_alias')}
                 options={availableKeys.map((k) => ({ label: k, value: k }))}
                 filterOption={(input, option) =>
                   (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
                 }
               />
             </Form.Item>
-            <Form.Item name="model" label="Model" className="mb-3">
+            <Form.Item name="model" label={t('Model')} className="mb-3">
               <Select
                 showSearch
                 allowClear
-                placeholder="Select or type a model"
+                placeholder={t('Select_or_type_model')}
                 options={availableModels.map((m) => ({ label: m, value: m }))}
                 filterOption={(input, option) =>
                   (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
                 }
               />
             </Form.Item>
-            <Form.Item name="tags" label="Tags" className="mb-3">
+            <Form.Item name="tags" label={t('Tags')} className="mb-3">
               <Select
                 mode="tags"
-                placeholder="Type a tag and press Enter"
+                placeholder={t('Type_tag_press_Enter')}
                 tokenSeparators={[",", " "]}
                 notFoundContent={null}
                 suffixIcon={null}
@@ -161,10 +161,10 @@ const PolicyTestPanel: React.FC<PolicyTestPanelProps> = ({ accessToken }) => {
           </div>
           <div className="flex space-x-2">
             <Button onClick={handleTest} loading={isLoading} disabled={!accessToken}>
-              Simulate
+              {t('Simulate_btn')}
             </Button>
             <Button variant="secondary" onClick={handleReset}>
-              Reset
+              {t('Reset_btn')}
             </Button>
           </div>
         </Form>
@@ -179,7 +179,7 @@ const PolicyTestPanel: React.FC<PolicyTestPanelProps> = ({ accessToken }) => {
           </div>
           <p className="text-sm font-medium text-gray-600 mb-1">{t('No_simulation_run_yet')}</p>
           <p className="text-xs text-gray-400">
-            Fill in one or more fields above and click &quot;Simulate&quot; to see which policies and guardrails would apply to that request.
+            {t('Fill_in_one_or_more_fields')}
           </p>
         </div>
       )}

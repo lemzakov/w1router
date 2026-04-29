@@ -29,10 +29,10 @@ function getPromptsForTestSource(source: string): CompliancePrompt[] {
 
 const { Text } = Typography;
 
-const ACTION_OPTIONS = [
-  { label: "Next Step", value: "next" },
+const getActionOptions = () => [
+  { label: t("Next_Step_action") ?? "Next Step", value: "next" },
   { label: "Allow", value: "allow" },
-  { label: "Block", value: "block" },
+  { label: t("Block") ?? "Block", value: "block" },
   { label: "Custom Response", value: "modify_response" },
 ];
 
@@ -260,12 +260,12 @@ const StepCard: React.FC<StepCardProps> = ({
               letterSpacing: "0.06em",
             }}
           >
-            GUARDRAIL
+            {t('GUARDRAIL_label')}
           </span>
         </div>
         <div className="flex items-center gap-2">
           <span style={{ fontSize: 13, color: "#9ca3af" }}>
-            Step {stepIndex + 1}
+            {t('Step_prefix')} {stepIndex + 1}
           </span>
           <button
             onClick={onDelete}
@@ -289,12 +289,12 @@ const StepCard: React.FC<StepCardProps> = ({
       {/* Guardrail selector */}
       <div style={{ padding: "12px 20px 16px 20px" }}>
         <label style={{ fontSize: 12, fontWeight: 500, color: "#6b7280", display: "block", marginBottom: 6 }}>
-          Guardrail
+          {t('Guardrail_field_label')}
         </label>
         <Select
           showSearch
           style={{ width: "100%" }}
-          placeholder="Select a guardrail"
+          placeholder={t('Select_a_guardrail')}
           value={step.guardrail || undefined}
           onChange={(value) => onChange({ guardrail: value })}
           options={guardrailOptions}
@@ -311,13 +311,13 @@ const StepCard: React.FC<StepCardProps> = ({
           <span style={{ fontSize: 13, fontWeight: 600, color: "#374151" }}>{t('ON_PASS')}</span>
         </div>
         <label style={{ fontSize: 12, fontWeight: 500, color: "#6b7280", display: "block", marginBottom: 6 }}>
-          Action
+          {t('Action')}
         </label>
         <Select
           style={{ width: "100%" }}
           value={step.on_pass}
           onChange={(value) => onChange({ on_pass: value as PipelineStep["on_pass"] })}
-          options={ACTION_OPTIONS}
+          options={getActionOptions()}
         />
         {step.on_pass === "modify_response" && (
           <div style={{ marginTop: 8 }}>
@@ -340,13 +340,13 @@ const StepCard: React.FC<StepCardProps> = ({
           <span style={{ fontSize: 13, fontWeight: 600, color: "#374151" }}>{t('ON_FAIL')}</span>
         </div>
         <label style={{ fontSize: 12, fontWeight: 500, color: "#6b7280", display: "block", marginBottom: 6 }}>
-          Action
+          {t('Action')}
         </label>
         <Select
           style={{ width: "100%" }}
           value={step.on_fail}
           onChange={(value) => onChange({ on_fail: value as PipelineStep["on_fail"] })}
-          options={ACTION_OPTIONS}
+          options={getActionOptions()}
         />
         {step.on_fail === "modify_response" && (
           <div style={{ marginTop: 8 }}>
@@ -369,11 +369,11 @@ const StepCard: React.FC<StepCardProps> = ({
           <span style={{ fontSize: 13, fontWeight: 600, color: "#374151" }}>{t('ON_API_FAILURE')}</span>
         </div>
         <label style={{ fontSize: 12, fontWeight: 500, color: "#6b7280", display: "block", marginBottom: 6 }}>
-          Action
+          {t('Action')}
         </label>
         <Select
           style={{ width: "100%" }}
-          placeholder="Same as ON FAIL"
+          placeholder={t('Same_as_ON_FAIL')}
           allowClear
           value={step.on_error ?? undefined}
           onChange={(value) =>
@@ -381,7 +381,7 @@ const StepCard: React.FC<StepCardProps> = ({
               on_error: value === undefined || value === null ? undefined : (value as PipelineStep["on_error"]),
             })
           }
-          options={ACTION_OPTIONS}
+          options={getActionOptions()}
         />
         {step.on_error === "modify_response" && step.on_fail !== "modify_response" && (
           <div style={{ marginTop: 8 }}>
@@ -457,13 +457,13 @@ const PipelineFlowBuilder: React.FC<PipelineFlowBuilderProps> = ({
                 marginBottom: 2,
               }}
             >
-              TRIGGER
+              {t('TRIGGER_label')}
             </span>
             <span style={{ fontSize: 14, fontWeight: 600, color: "#111827", display: "block" }}>
-              Incoming LLM Request
+              {t('Incoming_LLM_Request')}
             </span>
             <span style={{ fontSize: 13, color: "#9ca3af" }}>
-              This flow runs when a request matches this policy
+              {t('Flow_runs_when_matches')}
             </span>
           </div>
         </div>
@@ -528,13 +528,13 @@ const PipelineFlowBuilder: React.FC<PipelineFlowBuilderProps> = ({
                 marginBottom: 2,
               }}
             >
-              END
+              {t('END_label')}
             </span>
             <span style={{ fontSize: 14, fontWeight: 600, color: "#111827", display: "block" }}>
-              Continue to LLM
+              {t('Continue_to_LLM')}
             </span>
             <span style={{ fontSize: 13, color: "#9ca3af" }}>
-              Request proceeds to the model
+              {t('Request_proceeds_to_model')}
             </span>
           </div>
         </div>
@@ -568,10 +568,10 @@ export const PipelineInfoDisplay: React.FC<PipelineInfoDisplayProps> = ({ pipeli
         <PlayIcon />
         <div>
           <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", color: "#6b7280", letterSpacing: "0.06em", display: "block", marginBottom: 2 }}>
-            TRIGGER
+            {t('TRIGGER_label')}
           </span>
           <span style={{ fontSize: 14, fontWeight: 600, color: "#111827" }}>
-            Incoming LLM Request
+            {t('Incoming_LLM_Request')}
           </span>
         </div>
       </div>
@@ -599,10 +599,10 @@ export const PipelineInfoDisplay: React.FC<PipelineInfoDisplayProps> = ({ pipeli
             <div className="flex items-center gap-2">
               <GuardrailIcon />
               <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", color: "#6366f1", letterSpacing: "0.06em" }}>
-                GUARDRAIL
+                {t('GUARDRAIL_label')}
               </span>
             </div>
-            <span style={{ fontSize: 13, color: "#9ca3af" }}>Step {index + 1}</span>
+            <span style={{ fontSize: 13, color: "#9ca3af" }}>{t('Step_prefix')} {index + 1}</span>
           </div>
 
           {/* Name */}
@@ -1531,7 +1531,7 @@ export const FlowBuilderPage: React.FC<FlowBuilderPageProps> = ({
           <span style={{ fontSize: 14, color: "#6b7280" }}>{t('Policies')}</span>
           <span style={{ fontSize: 14, color: "#d1d5db" }}>/</span>
           <TextInput
-            placeholder="Policy name..."
+            placeholder={t('Policy_name_placeholder_flow')}
             value={policyName}
             onChange={(e) => setPolicyName(e.target.value)}
             disabled={isEditing}
@@ -1553,16 +1553,16 @@ export const FlowBuilderPage: React.FC<FlowBuilderPageProps> = ({
         </div>
         <div className="flex items-center gap-2">
           <Button variant="secondary" onClick={onBack}>
-            Cancel
+            {t('Cancel')}
           </Button>
           <Button
             variant="secondary"
             onClick={() => setShowTestPanel(!showTestPanel)}
           >
-            {showTestPanel ? "Hide Test" : "Test Pipeline"}
+            {showTestPanel ? t('Hide_Test_btn') : t('Test_Pipeline_btn')}
           </Button>
           <Button onClick={handleSave} loading={isSubmitting}>
-            {isEditing ? "Update Policy" : "Save Policy"}
+            {isEditing ? t('Update_Policy_btn') : t('Save_Policy_btn')}
           </Button>
         </div>
       </div>
@@ -1577,7 +1577,7 @@ export const FlowBuilderPage: React.FC<FlowBuilderPageProps> = ({
         }}
       >
         <TextInput
-          placeholder="Add a description (optional)..."
+          placeholder={t('Add_description_optional_placeholder')}
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           style={{ maxWidth: 500 }}

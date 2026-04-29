@@ -69,7 +69,7 @@ const PolicyTable: React.FC<PolicyTableProps> = ({
 
   const columns: ColumnDef<PolicyRow>[] = [
     {
-      header: "Name",
+      header: t('Name_1'),
       accessorKey: "policy_name",
       cell: ({ row }) => {
         const { primaryPolicy, versionCount } = row.original;
@@ -95,7 +95,7 @@ const PolicyTable: React.FC<PolicyTableProps> = ({
       },
     },
     {
-      header: "Description",
+      header: t('Description_1'),
       accessorFn: (row) => row.primaryPolicy.description ?? "",
       cell: ({ row }) => {
         const policy = row.original.primaryPolicy;
@@ -109,7 +109,7 @@ const PolicyTable: React.FC<PolicyTableProps> = ({
       },
     },
     {
-      header: "Inherits From",
+      header: t('Inherits_From_col'),
       accessorFn: (row) => row.primaryPolicy.inherit ?? "",
       cell: ({ row }) => {
         const policy = row.original.primaryPolicy;
@@ -123,7 +123,7 @@ const PolicyTable: React.FC<PolicyTableProps> = ({
       },
     },
     {
-      header: "Guardrails (Add)",
+      header: t('Guardrails_Add_col'),
       accessorFn: (row) => (row.primaryPolicy.guardrails_add ?? []).join(", "),
       cell: ({ row }) => {
         const policy = row.original.primaryPolicy;
@@ -148,7 +148,7 @@ const PolicyTable: React.FC<PolicyTableProps> = ({
       },
     },
     {
-      header: "Guardrails (Remove)",
+      header: t('Guardrails_Remove_col'),
       accessorFn: (row) => (row.primaryPolicy.guardrails_remove ?? []).join(", "),
       cell: ({ row }) => {
         const policy = row.original.primaryPolicy;
@@ -173,7 +173,7 @@ const PolicyTable: React.FC<PolicyTableProps> = ({
       },
     },
     {
-      header: "Model Condition",
+      header: t('Model_Condition_col'),
       accessorFn: (row) => {
         const m = row.primaryPolicy.condition?.model;
         return typeof m === "string" ? m : JSON.stringify(m ?? "");
@@ -198,7 +198,7 @@ const PolicyTable: React.FC<PolicyTableProps> = ({
       },
     },
     {
-      header: "Created At",
+      header: t('Created_At'),
       id: "created_at",
       accessorFn: (row) => row.primaryPolicy.created_at ?? "",
       cell: ({ row }) => {
@@ -212,7 +212,7 @@ const PolicyTable: React.FC<PolicyTableProps> = ({
     },
     {
       id: "actions",
-      header: "Actions",
+      header: t('Actions_col'),
       cell: ({ row }) => {
         const { primaryPolicy } = row.original;
         const policy = primaryPolicy;
