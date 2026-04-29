@@ -116,7 +116,7 @@ const ViewUserSpend: React.FC<ViewUserSpendProps> = ({ userSpend, userMaxBudget,
     modelsToDisplay = userModels;
   }
 
-  const displayMaxBudget = maxBudget !== null ? `₽${formatNumberWithCommas(Number(maxBudget), 4)} лимит` : t('No_limit');
+  const displayMaxBudget = maxBudget !== null ? `₽${formatNumberWithCommas(Number(maxBudget), 4)} ${t('Budget_limit_label')}` : t('No_limit');
 
   const roundedSpend = spend !== undefined ? formatNumberWithCommas(spend, 4) : null;
 

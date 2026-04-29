@@ -164,7 +164,7 @@ const TopKeyView: React.FC<TopKeyViewProps> = ({ topKeys, teams, showTags = fals
   };
 
   const spendColumn = {
-    header: t("Spend_USD"),
+    header: t("Spend_RUB"),
     accessorKey: "spend",
     cell: (info: any) => {
       const value = info.getValue();

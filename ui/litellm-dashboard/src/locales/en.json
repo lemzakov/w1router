@@ -2592,5 +2592,6 @@
   "Success_Rate": "Success Rate",
   "Table_View": "Table View",
   "Chart_View": "Chart View",
-  "Spend_RUB": "Spend (₽)"
+  "Spend_RUB": "Spend (₽)",
+  "Budget_limit_label": "limit"
 }

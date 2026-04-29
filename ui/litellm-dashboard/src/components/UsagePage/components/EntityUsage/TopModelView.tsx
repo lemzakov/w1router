@@ -30,7 +30,7 @@ export default function TopModelView({ topModels, topModelsLimit, setTopModelsLi
       cell: (info: any) => info.getValue() || "-",
     },
     {
-      header: t('Spend_USD'),
+      header: t('Spend_RUB'),
       accessorKey: "spend",
       cell: (info: any) => {
         const value = info.getValue();
