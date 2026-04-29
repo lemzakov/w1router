@@ -512,7 +512,7 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
                     <Card>
                       <Title>{t('Total_Spend')}</Title>
                       <Text className="text-2xl font-bold mt-2">
-                        ${formatNumberWithCommas(spendData.metadata.total_spend, 2)}
+                        ₽{formatNumberWithCommas(spendData.metadata.total_spend, 2)}
                       </Text>
                     </Card>
                     <Card>
@@ -564,7 +564,7 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
                       return (
                         <div className="bg-white p-4 shadow-lg rounded-lg border">
                           <p className="font-bold">{data.date}</p>
-                          <p className="text-cyan-500">Total Spend: ${formatNumberWithCommas(data.metrics.spend, 2)}</p>
+                          <p className="text-cyan-500">Total Spend: ₽{formatNumberWithCommas(data.metrics.spend, 2)}</p>
                           <p className="text-gray-600">Total Requests: {data.metrics.api_requests}</p>
                           <p className="text-gray-600">Successful: {data.metrics.successful_requests}</p>
                           <p className="text-gray-600">Failed: {data.metrics.failed_requests}</p>
@@ -737,7 +737,7 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
                           data={getProviderSpend()}
                           index="provider"
                           category="spend"
-                          valueFormatter={(value) => `$${formatNumberWithCommas(value, 2)}`}
+                          valueFormatter={(value) => `₽${formatNumberWithCommas(value, 2)}`}
                           colors={["cyan", "blue", "indigo", "violet", "purple"]}
                         />
                       </Col>
@@ -778,7 +778,7 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
                                     <span>{provider.provider}</span>
                                   </div>
                                 </TableCell>
-                                <TableCell>${formatNumberWithCommas(provider.spend, 2)}</TableCell>
+                                <TableCell>₽{formatNumberWithCommas(provider.spend, 2)}</TableCell>
                                 <TableCell className="text-green-600">
                                   {provider.successful_requests.toLocaleString()}
                                 </TableCell>

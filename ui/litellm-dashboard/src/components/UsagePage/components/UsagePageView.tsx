@@ -489,7 +489,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
                     showSearch
                     allowClear
                     style={{ width: "100%" }}
-                    placeholder="Select user to filter..."
+                    placeholder={t('Select_user_to_filter')}
                     value={selectedUserId}
                     onChange={(value) => setSelectedUserId(value ?? null)}
                     filterOption={false}
@@ -530,7 +530,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
                         </svg>
                       }
                     >
-                      Ask AI
+                      {t('Ask_AI')}
                     </Button>
                     <Button
                       onClick={() => setIsGlobalExportModalOpen(true)}
@@ -545,7 +545,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
                         </svg>
                       }
                     >
-                      Export Data
+                      {t('Export_Data')}
                     </Button>
                   </div>
                 </div>
@@ -557,7 +557,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
                       <Col numColSpan={2}>
                         <div className="flex items-center gap-4 mt-2 mb-2">
                           <Text className="text-tremor-default text-tremor-content dark:text-dark-tremor-content text-lg">
-                            Project Spend{" "}
+                            {t('Project_Spend_label')}{" "}
                             {dateValue.from && dateValue.to && (
                               <>
                                 {dateValue.from.toLocaleDateString("en-US", {
@@ -614,7 +614,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
                             <Card>
                               <Title>{t('Average_Cost_per_Request')}</Title>
                               <Text className="text-2xl font-bold mt-2">
-                                $
+                                ₽
                                 {formatNumberWithCommas(
                                   (totalSpend || 0) / (userSpendData.metadata?.total_api_requests || 1),
                                   4,
@@ -691,7 +691,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
                                   <div className="bg-white p-4 shadow-lg rounded-lg border">
                                     <p className="font-bold">{data.date}</p>
                                     <p className="text-cyan-500">
-                                      Spend: ${formatNumberWithCommas(data.metrics.spend, 2)}
+                                      Spend: ₽{formatNumberWithCommas(data.metrics.spend, 2)}
                                     </p>
                                     <p className="text-gray-600">Requests: {data.metrics.api_requests}</p>
                                     <p className="text-gray-600">Successful: {data.metrics.successful_requests}</p>
@@ -720,7 +720,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
                       {/* Top Models */}
                       <Col numColSpan={1}>
                         <Card className="h-full">
-                          <Title>{modelViewType === "groups" ? "Top Public Model Names" : "Top Litellm Models"}</Title>
+                          <Title>{modelViewType === "groups" ? t('Top_Public_Model_Names') : t('Top_Internal_Models')}</Title>
                           <div className="flex justify-between items-center mb-4">
                             <Segmented
                               options={[
@@ -741,7 +741,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
                                 }`}
                                 onClick={() => setModelViewType("groups")}
                               >
-                                Public Model Name
+                                {t('Public_Model_Name_btn')}
                               </button>
                               <button
                                 className={`px-3 py-1 text-sm rounded-md transition-colors ${
@@ -751,7 +751,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
                                 }`}
                                 onClick={() => setModelViewType("individual")}
                               >
-                                Litellm Model Name
+                                {t('Internal_Model_Name_btn')}
                               </button>
                             </div>
                           </div>
@@ -780,7 +780,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
                                         <div className="bg-white p-4 shadow-lg rounded-lg border">
                                           <p className="font-bold">{data.key}</p>
                                           <p className="text-cyan-500">
-                                            Spend: ${formatNumberWithCommas(data.spend, 2)}
+                                            Spend: ₽{formatNumberWithCommas(data.spend, 2)}
                                           </p>
                                           <p className="text-gray-600">
                                             Total Requests: {data.requests.toLocaleString()}

@@ -87,7 +87,7 @@ const SpendByProvider: React.FC<SpendByProviderProps> = ({ loading, isDateChangi
               data={filteredProviderSpend}
               index="provider"
               category="spend"
-              valueFormatter={(value) => `$${formatNumberWithCommas(value, 2)}`}
+              valueFormatter={(value) => `₽${formatNumberWithCommas(value, 2)}`}
               colors={["cyan"]}
             />
           </Col>
@@ -111,7 +111,7 @@ const SpendByProvider: React.FC<SpendByProviderProps> = ({ loading, isDateChangi
                         <span>{provider.provider}</span>
                       </div>
                     </TableCell>
-                    <TableCell>${formatNumberWithCommas(provider.spend, 2)}</TableCell>
+                    <TableCell>₽{formatNumberWithCommas(provider.spend, 2)}</TableCell>
                     <TableCell className="text-green-600">
                       {provider.successful_requests.toLocaleString()}
                     </TableCell>

@@ -83,7 +83,7 @@ const TopKeyView: React.FC<TopKeyViewProps> = ({ topKeys, teams, showTags = fals
   // Define columns for the table view
   const baseColumns = [
     {
-      header: "Key ID",
+      header: t("Key_ID"),
       accessorKey: "api_key",
       cell: (info: any) => (
         <div className="overflow-hidden">
@@ -101,14 +101,14 @@ const TopKeyView: React.FC<TopKeyViewProps> = ({ topKeys, teams, showTags = fals
       ),
     },
     {
-      header: "Key Alias",
+      header: t("Key_Alias"),
       accessorKey: "key_alias",
       cell: (info: any) => info.getValue() || "-",
     },
   ];
 
   const tagsColumn = {
-    header: "Tags",
+    header: t("Tags"),
     accessorKey: "tags",
     cell: (info: any) => {
       const tags = info.getValue() as TagUsage[] | undefined;
@@ -136,7 +136,7 @@ const TopKeyView: React.FC<TopKeyViewProps> = ({ topKeys, teams, showTags = fals
                     </div>
                     <div>
                       <span className="text-gray-300">{t('Spend_1')}</span>{" "}
-                      {tag.usage > 0 && tag.usage < 0.01 ? "<$0.01" : `$${formatNumberWithCommas(tag.usage, 2)}`}
+                      {tag.usage > 0 && tag.usage < 0.01 ? "<₽0.01" : `₽${formatNumberWithCommas(tag.usage, 2)}`}
                     </div>
                   </div>
                 }
@@ -164,11 +164,11 @@ const TopKeyView: React.FC<TopKeyViewProps> = ({ topKeys, teams, showTags = fals
   };
 
   const spendColumn = {
-    header: "Spend (USD)",
+    header: t("Spend_USD"),
     accessorKey: "spend",
     cell: (info: any) => {
       const value = info.getValue();
-      return value > 0 && value < 0.01 ? "<$0.01" : `$${formatNumberWithCommas(value, 2)}`;
+      return value > 0 && value < 0.01 ? "<₽0.01" : `₽${formatNumberWithCommas(value, 2)}`;
     },
   };
 
@@ -197,13 +197,13 @@ const TopKeyView: React.FC<TopKeyViewProps> = ({ topKeys, teams, showTags = fals
             onClick={() => setViewMode("table")}
             className={`px-3 py-1 text-sm rounded-md ${viewMode === "table" ? "bg-blue-100 text-blue-700" : "bg-gray-100 text-gray-700"}`}
           >
-            Table View
+            {t('Table_View')}
           </button>
           <button
             onClick={() => setViewMode("chart")}
             className={`px-3 py-1 text-sm rounded-md ${viewMode === "chart" ? "bg-blue-100 text-blue-700" : "bg-gray-100 text-gray-700"}`}
           >
-            Chart View
+            {t('Chart_View')}
           </button>
         </div>
       </div>
@@ -221,7 +221,7 @@ const TopKeyView: React.FC<TopKeyViewProps> = ({ topKeys, teams, showTags = fals
             tickGap={5}
             layout="vertical"
             showLegend={false}
-            valueFormatter={(value) => `$${formatNumberWithCommas(value, 2)}`}
+            valueFormatter={(value) => `₽${formatNumberWithCommas(value, 2)}`}
             onValueChange={(item) => handleKeyClick(item)}
             showTooltip={true}
             customTooltip={(props) => {
@@ -239,7 +239,7 @@ const TopKeyView: React.FC<TopKeyViewProps> = ({ topKeys, teams, showTags = fals
                     </div>
                     <div className="text-sm">
                       <span className="text-gray-300">{t('Spend_1')}</span>
-                      <span className="text-white font-medium">${formatNumberWithCommas(item?.spend, 2)}</span>
+                      <span className="text-white font-medium">₽{formatNumberWithCommas(item?.spend, 2)}</span>
                     </div>
                   </div>
                 </div>

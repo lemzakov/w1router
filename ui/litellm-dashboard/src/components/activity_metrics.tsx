@@ -46,9 +46,9 @@ const ModelSection = ({
         </Card>
         <Card>
           <Text>{t('Total_Spend')}</Text>
-          <Title>${formatNumberWithCommas(metrics.total_spend, 2)}</Title>
+          <Title>₽{formatNumberWithCommas(metrics.total_spend, 2)}</Title>
           <Text>
-            ${formatNumberWithCommas(metrics.total_spend / metrics.total_successful_requests, 3)} per successful request
+            ₽{formatNumberWithCommas(metrics.total_spend / metrics.total_successful_requests, 3)} per successful request
           </Text>
         </Card>
       </Grid>
@@ -65,7 +65,7 @@ const ModelSection = ({
                     {keyData.team_id && <Text className="text-xs text-gray-500">Team: {keyData.team_id}</Text>}
                   </div>
                   <div className="text-right">
-                    <Text className="font-medium">${formatNumberWithCommas(keyData.spend, 2)}</Text>
+                    <Text className="font-medium">₽{formatNumberWithCommas(keyData.spend, 2)}</Text>
                     <Text className="text-xs text-gray-500">
                       {keyData.requests.toLocaleString()} requests | {keyData.tokens.toLocaleString()} tokens
                     </Text>
@@ -93,7 +93,7 @@ const ModelSection = ({
           index="date"
           categories={["metrics.spend"]}
           colors={["green"]}
-          valueFormatter={(value: number) => `$${formatNumberWithCommas(value, 2, true)}`}
+          valueFormatter={(value: number) => `₽${formatNumberWithCommas(value, 2, true)}`}
           yAxisWidth={72}
         />
       </Card>
