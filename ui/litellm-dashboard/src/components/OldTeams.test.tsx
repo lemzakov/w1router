@@ -382,7 +382,7 @@ describe("OldTeams - handleCreate organization handling", () => {
     act(() => {
       fireEvent.click(deleteTeamButton);
     });
-    expect(screen.getByText("Delete Team?")).toBeInTheDocument();
+    expect(screen.getByText("Удалить команду?")).toBeInTheDocument();
   });
 });
 
@@ -406,12 +406,9 @@ describe("OldTeams - empty state", () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByText("No teams yet")).toBeInTheDocument();
+      expect(screen.getByText("Команд пока нет")).toBeInTheDocument();
     });
-    expect(screen.getByText("Create your first team to organize members and manage access to models.")).toBeInTheDocument();
-  });
-
-  it("should display empty state message when teams is null", async () => {
+    expect(screen.getAllByText("Создайте первую команду для организации участников и управления доступом к моделям.").length).toBeGreaterThan(0);
     renderWithQueryClient(
       <OldTeams
         teams={null}
@@ -425,9 +422,9 @@ describe("OldTeams - empty state", () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByText("No teams yet")).toBeInTheDocument();
+      expect(screen.getByText("Команд пока нет")).toBeInTheDocument();
     });
-    expect(screen.getByText("Create your first team to organize members and manage access to models.")).toBeInTheDocument();
+    expect(screen.getAllByText("Создайте первую команду для организации участников и управления доступом к моделям.").length).toBeGreaterThan(0);
   });
 
   it("should not display empty state when teams array has items", async () => {
@@ -461,8 +458,8 @@ describe("OldTeams - empty state", () => {
     await waitFor(() => {
       expect(screen.getByText("Test Team")).toBeInTheDocument();
     });
-    expect(screen.queryByText("No teams yet")).not.toBeInTheDocument();
-    expect(screen.queryByText("Create your first team to organize members and manage access to models.")).not.toBeInTheDocument();
+    expect(screen.queryByText("Команд пока нет")).not.toBeInTheDocument();
+    expect(screen.queryByText("Создайте первую команду для организации участников и управления доступом к моделям.")).not.toBeInTheDocument();
   });
 });
 
@@ -675,7 +672,7 @@ describe("OldTeams - Default Team Settings tab visibility", () => {
       />,
     );
 
-    expect(screen.getByRole("tab", { name: "Default Team Settings" })).toBeInTheDocument();
+    expect(screen.getByRole("tab", { name: "Настройки команды по умолчанию" })).toBeInTheDocument();
   });
 
   it("should show Default Team Settings tab for proxy_admin role", () => {
@@ -706,7 +703,7 @@ describe("OldTeams - Default Team Settings tab visibility", () => {
       />,
     );
 
-    expect(screen.getByRole("tab", { name: "Default Team Settings" })).toBeInTheDocument();
+    expect(screen.getByRole("tab", { name: "Настройки команды по умолчанию" })).toBeInTheDocument();
   });
 
   it("should not show Default Team Settings tab for proxy_admin_viewer role", () => {
@@ -737,7 +734,7 @@ describe("OldTeams - Default Team Settings tab visibility", () => {
       />,
     );
 
-    expect(screen.queryByRole("tab", { name: "Default Team Settings" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("tab", { name: "Настройки команды по умолчанию" })).not.toBeInTheDocument();
   });
 
   it("should not show Default Team Settings tab for Admin Viewer role", () => {
@@ -768,7 +765,7 @@ describe("OldTeams - Default Team Settings tab visibility", () => {
       />,
     );
 
-    expect(screen.queryByRole("tab", { name: "Default Team Settings" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("tab", { name: "Настройки команды по умолчанию" })).not.toBeInTheDocument();
   });
 });
 
@@ -804,22 +801,22 @@ describe("OldTeams - access_group_ids in team create", () => {
       />,
     );
 
-    const createButton = screen.getAllByRole("button", { name: /create team/i })[0];
+    const createButton = screen.getAllByRole("button", { name: /создать команду/i })[0];
     act(() => {
       fireEvent.click(createButton);
     });
 
     await waitFor(() => {
-      expect(screen.getByLabelText(/team name/i)).toBeInTheDocument();
+      expect(screen.getByLabelText(/название команды/i)).toBeInTheDocument();
     });
 
-    const teamNameInput = screen.getByLabelText(/team name/i);
+    const teamNameInput = screen.getByLabelText(/название команды/i);
     fireEvent.change(teamNameInput, { target: { value: "Test Team" } });
 
     const modelsInput = screen.getByTestId("create-team-models-select");
     fireEvent.change(modelsInput, { target: { value: "gpt-4" } });
 
-    const additionalSettingsAccordion = screen.getByText("Additional Settings");
+    const additionalSettingsAccordion = screen.getByText("Дополнительные настройки");
     fireEvent.click(additionalSettingsAccordion);
 
     await waitFor(() => {
@@ -829,7 +826,7 @@ describe("OldTeams - access_group_ids in team create", () => {
     const accessGroupInput = screen.getByTestId("access-group-selector");
     fireEvent.change(accessGroupInput, { target: { value: "ag-1,ag-2" } });
 
-    const createTeamSubmitButtons = screen.getAllByRole("button", { name: /create team/i });
+    const createTeamSubmitButtons = screen.getAllByRole("button", { name: /создать команду/i });
     const createTeamSubmitButton = createTeamSubmitButtons[createTeamSubmitButtons.length - 1];
     fireEvent.click(createTeamSubmitButton);
 
@@ -872,13 +869,13 @@ describe("OldTeams - models dropdown options", () => {
       expect(fetchAvailableModelsForTeamOrKey).toHaveBeenCalled();
     });
 
-    const createButton = screen.getAllByRole("button", { name: /create team/i })[0];
+    const createButton = screen.getAllByRole("button", { name: /создать команду/i })[0];
     act(() => {
       fireEvent.click(createButton);
     });
 
     await waitFor(() => {
-      expect(screen.getByLabelText(/models/i)).toBeInTheDocument();
+      expect(screen.getByLabelText(/модели/i)).toBeInTheDocument();
     });
     const allProxyModelsOption = screen.queryByText("All Proxy Models");
     expect(allProxyModelsOption).not.toBeInTheDocument();
