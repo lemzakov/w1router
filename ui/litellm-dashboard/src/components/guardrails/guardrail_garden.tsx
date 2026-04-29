@@ -49,7 +49,7 @@ const GuardrailGarden: React.FC<GuardrailGardenProps> = ({ accessToken, onGuardr
       <div style={{ marginBottom: 24 }}>
         <Input
           size="large"
-          placeholder="Search guardrails"
+          placeholder={t('Search_guardrails')}
           prefix={<SearchOutlined style={{ color: "#9ca3af" }} />}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}

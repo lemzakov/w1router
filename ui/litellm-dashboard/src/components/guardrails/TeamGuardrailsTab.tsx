@@ -116,22 +116,22 @@ function submissionToTeamGuardrail(item: GuardrailSubmissionItem): TeamGuardrail
 
 const STATUS_CONFIG: Record<
   GuardrailStatus,
-  { label: string; bg: string; text: string; dot: string }
+  { labelKey: string; bg: string; text: string; dot: string }
 > = {
   active: {
-    label: "Active",
+    labelKey: "Active",
     bg: "bg-green-50",
     text: "text-green-700",
     dot: "bg-green-500",
   },
   pending: {
-    label: "Pending Review",
+    labelKey: "Pending_Review",
     bg: "bg-yellow-50",
     text: "text-yellow-700",
     dot: "bg-yellow-500",
   },
   rejected: {
-    label: "Rejected",
+    labelKey: "Rejected",
     bg: "bg-red-50",
     text: "text-red-700",
     dot: "bg-red-500",
@@ -270,7 +270,7 @@ function GuardrailCard({
               className={`inline-flex items-center gap-1.5 text-xs font-medium px-2 py-0.5 rounded-full ${status.bg} ${status.text}`}
             >
               <span className={`w-1.5 h-1.5 rounded-full ${status.dot}`} />
-              {status.label}
+              {t(status.labelKey)}
             </span>
           </div>
           <h3 className="text-sm font-semibold text-gray-900 mb-1">{g.name}</h3>
@@ -435,7 +435,7 @@ function DetailPanel({
                 className={`inline-flex items-center gap-1.5 text-xs font-medium px-2 py-0.5 rounded-full ${status.bg} ${status.text}`}
               >
                 <span className={`w-1.5 h-1.5 rounded-full ${status.dot}`} />
-                {status.label}
+                {t(status.labelKey)}
               </span>
             </div>
             <h2 className="text-base font-semibold text-gray-900">{g.name}</h2>

@@ -2456,5 +2456,15 @@
   "Edit_Custom_Guardrail": "Edit Custom Guardrail",
   "Save_Guardrail": "Save Guardrail",
   "Update_Guardrail": "Update Guardrail",
-  "Running": "Running..."
+  "Running": "Running...",
+  "Enter_guardrail_name_placeholder": "Enter a name for this guardrail",
+  "Select_guardrail_provider_placeholder": "Select a guardrail provider",
+  "Enter_text_to_test_guardrails": "Enter text to test guardrails...",
+  "Return_Values": "Return Values",
+  "HTTP_Requests_async": "HTTP Requests (async)",
+  "Regex_Functions": "Regex Functions",
+  "JSON_Functions": "JSON Functions",
+  "URL_Functions": "URL Functions",
+  "Code_Detection": "Code Detection",
+  "Text_Utilities": "Text Utilities"
 }
