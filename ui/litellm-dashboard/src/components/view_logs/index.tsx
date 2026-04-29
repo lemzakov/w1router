@@ -18,7 +18,6 @@ import { PaginatedModelSelect } from "../ModelSelect/PaginatedModelSelect/Pagina
 import FilterComponent, { FilterOption } from "../molecules/filter";
 import { allEndUsersCall, keyInfoV1Call, uiSpendLogsCall } from "../networking";
 import KeyInfoView from "../templates/key_info_view";
-import AuditLogs from "./audit_logs";
 import { createColumns, LogEntry, type LogsSortField } from "./columns";
 import { ConfigInfoMessage } from "./ConfigInfoMessage";
 import { AGENT_CALL_TYPES, ERROR_CODE_OPTIONS, MCP_CALL_TYPES, QUICK_SELECT_OPTIONS } from "./constants";
@@ -57,7 +56,6 @@ export default function SpendLogsTable({
   userRole,
   userID,
   allTeams,
-  premiumUser,
 }: SpendLogsTableProps) {
     const { t } = useTranslation();
 const [searchTerm, setSearchTerm] = useState("");
@@ -489,10 +487,9 @@ const [searchTerm, setSearchTerm] = useState("");
 
   return (
     <div className="w-full max-w-screen p-6 overflow-x-hidden box-border">
-      <TabGroup defaultIndex={0} onIndexChange={(index) => setActiveTab(index === 0 ? "request logs" : "audit logs")}>
+      <TabGroup defaultIndex={0} onIndexChange={(index) => setActiveTab(index === 0 ? "request logs" : "other")}>
         <TabList>
           <Tab>{t('Zhurnal_zaprosov')}</Tab>
-          <Tab>{t('Zhurnal_audita')}</Tab>
           <Tab>{t('Udalyonnye_klyuchi')}</Tab>
           <Tab>{t('Udalyonnye_komandy')}</Tab>
         </TabList>
@@ -712,16 +709,6 @@ const [searchTerm, setSearchTerm] = useState("");
                 </div>
               </>
             )}
-          </TabPanel>
-          <TabPanel>
-            <AuditLogs
-              userID={userID}
-              userRole={userRole}
-              token={token}
-              accessToken={accessToken}
-              isActive={activeTab === "audit logs"}
-              premiumUser={premiumUser}
-            />
           </TabPanel>
           <TabPanel><DeletedKeysPage /></TabPanel>
           <TabPanel><DeletedTeamsPage /></TabPanel>

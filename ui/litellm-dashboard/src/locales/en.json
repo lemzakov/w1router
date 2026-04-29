@@ -2593,5 +2593,21 @@
   "Table_View": "Table View",
   "Chart_View": "Chart View",
   "Spend_RUB": "Spend (₽)",
-  "Budget_limit_label": "limit"
+  "Budget_limit_label": "limit",
+  "Max_Budget_RUB": "Max Budget (₽)",
+  "Max_Tokens_per_minute": "Max Tokens per minute",
+  "Max_Requests_per_minute": "Max Requests per minute",
+  "Default_is_model_limit": "Default is model limit.",
+  "Reset_Budget": "Reset Budget",
+  "not_set": "n/a",
+  "daily": "daily",
+  "weekly": "weekly",
+  "monthly": "monthly",
+  "Please_input_budget_id": "Please input a human-friendly name for the budget",
+  "Budget_ID_help": "A human-friendly name for the budget",
+  "Delete_Budget_title": "Delete Budget?",
+  "Delete_Budget_message": "Are you sure you want to delete this budget? This action cannot be undone.",
+  "Budget_Information": "Budget Information",
+  "Edit_budget_tooltip": "Edit budget",
+  "Delete_budget_tooltip": "Delete budget"
 }
