@@ -42,6 +42,9 @@ export interface budgetItem {
   updated_at: string;
 }
 
+const formatBudgetAmount = (amount: number | null, notSetLabel: string): string =>
+  amount != null ? `₽${amount.toFixed(2)}` : notSetLabel;
+
 const BudgetPanel: React.FC<BudgetSettingsPageProps> = ({ accessToken }) => {
   const { t } = useTranslation();
   const [isCreateModelVisible, setIsCreateModelVisible] = useState(false);
@@ -92,7 +95,7 @@ const BudgetPanel: React.FC<BudgetSettingsPageProps> = ({ accessToken }) => {
   return (
     <div className="w-full mx-auto flex-auto overflow-y-auto m-8 p-2">
       <Button size="sm" variant="primary" className="mb-2" onClick={() => setIsCreateModelVisible(true)}>
-        + Create Budget
+        + {t('Create_Budget')}
       </Button>
       <TabGroup>
         <TabList>
@@ -119,9 +122,9 @@ const BudgetPanel: React.FC<BudgetSettingsPageProps> = ({ accessToken }) => {
                   <TableHead>
                     <TableRow>
                       <TableHeaderCell>{t('Budget_ID')}</TableHeaderCell>
-                      <TableHeaderCell>{t('Max_Budget_1')}</TableHeaderCell>
-                      <TableHeaderCell>TPM</TableHeaderCell>
-                      <TableHeaderCell>RPM</TableHeaderCell>
+                      <TableHeaderCell>{t('Max_Budget_RUB')}</TableHeaderCell>
+                      <TableHeaderCell>{t('TPM_Tokens_per_Minute')}</TableHeaderCell>
+                      <TableHeaderCell>{t('RPM_Requests_per_Minute')}</TableHeaderCell>
                     </TableRow>
                   </TableHead>
 
@@ -132,18 +135,18 @@ const BudgetPanel: React.FC<BudgetSettingsPageProps> = ({ accessToken }) => {
                       .map((value: budgetItem) => (
                         <TableRow key={value.budget_id}>
                           <TableCell>{value.budget_id}</TableCell>
-                          <TableCell>{value.max_budget ? value.max_budget : "n/a"}</TableCell>
-                          <TableCell>{value.tpm_limit ? value.tpm_limit : "n/a"}</TableCell>
-                          <TableCell>{value.rpm_limit ? value.rpm_limit : "n/a"}</TableCell>
+                          <TableCell>{formatBudgetAmount(value.max_budget, t('not_set'))}</TableCell>
+                          <TableCell>{value.tpm_limit != null ? value.tpm_limit : t('not_set')}</TableCell>
+                          <TableCell>{value.rpm_limit != null ? value.rpm_limit : t('not_set')}</TableCell>
                           <TableIconActionButton
                             variant="Edit"
-                            tooltipText="Edit budget"
+                            tooltipText={t('Edit_budget_tooltip')}
                             onClick={() => handleEditCall(value)}
                             dataTestId="edit-budget-button"
                           />
                           <TableIconActionButton
                             variant="Delete"
-                            tooltipText="Delete budget"
+                            tooltipText={t('Delete_budget_tooltip')}
                             onClick={() => handleDeleteClick(value)}
                             dataTestId="delete-budget-button"
                           />
@@ -154,14 +157,14 @@ const BudgetPanel: React.FC<BudgetSettingsPageProps> = ({ accessToken }) => {
               </Card>
               <DeleteResourceModal
                 isOpen={isDeleteModalVisible}
-                title="Delete Budget?"
-                message="Are you sure you want to delete this budget? This action cannot be undone."
-                resourceInformationTitle="Budget Information"
+                title={t('Delete_Budget_title')}
+                message={t('Delete_Budget_message')}
+                resourceInformationTitle={t('Budget_Information')}
                 resourceInformation={[
-                  { label: "Budget ID", value: selectedBudget?.budget_id, code: true },
-                  { label: "Max Budget", value: selectedBudget?.max_budget },
-                  { label: "TPM", value: selectedBudget?.tpm_limit },
-                  { label: "RPM", value: selectedBudget?.rpm_limit },
+                  { label: t('Budget_ID'), value: selectedBudget?.budget_id, code: true },
+                  { label: t('Max_Budget_RUB'), value: selectedBudget?.max_budget != null ? formatBudgetAmount(selectedBudget.max_budget, t('not_set')) : t('not_set') },
+                  { label: t('TPM_Tokens_per_Minute'), value: selectedBudget?.tpm_limit },
+                  { label: t('RPM_Requests_per_Minute'), value: selectedBudget?.rpm_limit },
                 ]}
                 onCancel={handleDeleteCancel}
                 onOk={handleDeleteConfirm}

@@ -39,7 +39,7 @@ const BudgetModal: React.FC<BudgetModalProps> = ({ isModalVisible, setIsModalVis
 
   return (
     <Modal
-      title="Create Budget"
+      title={t('Create_Budget')}
       open={isModalVisible}
       width={800}
       footer={null}
@@ -49,22 +49,22 @@ const BudgetModal: React.FC<BudgetModalProps> = ({ isModalVisible, setIsModalVis
       <Form form={form} onFinish={handleCreate} labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} labelAlign="left">
         <>
           <Form.Item
-            label="Budget ID"
+            label={t('Budget_ID')}
             name="budget_id"
             rules={[
               {
                 required: true,
-                message: "Please input a human-friendly name for the budget",
+                message: t('Please_input_budget_id'),
               },
             ]}
-            help="A human-friendly name for the budget"
+            help={t('Budget_ID_help')}
           >
             <TextInput placeholder="" />
           </Form.Item>
-          <Form.Item label="Max Tokens per minute" name="tpm_limit" help="Default is model limit.">
+          <Form.Item label={t('Max_Tokens_per_minute')} name="tpm_limit" help={t('Default_is_model_limit')}>
             <InputNumber step={1} precision={2} width={200} />
           </Form.Item>
-          <Form.Item label="Max Requests per minute" name="rpm_limit" help="Default is model limit.">
+          <Form.Item label={t('Max_Requests_per_minute')} name="rpm_limit" help={t('Default_is_model_limit')}>
             <InputNumber step={1} precision={2} width={200} />
           </Form.Item>
 
@@ -73,14 +73,14 @@ const BudgetModal: React.FC<BudgetModalProps> = ({ isModalVisible, setIsModalVis
               <b>{t('Optional_Settings')}</b>
             </AccordionHeader>
             <AccordionBody>
-              <Form.Item label="Max Budget (USD)" name="max_budget">
+              <Form.Item label={t('Max_Budget_RUB')} name="max_budget">
                 <InputNumber step={0.01} precision={2} width={200} />
               </Form.Item>
-              <Form.Item className="mt-8" label="Reset Budget" name="budget_duration">
-                <Select defaultValue={null} placeholder="n/a">
-                  <Select.Option value="24h">daily</Select.Option>
-                  <Select.Option value="7d">weekly</Select.Option>
-                  <Select.Option value="30d">monthly</Select.Option>
+              <Form.Item className="mt-8" label={t('Reset_Budget')} name="budget_duration">
+                <Select defaultValue={null} placeholder={t('not_set')}>
+                  <Select.Option value="24h">{t('daily')}</Select.Option>
+                  <Select.Option value="7d">{t('weekly')}</Select.Option>
+                  <Select.Option value="30d">{t('monthly')}</Select.Option>
                 </Select>
               </Form.Item>
             </AccordionBody>
