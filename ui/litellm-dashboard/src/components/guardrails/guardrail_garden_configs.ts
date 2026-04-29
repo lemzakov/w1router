@@ -281,7 +281,7 @@ export const GUARDRAIL_PRESETS: Record<string, GuardrailPreset> = {
 EMAIL_REGEX = r'[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+'
 PASSPORT_REGEX = r'\\b\\d{4}\\s?\\d{6}\\b'
 SNILS_REGEX = r'\\b\\d{3}-\\d{3}-\\d{3}\\s?\\d{2}\\b'
-INN_REGEX = r'\\b\\d{10}|\\d{12}\\b'
+INN_REGEX = r'\\b(\\d{10}|\\d{12})\\b'
 CARD_REGEX = r'\\b\\d{4}[\\s-]?\\d{4}[\\s-]?\\d{4}[\\s-]?\\d{4}\\b'
 
 def apply_guardrail(inputs, request_data, input_type):
