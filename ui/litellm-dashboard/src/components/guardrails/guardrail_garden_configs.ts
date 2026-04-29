@@ -4,6 +4,8 @@ export interface GuardrailPreset {
   guardrailNameSuggestion: string;
   mode: string;
   defaultOn: boolean;
+  /** Pre-populated code for custom_code guardrails */
+  customCode?: string;
 }
 
 export const GUARDRAIL_PRESETS: Record<string, GuardrailPreset> = {
@@ -269,5 +271,29 @@ export const GUARDRAIL_PRESETS: Record<string, GuardrailPreset> = {
     guardrailNameSuggestion: "Akto Guardrail",
     mode: "pre_call",
     defaultOn: false,
+  },
+  fz_152: {
+    provider: "custom_code",
+    guardrailNameSuggestion: "152-ФЗ",
+    mode: "pre_call",
+    defaultOn: false,
+    customCode: `PHONE_REGEX = r'(\\+7|8)[\\s\\-]?\\(?\\d{3}\\)?[\\s\\-]?\\d{3}[\\s\\-]?\\d{2}[\\s\\-]?\\d{2}'
+EMAIL_REGEX = r'[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+'
+PASSPORT_REGEX = r'\\b\\d{4}\\s?\\d{6}\\b'
+SNILS_REGEX = r'\\b\\d{3}-\\d{3}-\\d{3}\\s?\\d{2}\\b'
+INN_REGEX = r'\\b\\d{10}|\\d{12}\\b'
+CARD_REGEX = r'\\b\\d{4}[\\s-]?\\d{4}[\\s-]?\\d{4}[\\s-]?\\d{4}\\b'
+
+def apply_guardrail(inputs, request_data, input_type):
+    modified = []
+    for text in inputs["texts"]:
+        text = regex_replace(text, PHONE_REGEX, "[PHONE_MASKED]")
+        text = regex_replace(text, EMAIL_REGEX, "[EMAIL_MASKED]")
+        text = regex_replace(text, PASSPORT_REGEX, "[PASSPORT_MASKED]")
+        text = regex_replace(text, SNILS_REGEX, "[SNILS_MASKED]")
+        text = regex_replace(text, INN_REGEX, "[INN_MASKED]")
+        text = regex_replace(text, CARD_REGEX, "[CARD_MASKED]")
+        modified.append(text)
+    return modify(texts=modified)`,
   },
 };
