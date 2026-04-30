@@ -22,7 +22,7 @@ export const LITELLM_CONTENT_FILTER_CARDS: GuardrailCardInfo[] = [
   {
     id: "fz_152",
     name: "152-ФЗ",
-    description: "Masks Russian personal data (PII) in compliance with Federal Law No. 152-FZ: phone numbers, emails, passport numbers, SNILS, INN, and bank card numbers.",
+    description: "Маскирует персональные данные (ПДн) в соответствии с Федеральным законом №152-ФЗ: номера телефонов, адреса электронной почты, номера паспортов, СНИЛС, ИНН и номера банковских карт.",
     category: "litellm",
     subcategory: "Compliance",
     logo: `${ASSET_PREFIX}litellm_logo.jpg`,
@@ -31,7 +31,7 @@ export const LITELLM_CONTENT_FILTER_CARDS: GuardrailCardInfo[] = [
   {
     id: "ru_pdn",
     name: "Российские ПДн",
-    description: "Masks a broad range of Russian personal data: phone numbers, emails, passport numbers, SNILS, INN, bank cards, driver's licenses, vehicle registration numbers, and ОМС policy numbers.",
+    description: "Маскирует широкий спектр российских персональных данных: номера телефонов, адреса электронной почты, номера паспортов, СНИЛС, ИНН, номера банковских карт, водительские удостоверения, регистрационные знаки транспортных средств и полисы ОМС.",
     category: "litellm",
     subcategory: "Compliance",
     logo: `${ASSET_PREFIX}litellm_logo.jpg`,
