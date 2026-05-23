@@ -54,6 +54,15 @@ services:
       timeout: 5s
       retries: 10
 
+  # Serves the W1 Brokers marketing landing page on port 8080.
+  landing:
+    build:
+      context: landing
+    container_name: landing_nginx
+    ports:
+      - "8080:80"
+    restart: always
+
   prometheus:
     image: prom/prometheus
     ports:
